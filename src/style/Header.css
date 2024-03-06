@@ -1,0 +1,33 @@
+
+
+.Header{
+    background:inherit;
+    padding: 10px;
+    margin: 0;
+    height: 20%;
+    max-height: 250px;
+    box-shadow: 2px 2px 6px 0.5px rgb(0, 0, 0 , 0.8);
+    backdrop-filter: blur(2px);
+    position: relative;
+
+}
+
+.Meniu-Btn{
+    padding: 16px;
+    box-shadow: 3px 3px 10px 2px rgb(255, 25, 0 , 0.7) inset;
+    backdrop-filter: blur(16px);
+    position: absolute;
+
+    display: inline;
+    top: 10px;
+    right: 10px;
+    font-size: 32px;
+    font-weight: 700;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+.Meniu-Btn:hover{
+    box-shadow: -2px -1px 10px 2px rgba(255, 0, 234, 0.7) inset;
+
+}

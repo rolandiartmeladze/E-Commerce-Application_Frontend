@@ -1,0 +1,76 @@
+.Aside{
+    /* background-color: rgb(255, 0, 0, 0.3); */
+    width: 24%;
+    height: auto;
+    min-height: 450px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 25px;
+    box-shadow: -3px 0px 8px 0.3px black;
+    backdrop-filter: blur(1.5px);
+}
+h1{
+    margin: 0;
+    font-weight: 900;
+}
+ul{
+    list-style: none;
+    padding: 4px;
+    margin: 3px;
+}
+li{
+    background-color: rgb(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+
+    text-align: left;
+    margin: 3px;
+    padding: 5px;
+    font-weight: 700;
+    box-shadow: -1px 0px 3px 0px black;
+
+}
+.Aside samp{
+    margin-left: 10px;
+    color: rgb(255, 0, 0);
+    font-size: 20px;
+    font-weight: 900;
+
+}
+.Finde{
+    width: 100%;
+    /* background-color: green; */
+    display: flex;
+    justify-content: center;
+}
+.Finde img{
+    width: 35px;
+    margin-right: 12px;
+}
+.Finde samp{
+cursor: pointer;
+display: flex;
+    align-items: center;
+}
+
+.Finde input{
+    margin: 3px;
+    margin-left: 5px;
+    width: 80%;
+    background-color: rgb(138, 43, 226 , 0.2);
+    padding: 3px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.Finde input::placeholder{
+    color: red;
+    padding-left: 8px;
+}
+.Btn button{
+    padding: 6px 16px;
+    font-size: 18px;
+    font-weight: 900;
+    border-radius: 6px;
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+}
