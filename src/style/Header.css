@@ -14,7 +14,7 @@
 
 .Meniu-Btn{
     padding: 16px;
-    box-shadow: 3px 3px 10px 2px rgb(255, 25, 0 , 0.7) inset;
+    box-shadow: 3px 3px 9px 2px rgb(255, 25, 0 , 0.7) inset;
     backdrop-filter: blur(16px);
     position: absolute;
 
