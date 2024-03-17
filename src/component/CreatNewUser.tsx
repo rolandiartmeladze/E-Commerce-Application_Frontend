@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 // Define the styled input component
@@ -15,6 +15,39 @@ const InputItem = styled.input`
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   font-weight: 700;
+`;
+const LoadConteiner = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5.5px);
+  bottom: 0;
+  font-size: 200%;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+`;
+const CreacUserBtn = styled.button`
+  padding: 5px;
+  background: none;
+  backdrop-filter: blur(2.5px);
+  border-radius: 8px;
+  min-width: 100px;
+  position: absolute;
+  bottom: 3px;
+  right: 10px;
+  cursor: pointer;
+`;
+
+
+const CreacUserForm = styled.form`
+  width: 70%;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  margin-left: 15px;
 `;
 
 function CreatNewUser() {
@@ -46,6 +79,17 @@ function CreatNewUser() {
     }
   };
 
+  useEffect(() => {
+    if (!loading) {
+
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
+
   return (
     <>
       <h1 style={{width: '100%', maxHeight:'15%', backgroundColor:'gray'}}>Add New User</h1>
@@ -53,10 +97,20 @@ function CreatNewUser() {
 <div style={{width: "100%", minHeight: '65px', display: 'flex',  flexDirection: 'column',
     justifyContent: 'space-around'}}>
 
+            {loading ? (
+                  <LoadConteiner>
+                    {"Loaging..."}
+                  </LoadConteiner>
+            ) : (
+                <div style={{ display: 'none' }}></div> 
+            )}
+
+
       {/* <div>{response.message}</div>
       <div>სახელი: {response.name}</div>
       <div>მისამართი: {response.address}</div> */}
-<form style={{ width: '70%', display: 'flex', alignContent: 'center', flexDirection: 'column', marginLeft: '15px' }}>
+      
+<CreacUserForm>
 
 <InputItem
         style={{  }}
@@ -73,26 +127,15 @@ function CreatNewUser() {
         value={userAddress}
         onChange={(e) => setUserAddress(e.target.value)}
       />
-              <button
-  type='button'
-  onClick={createdUser}
-  disabled={loading}
-  style={{
-    padding: '5px', 
-    background: 'none', 
-    backdropFilter: 'blur(2.5px)', 
-    borderRadius: '8px', 
-    minWidth: '100px', 
-    position: 'absolute',
-    bottom: '3px', 
-    right: '25px',
-    cursor: 'pointer'
-  }}
->
-  {loading ? 'Creating User...' : 'Create New User'}
-</button>
+              <CreacUserBtn
+                  type='button'
+                  onClick={createdUser}
+                  disabled={loading}
+                  >
+                  {loading ? 'Creating User...' : 'Create New User'}
+                </CreacUserBtn>
 
-      </form>
+      </CreacUserForm>
       </div>
 
     </>
