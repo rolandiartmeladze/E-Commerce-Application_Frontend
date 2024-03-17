@@ -4,7 +4,7 @@ import './App.css';
 import Header from './component/Header';
 import UserConteiner from './component/UserConteiner';
 import Aside from './component/Aside';
-import BtnRequest from './component/BtnRequest';
+import CreatNewUser from './component/CreatNewUser';
 function App() {
   return (
     <>
@@ -15,7 +15,6 @@ function App() {
       <UserConteiner />
 
 
-      <BtnRequest />
       </>
 
   );

@@ -3,16 +3,25 @@ import '../style/UserConteiner.css';
 
 import UserIcon from '../icon/user.png';
 import AddIcon from '../icon/add.png';
-
+import CreatNewUser from './CreatNewUser';
 
 
 function UserConteiner() {
 
-    return (
+        const [addUser, setAddUser] = useState(true);
+
+        const clickfunction = () => {
+                addUser ? setAddUser(false) : setAddUser(true);
+            };
+            
+           
+
+
+                  return (
 <>
-<div className='userTable'>
-      
-<div className='userConteinet'>
+<div  className='userTable'>
+
+{ addUser?  <div  onClick={clickfunction} className='userConteinet'>
       
       <div style={{justifyContent: 'center'}} className='userHeaderline'>
         <img src={UserIcon} alt='User Icon' />
@@ -30,6 +39,15 @@ function UserConteiner() {
 
 
               </div>
+              :       <div  style={{minHeight: '140px', cursor: 'default'}} className='userConteinet'>
+      
+              <CreatNewUser />
+        
+        </div>
+  
+}
+ 
+
       
               <div className='userConteinet'>
       
@@ -55,7 +73,6 @@ function UserConteiner() {
       
       
       </div>
-
 </>
         );
 }
