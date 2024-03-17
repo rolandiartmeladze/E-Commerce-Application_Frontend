@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "homepage": "https://yourusername.github.io/your-repository-name",
+    "homepage": "https://github.com/rolandiartmeladze/Journal-Accounting-Frontend.git",
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
