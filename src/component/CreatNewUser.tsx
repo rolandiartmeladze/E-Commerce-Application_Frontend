@@ -2,11 +2,21 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // Define the styled input component
+
 const InputItem = styled.input`
   margin-bottom: 4px;
-  padding: 3px;
-
+  padding: 6px;
+  padding-left: 10px;
+  background: none;
+  backdrop-filter: blur(0.8px);
+  box-shadow: -0.3px -0.6px 3px 0.3px red inset;
+  outline: none;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  font-weight: 700;
 `;
+
 function CreatNewUser() {
   const [response, setResponse] = useState({ message: '', name: '', address: '' });
   const [userName, setUserName] = useState('');
@@ -40,15 +50,16 @@ function CreatNewUser() {
     <>
       <h1 style={{width: '100%', maxHeight:'15%', backgroundColor:'gray'}}>Add New User</h1>
 
-<div style={{width: "100%", minHeight: '65px', backgroundColor: 'green', display: 'flex',  flexDirection: 'column',
+<div style={{width: "100%", minHeight: '65px', display: 'flex',  flexDirection: 'column',
     justifyContent: 'space-around'}}>
 
       {/* <div>{response.message}</div>
       <div>სახელი: {response.name}</div>
       <div>მისამართი: {response.address}</div> */}
-<form style={{ width: '80%', display: 'flex', alignContent: 'center', flexDirection: 'column', marginLeft: '15px' }}>
+<form style={{ width: '70%', display: 'flex', alignContent: 'center', flexDirection: 'column', marginLeft: '15px' }}>
 
 <InputItem
+        style={{  }}
         name='userName'
         type='text'
         placeholder='Username'
