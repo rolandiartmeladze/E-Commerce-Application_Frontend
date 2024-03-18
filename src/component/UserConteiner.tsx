@@ -7,6 +7,8 @@ import UserIcon from '../icon/user.png';
 import AddIcon from '../icon/add.png';
 import ArrowRigth from '../icon/arrow.png';
 import CreatNewUser from './CreatNewUser';
+import ChangeAdvenceInfo from './ChangeAdvenceInfo';
+
 
 interface UserContainerProps {
         dataResponse: any[]; 
@@ -92,89 +94,8 @@ function UserConteiner({ dataResponse, setDataResponse }: UserContainerProps) {
 <>
 <div  className='userTable'>
 
-<div className = {!updateAdvance? 'update-advanse' : 'update-advanse update-advanse-active'}>
+<ChangeAdvenceInfo/>
 
-        <h1 className={'update-advanse-head'} onClick={updateAdvanceFunction}>
-         <samp style={{ padding:'7px'}}> Change Advance User Info</samp><samp style={{display: 'flex'}}> <img className={ !updateAdvance ? ' aarowRight' :' aarowRight aarowRight-active'} src={ArrowRigth} alt="" /></samp>
-        </h1>
-                        <section className = {
-                                !updateAdvance? 
-                                'change-info-conteiner' : 
-                                'change-info-conteiner-active change-info-conteiner' 
-                                }>
-                                <article>
-                                        <h1>
-                                                                                      Basice User Info
-                                        </h1>
-
-                                        <form style={{
-    marginTop: '8px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'flex-start',
-    alignItems: 'flex-start',
-    marginLeft: '8px'
-}}>
-
-
-        <div>
-<InputItem name='userName'
-          type='text'
-          placeholder='Full Name'
-        //   value={userName}
-        //   onChange={(e) => setUserName(e.target.value)} 
-        />
-        <samp>X</samp>
-        
-        </div>
-
-      <InputItem name='userAddress'
-                type='text'
-                placeholder='Address'
-                // value={userAddress}
-                // onChange={(e) => setUserAddress(e.target.value)} 
-                />
-<InputItem name='userName'
-          type='text'
-          placeholder='User Email'
-        //   value={userName}
-        //   onChange={(e) => setUserName(e.target.value)} 
-        />
-
-      <InputItem name='userAddress'
-                type='text'
-                placeholder='User Phone'
-                // value={userAddress}
-                // onChange={(e) => setUserAddress(e.target.value)} 
-                />
-<div style={{width: '100%', display:'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-<samp>Add More</samp>
-<CreacUserBtn>
-        <img style={{width: '25px'}} src={AddIcon} alt="add info" />
-</CreacUserBtn>
-
-</div>
-
-
-
-</form>
-
-
-                                </article>
-                                <article>
-                                        <h1>
-                                                 Currency/Quantity
-                                        </h1>
-                                       
-                                        </article>
-                                <article>
-                                        <h1>
-                                                Product Cost
-                                        </h1>
-                                        
-                                        </article>
-                        </section>
-        </div>
 
 { addUser?  
 
