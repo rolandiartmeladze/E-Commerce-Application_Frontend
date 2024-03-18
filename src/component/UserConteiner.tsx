@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';import logo from './logo.svg';
+import React, {useContext, useState, useEffect } from 'react';import logo from './logo.svg';
 import '../style/UserConteiner.css';
 import styled from 'styled-components';
 
@@ -6,6 +6,11 @@ import styled from 'styled-components';
 import UserIcon from '../icon/user.png';
 import AddIcon from '../icon/add.png';
 import CreatNewUser from './CreatNewUser';
+
+interface UserContainerProps {
+        dataResponse: any[]; 
+        setDataResponse: React.Dispatch<React.SetStateAction<any[]>>
+      }
 
 
 const AddRemoveBtn = styled.div`
@@ -31,7 +36,7 @@ const AddRemoveBtn = styled.div`
 `;
 
 
-function UserConteiner() {
+function UserConteiner({ dataResponse, setDataResponse }: UserContainerProps) {
 
         const [addUser, setAddUser] = useState(true);
 
@@ -40,7 +45,6 @@ function UserConteiner() {
             };
             
            
-
 
                   return (
 <>
@@ -72,16 +76,44 @@ function UserConteiner() {
                         X  
                         </AddRemoveBtn>
 
-              <CreatNewUser />
+              <CreatNewUser dataResponse={dataResponse}  setDataResponse={setDataResponse} />
                         </>
 
         </div>
   
 }
- 
-
+        
       
-              <div className='userConteinet'>
+      
+      { dataResponse.length > 0 ?   dataResponse.map((item, index) => (
+                      <div  key={item._id} className='userConteinet'>
+      
+                      <div className='userHeaderline'>
+                        <img src={UserIcon} alt='User Icon' />
+                        <samp>{item.name} <h3>{item.address}</h3></samp>
+                            <div className='headerMore'>...</div>
+                      </div>
+                    
+                      <div className='userInfoLine'>
+                                <samp><h1>რაოდენობა</h1> <h3>{item.raodenoda} ლ.</h3></samp>
+                                <samp><h1>ფასი</h1><h3>{item.fasi}  ₾.</h3></samp>
+                      </div>
+                    
+                      <div className='userTotal'> 
+                      <samp>
+                        <h2>ღირებულება: <samp>{item.raodenoda * item.fasi} ₾.</samp></h2>
+                      </samp>
+                      </div>
+                
+                
+                              </div>
+                
+      )):
+
+
+      // სატესტო მომხმარებელი როდესაც ბაზა ცარიელია
+
+      <div className='userConteinet'>
       
       <div className='userHeaderline'>
         <img src={UserIcon} alt='User Icon' />
@@ -102,8 +134,11 @@ function UserConteiner() {
 
 
               </div>
-      
-      
+
+
+      }
+
+
       </div>
 </>
         );

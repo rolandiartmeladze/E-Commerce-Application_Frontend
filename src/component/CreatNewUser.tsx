@@ -2,6 +2,12 @@ import React, {useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 // Define the styled input component
+interface UserContainerProps {
+  dataResponse: any[]; 
+  setDataResponse: React.Dispatch<React.SetStateAction<any[]>>
+
+}
+
 
 const InputItem = styled.input`
   margin-bottom: 4px;
@@ -48,14 +54,42 @@ const CreacUserForm = styled.form`
   align-content: center;
   flex-direction: column;
   margin-left: 15px;
-`;
+`; 
 
-function CreatNewUser() {
+
+function CreatNewUser({ dataResponse, setDataResponse}: UserContainerProps) {
+
+
+
   const [response, setResponse] = useState({ message: '', name: '', address: '' });
   const [userName, setUserName] = useState('');
   const [userAddress, setUserAddress] = useState('');
   const [loading, setLoading] = useState(false);
 
+      // მომხმარებლის შექმნის შემდეგ 
+      // აგზავნის მოთხოვნას GET მონაცემთა ბაზაში
+      // განახლიბული მონაცემების ასახვისთვის
+      // ___001
+      const fetchData = async () => {
+        try {
+          const response = await fetch('http://localhost:80/checkUsers', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          });
+          const data = await response.json();
+          setDataResponse(data);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
+
+      
+
+      // ფუნქცია აგზავნის მოთხოვნას POST მონაცემთა ბაზაში 
+      // ახალი მომხმარებლის დასამატებლად
+      // form ელემენტიდან მიღებული მონაცემების მიხედვით
 
   const createdUser = async () => {
     setLoading(true);
@@ -72,13 +106,23 @@ function CreatNewUser() {
       setResponse({ message: data.message, name: data.user.name, address: data.user.address });
       setUserName('');
       setUserAddress('');
+
     } catch (error) {
       console.error('Error creating user:', error);
     } finally {
       setLoading(false);
+      console.log(dataResponse);
+
+
+        // __001
+      fetchData();
     }
   };
 
+
+
+    // დაყოვნება სანამ მოთხოვნა დააბრუნებს შედეგს 
+    // ახალი მომხმარებლის შექმნის შესახებ
   useEffect(() => {
     if (!loading) {
 
@@ -106,36 +150,28 @@ function CreatNewUser() {
             )}
 
 
-      {/* <div>{response.message}</div>
-      <div>სახელი: {response.name}</div>
-      <div>მისამართი: {response.address}</div> */}
       
 <CreacUserForm>
 
-<InputItem
-        style={{  }}
-        name='userName'
-        type='text'
-        placeholder='Username'
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <InputItem
-        name='userAddress'
-        type='text'
-        placeholder='Address'
-        value={userAddress}
-        onChange={(e) => setUserAddress(e.target.value)}
-      />
-              <CreacUserBtn
-                  type='button'
-                  onClick={createdUser}
-                  disabled={loading}
-                  >
-                  {loading ? 'Creating User...' : 'Create New User'}
-                </CreacUserBtn>
+    <InputItem name='userName'
+              type='text'
+              placeholder='Username'
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)} />
 
-      </CreacUserForm>
+          <InputItem name='userAddress'
+                    type='text'
+                    placeholder='Address'
+                    value={userAddress}
+                    onChange={(e) => setUserAddress(e.target.value)} />
+                  <CreacUserBtn type='button'
+                      onClick={createdUser}
+                      disabled={loading}>
+                      {loading ? 'Creating User...' : 'Create New User'}
+                        </CreacUserBtn>
+
+</CreacUserForm>
+
       </div>
 
     </>

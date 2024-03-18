@@ -30,9 +30,8 @@
       width: 75%;
       float: left;
       align-items: center;
-      justify-content: center;
       flex-wrap: wrap;  
-      justify-content: space-around;
+      justify-content: space-between;
       max-height: 80%;
     }
   
