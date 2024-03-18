@@ -1,6 +1,6 @@
-import React, {useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import '../style/UserConteiner.css';
+import '../style/ChangeAdvenceInfo.css';
 import styled from 'styled-components';
 
 
@@ -21,6 +21,23 @@ import ArrowRigth from '../icon/arrow.png';
                 border-bottom-left-radius: 5px;
                 font-weight: 700;
     `;
+
+    const PriseInput = styled.input`
+    padding: 6px;
+    padding-left: 10px;
+    background: none;
+    backdrop-filter: blur(0.8px);
+    box-shadow: -0.3px -0.6px 3px -0.3px red inset;
+    outline: none;
+    border: none;
+    borderRadius: 0px;
+    font-weight: 700;
+    width: 30%; 
+    text-align: center; 
+    margin-bottom: 0; 
+    
+`;
+
     const CreacUserBtn = styled.div`
                 padding: 2px;
                 border-radius: 50%;
@@ -42,13 +59,13 @@ function ChangeAdvenceInfo() {
 
         const [updateAdvance, setUpdateAdvance] = useState(false);
 
-
             const updateAdvanceFunction = () => {
                 updateAdvance ? setUpdateAdvance(false) : setUpdateAdvance(true);
             };
             
-           
+
             const [inputFields, setInputFields] = useState<JSX.Element[]>([]);
+
 
             const handleAddInput = () => {
               setInputFields(prevInputFields => [
@@ -58,7 +75,40 @@ function ChangeAdvenceInfo() {
             };
 
 
-                  return (
+            const creatAdvanceinfo = async () => {
+                let advanceForm = document.getElementById('advanceForm');
+                const advanceFormInputs: HTMLCollectionOf<HTMLInputElement> | undefined = advanceForm?.getElementsByTagName('input');
+                
+                const currencyElement = document.getElementById('currency') as HTMLSelectElement | null;
+                const quantityElement = document.getElementById('Quantity') as HTMLSelectElement | null;
+                const purchasePrice = document.getElementById('purchasePrice') as HTMLSelectElement | null;
+                const sellingPrice = document.getElementById('sellingPrice') as HTMLSelectElement | null;
+            
+                if (advanceFormInputs && currencyElement && quantityElement &&  purchasePrice && sellingPrice) {
+                    const inputsArray = Array.from(advanceFormInputs);
+                    const selectedCurrency = currencyElement.value;
+                    const selectedQuantity = quantityElement.value;  
+
+                    const purchasePriceValue = purchasePrice.value;    
+                    const sellingPriceValue = sellingPrice.value;    
+            
+                    const AdvanceInfo: Record<string, string> = {};
+                    inputsArray.forEach((item, index) => {
+                        const propertyName = `UsersInfo${index}`;
+                        AdvanceInfo[propertyName] = item.value;
+                    });
+                    
+                    // Add currency and quantity properties
+                    AdvanceInfo.currency = selectedCurrency;
+                    AdvanceInfo.quantity = selectedQuantity;
+                    AdvanceInfo.purchasePrice = purchasePriceValue;
+                    AdvanceInfo.sellingPrice = sellingPriceValue;
+            
+                    console.log(AdvanceInfo);
+                }
+            };
+
+return (
 <>
 
     <div className = {
@@ -88,32 +138,84 @@ function ChangeAdvenceInfo() {
                 'change-info-conteiner' : 
                 'change-info-conteiner-active change-info-conteiner' 
                 }>
+
                 <article style={{ overflowY: 'scroll'}}>
                     <h1>Basice User Info</h1>
+                    <form id='advanceForm' className='advance-info-form'>
 
-                        <form className='advance-info-form'>
+                        <InputItem name='userName' type='text' disabled value='Full Name' />
+                        <InputItem name='userAddress' type='text' disabled value='Address' />
+                        {inputFields.map((input, index) => (
+                            <React.Fragment key={index}>{input}</React.Fragment>
+                        ))}
 
-                            <InputItem name='userName' type='text' placeholder='Full Name' value ='UserName' />
-                                <InputItem name='userAddress' type='text' placeholder='Address' value ='UserAddress' />
-                                    {inputFields.map((input, index) => (
-                                        <React.Fragment key={index}>{input}</React.Fragment>
-                                    ))}
-
-                                        <div className='add-btn-conteiner'>
-                                        <samp>Add More</samp>
-                                            <CreacUserBtn  onClick={handleAddInput}>
-                                                <img style={{width: '25px'}} src={AddIcon} alt="add info" />
-                                            </CreacUserBtn>
-                                        </div>
-                        </form>
-
+                            <div className='add-btn-conteiner'>
+                            <samp>Add More</samp>
+                                <CreacUserBtn  onClick={handleAddInput}>
+                                    <img style={{width: '25px'}} src={AddIcon} alt="add info" />
+                                </CreacUserBtn>
+                            </div>
+                    </form>
                 </article>
 
-                    <article> <h1> Currency/Quantity </h1> </article>
-                    <article> <h1> Product Cost </h1> </article>
+                    <article> 
+                        <h1> Currency/Quantity </h1> 
+                        <div className='selection-conteiner'>
+                            <h2 className='currency-label'>Choose a Currency:</h2>
+                                <select className='currency-select' id="currency">
+                                        <option value="₾">₾</option>
+                                        <option value="$">$</option>
+                                        <option value="€">€</option>
+                                        <option value="£">£</option>
+                                        <option value="₺">₺</option>
+                                        </select>
+
+                        </div>
+
+                            <div className='selection-conteiner'>
+                                <h2 className='currency-label'>Choose a Quantity:</h2>
+                                    <select className='currency-select' id="Quantity">
+                                            <option value="L">L</option>
+                                            <option value="pcs">pcs</option>
+                                            <option value="kg">kg</option>
+                                            <option value="m">m</option>
+                                            </select>
+
+                            </div>
+                    </article>
+
+                        <article> 
+                            <h1> Product Cost </h1> 
+                        
+                            <div className='selection-conteiner'>
+                                <h2 className='currency-label price-label'>purchase price:</h2>
+                                    <PriseInput
+                                        className='price-input' 
+                                        name='purchasePrice' 
+                                        id='purchasePrice' 
+                                        placeholder='0.0' 
+                                        type='number' 
+                                        />
+                            </div>
+
+                                <div className='selection-conteiner'>
+                                    <h2 className='currency-label price-label'>selling price:</h2>
+                                        <PriseInput 
+                                        className='price-input' 
+                                        name='sellingPrice' 
+                                        id='sellingPrice' 
+                                        placeholder='0.0'
+                                        type='number' 
+                                        />
+                                </div>
+                        </article>
+
             </section>
 
-            <div style={{ display: updateAdvance ? 'flex' : 'none' , alignItems: 'flex-start', width: '100%', justifyContent: 'flex-end'}}>
+            <div onClick={creatAdvanceinfo}
+            className='advance-info-btn-conteiner' 
+            style={{display: updateAdvance ? 'flex' : 'none'}}
+            >
                 <button className='advance-info-btn'>Change Advence</button>
             </div>
     </div>
