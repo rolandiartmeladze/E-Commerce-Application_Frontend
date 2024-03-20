@@ -57,57 +57,103 @@ import ArrowRigth from '../icon/arrow.png';
 
 function ChangeAdvenceInfo() {
 
-        const [updateAdvance, setUpdateAdvance] = useState(false);
-
-            const updateAdvanceFunction = () => {
-                updateAdvance ? setUpdateAdvance(false) : setUpdateAdvance(true);
-            };
-            
-
+    const [updateAdvance, setUpdateAdvance] = useState(false);
+    const [advance, setAdvance] = useState({});
+    const updateAdvanceFunction = () => {
+            updateAdvance ? setUpdateAdvance(false) : setUpdateAdvance(true);
+        };
             const [inputFields, setInputFields] = useState<JSX.Element[]>([]);
-
-
             const handleAddInput = () => {
-              setInputFields(prevInputFields => [
-                ...prevInputFields,
-                <InputItem key={prevInputFields.length} type="text" />
-              ]);
-            };
+                setInputFields(prevInputFields => [
+                    ...prevInputFields,
+                    <InputItem key={prevInputFields.length} type="text" />
+                ]);
+                };
+
+                const [response, setResponse] = useState({ message: ''});
+                const [loading, setLoading] = useState(false);
 
 
             const creatAdvanceinfo = async () => {
-                let advanceForm = document.getElementById('advanceForm');
-                const advanceFormInputs: HTMLCollectionOf<HTMLInputElement> | undefined = advanceForm?.getElementsByTagName('input');
+
+                const advanceForm = document.getElementById('advanceForm');
+                const advanceFormInputs:
+                  | HTMLCollectionOf<HTMLInputElement>
+                  | undefined = advanceForm?.getElementsByTagName("input");
                 
-                const currencyElement = document.getElementById('currency') as HTMLSelectElement | null;
-                const quantityElement = document.getElementById('Quantity') as HTMLSelectElement | null;
-                const purchasePrice = document.getElementById('purchasePrice') as HTMLSelectElement | null;
-                const sellingPrice = document.getElementById('sellingPrice') as HTMLSelectElement | null;
+                    const currencyElement = document.getElementById('currency') as HTMLSelectElement | null;
+                    const quantityElement = document.getElementById('Quantity') as HTMLSelectElement | null;
+                    
+                        const purchasePrice = document.getElementById('purchasePrice') as HTMLSelectElement | null;
+                        const sellingPrice = document.getElementById('sellingPrice') as HTMLSelectElement | null;
             
-                if (advanceFormInputs && currencyElement && quantityElement &&  purchasePrice && sellingPrice) {
+                if (
+                    advanceFormInputs 
+                    && currencyElement 
+                    && quantityElement 
+                    &&  purchasePrice 
+                    && sellingPrice
+                    ) {
+
                     const inputsArray = Array.from(advanceFormInputs);
-                    const selectedCurrency = currencyElement.value;
-                    const selectedQuantity = quantityElement.value;  
+
+                        const selectedCurrency = currencyElement.value;
+                        const selectedQuantity = quantityElement.value;  
 
                     const purchasePriceValue = purchasePrice.value;    
                     const sellingPriceValue = sellingPrice.value;    
             
-                    const AdvanceInfo: Record<string, string> = {};
-                    inputsArray.forEach((item, index) => {
-                        const propertyName = `UsersInfo${index}`;
-                        AdvanceInfo[propertyName] = item.value;
-                    });
-                    
-                    // Add currency and quantity properties
+                        const AdvanceInfo: Record<string, string> = {};
+                        inputsArray.forEach((item, index) => {
+                            const propertyName = `UsersInfo${index}`;
+                            AdvanceInfo[propertyName] = item.value;
+                        });
+
+
+                    // add Currency/Quantity
                     AdvanceInfo.currency = selectedCurrency;
                     AdvanceInfo.quantity = selectedQuantity;
+
+                    // add price info
                     AdvanceInfo.purchasePrice = purchasePriceValue;
                     AdvanceInfo.sellingPrice = sellingPriceValue;
             
                     console.log(AdvanceInfo);
+
+
+
+                    setLoading(true);
+                    try {
+
+                            const response = await fetch('http://localhost:80/changeAdvance', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(AdvanceInfo)
+                            });
+                            
+                            const data = await response.json();
+                            setResponse({ message: data.message });
+                        
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                     finally {
+                      setLoading(false);
+
+                    //   console.log(dataResponse);
+            
+            
+                    }
+            
                 }
             };
 
+
+
+
+            
 return (
 <>
 
@@ -216,7 +262,7 @@ return (
             className='advance-info-btn-conteiner' 
             style={{display: updateAdvance ? 'flex' : 'none'}}
             >
-                <button className='advance-info-btn'>Change Advence</button>
+                <button disabled={loading} className='advance-info-btn'>Change Advence</button>
             </div>
     </div>
 

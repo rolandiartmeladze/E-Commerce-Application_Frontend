@@ -8,7 +8,9 @@ import Aside from './component/Aside';
 
 function App(): JSX.Element{
   
-  const [dataResponse, setDataResponse] = useState<any[]>([]);
+  // const [userResponse, setUserData] = useState<any[]>([]);
+  const [userData, setUserData] = useState<any[]>([]);
+    const [advanceData, setAdvanceData] = useState<any[]>([]);
 
       // როდესაც ჩაიტვირთრბა app.js აგზავნის მოთხოვნას GET მონაცემთა ბაზაში 
       // ამოწმებს შედეგს და ანიჭებს მიღებულ მონაცემებს dataResponse ცვლადს
@@ -17,21 +19,33 @@ function App(): JSX.Element{
           useEffect(() => {
             const fetchData = async () => {
               try {
-                const response = await fetch('http://localhost:80/checkUsers', {
+
+                const usersResponse = await fetch('http://localhost:80/checkUsers', {
                   method: 'GET',
                   headers: {
-                    'Content-Type': 'application/json'
+                      'Content-Type': 'application/json'
                   },
-                });
-                const data = await response.json();
-                setDataResponse(data);
-              } catch (error) {
+              });
+                  if (!usersResponse.ok) {throw new Error('Failed to fetch users data');}
+                  const usersData = await usersResponse.json();
+                  setUserData(usersData);
+            
+              const advanceResponse = await fetch('http://localhost:80/checkAdvance', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+                  if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
+                  const advanceData = await advanceResponse.json();
+                  setAdvanceData(advanceData[0]);
+
+            } catch (error) {
                 console.error('Error fetching user data:', error);
               }
             };
             fetchData();
           }, []); 
-  
   
 
   return (
@@ -43,8 +57,10 @@ function App(): JSX.Element{
 
 
   <UserConteiner 
-    dataResponse={dataResponse} 
-    setDataResponse={setDataResponse} 
+    userData={userData} 
+    setUserData={setUserData} 
+    advanceData={advanceData}
+    setAdvanceData={setAdvanceData}
   />
 
 

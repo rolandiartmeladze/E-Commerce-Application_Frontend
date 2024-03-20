@@ -3,9 +3,8 @@ import styled from 'styled-components';
 
 // Define the styled input component
 interface UserContainerProps {
-  dataResponse: any[]; 
-  setDataResponse: React.Dispatch<React.SetStateAction<any[]>>
-
+  userData: any[]; 
+  setUserData: React.Dispatch<React.SetStateAction<any[]>>
 }
 
 
@@ -35,7 +34,7 @@ const LoadConteiner = styled.div`
   justify-content: center;
   z-index: 5;
 `;
-const CreacUserBtn = styled.button`
+const Additem = styled.button`
   padding: 5px;
   background: none;
   backdrop-filter: blur(2.5px);
@@ -53,8 +52,7 @@ const CreacUserBtn = styled.button`
       border: solid 2px red;
     }
     `;
-
-const CreacUserForm = styled.form`
+const Newproducteaddform = styled.form`
   width: 70%;
   display: flex;
   align-content: center;
@@ -62,7 +60,6 @@ const CreacUserForm = styled.form`
   margin-left: 15px;
   margin-top: 10px;
 `; 
-
 const CreacUserHead = styled.h1`
       width:100%; 
       max-height:15%; 
@@ -77,15 +74,30 @@ const CreacUserConteiner = styled.div`
       justify-content: space-around;
 `;
 
-function CreatNewUser({ dataResponse, setDataResponse}: UserContainerProps) {
+function CreatNewUser({ userData, setUserData }: UserContainerProps) {
 
 
 
   const [response, setResponse] = useState({ message: '', name: '', address: '' });
-  const [userName, setUserName] = useState('');
-  const [userAddress, setUserAddress] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [itemName, setItemName] = useState('');
+  const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [price, setPrice] = useState('');
+
+  const AddItemValues = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    switch (name) {
+        case 'itemname': setItemName(value); break;
+        case 'itemaddress': setLocation(value); break;
+        case 'itemquantity': setQuantity(value); break;
+        case 'itemprice': setPrice(value); break;
+        case 'itemdescription': setDescription(value); break;
+        default: break;
+    }
+};
       // მომხმარებლის შექმნის შემდეგ 
       // აგზავნის მოთხოვნას GET მონაცემთა ბაზაში
       // განახლიბული მონაცემების ასახვისთვის
@@ -100,40 +112,53 @@ function CreatNewUser({ dataResponse, setDataResponse}: UserContainerProps) {
             },
           });
           const data = await response.json();
-          setDataResponse(data);
+          setUserData(data);
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
       };
-
-      
-
       // ფუნქცია აგზავნის მოთხოვნას POST მონაცემთა ბაზაში 
       // ახალი მომხმარებლის დასამატებლად
       // form ელემენტიდან მიღებული მონაცემების მიხედვით
 
       const createdUser = async () => {
+
         setLoading(true);
-        const newUser = { name: userName, address: userAddress, fasi: 0, raodenoda: 0 };
+        const newUser = { 
+              name: itemName, 
+              address: location, 
+              price: price, 
+              quantity: quantity, 
+              description: description 
+            };
+
         try {
           const response = await fetch('http://localhost:80/create', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newUser)
           });
-          const data = await response.json();
-          setResponse({ message: data.message, name: data.user.name, address: data.user.address });
-          setUserName('');
-          setUserAddress('');
-
-        } catch (error) {
+                const data = await response.json();
+                if (data.user) {
+                  setResponse({ message: data.message, name: data.user.name, address: data.user.address });
+              } else {
+                  setResponse({ message: data.message, name: '', address: '' }); // or handle null case as appropriate
+              }
+          
+              setItemName('');
+              setLocation('');
+              setQuantity('');
+              setDescription('');
+              setPrice('');
+          } catch (error) {
           console.error('Error creating user:', error);
+
         } finally {
           setLoading(false);
-          console.log(dataResponse);
-
+          // console.log(userData);
+            console.log(newUser)
 
             // __001
           fetchData();
@@ -154,9 +179,12 @@ function CreatNewUser({ dataResponse, setDataResponse}: UserContainerProps) {
     }
   }, [loading]);
 
+
+
+
   return (
     <>
-      <CreacUserHead>Add New User</CreacUserHead>
+      <CreacUserHead>Add New Item</CreacUserHead>
 
           <CreacUserConteiner>
                   {/*  POST მოთხოვნისგან პასუხის მომლოდინე */}
@@ -167,30 +195,52 @@ function CreatNewUser({ dataResponse, setDataResponse}: UserContainerProps) {
                       }
 
                             {/* ახალი მომხმარებლის მონაცემები */}
-                                <CreacUserForm>
+                                <Newproducteaddform>
 
-                                    <InputItem name='userName'
+                                <InputItem name='itemname'
                                               type='text'
-                                              placeholder='Full Name'
-                                              value={userName}
-                                              onChange={(e) => setUserName(e.target.value)} />
+                                              placeholder='Name'
+                                              value={itemName}
+                                              onChange={AddItemValues}
+                                              />
 
-                                          <InputItem name='userAddress'
+                                          <InputItem name='itemaddress'
                                                     type='text'
-                                                    placeholder='Address'
-                                                    value={userAddress}
-                                                    onChange={(e) => setUserAddress(e.target.value)} />
+                                                    placeholder='Location'
+                                                    value={location}
+                                                    onChange={AddItemValues}
+                                                    />
 
+                                                              <InputItem name='itemquantity'
+                                                                        type='number'
+                                                                        placeholder='Quantity'
+                                                                        value={quantity}
+                                                                        onChange={AddItemValues}
+                                                                        />
 
-                                </CreacUserForm>
+                                                              <InputItem name='itemprice'
+                                                                        type='number'
+                                                                        placeholder='Price'
+                                                                        value={price}
+                                                                        onChange={AddItemValues}
+                                                                        />
 
-<div style={{width: '100%', display:'flex', justifyContent: 'flex-end'}}>
+                                                                <textarea
+                                                                        name="itemdescription"
+                                                                        placeholder="Add Description"
+                                                                        value={description}
+                                                                        onChange={AddItemValues}
+                                                                            />
+                                                                    
+                                </Newproducteaddform>
 
-                                <CreacUserBtn type='button'
+<div style={{width: '100%', display:'flex', justifyContent: 'flex-end', marginTop: '8px'}}>
+
+                                <Additem type='button'
                                                       onClick={createdUser}
                                                       disabled={loading}>
-                                                      {loading ? 'Creating User...' : 'Create New User'}
-                                                        </CreacUserBtn>
+                                                      {loading ? 'Adding Producte...' : 'Add New Product'}
+                                                        </Additem>
 </div>
 
 

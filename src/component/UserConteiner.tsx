@@ -1,48 +1,21 @@
-import React, {useContext, useState, useEffect } from 'react';import logo from './logo.svg';
+import React, { useState } from 'react';
 import '../style/UserConteiner.css';
 import styled from 'styled-components';
 
 
 import UserIcon from '../icon/user.png';
 import AddIcon from '../icon/add.png';
-import ArrowRigth from '../icon/arrow.png';
 import CreatNewUser from './CreatNewUser';
 import ChangeAdvenceInfo from './ChangeAdvenceInfo';
 
 
 interface UserContainerProps {
-        dataResponse: any[]; 
-        setDataResponse: React.Dispatch<React.SetStateAction<any[]>>
+        setUserData: React.Dispatch<React.SetStateAction<any[]>>
+        setAdvanceData: React.Dispatch<React.SetStateAction<any[]>>
+        advanceData: object;
+        userData: any[];
       }
 
-      const InputItem = styled.input`
-                margin-bottom: 4px;
-                padding: 6px;
-                padding-left: 10px;
-                background: none;
-                backdrop-filter: blur(0.8px);
-                box-shadow: -0.3px -0.6px 3px 0.3px red inset;
-                outline: none;
-                border: none;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                font-weight: 700;
-    `;
-    const CreacUserBtn = styled.div`
-                padding: 2px;
-                border-radius: 50%;
-                position: relative;
-                cursor: pointer;
-                transition: 0.3 ease-in-out;
-                box-shadow: 0.5px 0.5px 2px 0.2px green;
-                display: flex;
-                float: right;
-                margin: 10px;
-                margin-left: 4px;
-                &:hover{
-                        box-shadow: 0.8px 0.8px 6px 0.5px red;
-                }
-    `;
 
 
 const AddRemoveBtn = styled.div`
@@ -75,26 +48,23 @@ const AddUserHead = styled.div`
 `;
 
 
-function UserConteiner({ dataResponse, setDataResponse }: UserContainerProps) {
+function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: UserContainerProps) {
+        const { currency } = advanceData as { currency: string };
+        const { quantity } = advanceData as { quantity: string };
+
 
         const [addUser, setAddUser] = useState(true);
-        const [updateAdvance, setUpdateAdvance] = useState(false);
 
         const clickfunction = () => {
                 addUser ? setAddUser(false) : setAddUser(true);
             };
-
-            const updateAdvanceFunction = () => {
-                updateAdvance ? setUpdateAdvance(false) : setUpdateAdvance(true);
-            };
-            
            
-
+            console.log(advanceData)
                   return (
 <>
 <div  className='userTable'>
 
-<ChangeAdvenceInfo/>
+<ChangeAdvenceInfo />
 
 
 { addUser?  
@@ -116,16 +86,16 @@ function UserConteiner({ dataResponse, setDataResponse }: UserContainerProps) {
                 <>
                         <AddRemoveBtn onClick={clickfunction}> X </AddRemoveBtn>
 
-                              <CreatNewUser dataResponse={dataResponse}  setDataResponse={setDataResponse} />
+                              <CreatNewUser userData={userData} setUserData={setUserData} />
                         </>
-
+                        
         </div>
   
 }
         
       
       
-      { dataResponse.length > 0 ?   dataResponse.map((item, index) => (
+      { userData.length > 0 ?  userData.map((item, index) => (
 
         <div  key={item._id} className='userConteinet'>
 
@@ -136,13 +106,13 @@ function UserConteiner({ dataResponse, setDataResponse }: UserContainerProps) {
                 </div>
         
                         <div className='userInfoLine'>
-                                <samp><h1>რაოდენობა</h1> <h3>{item.raodenoda} ლ.</h3></samp>
-                                <samp><h1>ფასი</h1><h3>{item.fasi}  ₾.</h3></samp>
+                                <samp><h1>რაოდენობა</h1> <h3>{item.quantity} {quantity}</h3></samp>
+                                <samp><h1>ფასი</h1><h3> {item.price}  {currency}</h3></samp>
                         </div>
         
                                 <div className='userTotal'> 
                                 <samp>
-                                        <h2>ღირებულება: <samp>{item.raodenoda * item.fasi} ₾.</samp></h2>
+                                        <h2>ღირებულება: <samp>{(item.quantity * item.price).toFixed(1)} {currency}</samp></h2>
                                 </samp>
                                 </div>
 
