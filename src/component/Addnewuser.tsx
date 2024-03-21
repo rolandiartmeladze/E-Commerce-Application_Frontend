@@ -27,21 +27,21 @@ interface UserContainerProps {
                 font-weight: 700;
     `;
 
-    const PriseInput = styled.input`
-    padding: 6px;
-    padding-left: 10px;
-    background: none;
-    backdrop-filter: blur(0.8px);
-    box-shadow: -0.3px -0.6px 3px -0.3px red inset;
-    outline: none;
-    border: none;
-    borderRadius: 0px;
-    font-weight: 700;
-    width: 30%; 
-    text-align: center; 
-    margin-bottom: 0; 
+//     const PriseInput = styled.input`
+//     padding: 6px;
+//     padding-left: 10px;
+//     background: none;
+//     backdrop-filter: blur(0.8px);
+//     box-shadow: -0.3px -0.6px 3px -0.3px red inset;
+//     outline: none;
+//     border: none;
+//     borderRadius: 0px;
+//     font-weight: 700;
+//     width: 30%; 
+//     text-align: center; 
+//     margin-bottom: 0; 
     
-`;
+// `;
 
     const CreacUserBtn = styled.div`
                 padding: 2px;
@@ -60,15 +60,24 @@ interface UserContainerProps {
     `;
 
 
-function ChangeAdvenceInfo({  advanceData, setAdvanceData }: UserContainerProps) {
+function Addnewuser({  advanceData, setAdvanceData }: UserContainerProps) {
 
     const [updateAdvance, setUpdateAdvance] = useState(false);
-    const [advance, setAdvance] = useState({});
+    // const [advance, setAdvance] = useState({});
+    const [product, setProduct] = useState(false);
+
+    const addProductFunction = async () => {
+        product ? setProduct(false) : setProduct(true);
+        setUpdateAdvance(false);
+    }            
 
 
     const updateAdvanceFunction = () => {
             updateAdvance ? setUpdateAdvance(false) : setUpdateAdvance(true);
+            setProduct(false);
         };
+
+
             const [inputFields, setInputFields] = useState<JSX.Element[]>([]);
             const handleAddInput = () => {
                 setInputFields(prevInputFields => [
@@ -80,10 +89,17 @@ function ChangeAdvenceInfo({  advanceData, setAdvanceData }: UserContainerProps)
                 const [response, setResponse] = useState({ message: ''});
                 const [loading, setLoading] = useState(false);
 
+                // const [itemName, setItemName] = useState('');
+                // const [location, setLocation] = useState('');
+                // const [description, setDescription] = useState('');
+                // const [quantity, setQuantity] = useState('');
+                // const [price, setPrice] = useState('');
+    
+    
 
             const creatAdvanceinfo = async () => {
 
-                console.log(advanceData)
+                // console.log(advanceData)
 
                 const advanceForm = document.getElementById('advanceForm');
                 const advanceFormInputs:
@@ -142,7 +158,7 @@ function ChangeAdvenceInfo({  advanceData, setAdvanceData }: UserContainerProps)
                     try {
 
 
-                        if(advanceData){
+                        // if(advanceData){
                             const advanceResponse = await fetch('http://localhost:80/checkAdvance', {
                                 method: 'GET',
                                 headers: {
@@ -151,20 +167,21 @@ function ChangeAdvenceInfo({  advanceData, setAdvanceData }: UserContainerProps)
                             });
                                   if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
                                   const advanceData = await advanceResponse.json();
-                                  setAdvanceData(advanceData[0]);
+                                  setAdvanceData(advanceData);
                 
-                        }else{
-                            const response = await fetch('http://localhost:80/changeAdvance', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(AdvanceInfo)
-                            });
+                        // }
+                        // else{
+                            // const response = await fetch('http://localhost:80/changeAdvance', {
+                            //     method: 'POST',
+                            //     headers: {
+                            //         'Content-Type': 'application/json'
+                            //     },
+                            //     body: JSON.stringify(AdvanceInfo)
+                            // });
                             
-                            const data = await response.json();
-                            setResponse({ message: data.message });
-                        }
+                            // const data = await response.json();
+                            // setResponse({ message: data.message });
+                        // }
                         
                     } catch (error) {
                         console.error('Error:', error);
@@ -182,21 +199,88 @@ function ChangeAdvenceInfo({  advanceData, setAdvanceData }: UserContainerProps)
 
 
 
+
+        
+            const creatnewproduct = async () => {
+
+
+                const advanceForm = document.getElementById('advanceForm');
+                const advanceFormInputs:
+                  | HTMLCollectionOf<HTMLInputElement>
+                  | undefined = advanceForm?.getElementsByTagName("input");
+
+                  if (
+                    advanceFormInputs 
+                    ) {
+
+                    const inputsArray = Array.from(advanceFormInputs);
+
+                    const AdvanceInfo: Record<string, any> = {
+                        'basice':[],
+                        'more':{
+                            'selectcurrency':[ "₾", "$", "€", "£", "₺" ],
+                            'selectquantity':[ "L", "pcs", "kg", "m", ],
+                        }
+                    };
+
+                    inputsArray.forEach((item, index) => {
+                        AdvanceInfo.basice.push(item.value);
+                    });
+
+
+
+                setLoading(true);
+                const newUser = AdvanceInfo;
+        
+                    console.log(AdvanceInfo)
+                    console.log(newUser);
+                    
+                    
+        
+                    // __001
+                }
+              };
+              const { basice } = advanceData as { basice: any[] };
+
+        
+            //   const basiceinfo = advanceData.basice;
+        
+            console.log(basice)
+
+
+            const [inputValues, setInputValues] = useState<string[]>([]);
+
+            const setInputValue = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+                const newValue = e.target.value;
+                // Handle the new value as needed, for example, update the state or an array
+                // Here, assuming you're updating a state array named 'inputValues'
+                setInputValues(prevValues => {
+                    const updatedValues = [...prevValues];
+                    updatedValues[index] = newValue;
+                    return updatedValues;
+                });
+            };
             
 return (
 <>
 
-    <div className = {
-        !updateAdvance? 
-        'update-advanse' 
-        : 
-        'update-advanse update-advanse-active'
-        }>
+            <div className={
+                !updateAdvance && !product ?
+                'update-advanse' :
+                'update-advanse update-advanse-active'
+            }>
 
-        <h1 
-        className={'update-advanse-head'} 
-        onClick={updateAdvanceFunction}>
-            <samp style={{ padding:'7px'}}> Change Advance User Info</samp>
+
+
+<div className={'update-advanse-head'}  >
+<h1 style={{
+                    display:'flex',
+                    alignItems:'center'}} onClick={updateAdvanceFunction}
+
+
+>
+                <samp style={{ color: !updateAdvance ? 'black' : 'red', padding: '7px' }}>Change Advance User Info</samp>
+                
                 <samp style={{display: 'flex'}}> 
                     <img className={ 
                     !updateAdvance ? 
@@ -205,34 +289,96 @@ return (
                     'aarowRight aarowRight-active'
                     } 
                     src={ArrowRigth} 
-                    alt="" />
+                    alt=""
+                    id='advanceHead'
+                     />
                 </samp>
+                </h1>
+
+
+                <h1 style={{
+                    display:'flex',
+                    alignItems:'center',
+                    marginLeft: '15px'
+                }} onClick={addProductFunction}>
+            <samp style={{ color: !product ? 'black' : 'red', padding: '7px'}}> Add Product </samp>
+                <samp style={{display: 'flex'}}> 
+                    <img className={ 
+                    !product ? 
+                    'aarowRight' 
+                    :
+                    'aarowRight aarowRight-active'
+                    } 
+                    src={ArrowRigth} 
+                    alt="" 
+                    id='Product'
+                    />
+                </samp>
+
+
         </h1>
+
+    
+        
+        </div>
+
+
             <section className = {
-                !updateAdvance? 
-                'change-info-conteiner' : 
-                'change-info-conteiner-active change-info-conteiner' 
+                !updateAdvance && !product ? 
+                'change-info-conteiner' : 'change-info-conteiner-active change-info-conteiner' 
                 }>
 
                 <article style={{ overflowY: 'scroll'}}>
-                    <h1>Basice User Info</h1>
+                    <h1>{
+                    updateAdvance? ' Add Basice Info': 'Add product info'
+                    }</h1>
                     <form id='advanceForm' className='advance-info-form'>
 
-                        <InputItem id='Name' type='text' disabled value='Name' />
-                        <InputItem id='Address' type='text' disabled value='Address' />
-                        <InputItem id='Quantity' type='text' disabled value='Quantity' />
-                        <InputItem id='Prace' type='text' disabled value='Prace' />
-                        <InputItem id='Description' type='text' disabled value='Description' />
-                        {inputFields.map((input, index) => (
-                            <React.Fragment key={index}>{input}</React.Fragment>
-                        ))}
 
-                            <div className='add-btn-conteiner'>
+                {/* ეს კოდი ქმნის პროდუქტის დასამატებლად საჭირო მონაცემების შესაყვანად 
+                <input /> html ელემენტს, მონაცემთა ბაზაში წინასწარ განსაზღვრული მონაცემების მიხედვე.
+                მომხმარებელს შეუძლია აღნიშნულ მონაცემებს დაამატოს მისთვის სასურველი ელემენტი 
+                განსაზღვრული ლოგიკის შესაბამისად და შედეგი შეინახოს მონაცემტა ბაზაში შემდგომი გამოყენებისთვის, 
+                ასევე წაშალოს ისინი საბაზისო მონაცემების გარდა.   */}
+                    {
+                        basice?.map((item, index) => (
+                            updateAdvance ?
+                                <InputItem 
+                                    key={index} 
+                                    type="text" 
+                                    disabled={updateAdvance} 
+                                    value={item} 
+                                />
+                                :
+                                    <InputItem 
+                                        key={index} 
+                                        type="text" 
+                                        placeholder={item} 
+                                        value={inputValues[index] || ''} 
+                                        onChange={(e) => setInputValue(e, index)} 
+                                    />
+                        ))
+                    }
+
+                    {/* კოდის ეს ფრაგმენტი პასუხისმგებელია ძირითადი მონაცემების გარდა 
+                    მომხმარებლისთვის სასურველი სხვა მონაცემების შესაყვანად საჭირო შესაბამისი ველების დასამატებლად
+                    ეს ფრაგმენტი აქტიურია მხოლოდ იმ შემთხვევაში როდესაც რიდესაც აქტიურია ძირითადი მონაცემების შეცვლის სექცია  updateAdvance = True */}
+                        {updateAdvance?
+                        <>{ 
+                            inputFields.map((input, index) => (
+                                <React.Fragment key={index}>{input}</React.Fragment>
+                            ))
+                          }
+
+                            <div style={{display: product? 'none': 'flex'}} className='add-btn-conteiner'>
                             <samp>Add More</samp>
                                 <CreacUserBtn  onClick={handleAddInput}>
                                     <img style={{width: '25px'}} src={AddIcon} alt="add info" />
                                 </CreacUserBtn>
                             </div>
+                        </> 
+                        :null
+                        }
                     </form>
                 </article>
 
@@ -290,9 +436,12 @@ return (
 
             </section>
 
-            <div onClick={creatAdvanceinfo}
+            <div 
+            
+            onClick={updateAdvance? creatAdvanceinfo: creatnewproduct}
+
             className='advance-info-btn-conteiner' 
-            style={{display: updateAdvance ? 'flex' : 'none'}}
+            style={{display: updateAdvance || product ? 'flex' : 'none'}}
             >
                 <button disabled={loading} className='advance-info-btn'>Change Advence</button>
             </div>
@@ -302,4 +451,4 @@ return (
         );
 }
 
-export default ChangeAdvenceInfo;
+export default Addnewuser;

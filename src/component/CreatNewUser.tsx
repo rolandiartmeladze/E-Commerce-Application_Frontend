@@ -74,7 +74,7 @@ const CreacUserConteiner = styled.div`
       justify-content: space-around;
 `;
 
-function CreatNewUser({ userData, setUserData }: UserContainerProps) {
+function Addnewproduct({ userData, setUserData }: UserContainerProps) {
 
 
 
@@ -105,12 +105,13 @@ function CreatNewUser({ userData, setUserData }: UserContainerProps) {
       
       const fetchData = async () => {
         try {
-          const response = await fetch('http://localhost:80/checkUsers', {
+          const response = await fetch('http://localhost:80/checkProducts', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
             },
           });
+
           const data = await response.json();
           setUserData(data);
         } catch (error) {
@@ -121,7 +122,7 @@ function CreatNewUser({ userData, setUserData }: UserContainerProps) {
       // ახალი მომხმარებლის დასამატებლად
       // form ელემენტიდან მიღებული მონაცემების მიხედვით
 
-      const createdUser = async () => {
+      const Addproduct = async () => {
 
         setLoading(true);
         const newUser = { 
@@ -187,57 +188,52 @@ function CreatNewUser({ userData, setUserData }: UserContainerProps) {
       <CreacUserHead>Add New Item</CreacUserHead>
 
           <CreacUserConteiner>
-                  {/*  POST მოთხოვნისგან პასუხის მომლოდინე */}
-                      {loading ? 
-                            (<LoadConteiner> {"Loaging..."} </LoadConteiner> ) 
-                            : 
-                            ( <div style={{ display: 'none' }}></div>)
-                      }
+            
+      {/*  POST მოთხოვნისგან პასუხის მომლოდინე */}
+          {loading ? 
+                (<LoadConteiner> {"Loaging..."} </LoadConteiner> ) 
+                : 
+                ( <div style={{ display: 'none' }}></div>)
+          }
 
-                            {/* ახალი მომხმარებლის მონაცემები */}
-                                <Newproducteaddform>
+    {/* ახალი მომხმარებლის მონაცემები */}
+        <Newproducteaddform>
 
-                                <InputItem name='itemname'
-                                              type='text'
-                                              placeholder='Name'
-                                              value={itemName}
-                                              onChange={AddItemValues}
-                                              />
+          <InputItem name='itemname'
+            type='text'
+            placeholder='Name'
+            value={itemName}
+            onChange={AddItemValues}/>
 
-                                          <InputItem name='itemaddress'
-                                                    type='text'
-                                                    placeholder='Location'
-                                                    value={location}
-                                                    onChange={AddItemValues}
-                                                    />
+              <InputItem name='itemaddress'
+                type='text'
+                placeholder='Location'
+                value={location}
+                onChange={AddItemValues}/>
 
-                                                              <InputItem name='itemquantity'
-                                                                        type='number'
-                                                                        placeholder='Quantity'
-                                                                        value={quantity}
-                                                                        onChange={AddItemValues}
-                                                                        />
+                  <InputItem name='itemquantity'
+                    type='number'
+                    placeholder='Quantity'
+                    value={quantity}
+                    onChange={AddItemValues}/>
 
-                                                              <InputItem name='itemprice'
-                                                                        type='number'
-                                                                        placeholder='Price'
-                                                                        value={price}
-                                                                        onChange={AddItemValues}
-                                                                        />
+                      <InputItem name='itemprice'
+                        type='number'
+                        placeholder='Price'
+                        value={price}
+                        onChange={AddItemValues}/>
 
-                                                                <textarea
-                                                                        name="itemdescription"
-                                                                        placeholder="Add Description"
-                                                                        value={description}
-                                                                        onChange={AddItemValues}
-                                                                            />
-                                                                    
-                                </Newproducteaddform>
+                          <textarea name="itemdescription"
+                            placeholder="Add Description"
+                            value={description}
+                            onChange={AddItemValues}/>
+                                              
+        </Newproducteaddform>
 
 <div style={{width: '100%', display:'flex', justifyContent: 'flex-end', marginTop: '8px'}}>
 
                                 <Additem type='button'
-                                                      onClick={createdUser}
+                                                      onClick={Addproduct}
                                                       disabled={loading}>
                                                       {loading ? 'Adding Producte...' : 'Add New Product'}
                                                         </Additem>
@@ -251,4 +247,4 @@ function CreatNewUser({ userData, setUserData }: UserContainerProps) {
   );
 }
 
-export default CreatNewUser;
+export default Addnewproduct;

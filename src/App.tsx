@@ -20,7 +20,7 @@ function App(): JSX.Element{
             const fetchData = async () => {
               try {
 
-                const usersResponse = await fetch('http://localhost:80/checkUsers', {
+                const usersResponse = await fetch('http://localhost:80/checkProducts', {
                   method: 'GET',
                   headers: {
                       'Content-Type': 'application/json'

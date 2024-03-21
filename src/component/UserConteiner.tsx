@@ -7,13 +7,15 @@ import UserIcon from '../icon/user.png';
 import AddIcon from '../icon/add.png';
 import CreatNewUser from './CreatNewUser';
 import ChangeAdvenceInfo from './ChangeAdvenceInfo';
-
+import Addnewuser from '../component/Addnewuser';
 
 interface UserContainerProps {
         setUserData: React.Dispatch<React.SetStateAction<any[]>>
         setAdvanceData: React.Dispatch<React.SetStateAction<any[]>>
         advanceData: object;
         userData: any[];
+        // Adduser: any[];
+        Adduser?: any;
       }
 
 
@@ -53,10 +55,10 @@ function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: Use
         const { quantity } = advanceData as { quantity: string };
 
 
-        const [addUser, setAddUser] = useState(true);
+        const [addUserConteiner, setAddUser] = useState(true);
 
         const clickfunction = () => {
-                addUser ? setAddUser(false) : setAddUser(true);
+                addUserConteiner ? setAddUser(false) : setAddUser(true);
             };
            
             console.log(advanceData)
@@ -64,20 +66,22 @@ function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: Use
 <>
 <div  className='userTable'>
 
-<ChangeAdvenceInfo />
+{/* <ChangeAdvenceInfo advanceData={advanceData} setAdvanceData={setAdvanceData} /> */}
 
 
-{ addUser?  
+<Addnewuser  advanceData={advanceData} setAdvanceData={setAdvanceData}/>
+
+{ addUserConteiner?  
 
         <div onClick={clickfunction} className='userConteinet'>
 
                 <div style={{justifyContent: 'center'}} className='userHeaderline'>
-                        <img src={UserIcon} alt='User Icon' />
+                <img src={UserIcon} alt='User Icon' />
                 </div>
     
                         <AddUserHead className='userInfoLine'>
-                                        <h3>Add User</h3>
-                                        <img src={AddIcon} alt='User Icon' />
+                        <h3>Add Product</h3>
+                        <img src={AddIcon} alt='User Icon' />
                         </AddUserHead>
 
         </div>
