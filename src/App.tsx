@@ -47,6 +47,7 @@ function App(): JSX.Element{
             fetchData();
           }, []); 
   
+          console.log(advanceData)
 
   return (
     <>

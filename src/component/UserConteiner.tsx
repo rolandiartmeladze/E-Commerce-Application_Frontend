@@ -69,7 +69,7 @@ function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: Use
 {/* <ChangeAdvenceInfo advanceData={advanceData} setAdvanceData={setAdvanceData} /> */}
 
 
-<Addnewuser  advanceData={advanceData} setAdvanceData={setAdvanceData}/>
+<Addnewuser setUserData={setUserData}  advanceData={advanceData} setAdvanceData={setAdvanceData} />
 
 { addUserConteiner?  
 
