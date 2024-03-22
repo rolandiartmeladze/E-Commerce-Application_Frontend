@@ -201,7 +201,7 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   const addnewproduct = async () => {
     const advanceInfo = optimiseinfo();
     try {
-      const response = await fetch("http://localhost:80/create", {
+      const response = await fetch("/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(advanceInfo),
