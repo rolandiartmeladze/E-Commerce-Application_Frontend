@@ -53,14 +53,14 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   //აბრუნებს განახლებულ მონაცემებს
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:80/checkProducts", {
+      const response = await fetch("http://localhost:3000/checkProducts", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
       const userdata = await response.json();
       setUserData(userdata);
 
-      const advanceResponse = await fetch("http://localhost:80/checkAdvance", {
+      const advanceResponse = await fetch("http://localhost:3000/checkAdvance", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });

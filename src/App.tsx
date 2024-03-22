@@ -20,7 +20,7 @@ function App(): JSX.Element{
             const fetchData = async () => {
               try {
 
-                const usersResponse = await fetch('http://localhost:80/checkProducts', {
+                const usersResponse = await fetch('http://localhost:3000/checkProducts', {
                   method: 'GET',
                   headers: {
                       'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ function App(): JSX.Element{
                   const usersData = await usersResponse.json();
                   setUserData(usersData);
             
-              const advanceResponse = await fetch('http://localhost:80/checkAdvance', {
+              const advanceResponse = await fetch('http://localhost:3000/checkAdvance', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
