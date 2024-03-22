@@ -1,0 +1,68 @@
+
+> Journal-Accounting-Frontend@0.1.0 start
+> node scripts/start.js
+
+Starting the development server...
+
+Compiled with warnings.
+
+[eslint] 
+src\App.tsx
+  Line 1:16:  'useContext' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 2:8:   'logo' is defined but never used        @typescript-eslint/no-unused-vars
+
+src\component\Addnewuser.tsx
+  Line 1:27:    'useEffect' is defined but never used              @typescript-eslint/no-unused-vars
+  Line 5:8:     'AddIcon' is defined but never used                @typescript-eslint/no-unused-vars
+  Line 104:10:  'response' is assigned a value but never used      @typescript-eslint/no-unused-vars
+  Line 295:11:  'addphoneid' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  Line 296:11:  'addemailid' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  Line 297:11:  'addcommentid' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  Line 298:11:  'addimageid' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+src\component\Aside.tsx
+  Line 1:17:  'useState' is defined but never used   @typescript-eslint/no-unused-vars
+  Line 1:27:  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 1:59:  'logo' is defined but never used       @typescript-eslint/no-unused-vars
+
+src\component\Header.tsx
+  Line 1:59:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+
+src\component\UserConteiner.tsx
+  Line 8:8:  'CreatNewUser' is defined but never used       @typescript-eslint/no-unused-vars
+  Line 9:8:  'ChangeAdvenceInfo' is defined but never used  @typescript-eslint/no-unused-vars
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+[1m[33mWARNING[39m[22m in [1m[eslint] 
+src\App.tsx
+  Line 1:16:  'useContext' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 2:8:   'logo' is defined but never used        @typescript-eslint/no-unused-vars
+
+src\component\Addnewuser.tsx
+  Line 1:27:    'useEffect' is defined but never used              @typescript-eslint/no-unused-vars
+  Line 5:8:     'AddIcon' is defined but never used                @typescript-eslint/no-unused-vars
+  Line 104:10:  'response' is assigned a value but never used      @typescript-eslint/no-unused-vars
+  Line 295:11:  'addphoneid' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  Line 296:11:  'addemailid' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  Line 297:11:  'addcommentid' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  Line 298:11:  'addimageid' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+src\component\Aside.tsx
+  Line 1:17:  'useState' is defined but never used   @typescript-eslint/no-unused-vars
+  Line 1:27:  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 1:59:  'logo' is defined but never used       @typescript-eslint/no-unused-vars
+
+src\component\Header.tsx
+  Line 1:59:  'logo' is defined but never used  @typescript-eslint/no-unused-vars
+
+src\component\UserConteiner.tsx
+  Line 8:8:  'CreatNewUser' is defined but never used       @typescript-eslint/no-unused-vars
+  Line 9:8:  'ChangeAdvenceInfo' is defined but never used  @typescript-eslint/no-unused-vars
+
+[39m[22m
+
+webpack compiled with [1m[33m1 warning[39m[22m
+No issues found.
+Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? Terminate batch job (Y/N)? 
