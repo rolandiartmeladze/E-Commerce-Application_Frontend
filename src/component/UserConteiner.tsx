@@ -105,18 +105,18 @@ function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: Use
 
                 <div className='userHeaderline'>
                         <img src={UserIcon} alt='User Icon' />
-                        <samp>{item.name} <h3>{item.address}</h3></samp>
+                        <samp>{item.Name} <h3>{item.Address}</h3></samp>
                         <div className='headerMore'>...</div>
                 </div>
         
                         <div className='userInfoLine'>
-                                <samp><h1>რაოდენობა</h1> <h3>{item.quantity} {quantity}</h3></samp>
-                                <samp><h1>ფასი</h1><h3> {item.price}  {currency}</h3></samp>
+                                <samp><h1>რაოდენობა</h1> <h3>{item.Quantity} {item.Quantityiunit}</h3></samp>
+                                <samp><h1>ფასი</h1><h3> {item.Price}  {item.Currency}</h3></samp>
                         </div>
         
                                 <div className='userTotal'> 
                                 <samp>
-                                        <h2>ღირებულება: <samp>{(item.quantity * item.price).toFixed(1)} {currency}</samp></h2>
+                                        <h2>ღირებულება: <samp>{(item.Quantity * item.Price).toFixed(1)} {item.Currency}</samp></h2>
                                 </samp>
                                 </div>
 
