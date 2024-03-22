@@ -20,28 +20,6 @@ interface UserContainerProps {
 
 
 
-const AddRemoveBtn = styled.div`
-  font-size: 130%;
-  font-weight: 900;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  border-radius: 5px;
-  cursor: pointer;
-  top: 8px;
-  right: 8px;
-  width: 30px;
-  height: 30px;
-  backdrop-filter: blur(5px);
-  box-shadow: 1px 1px 3px black;
-  transition: 0.3s ease-in-out;
-  &:hover{
-        box-shadow: -1px 1px 3px white;
-        color: red;
-  }
-`;
-
 const AddUserHead = styled.div`
         flex-direction:  column;
         align-items:  center;
@@ -51,29 +29,33 @@ const AddUserHead = styled.div`
 
 
 function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: UserContainerProps) {
-        const { currency } = advanceData as { currency: string };
-        const { quantity } = advanceData as { quantity: string };
 
+        const [product, setProduct] = useState(false);
+        const [updateAdvance, setUpdateAdvance] = useState(false);
 
-        const [addUserConteiner, setAddUser] = useState(true);
+        const addProductFunction = () => {
+        if(updateAdvance){setUpdateAdvance(false)};
+                setProduct(prevProduct => !prevProduct); 
+                };
 
-        const clickfunction = () => {
-                addUserConteiner ? setAddUser(false) : setAddUser(true);
-            };
-           
-            console.log(advanceData)
-                  return (
+return (
 <>
 <div  className='userTable'>
 
-{/* <ChangeAdvenceInfo advanceData={advanceData} setAdvanceData={setAdvanceData} /> */}
 
+<Addnewuser 
+updateAdvance={updateAdvance} 
+setUpdateAdvance={setUpdateAdvance}  
+product={product} setProduct={setProduct}  
+addProductFunction={addProductFunction} 
+setUserData={setUserData}  
+advanceData={advanceData} 
+setAdvanceData={setAdvanceData} 
+/>
 
-<Addnewuser setUserData={setUserData}  advanceData={advanceData} setAdvanceData={setAdvanceData} />
+  
 
-{ addUserConteiner?  
-
-        <div onClick={clickfunction} className='userConteinet'>
+        <div onClick={addProductFunction} style={{border: product? '2px rgb(37, 6, 211) solid':'none'}} className='userConteinet'>
 
                 <div style={{justifyContent: 'center'}} className='userHeaderline'>
                 <img src={UserIcon} alt='User Icon' />
@@ -85,17 +67,12 @@ function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: Use
                         </AddUserHead>
 
         </div>
-              :       
-              <div  style={{minHeight: '140px', cursor: 'default'}} className='userConteinet'>
-                <>
-                        <AddRemoveBtn onClick={clickfunction}> X </AddRemoveBtn>
-
-                              <CreatNewUser userData={userData} setUserData={setUserData} />
-                        </>
+               
+              
                         
-        </div>
+        
   
-}
+
         
       
       

@@ -75,20 +75,43 @@
   .add-btn-conteiner{
     width: 100%; 
     display:flex; 
-    justify-content: flex-end; 
     align-items: center;
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
   }
   
+  .addnewinputicon{
+      padding: 2px;
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+      transition: 0.3 ease-in-out;
+      box-shadow: 0.5px 0.5px 2px 0.2px green;
+      display: flex;
+      float: right;
+      margin: 5px;
+      margin-left: 4px;
+  }
+
+  .addnewinputicon img{width: 20px;}
+
+  .add-btn-conteiner:hover .addnewinputicon {box-shadow: 0.8px 0.8px 6px 0.5px red;}
+
   .advance-info-form {
     margin-top: 8px;
     display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    align-items: flex-start;
+    flex-direction: row;
     margin-left: 8px;
+    flex-wrap: wrap;
   }
   
-  
+  input[type="file"] {
+    /* background-color: red; */
+    float: left;
+    width: 70%;
+    box-shadow: none;
+  }
   
   .advance-info-btn {
     padding: 8px;
@@ -109,12 +132,12 @@
   
 
   .currency-label{
-  display: inline;
-  margin:  5px;
-  margin-left:  10px;
-  font-size:  100%;
-  font-weight:  800; 
-  color: green;                       
+    display: inline;
+    margin:  5px;
+    margin-left:  10px;
+    font-size:  100%;
+    font-weight:  800; 
+    color: green;                       
   }
 
   .currency-select,
@@ -150,11 +173,18 @@
       width: 100%; 
       justify-content: flex-end;
   }
-
-    /* .correcy-select option{
+  .elementinarticle {
+    width: 48%;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+      /* .correcy-select option{
     padding: 2px;
     font-weight: 900;
     font-size: 20px;
 } */
   
   
+

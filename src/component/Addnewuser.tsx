@@ -4,12 +4,24 @@ import "../style/ChangeAdvenceInfo.css";
 
 import AddIcon from "../icon/add.png";
 import ArrowRigth from "../icon/arrow.png";
+import addphone from "../icon/addphone.png";
+import addimage from "../icon/addimage.png";
+import addemail from "../icon/addmail.png";
+import addcomment from "../icon/addcomment.png";
+
 
 interface UserContainerProps {
   setAdvanceData: Function;
   advanceData: any;
   setUserData: Function;
+  addProductFunction:any;
+  product:boolean;
+  setProduct:Function;
+  updateAdvance: boolean;
+  setUpdateAdvance: Function;
+
 }
+
 
 const InputItem = styled.input`
   margin-bottom: 4px;
@@ -25,27 +37,18 @@ const InputItem = styled.input`
   font-weight: 700;
 `;
 
-const CreacUserBtn = styled.div`
-  padding: 2px;
-  border-radius: 50%;
-  position: relative;
-  cursor: pointer;
-  transition: 0.3 ease-in-out;
-  box-shadow: 0.5px 0.5px 2px 0.2px green;
-  display: flex;
-  float: right;
-  margin: 10px;
-  margin-left: 4px;
-  &:hover {
-    box-shadow: 0.8px 0.8px 6px 0.5px red;
-  }
-`;
 
 const Addnewuser: React.FC<UserContainerProps> = ({
   setUserData,
   advanceData,
   setAdvanceData,
+  addProductFunction,
+  product,
+  setProduct,
+  updateAdvance,
+  setUpdateAdvance
 }) => {
+
   //ამოწმებს მონაცემების განახლებას მონაცემთა ბაზაში
   //აბრუნებს განახლებულ მონაცემებს
   const fetchData = async () => {
@@ -83,16 +86,18 @@ const Addnewuser: React.FC<UserContainerProps> = ({
 
   // განსაზღვრავს კონკრეტულ მომენტში რომელი სეცია უნდა იყოსს აქტიური
   // მონაცემების სწორ მისამართზე გაგზავნისთვის
-  const [product, setProduct] = useState(false);
-  const addProductFunction = () => {
+//   const [product, setProduct] = useState(false);
+  const addProductF = () => {
     product ? setProduct(false) : setProduct(true);
     setUpdateAdvance(false);
   };
-  const [updateAdvance, setUpdateAdvance] = useState(false);
+
   const updateAdvanceFunction = () => {
     updateAdvance ? setUpdateAdvance(false) : setUpdateAdvance(true);
     setProduct(false);
   };
+
+
 
   // იღებსე სერვერის მიერ დაბრუნებულ პასუხს
   // განსაზღვრული ლოგიკის მიხედვეით
@@ -137,8 +142,12 @@ const Addnewuser: React.FC<UserContainerProps> = ({
         } else {
           if (!AdvanceInfo.basice) {
             AdvanceInfo.basice = [];
+          } 
+          else if(item.type === 'file')
+          {AdvanceInfo.basice.push(item.accept);}
+          if(item.value.length >0){
+            AdvanceInfo.basice.push(item.value);
           }
-          AdvanceInfo.basice.push(item.value);
         }
       });
 
@@ -152,6 +161,7 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   const updateadvance = async () => {
     const advanceInfo = optimiseinfo();
 
+    console.log(advanceInfo);
     setLoading(true);
     try {
       // if(advanceData){
@@ -219,10 +229,9 @@ const Addnewuser: React.FC<UserContainerProps> = ({
     if (type === "advance") {
       updateAdvanceFunction();
     } else if (type === "product") {
-      addProductFunction();
+      addProductF();
     }
   };
-
   //  ეს კოდი ქმნის პროდუქტის დასამატებლად საჭირო მონაცემების შესაყვანად
   // <input /> html ელემენტს, მონაცემთა ბაზაში წინასწარ განსაზღვრული მონაცემების მიხედვე.
   // მომხმარებელს შეუძლია აღნიშნულ მონაცემებს დაამატოს მისთვის სასურველი ელემენტი
@@ -246,6 +255,8 @@ const Addnewuser: React.FC<UserContainerProps> = ({
 
     return (
       <>
+      <div  style={{borderRight: '1px solid green'}} className="elementinarticle">
+
         {basice?.map((item, index) =>
           updateAdvance ? (
             <InputItem
@@ -264,6 +275,8 @@ const Addnewuser: React.FC<UserContainerProps> = ({
             />
           )
         )}
+              </div>
+
       </>
     );
   };
@@ -274,28 +287,82 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   // ეს ფრაგმენტი აქტიურია მხოლოდ იმ შემთხვევაში როდესაც რიდესაც
   // აქტიურია ძირითადი მონაცემების შეცვლის სექცია  updateAdvance = True
   //__2__
-  const AddNewInputs = () => {
+  const AddNewInputs: React.FC = () => {
     // მომხმარების სურვილის შემთხვევაში ქმნის
     // დამატებითი შეყვანის ველებს
     const [inputFields, setInputFields] = useState<JSX.Element[]>([]);
-    const handleAddInput = () => {
-      setInputFields((prevInputFields) => [
-        ...prevInputFields,
-        <InputItem key={prevInputFields.length} type="text" />,
-      ]);
-    };
 
-    return (
+    const addphoneid = document.getElementById('addphoneid');
+    const addemailid = document.getElementById('addemailid');
+    const addcommentid = document.getElementById('addcommentid');
+    const addimageid = document.getElementById('addimageid');
+
+    const handleAddInput = (type: string, value: string): void => {
+        setInputFields((prevInputFields) => {
+          let inputElement;
+      
+          if (type === 'file') {
+            inputElement = <InputItem disabled key={prevInputFields.length} accept={value} type={type} />;
+          } else {
+            inputElement = <InputItem disabled key={prevInputFields.length} value={value} type={type} />;
+          }
+      
+          return [...prevInputFields, inputElement];
+        });
+      };
+      
+const handleItemClick = (type: string, value: string, itemId: string): void => {
+  handleAddInput(type, value);
+
+  const itemToRemove = document.getElementById(itemId);
+  if (itemToRemove) {
+    if (itemId === 'addimageid') {
+      itemToRemove.style.display = 'none';
+    } else {
+      itemToRemove.remove();
+    }
+  }
+};
+
+return (
       <>
+
+<div style={{borderLeft: '1px solid green'}} className="elementinarticle">
+
         {inputFields.map((input, index) => (
-          <React.Fragment key={index}>{input}</React.Fragment>
+
+          <div style={{marginLeft: '10px'}} key={index}>{input}</div>
         ))}
 
-        <div className="add-btn-conteiner">
-          <samp>Add More</samp>
-          <CreacUserBtn onClick={handleAddInput}>
-            <img style={{ width: "25px" }} src={AddIcon} alt="add info" />
-          </CreacUserBtn>
+<div id="addimageid" onClick={() => handleItemClick('file','img', 'addimageid')} className="add-btn-conteiner">
+        <div className="addnewinputicon">
+            <img src={addimage} alt="add info" />
+          </div>
+            Add Image
+        </div>
+
+        
+<div id="addphoneid" onClick={() => handleItemClick('text', 'Phone', 'addphoneid')} className="add-btn-conteiner">
+        <div className="addnewinputicon">
+            <img src={addphone} alt="add info" />
+          </div>
+            Add Phone
+        </div>
+        
+        <div id="addemailid" onClick={() => handleItemClick('email', 'Emaile', 'addemailid')} className="add-btn-conteiner">
+        <div className="addnewinputicon">
+            <img src={addemail} alt="add info" />
+          </div>
+            Add Email
+        </div>
+        <div  id="addcommentid"  onClick={() => handleItemClick('text', 'Comment', 'addcommentid')} className="add-btn-conteiner">
+        <div className="addnewinputicon">
+            <img src={addcomment} alt="add info" />
+          </div>
+            Add Cmment
+        </div>
+
+
         </div>
       </>
     );
@@ -393,8 +460,8 @@ const Addnewuser: React.FC<UserContainerProps> = ({
               : "change-info-conteiner-active change-info-conteiner"
           }
         >
-          <article style={{ overflowY: "scroll", width: "60%" }}>
-            <h1>{updateAdvance ? " Add Basice Info" : "Add product info"}</h1>
+          <article style={{ overflowY: "scroll", width: "60%", display: 'flex', flexDirection: 'column' }}>
+            <h1 style={{width:'100%'}}>{updateAdvance ? " Add Basice Info" : "Add product info"}</h1>
 
             <form id="advanceForm" className="advance-info-form">
               {/* __1 */}
