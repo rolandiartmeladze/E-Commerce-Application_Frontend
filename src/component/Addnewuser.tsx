@@ -108,17 +108,18 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   const advanceForm = document.getElementById("advanceForm");
   const advanceFormInputs: HTMLCollectionOf<HTMLInputElement> | undefined =
     advanceForm?.getElementsByTagName("input");
-  const currencyElement = document.getElementById(
-    "currency"
-  ) as HTMLSelectElement | null;
-  const quantityElement = document.getElementById(
-    "Quantityunit"
-  ) as HTMLSelectElement | null;
 
   // ახდენს მონაცემების რამუშავებას აქტიური ექციის შესაბამისად
   // აბრუნებს მასივს ან მასივსა სა ობიექტის კომბინაციას
   // ახალი პროდუქტის დასამატებლად ან არსებული ძირითადი მონაცემების განახლებისტვის
   const optimiseinfo = () => {
+    const currencyElement = document.getElementById(
+      "currency"
+    ) as HTMLSelectElement | null;
+    const quantityElement = document.getElementById(
+      "Quantityunit"
+    ) as HTMLSelectElement | null;
+  
     if (advanceFormInputs && currencyElement && quantityElement) {
       const inputsArray = Array.from(advanceFormInputs);
       const selectedCurrency = currencyElement.value;
@@ -147,9 +148,10 @@ const Addnewuser: React.FC<UserContainerProps> = ({
           } 
           else if(item.type === 'file')
           {AdvanceInfo.basice.push(item.accept);}
-          if(item.value.length >0){
+          if(item.value.length >=0){
             AdvanceInfo.basice.push(item.value);
           }
+  
         }
       });
 
@@ -202,6 +204,7 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   // იყენებს POST მეთოდს მონაცემების ცასაწერად
   const addnewproduct = async () => {
     const advanceInfo = optimiseinfo();
+    console.log(advanceInfo);
     try {
       const response = await fetch(`${serverUrl}/create`, {
         method: "POST",
