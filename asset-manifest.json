@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.6064dcb2.css",
-    "main.js": "/static/js/main.6da80f6b.js",
-    "static/js/453.5330b36c.chunk.js": "/static/js/453.5330b36c.chunk.js",
-    "static/media/Bg1.webp": "/static/media/Bg1.24fe620c2653a3703c39.webp",
-    "index.html": "/index.html",
-    "main.6064dcb2.css.map": "/static/css/main.6064dcb2.css.map",
-    "main.6da80f6b.js.map": "/static/js/main.6da80f6b.js.map",
-    "453.5330b36c.chunk.js.map": "/static/js/453.5330b36c.chunk.js.map"
+    "main.css": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/css/main.32c949ee.css",
+    "main.js": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/main.85ac7f27.js",
+    "static/js/453.5330b36c.chunk.js": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/453.5330b36c.chunk.js",
+    "static/media/Bg1.webp": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/media/Bg1.24fe620c2653a3703c39.webp",
+    "index.html": "/rolandiartmeladze/Journal-Accounting-Frontend.git/index.html",
+    "main.32c949ee.css.map": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/css/main.32c949ee.css.map",
+    "main.85ac7f27.js.map": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/main.85ac7f27.js.map",
+    "453.5330b36c.chunk.js.map": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/453.5330b36c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6064dcb2.css",
-    "static/js/main.6da80f6b.js"
+    "static/css/main.32c949ee.css",
+    "static/js/main.85ac7f27.js"
   ]
 }
