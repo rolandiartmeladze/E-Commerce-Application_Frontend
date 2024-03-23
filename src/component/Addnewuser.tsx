@@ -48,19 +48,21 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   updateAdvance,
   setUpdateAdvance
 }) => {
+    const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
 
   //ამოწმებს მონაცემების განახლებას მონაცემთა ბაზაში
   //აბრუნებს განახლებულ მონაცემებს
   const fetchData = async () => {
+
     try {
-      const response = await fetch("/checkProducts", {
+      const response = await fetch(`${serverUrl}/checkProducts`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
       const userdata = await response.json();
       setUserData(userdata);
 
-      const advanceResponse = await fetch("/checkAdvance", {
+      const advanceResponse = await fetch(`${serverUrl}/checkAdvance`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -201,7 +203,7 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   const addnewproduct = async () => {
     const advanceInfo = optimiseinfo();
     try {
-      const response = await fetch("/create", {
+      const response = await fetch(`${serverUrl}/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(advanceInfo),

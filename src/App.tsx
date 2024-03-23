@@ -8,6 +8,8 @@ import Aside from './component/Aside';
 
 function App(): JSX.Element{
   
+  const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
+
   // const [userResponse, setUserData] = useState<any[]>([]);
   const [userData, setUserData] = useState<any[]>([]);
     const [advanceData, setAdvanceData] = useState<any[]>([]);
@@ -20,7 +22,7 @@ function App(): JSX.Element{
             const fetchData = async () => {
               try {
 
-                const usersResponse = await fetch('/checkProducts', {
+                const usersResponse = await fetch(`${serverUrl}/checkProducts`, {
                   method: 'GET',
                   headers: {
                       'Content-Type': 'application/json'
@@ -30,7 +32,7 @@ function App(): JSX.Element{
                   const usersData = await usersResponse.json();
                   setUserData(usersData);
             
-              const advanceResponse = await fetch('/checkAdvance', {
+              const advanceResponse = await fetch(`${serverUrl}/checkAdvance`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
