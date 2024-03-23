@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/css/main.32c949ee.css",
-    "main.js": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/main.85ac7f27.js",
-    "static/js/453.5330b36c.chunk.js": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/453.5330b36c.chunk.js",
-    "static/media/Bg1.webp": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/media/Bg1.24fe620c2653a3703c39.webp",
-    "index.html": "/rolandiartmeladze/Journal-Accounting-Frontend.git/index.html",
-    "main.32c949ee.css.map": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/css/main.32c949ee.css.map",
-    "main.85ac7f27.js.map": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/main.85ac7f27.js.map",
-    "453.5330b36c.chunk.js.map": "/rolandiartmeladze/Journal-Accounting-Frontend.git/static/js/453.5330b36c.chunk.js.map"
+    "main.css": "/rolandiartmeladze/Journal-Accounting-Frontend/static/css/main.21e1c74c.css",
+    "main.js": "/rolandiartmeladze/Journal-Accounting-Frontend/static/js/main.6d2f4897.js",
+    "static/js/453.5330b36c.chunk.js": "/rolandiartmeladze/Journal-Accounting-Frontend/static/js/453.5330b36c.chunk.js",
+    "static/media/Bg1.webp": "/rolandiartmeladze/Journal-Accounting-Frontend/static/media/Bg1.24fe620c2653a3703c39.webp",
+    "index.html": "/rolandiartmeladze/Journal-Accounting-Frontend/index.html",
+    "main.21e1c74c.css.map": "/rolandiartmeladze/Journal-Accounting-Frontend/static/css/main.21e1c74c.css.map",
+    "main.6d2f4897.js.map": "/rolandiartmeladze/Journal-Accounting-Frontend/static/js/main.6d2f4897.js.map",
+    "453.5330b36c.chunk.js.map": "/rolandiartmeladze/Journal-Accounting-Frontend/static/js/453.5330b36c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.32c949ee.css",
-    "static/js/main.85ac7f27.js"
+    "static/css/main.21e1c74c.css",
+    "static/js/main.6d2f4897.js"
   ]
 }
