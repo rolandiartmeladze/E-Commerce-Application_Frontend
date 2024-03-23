@@ -15,19 +15,19 @@ function Aside() {
     </div>
         <ul>
         <li>
-                სახელი:<samp>test user01</samp>
+                სახელი:<samp>___________</samp>
             </li>
             <li>
-                მისამართი:<samp>წალკა</samp>
+                მისამართი:<samp>_________</samp>
             </li>
             <li>
-                რაოდენობა:<samp>0 ₾.</samp>
+                რაოდენობა:<samp>_______</samp>
             </li>
             <li>
-                ფასი:<samp>1,4 ₾.</samp>
+                ფასი:<samp>_________</samp>
             </li>
             <li>
-                ღირებულება:<samp>150 ₾.</samp>
+                ღირებულება:<samp>___________</samp>
             </li>
         </ul>
 
