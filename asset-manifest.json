@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Journal-Accounting-Frontend/static/css/main.fab468be.css",
-    "main.js": "/Journal-Accounting-Frontend/static/js/main.a3cd2174.js",
+    "main.css": "/Journal-Accounting-Frontend/static/css/main.e4b047f4.css",
+    "main.js": "/Journal-Accounting-Frontend/static/js/main.27cb0574.js",
     "static/js/453.cf68f931.chunk.js": "/Journal-Accounting-Frontend/static/js/453.cf68f931.chunk.js",
     "static/media/Bg1.webp": "/Journal-Accounting-Frontend/static/media/Bg1.24fe620c2653a3703c39.webp",
     "index.html": "/Journal-Accounting-Frontend/index.html",
-    "main.fab468be.css.map": "/Journal-Accounting-Frontend/static/css/main.fab468be.css.map",
-    "main.a3cd2174.js.map": "/Journal-Accounting-Frontend/static/js/main.a3cd2174.js.map",
+    "main.e4b047f4.css.map": "/Journal-Accounting-Frontend/static/css/main.e4b047f4.css.map",
+    "main.27cb0574.js.map": "/Journal-Accounting-Frontend/static/js/main.27cb0574.js.map",
     "453.cf68f931.chunk.js.map": "/Journal-Accounting-Frontend/static/js/453.cf68f931.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fab468be.css",
-    "static/js/main.a3cd2174.js"
+    "static/css/main.e4b047f4.css",
+    "static/js/main.27cb0574.js"
   ]
 }
