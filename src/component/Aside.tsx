@@ -5,6 +5,8 @@ import  FindIcon from '../icon/find.png';
 
 import debounce from 'lodash.debounce'; 
 
+
+
 interface ProducteData {
     setUserData: React.Dispatch<React.SetStateAction<any[]>>
     userData: any[];
@@ -17,42 +19,58 @@ interface ProducteData {
 
 function Aside({ userData, setUserData }:ProducteData) {
 
-    const [findinput, setFindInput] = useState<string>('');
-    
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        setFindInput(newValue);
-    }
 
-    const debouncedFindRequest = debounce(async () => {
-        try {
-    
-            const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findinput}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-    
-            if (!usersResponse.ok) {
-                throw new Error('Failed to fetch users data');
-            }   
-            const finderesult = await usersResponse.json();
-            setUserData(finderesult);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
+const [findInput, setFindInput] = useState<string>('');
+const [loading, setLoading] = useState<boolean>(false);
+
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setFindInput(newValue);
+};
+
+const findRequest = async () => {
+    try {
+        setLoading(true); // Set loading state to true to indicate that a request is in progress
+
+        const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findInput}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
+        if (!usersResponse.ok) {
+            throw new Error('Failed to fetch users data');
         }
-    }, 1000);
-    
-        useEffect(() => {
 
-            if(findinput.length > 0){
-                      debouncedFindRequest(); 
+        const responseData = await usersResponse.json();
+        setUserData(responseData);
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+    } finally {
+        setLoading(false); // Set loading state to false when the request is complete
+    }
+};
+
+useEffect(() => {
+    let cancelRequest = false; // Flag to indicate if the request should be cancelled
+
+    if (findInput.length >= 1) {
+        const timeout = setTimeout(() => {
+            // Execute findRequest only if cancelRequest flag is false
+            if (!cancelRequest) {
+                findRequest();
             }
-    
-        }, [findinput]);
-    
+        }, 300); // Add a delay of 300 milliseconds before making the request
+
+        // Cleanup function to cancel the request if the component unmounts or the input value changes
+        return () => {
+            clearTimeout(timeout);
+            cancelRequest = true;
+        };
+    }
+}, [findInput]);
 
 
 
@@ -62,7 +80,7 @@ function Aside({ userData, setUserData }:ProducteData) {
 <div className='Aside'>
     <h1>User info </h1>
     <div className='Finde'>
-        <input id='FindProduct' onChange={handleChange} value={findinput}  type='text' placeholder='ძებნა' /> 
+        <input id='FindProduct' onChange={handleChange} value={findInput}  type='text' placeholder='ძებნა' /> 
         <samp><img src={FindIcon} alt='finde icon' /></samp>
     </div>
         <ul>
