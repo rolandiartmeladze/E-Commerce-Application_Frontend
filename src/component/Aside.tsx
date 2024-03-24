@@ -7,7 +7,7 @@ interface ProducteData {
   }
 
 
-  const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com/";
+  const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
 
 

@@ -9,7 +9,7 @@ import Aside from './component/Aside';
 function App(): JSX.Element{
   
   // const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
-  const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com/";
+  const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
   // const [userResponse, setUserData] = useState<any[]>([]);
   const [userData, setUserData] = useState<any[]>([]);
