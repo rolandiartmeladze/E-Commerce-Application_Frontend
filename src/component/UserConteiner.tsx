@@ -3,10 +3,10 @@ import '../style/UserConteiner.css';
 import styled from 'styled-components';
 
 
-import UserIcon from '../icon/user.png';
+import UserIcon from '../icon/addproperties.png';
 import AddIcon from '../icon/add.png';
-import CreatNewUser from './CreatNewUser';
-import ChangeAdvenceInfo from './ChangeAdvenceInfo';
+// import CreatNewUser from './CreatNewUser';
+// import ChangeAdvenceInfo from './ChangeAdvenceInfo';
 import Addnewuser from '../component/Addnewuser';
 
 interface UserContainerProps {
@@ -37,6 +37,9 @@ function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: Use
         if(updateAdvance){setUpdateAdvance(false)};
                 setProduct(prevProduct => !prevProduct); 
                 };
+
+
+                // const filtreddata = userData.filter((user) => user.Name === "Roland Artmeladze");
 
 return (
 <>

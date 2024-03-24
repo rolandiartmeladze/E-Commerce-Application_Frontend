@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "../style/ChangeAdvenceInfo.css";
+import "../style/AddProducte.css";
 
 import AddIcon from "../icon/add.png";
 import ArrowRigth from "../icon/arrow.png";
@@ -23,19 +24,33 @@ interface UserContainerProps {
 }
 
 
-const InputItem = styled.input`
-  margin-bottom: 4px;
-  padding: 6px;
-  padding-left: 10px;
-  background: none;
-  backdrop-filter: blur(0.8px);
-  box-shadow: -0.3px -0.6px 3px 0.3px red inset;
-  outline: none;
-  border: none;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  font-weight: 700;
-`;
+// const InputItem = styled.input`
+//   margin-bottom: 4px;
+//   padding: 5px;
+//   padding-left: 10px;
+//   background: none;
+//   backdrop-filter: blur(0.8px);
+//   box-shadow: -0.3px -0.6px 3px 0.3px red inset;
+//   outline: none;
+//   border: none;
+//   border-top-left-radius: 5px;
+//   border-bottom-left-radius: 5px;
+//   font-weight: 700;
+// `;
+
+// const Textarea = styled.textarea`
+//   margin-bottom: 4px;
+//   padding: 5px;
+//   padding-left: 10px;
+//   background: none;
+//   backdrop-filter: blur(0.8px);
+//   box-shadow: -0.3px -0.6px 3px 0.3px red inset;
+//   outline: none;
+//   border: none;
+//   border-top-left-radius: 5px;
+//   border-bottom-left-radius: 5px;
+//   font-weight: 700;
+// `;
 
 
 const Addnewuser: React.FC<UserContainerProps> = ({
@@ -48,7 +63,7 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   updateAdvance,
   setUpdateAdvance
 }) => {
-    const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
+            const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
 
   //ამოწმებს მონაცემების განახლებას მონაცემთა ბაზაში
   //აბრუნებს განახლებულ მონაცემებს
@@ -121,79 +136,20 @@ const Addnewuser: React.FC<UserContainerProps> = ({
     ) as HTMLSelectElement | null;
   
     if (advanceFormInputs && currencyElement && quantityElement) {
-      const inputsArray = Array.from(advanceFormInputs);
-      const selectedCurrency = currencyElement.value;
-      const selectedQuantity = quantityElement.value;
-      const AdvanceInfo: Record<string, any> = {};
 
-      if (!updateAdvance) {
-        AdvanceInfo.Currency = selectedCurrency;
-        AdvanceInfo.Quantityiunit = selectedQuantity;
-      } else {
-        if (!AdvanceInfo.more) {
-          AdvanceInfo.more = {};
-        }
-        AdvanceInfo.more.currency = selectedCurrency;
-        AdvanceInfo.more.quantity = selectedQuantity;
-        AdvanceInfo.more.selectcurrency = selectcurrency;
-        AdvanceInfo.more.selectquantity = selectquantity;
-      }
+        const inputsArray = Array.from(advanceFormInputs);
+        const selectedCurrency = currencyElement.value;
+        const selectedQuantity = quantityElement.value;
+        const AdvanceInfo: Record<string, any> = {};
 
-      inputsArray.forEach((item, index) => {
-        if (!updateAdvance) {
-          AdvanceInfo[basice[index]] = item.value;
-        } else {
-          if (!AdvanceInfo.basice) {
-            AdvanceInfo.basice = [];
-          } 
-          else if(item.type === 'file')
-          {AdvanceInfo.basice.push(item.accept);}
-          if(item.value.length >=0){
-            AdvanceInfo.basice.push(item.value);
-          }
-  
-        }
-      });
+          AdvanceInfo.Currency = selectedCurrency;
+          AdvanceInfo.Quantityiunit = selectedQuantity;
+              inputsArray.forEach((item, index) => {
+                  if(item.value.length >0){AdvanceInfo[item.placeholder] = item.value;}
+                  if(item.type === "file"){AdvanceInfo[item.accept] = item.value;}
+              });
 
       return AdvanceInfo;
-    }
-  };
-
-  //   აღნიშნული ფუნქცია დამუშავდება ისე რომ
-  //   შესაძლებელი იყოს მომხმარებლისთვის სასურველი
-  //   მონაცემების განახლება და ხელმისაწვდომი იყოს მისტვის
-  const updateadvance = async () => {
-    const advanceInfo = optimiseinfo();
-
-    console.log(advanceInfo);
-    setLoading(true);
-    try {
-      // if(advanceData){
-      // const advanceResponse = await fetch('http://localhost:80/checkAdvance', {
-      //     method: 'GET',
-      //     headers: {
-      //         'Content-Type': 'application/json'
-      //     },
-      // });
-      //       if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
-      //       const advanceData = await advanceResponse.json();
-      //       setAdvanceData(advanceData);
-      // }
-      // else{
-      // const response = await fetch('http://localhost:80/changeAdvance', {
-      //     method: 'POST',
-      //     headers: {
-      //         'Content-Type': 'application/json'
-      //     },
-      //     body: JSON.stringify(AdvanceInfo)
-      // });
-      // const data = await response.json();
-      // setResponse({ message: data.message });
-      // }
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -203,28 +159,24 @@ const Addnewuser: React.FC<UserContainerProps> = ({
   // შედეგი მომენტალურად აისახება გვერდზე
   // იყენებს POST მეთოდს მონაცემების ცასაწერად
   const addnewproduct = async () => {
-    const advanceInfo = optimiseinfo();
-    console.log(advanceInfo);
+    const NewProduct = optimiseinfo();
+    console.log(NewProduct);
     try {
       const response = await fetch(`${serverUrl}/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(advanceInfo),
+        body: JSON.stringify(NewProduct),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch advance data");
-      }
+      if (!response.ok) {throw new Error("Failed to fetch advance data");}
 
       const NewUser = await response.json();
-      setResponse(NewUser);
-      return <h1>new user is : {NewUser}</h1>;
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
-      fetchData();
-    }
+            setResponse(NewUser);
+    } catch (error) {console.error("Error:", error);} 
+      finally {
+        setLoading(false);
+        fetchData();
+      }
   };
 
   // განსაზრვრავს რომელი სექცია უნდა იყოს აქტიური
@@ -237,54 +189,59 @@ const Addnewuser: React.FC<UserContainerProps> = ({
       addProductF();
     }
   };
-  //  ეს კოდი ქმნის პროდუქტის დასამატებლად საჭირო მონაცემების შესაყვანად
-  // <input /> html ელემენტს, მონაცემთა ბაზაში წინასწარ განსაზღვრული მონაცემების მიხედვე.
-  // მომხმარებელს შეუძლია აღნიშნულ მონაცემებს დაამატოს მისთვის სასურველი ელემენტი
-  // განსაზღვრული ლოგიკის შესაბამისად და შედეგი შეინახოს მონაცემტა ბაზაში შემდგომი გამოყენებისთვის,
-  // ასევე წაშალოს ისინი საბაზისო მონაცემების გარდა.
-  //__1__
-  const CreatInput = () => {
-    const [inputValues, setInputValues] = useState<string[]>([]);
 
-    const setInputValue = (
-      e: React.ChangeEvent<HTMLInputElement>,
-      index: number
-    ) => {
-      const newValue = e.target.value;
-      setInputValues((prevValues) => {
-        const updatedValues = [...prevValues];
-        updatedValues[index] = newValue;
-        return updatedValues;
-      });
-    };
+        //  ეს კოდი ქმნის პროდუქტის დასამატებლად საჭირო მონაცემების შესაყვანად
+        // <input /> html ელემენტს, მონაცემთა ბაზაში წინასწარ განსაზღვრული მონაცემების მიხედვე.
+        // მომხმარებელს შეუძლია აღნიშნულ მონაცემებს დაამატოს მისთვის სასურველი ელემენტი
+        // განსაზღვრული ლოგიკის შესაბამისად და შედეგი შეინახოს მონაცემტა ბაზაში შემდგომი გამოყენებისთვის,
+        // ასევე წაშალოს ისინი საბაზისო მონაცემების გარდა.
+        //__1__
+        const CreatInput = () => {
 
-    return (
-      <>
-      <div  style={{borderRight: '1px solid green'}} className="elementinarticle">
+          const [inputValues, setInputValues] = useState<string[]>(['', '', '', '']);
 
-        {basice?.map((item, index) =>
-          updateAdvance ? (
-            <InputItem
-              key={index}
-              type="text"
-              disabled={updateAdvance}
-              value={item}
-            />
-          ) : (
-            <InputItem
-              key={index}
-              type="text"
-              placeholder={item}
-              value={inputValues[index] || ""}
-              onChange={(e) => setInputValue(e, index)}
-            />
-          )
-        )}
-              </div>
+            const setInputValue = ( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number ) => {
+                const newValue = e.target.value;
+                      setInputValues((prevValues) => {
+                        const updatedValues = [...prevValues];
+                              updatedValues[index] = newValue;
+                          return updatedValues;
+                      });
+            };
 
-      </>
-    );
-  };
+              return (
+                <>
+                  <div style={{ borderRight: "1px solid green" }}
+                    className="elementinarticle" >
+
+                        <input className="inputItem" type="text"
+                                    placeholder="Name"
+                                    value={inputValues[0] || ""}
+                                    onChange={(e) => setInputValue(e, 0)} />
+
+                        <input className="inputItem" type="text"
+                                    placeholder="Address"
+                                    value={inputValues[1] || ""}
+                                    onChange={(e) => setInputValue(e, 1)} />
+
+                        <input className="inputItem" type="number"
+                                    placeholder="Quantity"
+                                    value={inputValues[2] || ""}
+                                    onChange={(e) => setInputValue(e, 2)} />
+
+                        <input className="inputItem" type="number"
+                                    placeholder="Price"
+                                    value={inputValues[3] || ""}
+                                    onChange={(e) => setInputValue(e, 3)} />
+
+                        <textarea className="inputItem" placeholder="Description"
+                                  value={inputValues[4] || ""}
+                                  onChange={(e) => setInputValue(e, 4)} />
+
+                  </div>
+                </>
+              );
+        };
 
   // კოდის ეს ფრაგმენტი პასუხისმგებელია ძირითადი მონაცემების გარდა
   // მომხმარებლისთვის სასურველი სხვა მონაცემების
@@ -303,18 +260,40 @@ const Addnewuser: React.FC<UserContainerProps> = ({
     const addimageid = document.getElementById('addimageid');
 
     const handleAddInput = (type: string, value: string): void => {
-        setInputFields((prevInputFields) => {
-          let inputElement;
-      
-          if (type === 'file') {
-            inputElement = <InputItem disabled key={prevInputFields.length} accept={value} type={type} />;
-          } else {
-            inputElement = <InputItem disabled key={prevInputFields.length} value={value} type={type} />;
-          }
-      
-          return [...prevInputFields, inputElement];
-        });
-      };
+      setInputFields((prevInputFields) => {
+        let inputElement;
+
+        if (type === "file") {
+          inputElement = (
+            <input 
+              className="inputItem"
+              key={prevInputFields.length}
+              accept={value}
+              type={type}
+            />
+          );
+        } else if (value === "Comment") {
+          inputElement = (
+            <textarea
+              className="inputItem"
+              key={prevInputFields.length}
+              placeholder={value}
+            />
+          );
+        } else {
+          inputElement = (
+            <input
+              className="inputItem"
+              key={prevInputFields.length}
+              placeholder={value}
+              type={type}
+            />
+          );
+        }
+
+        return [...prevInputFields, inputElement];
+      });
+    };
       
 const handleItemClick = (type: string, value: string, itemId: string): void => {
   handleAddInput(type, value);
@@ -330,47 +309,49 @@ const handleItemClick = (type: string, value: string, itemId: string): void => {
 };
 
 return (
-      <>
+  <>
+    <div style={{ borderLeft: "1px solid green" }} className="elementinarticle">
+      {inputFields.map((input, index) => (
+        <div style={{ marginLeft: "10px" }} key={index}>
+          {input}
+        </div>
+      ))}
 
-<div style={{borderLeft: '1px solid green'}} className="elementinarticle">
-
-        {inputFields.map((input, index) => (
-
-          <div style={{marginLeft: '10px'}} key={index}>{input}</div>
-        ))}
-
-<div id="addimageid" onClick={() => handleItemClick('file','img', 'addimageid')} className="add-btn-conteiner">
+      <div id="addimageid"
+        onClick={() => handleItemClick("file", "img", "addimageid")}
+        className="add-btn-conteiner">
         <div className="addnewinputicon">
-            <img src={addimage} alt="add info" />
-          </div>
-            Add Image
-        </div>
+          <img src={addimage} alt="add info" />
+        </div>Add Image
+      </div>
 
-        
-<div id="addphoneid" onClick={() => handleItemClick('text', 'Phone', 'addphoneid')} className="add-btn-conteiner">
+      <div id="addphoneid"
+        onClick={() => handleItemClick("number", "Phone", "addphoneid")}
+        className="add-btn-conteiner">
         <div className="addnewinputicon">
-            <img src={addphone} alt="add info" />
-          </div>
-            Add Phone
-        </div>
-        
-        <div id="addemailid" onClick={() => handleItemClick('email', 'Emaile', 'addemailid')} className="add-btn-conteiner">
-        <div className="addnewinputicon">
-            <img src={addemail} alt="add info" />
-          </div>
-            Add Email
-        </div>
-        <div  id="addcommentid"  onClick={() => handleItemClick('text', 'Comment', 'addcommentid')} className="add-btn-conteiner">
-        <div className="addnewinputicon">
-            <img src={addcomment} alt="add info" />
-          </div>
-            Add Cmment
-        </div>
+          <img src={addphone} alt="add info" />
+        </div>Add Phone
+      </div>
 
+      <div id="addemailid"
+        onClick={() => handleItemClick("email", "Emaile", "addemailid")}
+        className="add-btn-conteiner">
+        <div className="addnewinputicon">
+          <img src={addemail} alt="add info" />
+        </div>Add Email
+      </div>
 
-        </div>
-      </>
-    );
+      <div id="addcommentid"
+        onClick={() => handleItemClick("text", "Comment", "addcommentid")}
+        className="add-btn-conteiner">
+        <div className="addnewinputicon">
+          <img src={addcomment} alt="add info" />
+        </div>Add Cmment
+      </div>
+      
+    </div>
+  </>
+);
   };
 
   //__3__
@@ -401,7 +382,6 @@ return (
       </>
     );
   };
-
   return (
     <>
       <div
@@ -460,40 +440,39 @@ return (
 
         <section
           className={
-            !updateAdvance && !product
+             !product
               ? "change-info-conteiner"
               : "change-info-conteiner-active change-info-conteiner"
           }
         >
           <article style={{ overflowY: "scroll", width: "60%", display: 'flex', flexDirection: 'column' }}>
-            <h1 style={{width:'100%'}}>{updateAdvance ? " Add Basice Info" : "Add product info"}</h1>
+            <h1 style={{width:'100%'}}>{"Add product info"}</h1>
 
-            <form id="advanceForm" className="advance-info-form">
-              {/* __1 */}
-              <CreatInput />
-
-              {/* __2 */}
-              {updateAdvance ? <AddNewInputs /> : null}
-            </form>
+              <form id="advanceForm" className="advance-info-form">
+                  {/* __1 */}
+                  <CreatInput />
+                       {/* __2 */}
+                      <AddNewInputs /> 
+              </form>
           </article>
 
-          <article style={{ width: "35%" }}>
-            <h1> Currency/Quantity </h1>
-            {/* __3 */}
-            <CreatSelection />
-          </article>
-        </section>
+              <article style={{ width: "35%" }}>
+                <h1> Currency/Quantity </h1>
+                {/* __3 */}
+                <CreatSelection />
+              </article>
+            </section>
 
+{product?
         <div
-          onClick={updateAdvance ? updateadvance : addnewproduct}
-          className="advance-info-btn-conteiner"
-          style={{ display: updateAdvance || product ? "flex" : "none" }}
-        >
+          onClick={addnewproduct}
+          className="advance-info-btn-conteiner" >
           <button disabled={loading} className="advance-info-btn">
-            {" "}
-            {updateAdvance ? "Change Advence" : "Add New Product"}
+            {"Add New Product"}
           </button>
         </div>
+        :
+        null}
       </div>
     </>
   );
