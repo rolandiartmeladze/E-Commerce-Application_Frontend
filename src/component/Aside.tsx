@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import '../style/Aside.css';
 import  FindIcon from '../icon/find.png';
+
+
+import debounce from 'lodash.debounce'; 
+
 interface ProducteData {
     setUserData: React.Dispatch<React.SetStateAction<any[]>>
     userData: any[];
@@ -14,7 +18,6 @@ interface ProducteData {
 function Aside({ userData, setUserData }:ProducteData) {
 
     const [findinput, setFindInput] = useState<string>('');
-    const [findresult, setFindResult] = useState<boolean>(false);
     
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,8 +25,7 @@ function Aside({ userData, setUserData }:ProducteData) {
         setFindInput(newValue);
     }
 
-    const finderequest = async () => {
-
+    const debouncedFindRequest = debounce(async () => {
         try {
     
             const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findinput}`, {
@@ -35,21 +37,18 @@ function Aside({ userData, setUserData }:ProducteData) {
     
             if (!usersResponse.ok) {
                 throw new Error('Failed to fetch users data');
-            } else {
-                setFindResult(false);
-            }    
+            }   
             const finderesult = await usersResponse.json();
             setUserData(finderesult);
-            setFindResult(true);
-
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
-    };
+    }, 1000);
     
         useEffect(() => {
-            if(findinput.length>=1){
-                finderequest();
+            
+            if(findinput.length >= 0){
+                      debouncedFindRequest(); 
             }
     
         }, [findinput]);
@@ -90,9 +89,6 @@ function Aside({ userData, setUserData }:ProducteData) {
 
 
 
-        <h3>
-            {findresult? 'არ მოიძებნა': 'ნახე შედეგი'}
-        </h3>
 </div>
 </>
         );
