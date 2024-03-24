@@ -16,9 +16,24 @@ interface UserContainerProps {
         userData: any[];
         // Adduser: any[];
         Adduser?: any;
+        loading: boolean;
+        setLoading: Function;
       }
 
-
+      const LoadConteiner = styled.div`
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(5.5px);
+      bottom: 0;
+      font-size: 200%;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+    `;
+    
 
 const AddUserHead = styled.div`
         flex-direction:  column;
@@ -28,7 +43,8 @@ const AddUserHead = styled.div`
 `;
 
 
-function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: UserContainerProps) {
+function UserConteiner({loading, setLoading, userData, setUserData, advanceData, setAdvanceData}: UserContainerProps) {
+
 
         const [product, setProduct] = useState(false);
         const [updateAdvance, setUpdateAdvance] = useState(false);
@@ -44,6 +60,9 @@ function UserConteiner({userData, setUserData, advanceData, setAdvanceData}: Use
 return (
 <>
 <div  className='userTable'>
+{loading ? 
+                <LoadConteiner> {"Loaging..."} </LoadConteiner>:null
+}
 
 
 <Addnewuser 

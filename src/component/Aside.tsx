@@ -5,25 +5,14 @@ import debounce from 'lodash.debounce';
 import styled from 'styled-components';
 
 
-const LoadConteiner = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(5.5px);
-  bottom: 0;
-  font-size: 200%;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-`;
 
 
 
 interface ProducteData {
     setUserData: React.Dispatch<React.SetStateAction<any[]>>
     userData: any[];
+    loading: boolean;
+    setLoading: Function;
   }
 
 
@@ -31,12 +20,11 @@ interface ProducteData {
 
 
 
-function Aside({ userData, setUserData }:ProducteData) {
+function Aside({ loading, setLoading, userData, setUserData }:ProducteData) {
 
 
 
 const [findInput, setFindInput] = useState<string>('');
-const [loading, setLoading] = useState<boolean>(false);
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -112,9 +100,6 @@ const findRequest = async () => {
 
 </div>
 
-{loading ? 
-                <LoadConteiner> {"Loaging..."} </LoadConteiner>:null
-}
 </>
         );
 }

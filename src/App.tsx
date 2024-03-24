@@ -10,6 +10,7 @@ function App(): JSX.Element{
   
   // const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
   const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+  const [loading, setLoading] = useState<boolean>(false);
 
   // const [userResponse, setUserData] = useState<any[]>([]);
   const [userData, setUserData] = useState<any[]>([]);
@@ -59,12 +60,17 @@ function App(): JSX.Element{
 <Aside 
     userData={userData} 
     setUserData={setUserData} 
+    loading={loading}
+    setLoading={setLoading}
 
 />
 
 
 
   <UserConteiner 
+      loading={loading}
+      setLoading={setLoading}
+  
     userData={userData} 
     setUserData={setUserData} 
     advanceData={advanceData}
