@@ -46,8 +46,8 @@ function Aside({ userData, setUserData }:ProducteData) {
     }, 1000);
     
         useEffect(() => {
-            
-            if(findinput.length >= 0){
+
+            if(findinput.length > 0){
                       debouncedFindRequest(); 
             }
     
