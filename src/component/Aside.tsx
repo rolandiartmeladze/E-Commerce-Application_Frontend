@@ -14,6 +14,8 @@ interface ProducteData {
 function Aside({ userData, setUserData }:ProducteData) {
 
     const [findinput, setFindInput] = useState<string>('');
+    const [findresult, setFindResult] = useState<boolean>(false);
+    
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
@@ -33,10 +35,13 @@ function Aside({ userData, setUserData }:ProducteData) {
     
             if (!usersResponse.ok) {
                 throw new Error('Failed to fetch users data');
-            }
-    
-            const usersData = await usersResponse.json();
-            setUserData(usersData);
+            } else {
+                setFindResult(false);
+            }    
+            const finderesult = await usersResponse.json();
+            setUserData(finderesult);
+            setFindResult(true);
+
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -82,6 +87,12 @@ function Aside({ userData, setUserData }:ProducteData) {
         <div className='Btn'>
             <button >ყიდვა</button>
         </div>
+
+
+
+        <h3>
+            {findresult? 'არ მოიძებნა': 'ნახე შედეგი'}
+        </h3>
 </div>
 </>
         );
