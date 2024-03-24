@@ -21,11 +21,10 @@ function Aside({ userData, setUserData }:ProducteData) {
     }
 
     const finderequest = async () => {
-        console.log(`finded ${findinput}`);
+
         try {
-            const findeValue = findinput; 
     
-            const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findeValue}`, {
+            const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findinput}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
