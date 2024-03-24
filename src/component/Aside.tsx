@@ -44,8 +44,9 @@ function Aside({ userData, setUserData }:ProducteData) {
     };
     
         useEffect(() => {
-
-            finderequest();
+            if(findinput.length>=1){
+                finderequest();
+            }
     
         }, [findinput]);
     
