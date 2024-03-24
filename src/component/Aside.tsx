@@ -44,8 +44,6 @@ function Aside({ userData, setUserData }:ProducteData) {
     };
     
         useEffect(() => {
-            const filteredUserData = userData.filter(user => user.Name.includes(findinput));
-            setUserData(filteredUserData);
 
             finderequest();
     

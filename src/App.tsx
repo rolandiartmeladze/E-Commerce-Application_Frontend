@@ -18,35 +18,35 @@ function App(): JSX.Element{
       // როდესაც ჩაიტვირთრბა app.js აგზავნის მოთხოვნას GET მონაცემთა ბაზაში 
       // ამოწმებს შედეგს და ანიჭებს მიღებულ მონაცემებს dataResponse ცვლადს
       // რაც აისახება რეალურ გარემოში
+      const fetchData = async () => {
+        try {
+
+          const usersResponse = await fetch(`${serverUrl}/checkProducts`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+            if (!usersResponse.ok) {throw new Error('Failed to fetch users data');}
+            const usersData = await usersResponse.json();
+            setUserData(usersData);
+      
+        const advanceResponse = await fetch(`${serverUrl}/checkAdvance`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+      });
+            if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
+            const advanceData = await advanceResponse.json();
+            setAdvanceData(advanceData[0]);
+
+      } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
 
           useEffect(() => {
-            const fetchData = async () => {
-              try {
-
-                const usersResponse = await fetch(`${serverUrl}/checkProducts`, {
-                  method: 'GET',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  },
-              });
-                  if (!usersResponse.ok) {throw new Error('Failed to fetch users data');}
-                  const usersData = await usersResponse.json();
-                  setUserData(usersData);
-            
-              const advanceResponse = await fetch(`${serverUrl}/checkAdvance`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-                  if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
-                  const advanceData = await advanceResponse.json();
-                  setAdvanceData(advanceData[0]);
-
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-              }
-            };
             fetchData();
           }, []); 
   
