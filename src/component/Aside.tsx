@@ -27,11 +27,17 @@ const [loading, setLoading] = useState<boolean>(false);
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setFindInput(newValue);
+
+            if(loading){
+                           findRequest();
+            }
+
 };
 
 const findRequest = async () => {
+
     try {
-        setLoading(true); // Set loading state to true to indicate that a request is in progress
+        setLoading(true); 
 
         const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findInput}`, {
             method: 'GET',
@@ -53,24 +59,6 @@ const findRequest = async () => {
     }
 };
 
-useEffect(() => {
-    let cancelRequest = false; // Flag to indicate if the request should be cancelled
-
-    if (findInput.length >= 1) {
-        const timeout = setTimeout(() => {
-            // Execute findRequest only if cancelRequest flag is false
-            if (!cancelRequest) {
-                findRequest();
-            }
-        }, 300); // Add a delay of 300 milliseconds before making the request
-
-        // Cleanup function to cancel the request if the component unmounts or the input value changes
-        return () => {
-            clearTimeout(timeout);
-            cancelRequest = true;
-        };
-    }
-}, [findInput]);
 
 
 
