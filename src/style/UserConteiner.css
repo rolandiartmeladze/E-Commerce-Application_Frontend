@@ -36,6 +36,7 @@
       justify-content: space-evenly;
       font-weight: 800;
       max-height: 80%;
+      position: relative;
     }
   
     .userHeaderline{

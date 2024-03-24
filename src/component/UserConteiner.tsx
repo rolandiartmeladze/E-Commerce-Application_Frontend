@@ -26,6 +26,7 @@ interface UserContainerProps {
       height: 100%;
       backdrop-filter: blur(5.5px);
       bottom: 0;
+      top: 55px;
       font-size: 200%;
       font-weight: 700;
       display: flex;
