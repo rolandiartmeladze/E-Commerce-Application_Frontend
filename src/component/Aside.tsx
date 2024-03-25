@@ -25,19 +25,15 @@ const [findInput, setFindInput] = useState<string>('');
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setFindInput(newValue);            
+    setFindInput(newValue);
+    findRequest(newValue); 
 };
 
-const findRequest = async () => {
-    
 
-
-
+const findRequest = async (inputValue: string) => {
     try {
-
-        setLoading(true); 
-
-        const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findInput}`, {
+        setLoading(true);
+        const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${inputValue}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -78,8 +74,9 @@ const findRequest = async () => {
     <h1>User info </h1>
     <div className='Finde'>
 
-        <input id='FindProduct' onChange={handleChange} value={findInput}  type='text' placeholder='ძებნა' /> 
-        <samp  onClick={findRequest}><img src={FindIcon} alt='finde icon' /></samp>
+<input id='FindProduct' onChange={handleChange} value={findInput} type='text' placeholder='ძებნა' /> 
+<samp onClick={() => findRequest(findInput)}><img src={FindIcon} alt='find icon' /></samp>
+
     </div>
         <ul>
         <li>
