@@ -31,7 +31,6 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 const findRequest = async () => {
     
 
-if(findInput.length > 0 ){
 
 
     try {
@@ -59,9 +58,6 @@ if(findInput.length > 0 ){
             // findRequest();
 
     }
-} else {
-alert('შეიყვანე საძიები სიტყვა')    
-}
 
    
 
