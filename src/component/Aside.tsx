@@ -26,7 +26,6 @@ const [findInput, setFindInput] = useState<string>('');
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setFindInput(newValue);
-    findRequest(newValue); 
 };
 
 
