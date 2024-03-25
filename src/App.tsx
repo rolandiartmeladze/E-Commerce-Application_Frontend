@@ -10,7 +10,12 @@ function App(): JSX.Element{
   
   // const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
   const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+
+
   const [loading, setLoading] = useState<boolean>(false);
+  const [findstatus, setFindStatus] = useState<boolean>(false);
+  const [notfound, setNotound] = useState<boolean>(false);
+  const [findInput, setFindInput] = useState<string>('');
 
   // const [userResponse, setUserData] = useState<any[]>([]);
   const [userData, setUserData] = useState<any[]>([]);
@@ -63,16 +68,31 @@ function App(): JSX.Element{
     setUserData={setUserData} 
     loading={loading}
     setLoading={setLoading}
+    findstatus={findstatus}
+    setFindStatus={setFindStatus}
+    notfound={notfound}
+    setNotound={setNotound}
+    findInput={findInput}
+    setFindInput={setFindInput}
 
 />
 
 
 
   <UserConteiner 
+      findInput={findInput}
+      setFindInput={setFindInput}
+  
       fetchData={fetchData}
       loading={loading}
       setLoading={setLoading}
-  
+
+      findstatus={findstatus}
+      setFindStatus={setFindStatus}
+
+      notfound={notfound}
+      setNotound={setNotound}
+
     userData={userData} 
     setUserData={setUserData} 
     advanceData={advanceData}
