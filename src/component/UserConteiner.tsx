@@ -18,6 +18,7 @@ interface UserContainerProps {
         Adduser?: any;
         loading: boolean;
         setLoading: Function;
+        fetchData: Function;
       }
 
       const LoadConteiner = styled.div`
@@ -31,8 +32,10 @@ interface UserContainerProps {
       font-weight: 700;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      flex-direction: column;
       z-index: 5;
+
     `;
     
 
@@ -44,26 +47,36 @@ const AddUserHead = styled.div`
 `;
 
 
-function UserConteiner({loading, setLoading, userData, setUserData, advanceData, setAdvanceData}: UserContainerProps) {
+function UserConteiner({fetchData, loading, setLoading, userData, setUserData, advanceData, setAdvanceData}: UserContainerProps) {
 
-
+        const [notFinde, setNotFinde] = useState<boolean>(false);
         const [product, setProduct] = useState(false);
         const [updateAdvance, setUpdateAdvance] = useState(false);
+
+
+        const closeBtn = () =>{
+
+        const findInput = document.getElementById('FindProduct') as HTMLInputElement;
+        if (findInput) {
+            findInput.value = '';
+            
+            setNotFinde(true)
+            fetchData();
+            
+        }        
+                }
 
         const addProductFunction = () => {
         if(updateAdvance){setUpdateAdvance(false)};
                 setProduct(prevProduct => !prevProduct); 
                 };
 
-
-                // const filtreddata = userData.filter((user) => user.Name === "Roland Artmeladze");
-
 return (
 <>
 <div  className='userTable'>
-{loading ? 
-                <LoadConteiner> {"Loaging..."} </LoadConteiner>:null
-}
+{loading ? <LoadConteiner> {"Loaging..."} </LoadConteiner>:null}
+
+{!notFinde? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closeBtn}>close</button></LoadConteiner> : null }
 
 
 <Addnewuser 

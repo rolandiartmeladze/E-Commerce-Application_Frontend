@@ -74,3 +74,20 @@ display: flex;
     margin-right: 10px;
     cursor: pointer;
 }
+
+
+@media only screen and (max-width: 1024px) {
+    .Aside{
+        width: 98%;
+        margin: auto;
+        margin-top: 15px;
+        height: auto;
+        min-height: auto;
+        float:none;
+        padding-bottom: 50px;
+    }
+    .Finde{
+        justify-content: flex-start;
+        padding-left: 8px;
+    }
+      }

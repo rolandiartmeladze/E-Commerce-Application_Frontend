@@ -30,6 +30,10 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 const findRequest = async () => {
     
+
+if(findInput.length > 0 ){
+
+
     try {
 
         setLoading(true); 
@@ -55,9 +59,19 @@ const findRequest = async () => {
             // findRequest();
 
     }
+} else {
+alert('შეიყვანე საძიები სიტყვა')    
+}
+
+   
+
 };
 
 
+
+
+
+       
 
 
 
@@ -67,24 +81,25 @@ const findRequest = async () => {
 <div className='Aside'>
     <h1>User info </h1>
     <div className='Finde'>
+
         <input id='FindProduct' onChange={handleChange} value={findInput}  type='text' placeholder='ძებნა' /> 
-        <samp  onClick={findInput.length > 0 ? findRequest : undefined}><img src={FindIcon} alt='finde icon' /></samp>
+        <samp  onClick={findRequest}><img src={FindIcon} alt='finde icon' /></samp>
     </div>
         <ul>
         <li>
-                სახელი:<samp>___________</samp>
+                სახელი:<samp>{'Name'}</samp>
             </li>
             <li>
-                მისამართი:<samp>_________</samp>
+                მისამართი:<samp>{'address'}</samp>
             </li>
             <li>
-                რაოდენობა:<samp>_______</samp>
+                რაოდენობა:<samp>{'Quantity'}</samp>
             </li>
             <li>
-                ფასი:<samp>_________</samp>
+                ფასი:<samp>{'Price'}</samp>
             </li>
             <li>
-                ღირებულება:<samp>____</samp>
+                ღირებულება:<samp>{'Total'}</samp>
             </li>
         </ul>
 

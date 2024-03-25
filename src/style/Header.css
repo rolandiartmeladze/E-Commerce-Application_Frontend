@@ -31,3 +31,29 @@
     box-shadow: -2px -1px 10px 2px rgba(255, 0, 234, 0.7) inset;
 
 }
+
+
+@media only screen and (max-width: 750px) {
+    .Meniu-Btn {
+        padding: 6px;
+        font-size: 26px;
+    font-weight: 900;
+    box-shadow: 1px 1px 3px 0.5px rgb(255, 25, 0 , 0.7) inset;
+    }
+    .Meniu-Btn:hover{
+        box-shadow: -1px -0.5px 5px 1px rgba(255, 0, 234, 0.7) inset;
+    
+    }
+
+    .Header h1{
+        margin: 0px;
+        text-align: left;
+        font-size: 120%;
+    }
+    .Header h2{
+        margin: 0px;
+        text-align: left;
+        font-size: 120%;
+    }
+    
+  }

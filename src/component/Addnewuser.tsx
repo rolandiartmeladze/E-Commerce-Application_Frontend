@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import "../style/ChangeAdvenceInfo.css";
 import "../style/AddProducte.css";
 
 import AddIcon from "../icon/add.png";
@@ -312,7 +311,7 @@ return (
   <>
     <div style={{ borderLeft: "1px solid green" }} className="elementinarticle">
       {inputFields.map((input, index) => (
-        <div style={{ marginLeft: "10px" }} key={index}>
+        <div className="additionalInputConteiner" key={index}>
           {input}
         </div>
       ))}

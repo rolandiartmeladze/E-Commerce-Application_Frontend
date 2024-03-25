@@ -20,6 +20,7 @@ function App(): JSX.Element{
       // ამოწმებს შედეგს და ანიჭებს მიღებულ მონაცემებს dataResponse ცვლადს
       // რაც აისახება რეალურ გარემოში
       const fetchData = async () => {
+        setLoading(true);
         try {
 
           const usersResponse = await fetch(`${serverUrl}/checkProducts`, {
@@ -41,7 +42,7 @@ function App(): JSX.Element{
             if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
             const advanceData = await advanceResponse.json();
             setAdvanceData(advanceData[0]);
-
+          setLoading(false)
       } catch (error) {
           console.error('Error fetching user data:', error);
         }
@@ -68,6 +69,7 @@ function App(): JSX.Element{
 
 
   <UserConteiner 
+      fetchData={fetchData}
       loading={loading}
       setLoading={setLoading}
   

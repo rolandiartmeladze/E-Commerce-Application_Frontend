@@ -113,3 +113,31 @@
     .userTotal samp h2{text-align: left; margin: 0; font-size: 100%;}
     .userTotal samp h2 samp{ color: green;}
   
+
+    @media only screen and (max-width: 1024px) {
+
+      .userTable{
+        margin: auto;
+        margin-top: 15px;
+        width: 98%;
+        float: none;
+      }
+
+    }
+    @media only screen and (max-width: 550px) {
+
+      .userConteinet {
+        width: 80%;
+        margin: 5px;
+            }
+
+    }
+    @media only screen and (max-width: 400px) {
+
+      .userConteinet {
+        width: 96%;
+        margin: 5px;
+            }
+
+    }
+
