@@ -28,35 +28,26 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFindInput(newValue);
 };
 
+// აგზავნის მოთხოვნას მითითებული საძიებო სიტყვის შესაბამისის შედეგის საჩვენებლად
+        const findRequest = async () => {
+            setLoading(true);
+                try {
+                        const FindInput = findInput;
+                        const findProduct = await fetch(`${serverUrl}/findProduct?FindInput=${FindInput}`, {
+                                method: 'GET',
+                                headers: {'Content-Type': 'application/json'},
+                        });
+                        if (!findProduct.ok) {throw new Error('Failed to fetch users data');}
+                        const findResult = await findProduct.json();
+                        setUserData(findResult);
 
-const findRequest = async () => {
-    try {
-        setLoading(true);
-        const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findInput}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
+                    } 
+                catch (error) {console.error( error);} 
+                finally {setLoading(false);}
 
-        if (!usersResponse.ok) {
-            throw new Error('Failed to fetch users data');
-        }
-
-        const responseData = await usersResponse.json();
-        setUserData(responseData);
         
-    } catch (error) {
-        console.error( error);
-    } finally {
-        setLoading(false); 
-            // findRequest();
 
-    }
-
-   
-
-};
+        };
 
 
 
@@ -74,7 +65,7 @@ const findRequest = async () => {
     <div className='Finde'>
 
 <input id='FindProduct' onChange={handleChange} value={findInput} type='text' placeholder='ძებნა' /> 
-<samp onClick={() => findRequest}><img src={FindIcon} alt='find icon' /></samp>
+<samp onClick={findRequest}><img src={FindIcon} alt='find icon' /></samp>
 
     </div>
         <ul>
