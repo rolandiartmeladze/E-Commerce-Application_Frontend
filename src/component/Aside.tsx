@@ -29,10 +29,10 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 };
 
 
-const findRequest = async (inputValue: string) => {
+const findRequest = async () => {
     try {
         setLoading(true);
-        const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${inputValue}`, {
+        const usersResponse = await fetch(`${serverUrl}/findProduct?findinput=${findInput}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ const findRequest = async (inputValue: string) => {
     <div className='Finde'>
 
 <input id='FindProduct' onChange={handleChange} value={findInput} type='text' placeholder='ძებნა' /> 
-<samp onClick={() => findRequest(findInput)}><img src={FindIcon} alt='find icon' /></samp>
+<samp onClick={() => findRequest}><img src={FindIcon} alt='find icon' /></samp>
 
     </div>
         <ul>
