@@ -30,6 +30,7 @@ textarea:focus{ box-shadow: -0.3px -0.2px 1px 0.3px rgba(0, 0, 0, 0.3) inset;}
         flex-direction: column;
         align-items: center;
         overflow: hidden;
+        position: relative;
       }
       
       .update-advanse-active{
@@ -54,6 +55,11 @@ textarea:focus{ box-shadow: -0.3px -0.2px 1px 0.3px rgba(0, 0, 0, 0.3) inset;}
         backdrop-filter: blur(2px);
         box-shadow: inset 1px 1px 500px 1px rgba(255, 0, 0, 0.4);
         transition: 0.3s ease-in-out;
+      }
+      .update-advanse-head h1 {
+        display: flex;
+        align-items: center;
+        margin-left: 15px;
       }
       
       .aarowRight{
@@ -83,7 +89,7 @@ textarea:focus{ box-shadow: -0.3px -0.2px 1px 0.3px rgba(0, 0, 0, 0.3) inset;}
         max-height:200px;
         box-shadow: 0.5px 0.5px 2px 0.3px black;
       }
-      
+
       .change-info-conteiner article::-webkit-scrollbar {width: 10px;}
       .change-info-conteiner article::-webkit-scrollbar-track {background: rgb(241, 241, 241, 0);}
       .change-info-conteiner article::-webkit-scrollbar-thumb {background: rgb(211, 48, 7, 0.4);}

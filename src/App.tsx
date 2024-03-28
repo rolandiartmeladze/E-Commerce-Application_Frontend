@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
-import UserConteiner from './component/UserConteiner';
+import ProductsConteiner from './component/ProductsConteiner/ProductsConteiner';
 import Aside from './component/Aside';
 
 
@@ -57,8 +57,6 @@ function App(): JSX.Element{
             fetchData();
           }, []); 
   
-          console.log(advanceData)
-
   return (
     <>
 
@@ -79,7 +77,7 @@ function App(): JSX.Element{
 
 
 
-  <UserConteiner 
+  <ProductsConteiner 
       findInput={findInput}
       setFindInput={setFindInput}
   
