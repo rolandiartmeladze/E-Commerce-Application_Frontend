@@ -24,6 +24,9 @@ interface UserContainerProps {
           product:boolean;
           setProduct:Function;
           fetchData:Function;
+          soldAmount:any;
+          setSoldAmount:Function;
+      
 }
 
 const AddNewProduct: React.FC<UserContainerProps> = ({
@@ -32,7 +35,10 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
       product,
       setProduct,
       setAdvanceData,
-      fetchData
+      fetchData,
+      soldAmount,
+      setSoldAmount
+  
       }) => {
 
             const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";

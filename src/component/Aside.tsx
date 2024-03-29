@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../style/Aside.css';
-import  FindIcon from '../icon/find.png';
+import FindeComponent from './FindeComponent';
+import { patch } from 'semver';
+// import  FindIcon from '../icon/find.png';
 
 
 interface ProducteData {
@@ -18,10 +20,21 @@ interface ProducteData {
 
                     findInput:string;
                     setFindInput: Function;
+
+                    isselected:boolean; 
+                    setIsSelected:Function;
+
+                    setSelectedUser:Function;
+                    selectedUser:any;
+                    
+                        soldAmount:number;
+                        setSoldAmount:Function;
+
+            
+            
   }
 
 
-  const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
 
 function Aside({ 
@@ -34,55 +47,72 @@ function Aside({
     notfound,
     setNotound,
     findInput,
-    setFindInput
+    setFindInput,
+    isselected, 
+    setIsSelected,
+    setSelectedUser,
+    selectedUser,
+    soldAmount,
+    setSoldAmount
+
 
 
 }:ProducteData) {
 
 
-        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const newValue = e.target.value;
-            setFindInput(newValue);
-        };
 
-            // აგზავნის მოთხოვნას მითითებული საძიებო სიტყვის შესაბამისის შედეგის საჩვენებლად
-            const findRequest = async () => {
 
-                if(findInput.length >0){
+    const Amount = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-                setLoading(true);
-                    try {
-                            const FindInput = findInput;
-                            const findProduct = await fetch(`${serverUrl}/findProduct?FindInput=${FindInput}`, {
-                                    method: 'GET',
-                                    headers: {'Content-Type': 'application/json'},
-                            });
-                            if (!findProduct.ok) {throw new Error('Failed to fetch users data');}
-                            const findResult = await findProduct.json();
-                            setUserData(findResult);
-                            if(findResult.length === 0){ setNotound(true); setFindStatus(false); }
-                            else{setNotound(false);}                  
+
+        const value = parseInt(event.target.value, 10);
+            const QuantityInput = document.getElementById('QuantityInput') as HTMLInputElement;
+
+        if (value > 0) {
+            if (value >= selectedUser.Quantity) { 
+                QuantityInput.value = selectedUser.Quantity;
+                QuantityInput.style.color = 'red';
+                setSoldAmount(selectedUser.Quantity);
+            } 
+                else {setSoldAmount(value);}    
+            }
+        else{QuantityInput.value = ''; setSoldAmount(0);}
+    };
+
+      const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+
+
+    // const SalePoduct = async ()  => {
+
+
+    // }
+
+
+    const sale = async () => {
+        if (soldAmount > 0) {
+            const productId = selectedUser._id;
+            const quantity = selectedUser.Quantity;
+            const newQuantity = quantity - soldAmount;
+
     
-                        } 
-                    catch (error) {console.error( error);} 
-                    finally { setLoading(false);  if(userData.length > 0){setFindStatus(true)} }
-                }
-                else{
+            try {
+                const response = await fetch(`http://localhost/SaleProduct/${productId}?newQuantity=${newQuantity}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                console.error(error);
+            }
 
-                    const input: HTMLInputElement | null = document.getElementById("FindProduct") as HTMLInputElement;
-                    if(input){
-                    input.style.borderColor = "red";
-                    input.placeholder = "Enter a search term";
-                    setTimeout(() => {
-                        input.style.borderColor = "black";
-                        input.placeholder = "search term";
+            console.log(productId)
+
+        }
+    };
     
-                    }, 500);
-                    }
-                    
-                }
-
-            };
 
     return (
             <>
@@ -91,27 +121,38 @@ function Aside({
                     
                     <h1>User info </h1>
 
-                    <div className='Finde'>
-                        <input id='FindProduct' 
-                            onChange={handleChange} 
-                            value={findInput} 
-                            type='text' 
-                            placeholder='search term'/> 
-                            <samp onClick={findRequest}>
-                                <img src={FindIcon} alt='find icon' />
-                            </samp>
-                    </div>
+
+
+<FindeComponent userData={userData} 
+    setUserData={setUserData} 
+    loading={loading}
+    setLoading={setLoading}
+    findstatus={findstatus}
+    setFindStatus={setFindStatus}
+    notfound={notfound}
+    setNotound={setNotound}
+    findInput={findInput}
+    setFindInput={setFindInput} />
 
                         <ul>
-                            <li>Name:<samp>{'Name'}</samp> </li>
-                            <li>Address:<samp>{'address'}</samp></li>
-                            <li>Quantity:<samp>{'Quantity'}</samp></li>
-                            <li>Price:<samp>{'Price'}</samp></li>
-                            <li>Total:<samp>{'Total'}</samp></li>
+                            <li>Name:<samp>{selectedUser?.Name}</samp> </li>
+                            <li>Address:<samp>{selectedUser?.Address}</samp></li>
+                            <li className='QuantityLi'>Quantity:<> <samp> {selectedUser?.Quantity} </samp></><samp style={{ width:'100%',marginLeft: '0px'}}>
+                                <input  
+                                id="QuantityInput" 
+                                className='QuantityInput' 
+                                disabled={!isselected} 
+                                placeholder='0' 
+                                type='number' 
+                                onChange={Amount} 
+                                />
+                                </samp></li>
+                            <li>Price:<samp>{selectedUser?.Price} {selectedUser?.Currency}</samp></li>
+                            <li>Total:<samp>{selectedUser?.Price * soldAmount} {selectedUser?.Currency}</samp></li>
                         </ul>
 
                         <div className='Btn'>
-                            <button>sale</button>
+                            <button onClick={sale}>sale</button>
                         </div>
 
                 </div>

@@ -23,7 +23,13 @@ interface UserContainerProps {
         notfound:boolean;
         setNotound: Function;
         findInput:string;
-        setFindInput: Function;    
+        setFindInput: Function; 
+        isselected:boolean; 
+        setIsSelected:Function;
+        setSelectedUser:Function;
+        selectedUser:any;
+        soldAmount:any;
+        setSoldAmount:Function;
 
       }
 
@@ -59,8 +65,14 @@ function ProductsConteiner({
         notfound,
         setNotound,
         findInput,
-        setFindInput
-    
+        setFindInput,
+        isselected, 
+        setIsSelected,
+        setSelectedUser,
+        selectedUser,
+        soldAmount,
+        setSoldAmount
+
   
   
 }: UserContainerProps) {
@@ -83,39 +95,23 @@ function ProductsConteiner({
                         }
 
 
-                        const [selectedUser, setSelectedUser] = useState(null);
+
 
                         const SelectProduct = async (UserID: string) => {
-                                console.log(UserID);
 
-                                try {
+                                const selectedProduct = userData.find((product) => product._id === UserID);
+                                // setSelectedUser(selectedProduct)
+                                        const QuantityInput = document.getElementById('QuantityInput') as HTMLInputElement;
 
-                                        const usersResponse = await fetch(`${serverUrl}/selected`, {
-                                          method: 'GET',
-                                          headers: {
-                                              'Content-Type': 'application/json'
-                                          },
-                                      });
-                                          if (!usersResponse.ok) {throw new Error('Failed to fetch users data');}
-                                          const usersData = await usersResponse.json();
-                                          setUserData(usersData);
-                                    
-                                      const advanceResponse = await fetch(`${serverUrl}/checkAdvance`, {
-                                        method: 'GET',
-                                        headers: {
-                                            'Content-Type': 'application/json'
-                                        },
-                                    });
-                                          if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
-                                          const advanceData = await advanceResponse.json();
-                                          setAdvanceData(advanceData[0]);
-                                        setLoading(false)
-                                    } catch (error) {
-                                        console.error('Error fetching user data:', error);
-                                      }
-                              
+                                console.log(selectedProduct)
+                                setIsSelected(true);
+                                if(QuantityInput){ setTimeout(() => {
+                                        QuantityInput?.focus(); 
+                                        QuantityInput.value = '1';
+                                        setSoldAmount(1);
+                                }, 300); }
+                                setSelectedUser(selectedProduct);
                                 
-
                             };                        
 
 return (
@@ -132,7 +128,10 @@ return (
                 addProductFunction={addProductFunction} 
                 setUserData={setUserData}  
                 advanceData={advanceData} 
-                setAdvanceData={setAdvanceData} />
+                setAdvanceData={setAdvanceData} 
+                soldAmount={soldAmount}
+                setSoldAmount={setSoldAmount}
+                />
 
         {findstatus? 
                 <div className='find-result-btn-coneiner'>

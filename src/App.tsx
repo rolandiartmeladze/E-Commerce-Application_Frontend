@@ -5,6 +5,14 @@ import Header from './component/Header';
 import ProductsConteiner from './component/ProductsConteiner/ProductsConteiner';
 import Aside from './component/Aside';
 
+interface User {
+  Name: string;
+  Address: string;
+  Price: number;
+  Currency:string;
+  Quantity: number;
+}
+
 
 function App(): JSX.Element{
   
@@ -20,6 +28,30 @@ function App(): JSX.Element{
   // const [userResponse, setUserData] = useState<any[]>([]);
   const [userData, setUserData] = useState<any[]>([]);
     const [advanceData, setAdvanceData] = useState<any[]>([]);
+
+    const [isselected, setIsSelected] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [soldAmount, setSoldAmount] = useState<number>(1);
+
+    const componentsprops = {
+          userData,
+          setUserData,
+          loading,
+          setLoading,
+          findstatus,
+          setFindStatus,
+          notfound,
+          setNotound,
+          findInput,
+          setFindInput,
+          isselected,
+          setIsSelected,
+          selectedUser,
+          setSelectedUser,   
+          soldAmount,
+          setSoldAmount
+      
+                            };
 
       // როდესაც ჩაიტვირთრბა app.js აგზავნის მოთხოვნას GET მონაცემთა ბაზაში 
       // ამოწმებს შედეგს და ანიჭებს მიღებულ მონაცემებს dataResponse ცვლადს
@@ -56,43 +88,18 @@ function App(): JSX.Element{
           useEffect(() => {
             fetchData();
           }, []); 
-  
   return (
     <>
 
 <Header />
-<Aside 
-    userData={userData} 
-    setUserData={setUserData} 
-    loading={loading}
-    setLoading={setLoading}
-    findstatus={findstatus}
-    setFindStatus={setFindStatus}
-    notfound={notfound}
-    setNotound={setNotound}
+<Aside {...componentsprops} />
+
+
+
+  <ProductsConteiner {...componentsprops}
     findInput={findInput}
     setFindInput={setFindInput}
-
-/>
-
-
-
-  <ProductsConteiner 
-      findInput={findInput}
-      setFindInput={setFindInput}
-  
-      fetchData={fetchData}
-      loading={loading}
-      setLoading={setLoading}
-
-      findstatus={findstatus}
-      setFindStatus={setFindStatus}
-
-      notfound={notfound}
-      setNotound={setNotound}
-
-    userData={userData} 
-    setUserData={setUserData} 
+    fetchData={fetchData}
     advanceData={advanceData}
     setAdvanceData={setAdvanceData}
   />

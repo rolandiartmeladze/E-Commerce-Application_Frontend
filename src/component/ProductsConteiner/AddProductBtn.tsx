@@ -8,6 +8,7 @@ import UserIcon from '../../icon/addproperties.png';
 interface addbtn{
     addProductFunction: React.MouseEventHandler<HTMLDivElement>;
     product:any;
+
 }
 
 const AddUserHead = styled.div`
@@ -19,7 +20,10 @@ const AddUserHead = styled.div`
 
 
 
-const AddProductBtn: React.FC<addbtn> = ({addProductFunction, product}) =>{
+const AddProductBtn: React.FC<addbtn> = ({
+    addProductFunction, 
+    product
+}) =>{
 
     return (
         <div onClick={addProductFunction} 
