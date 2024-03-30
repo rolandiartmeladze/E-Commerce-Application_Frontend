@@ -88,31 +88,86 @@ function Aside({
     // }
 
 
-    const sale = async () => {
-        if (soldAmount > 0) {
-            const productId = selectedUser._id;
-            const quantity = selectedUser.Quantity;
-            const newQuantity = quantity - soldAmount;
+    // const sale = async () => {
+    //     if (soldAmount > 0) {
+    //         const productId = selectedUser._id;
+    //         const quantity = selectedUser.Quantity;
+    //         const newQuantity = quantity - soldAmount;
 
     
-            try {
-                const response = await fetch(`http://localhost/SaleProduct/${productId}?newQuantity=${newQuantity}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                });
-                const data = await response.json();
-                console.log(data);
-            } catch (error) {
-                console.error(error);
-            }
+    //         try {
+    //             const response = await fetch(`http://localhost/SaleProduct/${productId}?newQuantity=${newQuantity}`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //             });
+    //             const data = await response.json();
+    //             console.log(data);
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
 
-            console.log(productId)
+    //         console.log(productId)
 
-        }
-    };
+    //     }
+    // };          
     
+    
+//     if (selectedUser !== null) {
+//     const productId = selectedUser._id;
+//     const quantity = selectedUser.Quantity;
+//     const newQuantity = quantity - soldAmount;
+
+//     // Call saleproduct function with productId and newQuantity
+//     saleproduct(productId, newQuantity);
+// } else {
+//     console.error('selectedUser is null');
+// }
+
+
+    const sale = () => {
+        const productId = selectedUser._id;
+        const quantity = selectedUser.Quantity;
+        const newQuantity = quantity - soldAmount;
+    
+        saleproduct(productId, newQuantity);
+
+    }
+            //     const productId = selectedUser._id;
+            // const quantity = selectedUser.Quantity;
+            // const newQuantity = quantity - soldAmount;
+
+                    async function saleproduct(productId:string, newQuantity:number) {
+                        try{
+
+                        
+                        const url =  `http://localhost:80/SaleProduct/${productId}?newQuantity=${newQuantity}`;
+                    
+                    
+                        const options = {
+                            method: 'PUT',
+                            headers: {'Content-Type': 'application/json'}
+                        }
+
+                        const response  = await fetch(url, options);
+                        if(response.ok){
+                            const data = await response.json();
+                            console.log('uprated:', data);
+                        } else{ 
+                            const errorMessage = await response.text();
+                            console.error('ont working' , errorMessage);
+                        }
+
+
+                    } catch (error){
+                        console.error('not working', error);
+                    }
+                }
+    
+
+    
+
 
     return (
             <>

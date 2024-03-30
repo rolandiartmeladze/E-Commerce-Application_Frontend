@@ -3,11 +3,17 @@ import './ProductsConteiner.css';
 import styled from 'styled-components';
 
 
-import UserIcon from '../../icon/addproperties.png';
+
 
 import AddNewProduct from '../CreatNewProduct/AddNewProduct';
 import Loaing from '../Loading';
 import AddProductBtn from './AddProductBtn';
+import testimg from '../../img/slide_9.jpg';
+import SingUp from '../UsersComponent/SingUp';
+import AllProductsConteiner from './AllProductConteiner';
+import MyProducts from './MyProducts';
+
+
 
 interface UserContainerProps {
         setUserData: Function;
@@ -30,7 +36,15 @@ interface UserContainerProps {
         selectedUser:any;
         soldAmount:any;
         setSoldAmount:Function;
-
+        singup:boolean; 
+        setSingUp:Function;
+        inUerMode:boolean;
+        setInUserMode:Function;
+        product:any[];
+        setProduct:Function;
+    
+    
+      
       }
 
       const LoadConteiner = styled.div`
@@ -51,7 +65,12 @@ interface UserContainerProps {
     
 
 
-
+    interface FormDataprops {
+        name: string;
+        email: string;
+        phone: string;
+        password: string;
+    }
 function ProductsConteiner({
         fetchData, 
         loading, 
@@ -71,20 +90,27 @@ function ProductsConteiner({
         setSelectedUser,
         selectedUser,
         soldAmount,
-        setSoldAmount
+        setSoldAmount,
+        singup, 
+        setSingUp,
+        inUerMode,
+        setInUserMode,
+    
+        product, 
+        setProduct
+    
 
   
   
 }: UserContainerProps) {
 
-        const [product, setProduct] = useState(false);
 
 
         const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
 
 
-        const addProductFunction = () => {setProduct(prevProduct => !prevProduct);};
+        const addProductFunction = () => {product? setProduct(false):setProduct(true)};
 
 
                 const closefinde = () => {
@@ -96,30 +122,24 @@ function ProductsConteiner({
 
 
 
+                            
 
-                        const SelectProduct = async (UserID: string) => {
 
-                                const selectedProduct = userData.find((product) => product._id === UserID);
-                                // setSelectedUser(selectedProduct)
-                                        const QuantityInput = document.getElementById('QuantityInput') as HTMLInputElement;
-
-                                console.log(selectedProduct)
-                                setIsSelected(true);
-                                if(QuantityInput){ setTimeout(() => {
-                                        QuantityInput?.focus(); 
-                                        QuantityInput.value = '1';
-                                        setSoldAmount(1);
-                                }, 300); }
-                                setSelectedUser(selectedProduct);
-                                
-                            };                        
+                            const usermode = () => {
+                                inUerMode? setInUserMode(false):setInUserMode(true)
+                            } 
+                            
 
 return (
 <>
+
+<button onClick={usermode}>{!inUerMode? 'myroom' : 'all users mode'}</button>
+
+{!singup?
 <div style={{position: 'relative'}}  className='userTable'>
 
-{notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
-{loading ? <Loaing />:null}
+{/* {notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
+{loading ? <Loaing />:null} */}
 
 
         <AddNewProduct fetchData={fetchData}
@@ -145,42 +165,37 @@ return (
                
               
                         
-        
-  
-<AddProductBtn  addProductFunction={addProductFunction} product={product} />
+                                <h1 className='products-header'> My Products</h1>
+                                
+                                <AddProductBtn  addProductFunction={addProductFunction} product={product} />
         
       
-      
-      { 
-      userData.map((item, index) => (
 
-        <div onClick={() => { SelectProduct(item._id) }}  key={item._id} className='userConteinet'>
+<MyProducts userData={userData} setUserData={setUserData} setIsSelected={setIsSelected}
+    setSoldAmount={setSoldAmount} setSelectedUser={setSelectedUser}     product={product} 
+    setProduct={setProduct}
 
-                <div className='userHeaderline'>
-                        <img src={UserIcon} alt='User Icon' />
-                        <samp>{item.Name} <h3>{item.Address}</h3></samp>
-                        <div className='headerMore'>...</div>
-                </div>
-        
-                        <div className='userInfoLine'>
-                                <samp><h1>რაოდენობა</h1> <h3>{item.Quantity} {item.Quantityiunit}</h3></samp>
-                                <samp><h1>ფასი</h1><h3> {item.Price}  {item.Currency}</h3></samp>
-                        </div>
-        
-                                <div className='userTotal'> 
-                                <samp>
-                                        <h2>ღირებულება: <samp>{(item.Quantity * item.Price).toFixed(1)} {item.Currency}</samp></h2>
-                                </samp>
-                                </div>
-
-        </div>
-                
-      ))
-
-      }
-
+/>
 
       </div>
+      : 
+      <SingUp />
+}
+
+
+
+{inUerMode?
+
+<>
+
+<AllProductsConteiner userData={userData} />
+
+</>
+
+:null
+}
+
+
 </>
         );
 }

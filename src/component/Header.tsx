@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';import logo from './logo.svg';
 import '../style/Header.css';
 
-function Header() {
 
+interface headerprops{
+  singup:boolean; 
+  setSingUp:Function;
+}
+
+
+const Header: React.FC<headerprops> = ({singup, setSingUp}) => {
+
+
+  const singupbtn = () =>{
+         !singup? setSingUp(true):setSingUp(false)
+  }
         const [today, setToday] = useState(new Date());
       
         useEffect(() => {
@@ -22,8 +33,8 @@ function Header() {
     <div className='Header'>
       <h2>{dayName}</h2>
       <h1>{day}/{month}/{year}</h1>
-      <div className='Meniu-Btn'>
-        Meniu
+      <div onClick={singupbtn} className='Meniu-Btn'>
+       {!singup? 'Sing Up' : 'Close'}
       </div>
     
       

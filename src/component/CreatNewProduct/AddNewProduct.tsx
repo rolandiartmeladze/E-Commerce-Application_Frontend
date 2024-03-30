@@ -21,11 +21,12 @@ interface UserContainerProps {
           advanceData: any;
           setUserData: Function;
           addProductFunction:any;
-          product:boolean;
+          // product:boolean;
           setProduct:Function;
           fetchData:Function;
           soldAmount:any;
           setSoldAmount:Function;
+          product:any[];
       
 }
 
@@ -97,7 +98,7 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                     setInputValues(['', '', '', '']);
             } 
               catch (error) {console.error("Error:", error);} 
-              finally { setNewUser(false); fetchData(); }
+              finally { setNewUser(false); fetchData(); advanceForm.reset(); }
   };
 
   return (
