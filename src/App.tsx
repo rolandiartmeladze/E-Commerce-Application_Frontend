@@ -32,7 +32,7 @@ function App(): JSX.Element{
     const [isselected, setIsSelected] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [soldAmount, setSoldAmount] = useState<number>(1);
-    const [singup, setSingUp] = useState(false);
+    const [singup, setSingUp] = useState(true);
 
     const [inUerMode, setInUserMode] = useState(true);
     const [product, setProduct] = useState<any>(false);
@@ -114,6 +114,8 @@ function App(): JSX.Element{
     product={product} 
     setProduct={setProduct}
   />
+
+
 
 
       </>

@@ -133,7 +133,7 @@ function ProductsConteiner({
 return (
 <>
 
-<button onClick={usermode}>{!inUerMode? 'myroom' : 'all users mode'}</button>
+{/* <button onClick={usermode}>{!inUerMode? 'myroom' : 'all users mode'}</button> */}
 
 {!singup?
 <div style={{position: 'relative'}}  className='userTable'>
@@ -165,8 +165,8 @@ return (
                
               
                         
-                                <h1 className='products-header'> My Products</h1>
-                                
+                                                            <h1 className='products-header'> My Products</h1>
+    
                                 <AddProductBtn  addProductFunction={addProductFunction} product={product} />
         
       

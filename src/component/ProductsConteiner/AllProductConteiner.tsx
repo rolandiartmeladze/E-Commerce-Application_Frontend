@@ -17,15 +17,14 @@ const AllProductsConteiner = ({ userData }:props) => {
 
 
     return(
-
-<>
+    
     <div className="all-product-conceiner-II">
     <h1 className="products-header"> All Products</h1>
 
         {userData.map((item) =>(
 
-    <>
-    <div className='userConteinet'>
+    
+    <div  key={item._id}  className='userConteinet'>
 
 {/* <div className='headerMore'>...</div> */}
 <div className='header-all-product-conteiner' >
@@ -117,15 +116,11 @@ const AllProductsConteiner = ({ userData }:props) => {
 
 </div>
 
-</>
+
 ))}
 
     </div>
-
-
-
-
-</>    );
+ );
 
 }
 
