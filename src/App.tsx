@@ -32,10 +32,13 @@ function App(): JSX.Element{
     const [isselected, setIsSelected] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [soldAmount, setSoldAmount] = useState<number>(1);
-    const [singup, setSingUp] = useState(true);
 
     const [inUerMode, setInUserMode] = useState(true);
     const [product, setProduct] = useState<any>(false);
+
+    const [singup, setSingUp] = useState(false);
+    const [login, setLogIn] = useState(false);
+
 
     const componentsprops = {
           userData,
@@ -96,7 +99,7 @@ function App(): JSX.Element{
   return (
     <>
 
-<Header singup={singup} setSingUp={setSingUp} />
+<Header singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} />
 <Aside {...componentsprops} />
 
 
@@ -113,6 +116,12 @@ function App(): JSX.Element{
     setSingUp={setSingUp}
     product={product} 
     setProduct={setProduct}
+
+
+    login={login}
+    setLogIn={setLogIn}
+
+
   />
 
 

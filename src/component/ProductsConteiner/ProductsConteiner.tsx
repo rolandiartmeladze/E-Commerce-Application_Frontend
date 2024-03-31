@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import './ProductsConteiner.css';
+import '../UsersComponent/SingUp.css';
 import styled from 'styled-components';
 
 
@@ -12,6 +14,7 @@ import testimg from '../../img/slide_9.jpg';
 import SingUp from '../UsersComponent/SingUp';
 import AllProductsConteiner from './AllProductConteiner';
 import MyProducts from './MyProducts';
+import Login from '../UsersComponent/LogIn';
 
 
 
@@ -43,7 +46,10 @@ interface UserContainerProps {
         product:any[];
         setProduct:Function;
     
+        login:boolean;
+        setLogIn:Function;
     
+
       
       }
 
@@ -97,7 +103,10 @@ function ProductsConteiner({
         setInUserMode,
     
         product, 
-        setProduct
+        setProduct,
+
+        login,
+        setLogIn
     
 
   
@@ -135,7 +144,7 @@ return (
 
 {/* <button onClick={usermode}>{!inUerMode? 'myroom' : 'all users mode'}</button> */}
 
-{!singup?
+{!singup && !login ?
 <div style={{position: 'relative'}}  className='userTable'>
 
 {/* {notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
@@ -179,7 +188,14 @@ return (
 
       </div>
       : 
-      <SingUp />
+
+      <div className="sing-up-conteiner">
+
+               {login? <Login singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn}/> :null}
+
+                {singup? <SingUp singup={singup} setSingUp={setSingUp} />  : null}
+      
+      </div>
 }
 
 

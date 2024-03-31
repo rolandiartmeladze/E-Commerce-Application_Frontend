@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import '../style/Header.css';
-
+ import userIcin from '../icon/user.png';
 
 interface headerprops{
   singup:boolean; 
   setSingUp:Function;
+  login:boolean;
+  setLogIn:Function;
 }
 
 
-const Header: React.FC<headerprops> = ({singup, setSingUp}) => {
+const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn}) => {
 
 
   const singupbtn = () =>{
-         !singup? setSingUp(true):setSingUp(false)
+         !singup? setSingUp(true):setSingUp(false);
   }
+  const loginbtn = () =>{
+    !login? setLogIn(true):setLogIn(false);
+}
+
         const [today, setToday] = useState(new Date());
       
         useEffect(() => {
@@ -33,9 +39,19 @@ const Header: React.FC<headerprops> = ({singup, setSingUp}) => {
     <div className='Header'>
       <h2>{dayName}</h2>
       <h1>{day}/{month}/{year}</h1>
-      <div onClick={singupbtn} className='Meniu-Btn'>
+
+{!login && !singup? <div  onClick={loginbtn} className='userBtn'>
+  <samp><img width={30} src={userIcin} alt='user icon' /></samp><samp>Login</samp>
+</div>
+: null }
+{/* <div  onClick={loginbtn} className='userBtn'>
+  <samp><img width={30} src={userIcin} alt='user icon' /></samp><samp>Login</samp>
+</div> */}
+
+      {/* <div onClick={singupbtn} className='Meniu-Btn'>
        {!singup? 'Sing Up' : 'Close'}
-      </div>
+
+      </div> */}
     
       
     </div>

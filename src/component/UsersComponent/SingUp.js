@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './SingUp.css';
 
-const SignUp = () => {
+const SignUp = ({ singup, setSingUp }) => {
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -31,7 +31,6 @@ const SignUp = () => {
             });
 
             if (response.ok) {
-                alert('created new user');
                 setTimeout(() => {
                     window.location.reload(); 
                 }, 2000);
@@ -50,11 +49,18 @@ const SignUp = () => {
         await registerUser();
     };
 
-    return (
-        <div className="sing-up-conteiner">
+    const closebtn = () =>{
+        setSingUp(false)
+    }
 
+    return (
+<>
             <h1 className="sing-up-header" >Sign Up Form</h1>
             <form className="sing-up-form">
+            <div style={{top:'-35px', right:'10px'}} onClick={closebtn} className="closeloginform">
+                {'Close'}
+            </div>
+
 
                 <div className="sing-up-input-conteiner">
                     <div className="sing-up-input-label" >User Name:</div>
@@ -94,7 +100,7 @@ const SignUp = () => {
 
             </form>
 
-        </div>
+        </>
     );
 };
 
