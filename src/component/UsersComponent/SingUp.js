@@ -3,7 +3,8 @@ import './SingUp.css';
 
 const SignUp = ({ singup, setSingUp }) => {
 
-    
+    const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ const SignUp = ({ singup, setSingUp }) => {
                 address: address
             };
 
-            const response = await fetch('${serverUrl}/register', {
+            const response = await fetch(`${serverUrl}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

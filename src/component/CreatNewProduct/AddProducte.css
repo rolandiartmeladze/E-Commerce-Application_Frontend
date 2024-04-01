@@ -118,7 +118,25 @@ textarea:focus{ box-shadow: -0.3px -0.2px 1px 0.3px rgba(0, 0, 0, 0.3) inset;}
           margin-left: 4px;
       }
     
-      .addnewinputicon img{width: 20px;}
+      #addimageid{
+        position: relative; 
+      width: 80%; 
+      margin:  auto; 
+      margin-top:  3px; 
+      justify-content:  center; 
+      box-shadow:  1px 1px 16px 2px inset black;
+      border-radius:  6px;
+      padding: 1px;
+      transition: 0.4s ease-in-out;
+      }
+
+      #addimageid:hover{
+        box-shadow:  1px 1px 10px 2px inset rgb(88, 38, 38);
+
+      }
+
+      .addnewinputicon img{width: 20px;       transition: 0.4s ease-in-out;
+      }
     
       .add-btn-conteiner:hover .addnewinputicon {box-shadow: 0.8px 0.8px 6px 0.5px red;}
     

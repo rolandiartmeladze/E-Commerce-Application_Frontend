@@ -144,9 +144,9 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
             } 
               catch (error) {console.error("Error:", error);} 
               finally { setNewUser(false); fetchData(); advanceForm.reset(); 
-                setTimeout(() => {
-                  window.location.reload(); 
-              }, 2000);
+              //   setTimeout(() => {
+              //     window.location.reload(); 
+              // }, 2000);
               }
   };
 
@@ -181,7 +181,8 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                 <h1 style={{width:'100%'}}>{"Add product info"}</h1>
                   <form id="advanceForm" className="advance-info-form">
                       {/* __1 */}<BasicInfo inputValues={inputValues} setInputValues={setInputValues} />
-                      {/* __2 */}<AdditionalInfo activeuser={activeuser} /> 
+                      {/* __2 */}<AdditionalInfo activeUser={activeuser} /> 
+
                   </form>
               </article>
 
