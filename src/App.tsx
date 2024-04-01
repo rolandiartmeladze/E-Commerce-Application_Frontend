@@ -94,7 +94,7 @@ function App(): JSX.Element{
 
 
 
-            const Activeuser = await fetch(`http://localhost:80/Activeuser`, {
+            const Activeuser = await fetch(`${serverUrl}/Activeuser`, {
               method: 'GET',
               headers: {
                   'Content-Type': 'application/json'

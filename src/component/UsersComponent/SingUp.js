@@ -24,7 +24,7 @@ const SignUp = ({ singup, setSingUp }) => {
                 address: address
             };
 
-            const response = await fetch('http://localhost:80/register', {
+            const response = await fetch('${serverUrl}/register', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
