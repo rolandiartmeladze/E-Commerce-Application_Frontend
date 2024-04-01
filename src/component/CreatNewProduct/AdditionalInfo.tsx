@@ -7,6 +7,9 @@ import addimage from "../../icon/addimage.png";
 import addemail from "../../icon/addmail.png";
 import addcomment from "../../icon/addcomment.png";
 
+interface props {
+  activeuser:any;
+}
 
   // კოდის ეს ფრაგმენტი პასუხისმგებელია ძირითადი მონაცემების გარდა
   // მომხმარებლისთვის სასურველი სხვა მონაცემების
@@ -15,7 +18,7 @@ import addcomment from "../../icon/addcomment.png";
   // აქტიურია ძირითადი მონაცემების შეცვლის სექცია  updateAdvance = True
   //__2__
 
-const AdditionalInfo = () =>  {
+const AdditionalInfo:React.FC<props> = ({activeuser}) =>  {
 
     const [inputFields, setInputFields] = useState<JSX.Element[]>([]);
 
@@ -23,6 +26,14 @@ const AdditionalInfo = () =>  {
     const addemailid = document.getElementById('addemailid');
     const addcommentid = document.getElementById('addcommentid');
     const addimageid = document.getElementById('addimageid');
+
+
+
+    const userphone: string = activeuser.phone;
+    const useremail: string = activeuser.email;
+    const useraddress: string = activeuser.address;
+    
+console.log(userphone)
 
     const handleAddInput = (type: string, value: string): void => {
         setInputFields((prevInputFields) => {
@@ -74,36 +85,51 @@ const AdditionalInfo = () =>  {
 
         return (
             <div style={{ borderLeft: "1px solid green" }} className="elementinarticle">
+              <>
+              <div className="additionalInputConteiner">
+                {userphone &&
+                  <input
+                    className="inputItem"
+                    value={userphone}
+                    placeholder="Phone"
+                    type="text" 
+                    
+                  />
+                 }
+              </div>
+
+              <div className="additionalInputConteiner">
+                {userphone &&
+                  <input
+                    className="inputItem"
+                    value={useremail}
+                    placeholder="Email"
+                    type="text"
+                    
+                  />
+                 }
+              </div>
+              <div className="additionalInputConteiner">
+                {userphone &&
+                  <input
+                    className="inputItem"
+                    value={useraddress}
+                    placeholder="Address"
+                    type="text"
+                    
+                  />
+                 }
+              </div>
+
+              </>
             {inputFields.map((input, index) => (
               <div className="additionalInputConteiner" key={index}>
+                
                 {input}
               </div>
             ))}
       
-            <div id="addimageid"
-              onClick={() => handleItemClick("file", "img", "addimageid")}
-              className="add-btn-conteiner">
-              <div className="addnewinputicon">
-                <img src={addimage} alt="add info" />
-              </div>Add Image
-            </div>
-      
-            <div id="addphoneid"
-              onClick={() => handleItemClick("number", "Phone", "addphoneid")}
-              className="add-btn-conteiner">
-              <div className="addnewinputicon">
-                <img src={addphone} alt="add info" />
-              </div>Add Phone
-            </div>
-      
-            <div id="addemailid"
-              onClick={() => handleItemClick("email", "Emaile", "addemailid")}
-              className="add-btn-conteiner">
-              <div className="addnewinputicon">
-                <img src={addemail} alt="add info" />
-              </div>Add Email
-            </div>
-      
+
             <div id="addcommentid"
               onClick={() => handleItemClick("text", "Comment", "addcommentid")}
               className="add-btn-conteiner">
@@ -111,7 +137,17 @@ const AdditionalInfo = () =>  {
                 <img src={addcomment} alt="add info" />
               </div>Add Cmment
             </div>
+
+
             
+            <div id="addimageid"
+              onClick={() => handleItemClick("file", "img", "addimageid")}
+              className="add-btn-conteiner">
+              <div className="addnewinputicon">
+                <img src={addimage} alt="add info" />
+              </div>Add Image
+            </div>
+
           </div>
               );
 

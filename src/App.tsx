@@ -40,6 +40,10 @@ function App(): JSX.Element{
     const [login, setLogIn] = useState(false);
 
 
+    const [activeuser,setActiveUser] = useState({});
+
+    
+
     const componentsprops = {
           userData,
           setUserData,
@@ -87,6 +91,21 @@ function App(): JSX.Element{
             if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
             const advanceData = await advanceResponse.json();
             setAdvanceData(advanceData[0]);
+
+
+
+            const Activeuser = await fetch(`http://localhost:80/Activeuser`, {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+          });
+                if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
+                const Activeuserresponse = await Activeuser.json();
+                setActiveUser(Activeuserresponse);
+                console.log(activeuser);
+    
+
           setLoading(false)
       } catch (error) {
           console.error('Error fetching user data:', error);
@@ -121,6 +140,8 @@ function App(): JSX.Element{
     login={login}
     setLogIn={setLogIn}
 
+    activeuser={activeuser}
+    setActiveUser={setActiveUser}
 
   />
 

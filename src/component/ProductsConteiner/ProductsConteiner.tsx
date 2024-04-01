@@ -49,7 +49,9 @@ interface UserContainerProps {
         login:boolean;
         setLogIn:Function;
     
-
+        activeuser:object
+        setActiveUser:Function;
+    
       
       }
 
@@ -106,10 +108,12 @@ function ProductsConteiner({
         setProduct,
 
         login,
-        setLogIn
+        setLogIn,
     
 
-  
+        activeuser,
+        setActiveUser
+    
   
 }: UserContainerProps) {
 
@@ -160,6 +164,9 @@ return (
                 setAdvanceData={setAdvanceData} 
                 soldAmount={soldAmount}
                 setSoldAmount={setSoldAmount}
+                activeuser={activeuser}
+                setActiveUser={setActiveUser}
+            
                 />
 
         {findstatus? 

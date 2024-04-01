@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import './SingUp.css';
 
 const SignUp = ({ singup, setSingUp }) => {
+
+    
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -45,7 +47,7 @@ const SignUp = ({ singup, setSingUp }) => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent form submission from reloading the page
+        e.preventDefault(); 
         await registerUser();
     };
 

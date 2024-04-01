@@ -27,8 +27,26 @@ interface UserContainerProps {
           soldAmount:any;
           setSoldAmount:Function;
           product:any[];
+
+          activeuser:object;
+          setActiveUser:Function;
+      
       
 }
+
+interface AdvanceInfo {
+  [key: string]: string | any[]; // You may need to adjust the type accordingly
+  // Define other properties as needed
+  imgObjects: { [key: string]: string }[]; // Array of objects with string keys and values
+}
+
+interface InputItem {
+  type: string;
+  value: string;
+  placeholder: string;
+  accept?: string;
+}
+
 
 const AddNewProduct: React.FC<UserContainerProps> = ({
       setUserData,
@@ -38,7 +56,11 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
       setAdvanceData,
       fetchData,
       soldAmount,
-      setSoldAmount
+      setSoldAmount,
+
+      activeuser,
+      setActiveUser
+  
   
       }) => {
 
@@ -69,12 +91,22 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
           AdvanceInfo.Currency = selectedCurrency;
           AdvanceInfo.Quantityiunit = selectedQuantity;
-              inputsArray.forEach((item, index) => {
-                  if(item.value.length >0){AdvanceInfo[item.placeholder] = item.value;}
-                  if(item.type === "file"){AdvanceInfo[item.accept] = item.value;}
-              });
 
-      return AdvanceInfo;
+            const img: { [key: string]: string }[] = []; 
+            let fileIndex = 0;
+
+                inputsArray.forEach((item: InputItem, index: number) => {
+                    if (item.value.length > 0) { AdvanceInfo[item.placeholder] = item.value; }
+                
+                    if (item.type === "file" && item.accept) {
+                        img.push({ [`${item.accept}${fileIndex}`]: item.value });
+                        fileIndex++;
+                    }
+                });
+            
+          AdvanceInfo.img = img;
+                    
+          return AdvanceInfo;
     }
   };
 
@@ -84,22 +116,42 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
   // შედეგი მომენტალურად აისახება გვერდზე
   // იყენებს POST მეთოდს მონაცემების ცასაწერად
   const addnewproduct = async () => {
-    const NewProduct = optimiseinfo();
+
+    console.log(activeuser);
+    const productData ={
+      ...optimiseinfo(),
+      owner: "roland artmeladze",
+      view: 0,
+      location: "",
+      sale: 0
+    }; 
+
+    console.log(productData);
       setNewUser(true);
         try {
-            const response = await fetch(`${serverUrl}/create`, {
+            const response = await fetch(`http://localhost:80/createProduct`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(NewProduct),
+              body: JSON.stringify(productData),
             });
               if (!response.ok) {throw new Error("Failed to fetch advance data");}
                   const NewUser = await response.json();
                     setResponse(NewUser);
                     setInputValues(['', '', '', '']);
+                    
+                      
+        
             } 
               catch (error) {console.error("Error:", error);} 
-              finally { setNewUser(false); fetchData(); advanceForm.reset(); }
+              finally { setNewUser(false); fetchData(); advanceForm.reset(); 
+              //   setTimeout(() => {
+              //     window.location.reload(); 
+              // }, 2000);
+              }
   };
+
+
+      
 
   return (
     <>
@@ -129,7 +181,7 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                 <h1 style={{width:'100%'}}>{"Add product info"}</h1>
                   <form id="advanceForm" className="advance-info-form">
                       {/* __1 */}<BasicInfo inputValues={inputValues} setInputValues={setInputValues} />
-                      {/* __2 */}<AdditionalInfo /> 
+                      {/* __2 */}<AdditionalInfo activeuser={activeuser} /> 
                   </form>
               </article>
 
