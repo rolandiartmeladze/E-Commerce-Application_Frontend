@@ -28,7 +28,7 @@ interface UserContainerProps {
           setSoldAmount:Function;
           product:any[];
 
-          activeuser:object;
+          activeuser:any;
           setActiveUser:Function;
       
       
@@ -46,6 +46,9 @@ interface InputItem {
   placeholder: string;
   accept?: string;
 }
+
+ 
+
 
 
 const AddNewProduct: React.FC<UserContainerProps> = ({
@@ -89,8 +92,8 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
         const selectedQuantity = quantityElement.value;
         const AdvanceInfo: Record<string, any> = {};
 
-          AdvanceInfo.Currency = selectedCurrency;
-          AdvanceInfo.Quantityiunit = selectedQuantity;
+          AdvanceInfo.currency = selectedCurrency;
+          AdvanceInfo.quantityiunit = selectedQuantity;
 
             const img: { [key: string]: string }[] = []; 
             let fileIndex = 0;
@@ -118,18 +121,19 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
   const addnewproduct = async () => {
 
     console.log(activeuser);
+    const productowner = `${activeuser.name} ${activeuser.lastname}`;
     const productData ={
       ...optimiseinfo(),
-      owner: "roland artmeladze",
+      owner: productowner,
       view: 0,
-      location: "",
+      location: activeuser.address,
       sale: 0
     }; 
 
     console.log(productData);
       setNewUser(true);
         try {
-            const response = await fetch(`${serverUrl}/createProduct`, {
+            const response = await fetch(`http://localhost:80/createProduct`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(productData),

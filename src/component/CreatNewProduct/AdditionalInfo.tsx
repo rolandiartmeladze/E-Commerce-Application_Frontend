@@ -46,15 +46,15 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
   return (
     <div id='inputsconteiner' style={{ borderLeft: "1px solid green", position:'relative'}} className="elementinarticle">
       <div className="additionalInputConteiner">
-        <input className="inputItem" value={activeUser.phone} placeholder="Phone" type="text" disabled />
+        <input className="inputItem" value={activeUser.phone} placeholder="phone" type="text" disabled />
       </div>
 
       <div className="additionalInputConteiner">
-        <input className="inputItem" value={activeUser.email} placeholder="Email" type="text" disabled />
+        <input className="inputItem" value={activeUser.email} placeholder="email" type="text" disabled />
       </div>
 
       <div className="additionalInputConteiner">
-        <input className="inputItem" value={activeUser.address} placeholder="Address" type="text" disabled />
+        <input className="inputItem" value={activeUser.address} placeholder="location" type="text" disabled />
       </div>
 
       {inputFields.map((input, index) => (

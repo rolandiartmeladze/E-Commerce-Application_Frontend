@@ -30,26 +30,26 @@ const BasicInfo: React.FC<inputsvalue> = ({inputValues, setInputValues}) => {
         className="elementinarticle" >
 
             <input className="inputItem" type="text"
-                        placeholder="Name"
+                        placeholder="name"
                         value={inputValues[0] || ""}
                         onChange={(e) => setInputValue(e, 0)} />
 
             <input className="inputItem" type="text"
-                        placeholder="Address"
+                        placeholder="address"
                         value={inputValues[1] || ""}
                         onChange={(e) => setInputValue(e, 1)} />
 
             <input className="inputItem" type="number"
-                        placeholder="Quantity"
+                        placeholder="quantity"
                         value={inputValues[2] || ""}
                         onChange={(e) => setInputValue(e, 2)} />
 
             <input className="inputItem" type="number"
-                        placeholder="Price"
+                        placeholder="price"
                         value={inputValues[3] || ""}
                         onChange={(e) => setInputValue(e, 3)} />
 
-            <textarea className="inputItem" placeholder="Description"
+            <textarea className="inputItem" placeholder="description"
                       value={inputValues[4] || ""}
                       onChange={(e) => setInputValue(e, 4)} />
 
