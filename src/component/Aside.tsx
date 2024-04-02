@@ -174,7 +174,7 @@ function Aside({
 
                 <div className='Aside'>
                     
-                    <h1>User info </h1>
+                    <h1>Product info </h1>
 
 
 

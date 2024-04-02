@@ -130,17 +130,22 @@ color: red;
     
     }
 
-    .Header h1{
-        margin: 0px;
-        text-align: left;
-        font-size: 120%;
+    .userinhear h2{
+            font-size: 80%;
     }
-    .Header h2{
-        margin: 0px;
-        text-align: left;
-        font-size: 120%;
+
+        .userinhear h4{
+            font-size: 80%;
+    }
+
+    .user-icon{
+        width: 30px;
+    
     }
     
+    .userBtn {
+        right: 10px;
+    }
   }
 
 

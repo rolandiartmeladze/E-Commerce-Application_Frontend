@@ -100,3 +100,39 @@
         box-shadow: 0px 0.4px 1.4px 0.5px  red inset;
 
     }
+
+    @media only screen and (max-width: 750px) {
+
+        .sing-up-form {
+            border-radius: 12px
+            
+        }
+    .sing-up-form{
+    
+        width: 90%;
+        margin: auto;
+    
+    }
+    .sing-up-conteiner{
+    width: 100%;
+    margin: auto;        
+    margin-top: 20px;
+
+    font-size: 70%;
+    }
+
+    .sing-up-input-conteiner{
+        width: 90%;
+        overflow: hidden;
+        
+    }
+
+    .sing-up-btn-conteiner {
+        margin-bottom: 12px;
+    }
+
+    .sing-up-input-conteiner input {
+        padding: 4px  0px;
+    }
+
+}
