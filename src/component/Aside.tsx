@@ -190,9 +190,9 @@ function Aside({
     setFindInput={setFindInput} />
 
                         <ul>
-                            <li>Name:<samp>{selectedUser?.Name}</samp> </li>
-                            <li>Address:<samp>{selectedUser?.Address}</samp></li>
-                            <li className='QuantityLi'>Quantity:<> <samp> {selectedUser?.Quantity} </samp></><samp style={{ width:'100%',marginLeft: '0px'}}>
+                            <li>Name:<samp>{selectedUser?.name}</samp> </li>
+                            <li>Address:<samp>{selectedUser?.address}</samp></li>
+                            <li className='QuantityLi'>quantity:<> <samp> {selectedUser?.quantity} </samp></><samp style={{ width:'100%',marginLeft: '0px'}}>
                                 <input  
                                 id="QuantityInput" 
                                 className='QuantityInput' 
@@ -202,8 +202,8 @@ function Aside({
                                 onChange={Amount} 
                                 />
                                 </samp></li>
-                            <li>Price:<samp>{selectedUser?.Price} {selectedUser?.Currency}</samp></li>
-                            <li>Total:<samp>{selectedUser?.Price * soldAmount} {selectedUser?.Currency}</samp></li>
+                            <li>Price:<samp>{selectedUser?.price} {selectedUser?.currency}</samp></li>
+                            <li>Total:<samp>{selectedUser?.price * soldAmount} {selectedUser?.currency}</samp></li>
                         </ul>
 
                         <div className='Btn'>

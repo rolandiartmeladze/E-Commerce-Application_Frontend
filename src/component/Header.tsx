@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../style/Header.css';
  import userIcin from '../icon/user.png';
+ import locIcon from '../icon/loc1.png';
 
 interface headerprops{
   singup:boolean; 
@@ -37,8 +38,22 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn}) => 
 
     return (
     <div className='Header'>
-      <h2>{dayName}</h2>
-      <h1>{day}/{month}/{year}</h1>
+
+      <>
+      <div className='userinhear'>
+        <img className='user-icon' src={userIcin} alt='User Icon' />
+        <div style={{display: 'flex', flexDirection:'column', alignItems:'flex-start'}}>
+          <h2>Roland Artmeladze</h2>
+          <h4>Georgia, Tsalka, Tbeti</h4>
+
+
+      {/* <samp className='data-day'>{dayName}</samp>
+      <samp className='day-all'>{day}/{month}/{year}</samp> */}
+ </div>
+
+      </div>
+      </>
+
 
 {!login && !singup? <div  onClick={loginbtn} className='userBtn'>
   <samp><img width={30} src={userIcin} alt='user icon' /></samp><samp>Login</samp>

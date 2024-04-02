@@ -9,6 +9,7 @@
     box-shadow: 2px 2px 6px 0.5px rgb(0, 0, 0 , 0.8);
     backdrop-filter: blur(2px);
     position: relative;
+    min-height: 100px;
 
 }
 
@@ -64,7 +65,59 @@
 }
 
 
+.userinhear{
+    /* background-color: rgb(148, 77, 77, 0.3); */
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: flex-start; */
+    align-items: flex-start;
+    padding: 4px;
+    flex-wrap: wrap;
+}
 
+.user-icon{
+    margin-right: 6px;
+    border-radius: 6px;
+    padding: 0px;
+    /* box-shadow: 0.3px 0.3px 2px 0.2px black inset; */
+    width: 45px;
+
+}
+
+.userinhear h2{
+    margin: 0px;
+    /* background-color: blueviolet; */
+    position: relative;
+    display:inline;
+
+}
+.userinhear h4{
+margin: 0px;
+margin-left: 3px;
+clear: left;
+color: red;
+}
+
+.data{
+    position: absolute;
+    left: 50px;
+    bottom: 8px;
+}
+
+.data-day{
+   font-size: 14px;
+    margin-top: 5px;
+    font-weight: 900;
+    margin-left: 5px;
+}
+
+.day-all{
+    font-size: 16px;
+    font-weight: 900;
+    margin-left: 5px;
+
+}
 @media only screen and (max-width: 750px) {
     .Meniu-Btn {
         padding: 6px;

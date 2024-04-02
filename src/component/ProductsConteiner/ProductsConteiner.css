@@ -40,12 +40,13 @@
     .userHeaderline{
       display: flex;
       width: 100%;
-      background-color: rgb(169, 169, 169 , 0.2);
+      background-color: rgb(169, 169, 169 , 0.8);
       box-shadow: 1px 2px 10px 0.5px black;
       align-items: center;
       font-size: 90%;
       position: relative;
-      background-image: url('../../img/slide_9.jpg');
+
+      background-image: url('../../img/productCover.jpg');
       background-size: cover;
     }
   
@@ -74,12 +75,14 @@
       display: flex;
       justify-content: space-around
     }
-    .userInfoLine samp {
+    .uroduct-header-info {
       display: flex;
       justify-content: space-around;
       flex-direction: column;
       align-items: flex-start;
         }
+
+
         .userInfoLine samp h1 {
                       margin: 0; 
                       font-size: 100%;         
@@ -198,48 +201,53 @@ box-shadow: 0px 0.3px 1px 0.5px rgb(0, 0, 0, 0.2);
     padding: 10px;
 }
 
-.userHeaderline samp {
+.uroduct-header-info {
   position: absolute;
-  bottom: 5px;
-  left: 8px;
-  width: calc(95% - 16px); 
+  bottom: 0px;
+  /* left: 8px; */
+  width: 100%; 
   text-align: left;
   font-weight: 600;
   margin: 0;
-  padding: 5px;
-  padding-top: 0;
-  backdrop-filter: blur(2px); /* Adjusted blur value */
-  border-radius: 5px;
+  /* padding: 5px;
+  padding-top: 0; */
+  /* backdrop-filter: blur(1px);  */
+  /* border-radius: 5px; */
   box-shadow: 3px 2px 6px 0.5px black;
   font-size: 115%;
   color: white; 
-  line-height: 1.5; /* Improved readability */
+  line-height: 1.5; 
+  padding-bottom: 3px;
+  
 }
 
-.userHeaderline samp span {
-  /* background-color: yellow;  */
-  /* box-shadow: 0.5px 0.3px 1px 0.5px yellow inset;
-  background-color: gray; */
+.product-name {
+  border: 0.1px rgb(255, 0, 0) solid;
 
   border-bottom: 0.3px yellow solid;
-  border-radius: 5px;
-  padding: 2px 5px;
-  color: rgb(255, 255, 255);
-  font-weight: 900;
+    backdrop-filter: blur(5px); 
+
+  padding: 0px 5px;
+  margin-left: 8px;
+  color: rgb(136, 255, 0);
+  font-weight: 600;
   transition: 0.3s ease-in-out;
-  box-shadow: 3px 2px 25px 0.5px rgb(0, 0, 0, 0.2) inset;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  top:0;
-
-
+  box-shadow: 5px 5px 250px 0.5px rgb(0, 0, 0, 0.3) inset;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
-.userHeaderline samp span:hover {
+.product-name:hover {
   border-bottom: 0.3px rgb(40, 0, 216) solid;
 }
 
+.product-addres{
+  padding: 0px 0px;
+  margin-left: 10px;
+  /* border-bottom: 0.3px rgb(255, 0, 0) solid; */
+  color: rgb(229, 255, 0);
 
+}
 
 
 
@@ -272,7 +280,10 @@ box-shadow: 0px 0.3px 1px 0.5px rgb(0, 0, 0, 0.2);
 .userInfoLine{
   /* background-color: red; */
   width: 100%;
-  margin: 0;
+  margin-top: 16px;
+  box-shadow: 0.5px 03px 3px 0.5px black;
+  background-color: rgb(255, 235, 205, 0.3);
+  padding-bottom: 6px;
 }
 .userConteinet{
 border-radius: 8px;

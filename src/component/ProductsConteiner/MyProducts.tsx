@@ -46,10 +46,11 @@ const MyProducts: React.FC<Props> = ({
               <div onClick={() => { SelectProduct(item._id) }}  key={item._id} className='userConteinet'>
       
                       <div className='userHeaderline'>
-                              <img src={UserIcon} alt='User Icon' />
-                              <samp> <span>{item.name} </span>
+                              {/* <img src={UserIcon} alt='User Icon' /> */}
+                              <samp className="uroduct-header-info"> 
+                                <span className="product-name">{item.name} </span>
       
-                              <h3>{item.address}</h3>
+                              <samp className="product-addres">{item.address}</samp>
                               
                               </samp>
                               <div className='headerMore'>...</div>
@@ -60,7 +61,7 @@ const MyProducts: React.FC<Props> = ({
                                       <samp><h1>ფასი</h1><h3> {item.price}  {item.currency}</h3></samp>
                               </div>
               
-                                      <div className='userTotal'> 
+                                      <div style={{width: '80%'}} className='userTotal'> 
                                       <samp>
                                               <h2>ღირებულება: <samp>{(item.quantity * item.price).toFixed(1)} {item.currency}</samp></h2>
                                       </samp>
