@@ -1,5 +1,7 @@
 import React from "react";
 import UserIcon from '../../icon/addproperties.png';
+import vewicon from '../../icon/view.png';
+import shareicon from '../../icon/cost.png';
 
 interface Props {
     userData: any[];
@@ -57,8 +59,33 @@ const MyProducts: React.FC<Props> = ({
                       </div>
               
                               <div className='userInfoLine'>
-                                      <samp><h1>რაოდენობა</h1> <h3>{item.quantity} {item.quantityiunit}</h3></samp>
-                                      <samp><h1>ფასი</h1><h3> {item.price}  {item.currency}</h3></samp>
+                                      <samp style={{display: 'flex', alignItems:'center', flexDirection: 'column', justifyContent:'center'}}><h1>რაოდენობა</h1> <h3>{item.quantity} {item.quantityUnit}</h3></samp>
+                                      <samp style={{display: 'flex', alignItems:'center', flexDirection: 'column', justifyContent:'center'}}><h1>ფასი</h1><h3> {item.price}  {item.currency}</h3></samp>
+                                      <div style={{flexDirection: 'column',  height: '40%'}}  className='userInfoLineall-item'>
+                               <div style={{ alignItems: 'center' ,  display:'flex', flexDirection: 'row'}}>
+
+                                <span style={{
+                                fontWeight: '800', 
+                                color:'red', 
+                                margin:'3px',
+                                marginRight: '6px'
+                                }}><img width={15} src={vewicon} alt='wiev' />  </span> 
+                                <span style={{fontSize: '80%'}}>1250</span>
+                                
+                                </div>
+
+                                <div style={{ alignItems: 'center' ,  display:'flex', flexDirection: 'row'}}>
+                                <span style={{
+                                fontWeight: '800', 
+                                color:'red', 
+                                margin:'3px',
+                                marginRight: '6px'
+                                }}><img width={15} src={shareicon} alt='wiev' />  </span> 
+                                <span style={{fontSize: '80%'}}>150</span>
+                                </div>
+
+                                </div>
+
                               </div>
               
                                       <div style={{width: '80%'}} className='userTotal'> 

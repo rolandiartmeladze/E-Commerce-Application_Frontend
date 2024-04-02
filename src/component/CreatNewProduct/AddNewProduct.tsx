@@ -133,7 +133,7 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
     console.log(productData);
       setNewUser(true);
         try {
-            const response = await fetch(`http://localhost:80/createProduct`, {
+            const response = await fetch(`${serverUrl}/createProduct`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(productData),

@@ -72,7 +72,7 @@ function App(): JSX.Element{
         setLoading(true);
         try {
 
-          const usersResponse = await fetch(`http://localhost:80/checkProducts`, {
+          const usersResponse = await fetch(`${serverUrl}/checkProducts`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ function App(): JSX.Element{
             const usersData = await usersResponse.json();
             setUserData(usersData);
       
-        const advanceResponse = await fetch(`http://localhost:80/checkAdvance`, {
+        const advanceResponse = await fetch(`${serverUrl}/checkAdvance`, {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ function App(): JSX.Element{
 
 
 
-            const Activeuser = await fetch(`http://localhost:80/Activeuser`, {
+            const Activeuser = await fetch(`${serverUrl}/Activeuser`, {
               method: 'GET',
               headers: {
                   'Content-Type': 'application/json'
