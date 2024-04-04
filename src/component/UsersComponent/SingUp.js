@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import './SingUp.css';
 
+import serverUri from '../../component/serverUrl';
+
+
 const SignUp = ({ singup, setSingUp }) => {
 
-    const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+    // const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
@@ -13,6 +16,10 @@ const SignUp = ({ singup, setSingUp }) => {
     const [reppassword, setRepPassword] = useState('');
     const [address, setAddress] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+
+    const serverlink = serverUri();
+
 
     const registerUser = async () => {
         try {
@@ -25,7 +32,7 @@ const SignUp = ({ singup, setSingUp }) => {
                 address: address
             };
 
-            const response = await fetch(`${serverUrl}/register`, {
+            const response = await fetch(`${serverlink}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

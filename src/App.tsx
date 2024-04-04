@@ -5,6 +5,9 @@ import Header from './component/Header';
 import ProductsConteiner from './component/ProductsConteiner/ProductsConteiner';
 import Aside from './component/Aside';
 
+
+import serverUri from './component/serverUrl';
+
 interface User {
   Name: string;
   Address: string;
@@ -17,7 +20,7 @@ interface User {
 function App(): JSX.Element{
   
   // const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
-  const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+  // const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -41,8 +44,12 @@ function App(): JSX.Element{
 
 
     const [activeuser,setActiveUser] = useState({});
+    const [members,setMembers] = useState<any>([]);
 
     
+                        const serverlink = serverUri();
+
+
 
     const componentsprops = {
           userData,
@@ -72,7 +79,7 @@ function App(): JSX.Element{
         setLoading(true);
         try {
 
-          const usersResponse = await fetch(`${serverUrl}/checkProducts`, {
+          const usersResponse = await fetch(`${serverlink}/checkProducts`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -82,27 +89,18 @@ function App(): JSX.Element{
             const usersData = await usersResponse.json();
             setUserData(usersData);
       
-        const advanceResponse = await fetch(`${serverUrl}/checkAdvance`, {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-      });
-            if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
-            const advanceData = await advanceResponse.json();
-            setAdvanceData(advanceData[0]);
 
 
-
-            const Activeuser = await fetch(`${serverUrl}/Activeuser`, {
+            const Activeuser = await fetch(`${serverlink}/Activeuser`, {
               method: 'GET',
               headers: {
                   'Content-Type': 'application/json'
               },
           });
-                if (!advanceResponse.ok) {throw new Error('Failed to fetch advance data');}
+                if (!Activeuser.ok) {throw new Error('Failed to fetch advance data');}
                 const Activeuserresponse = await Activeuser.json();
-                setActiveUser(Activeuserresponse);
+                setActiveUser(Activeuserresponse[0]);
+                setMembers(Activeuserresponse);
                 console.log(activeuser);
     
 
@@ -119,7 +117,9 @@ function App(): JSX.Element{
     <>
 
 <Header singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} />
-<Aside {...componentsprops} />
+<Aside {...componentsprops}      activeuser={activeuser}
+    setActiveUser={setActiveUser} members={members}
+/>
 
 
 

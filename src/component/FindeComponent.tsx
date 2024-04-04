@@ -49,7 +49,7 @@ const FindeComponent =({
             setLoading(true);
                 try {
                         const FindInput = findInput;
-                        const findProduct = await fetch(`${serverUrl}/findProduct?FindInput=${FindInput}`, {
+                        const findProduct = await fetch(`http://localhost:80/findProduct?FindInput=${FindInput}`, {
                                 method: 'GET',
                                 headers: {'Content-Type': 'application/json'},
                         });

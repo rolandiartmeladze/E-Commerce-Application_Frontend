@@ -9,6 +9,22 @@ const  OptionalItem = ({advanceData}:any) =>{
     const { selectquantity } = more? (more as { selectquantity: any[] }): { selectquantity: [] };
   
 
+    const currencies = ["₾", "$", "€", "£", "₺"];
+
+const currencyOptions = currencies.map((currency, index) => (
+  <option key={index} value={currency}>
+    {currency}
+  </option>
+));
+
+const quantities = ["L", "pcs", "kg", "m"];
+
+const quantityOptions = quantities.map((quantity, index) => (
+  <option key={index} value={quantity}>
+    {quantity}
+  </option>
+));
+
     return (
 
 
@@ -16,23 +32,15 @@ const  OptionalItem = ({advanceData}:any) =>{
 <h1> Currency/Quantity </h1>
         <div className="selection-conteiner">
           <h2 className="currency-label">Choose a Currency:</h2>
-          <select className="currency-select" id="currency">
-            {selectcurrency?.map((corrency, index) => (
-              <option key={index} value={corrency}>
-                {corrency}
-              </option>
-            ))}
-          </select>
+            <select className="currency-select" id="currency">
+              {currencyOptions}
+            </select>
         </div>
 
         <div className="selection-conteiner">
           <h2 className="currency-label">Choose a Quantity:</h2>
           <select className="currency-select" id="Quantityunit">
-            {selectquantity?.map((quantity, index) => (
-              <option key={index} value={quantity}>
-                {quantity}
-              </option>
-            ))}
+          {quantityOptions}
           </select>
         </div>
         {/* __3 */}

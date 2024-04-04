@@ -44,45 +44,45 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
   };
 
   return (
-    <div id='inputsconteiner' style={{ borderLeft: "1px solid green", position:'relative'}} className="elementinarticle">
-      <div className="additionalInputConteiner">
-        <input className="inputItem" value={activeUser.phone} placeholder="phone" type="text" disabled />
-      </div>
+<div id='inputsconteiner' style={{ borderLeft: "1px solid green", position:'relative'}} className="elementinarticle">
+  <div className="additionalInputConteiner">
+    <input className="inputItem" value={activeUser.phone || ''} placeholder="phone" type="text" disabled />
+  </div>
 
-      <div className="additionalInputConteiner">
-        <input className="inputItem" value={activeUser.email} placeholder="email" type="text" disabled />
-      </div>
+  <div className="additionalInputConteiner">
+    <input className="inputItem" value={activeUser.email || ''} placeholder="email" type="text" disabled />
+  </div>
 
-      <div className="additionalInputConteiner">
-        <input className="inputItem" value={activeUser.address} placeholder="location" type="text" disabled />
-      </div>
+  <div className="additionalInputConteiner">
+    <input className="inputItem" value={activeUser.address || ''} placeholder="location" type="text" disabled />
+  </div>
 
-      {inputFields.map((input, index) => (
-        <div className="additionalInputConteiner" key={index}>
-          {input}
-        </div>
-      ))}
-
-      <div
-        id="addcommentid"
-        onClick={() => handleItemClick("text", "Comment")}
-        className="add-btn-conteiner"
-      >
-        <div className="addnewinputicon">
-          <img src={addcomment} alt="add info" />
-        </div>Add Comment
-      </div>
-
-      <div style={{marginBottom: '5px'}}
-        id="addimageid"
-        onClick={() => handleItemClick("file", "img")}
-        className="add-btn-conteiner"
-      >
-        <div className="addnewinputicon">
-          <img src={addimage} alt="add info" />
-        </div> Add image
-      </div>
+  {inputFields.map((input, index) => (
+    <div className="additionalInputConteiner" key={index}>
+      {input}
     </div>
+  ))}
+
+  <div
+    id="addcommentid"
+    onClick={() => handleItemClick("text", "Comment")}
+    className="add-btn-conteiner"
+  >
+    <div className="addnewinputicon">
+      <img src={addcomment} alt="add info" />
+    </div>Add Comment
+  </div>
+
+  <div style={{marginBottom: '5px'}}
+    id="addimageid"
+    onClick={() => handleItemClick("file", "img")}
+    className="add-btn-conteiner"
+  >
+    <div className="addnewinputicon">
+      <img src={addimage} alt="add info" />
+    </div> Add image
+  </div>
+</div>
   );
 };
 

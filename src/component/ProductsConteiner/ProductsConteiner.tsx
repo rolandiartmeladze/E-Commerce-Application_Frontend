@@ -171,11 +171,13 @@ return (
 
         {findstatus? 
                 <div className='find-result-btn-coneiner'>
-                <samp className='find-result-btn-coneiner-title'> Found 
-                <samp className='find-result-btn-coneiner-result-count'>{userData.length}</samp> 
-                products </samp> 
-                <samp onClick={closefinde} className='closeFindeBtn'>Close Finde</samp>
-                </div>:null
+                <span className='find-result-btn-coneiner-title'> Found 
+                  <span className='find-result-btn-coneiner-result-count'>{userData.length}</span> 
+                  products 
+                </span> 
+                <span onClick={closefinde} className='closeFindeBtn'>Close Finde</span>
+              </div>
+              :null
 }
 
                

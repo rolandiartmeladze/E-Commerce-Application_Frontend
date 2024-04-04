@@ -30,6 +30,12 @@ interface ProducteData {
                         soldAmount:number;
                         setSoldAmount:Function;
 
+                        activeuser:object;
+                        setActiveUser:Function;
+
+                        members:any[];
+                    
+
             
             
   }
@@ -53,13 +59,18 @@ function Aside({
     setSelectedUser,
     selectedUser,
     soldAmount,
-    setSoldAmount
+    setSoldAmount,
+
+    activeuser,
+    setActiveUser,
+    members
 
 
 
 }:ProducteData) {
 
 
+    console.log(members)
 
 
     const Amount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -166,6 +177,7 @@ function Aside({
                 }
     
 
+                console.log(activeuser)
     
 
 
@@ -210,9 +222,25 @@ function Aside({
                             <button onClick={sale}>sale</button>
                         </div>
 
+                        <ul style={{marginTop:'45px'}}>
+                        
+                    {members?.map((item, index) => (
+                    <li key={index}>
+                        <samp>{item.name}</samp>
+                        <samp>{item.lastname}</samp>
+                        </li>
+                    ))}
+                        
+                           
+                                
+                            
+                       
+    </ul>         
+
                 </div>
 
-            </>
+    
+       </>
             );
 }
 
