@@ -70,7 +70,7 @@ function Aside({
 }:ProducteData) {
 
 
-    console.log(members)
+    // console.log(members)
 
 
     const Amount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,7 +164,7 @@ function Aside({
                         const response  = await fetch(url, options);
                         if(response.ok){
                             const data = await response.json();
-                            console.log('uprated:', data);
+                            // console.log('uprated:', data);
                         } else{ 
                             const errorMessage = await response.text();
                             console.error('ont working' , errorMessage);
@@ -177,7 +177,7 @@ function Aside({
                 }
     
 
-                console.log(activeuser)
+                // console.log(activeuser)
     
 
 

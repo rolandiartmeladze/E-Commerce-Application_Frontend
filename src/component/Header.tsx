@@ -8,10 +8,11 @@ interface headerprops{
   setSingUp:Function;
   login:boolean;
   setLogIn:Function;
+  usermode:boolean;
 }
 
 
-const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn}) => {
+const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, usermode}) => {
 
 
   const singupbtn = () =>{
@@ -36,38 +37,53 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn}) => 
     const month = today.getMonth() + 1; 
     const year = today.getFullYear();  
 
+
+    const logout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('address');
+
+      window.location.reload();
+      // Additional logout actions can be added if needed
+  };
+  
+  
+
+
     return (
     <div className='Header'>
 
       <>
+      {usermode &&
       <div className='userinhear'>
         <img className='user-icon' src={userIcin} alt='User Icon' />
         <div style={{display: 'flex', flexDirection:'column', alignItems:'flex-start'}}>
-          <h2>Roland Artmeladze</h2>
-          <h4>Georgia, Tsalka, Tbeti</h4>
+        <h2>{localStorage.getItem('user')}</h2>
+        <h4>{localStorage.getItem('address')}</h4>
+        </div>
+      </div>
+      }
+
+      </>
 
 
       {/* <samp className='data-day'>{dayName}</samp>
       <samp className='day-all'>{day}/{month}/{year}</samp> */}
- </div>
-
-      </div>
-      </>
 
 
-{!login && !singup? <div  onClick={loginbtn} className='userBtn'>
-  <samp><img width={30} src={userIcin} alt='user icon' /></samp><samp>Login</samp>
-</div>
-: null }
-{/* <div  onClick={loginbtn} className='userBtn'>
-  <samp><img width={30} src={userIcin} alt='user icon' /></samp><samp>Login</samp>
-</div> */}
+      {(!login && !singup && !usermode) &&
+  <div onClick={loginbtn} className='userBtn'>
+    <samp><img width={30} src={userIcin} alt='user icon' /></samp>
+    <samp>Login</samp>
+  </div>
+}
 
-      {/* <div onClick={singupbtn} className='Meniu-Btn'>
-       {!singup? 'Sing Up' : 'Close'}
+{usermode &&
+  <div style={{padding:'3px 8px '}} onClick={logout} className='userBtn'>
+    <samp>Log Out</samp>
+  </div>
+}
 
-      </div> */}
-    
       
     </div>
   );

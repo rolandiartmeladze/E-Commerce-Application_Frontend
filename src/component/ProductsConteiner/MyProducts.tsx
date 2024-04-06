@@ -11,7 +11,12 @@ interface Props {
     setSelectedUser: Function;
     product: any[];
     setProduct: Function;
+    activeuser:object;
+
 };
+
+interface Product { _id: string; }
+interface ActiveUser { products: Product[]; }
 
 
 const MyProducts: React.FC<Props> = ({ 
@@ -21,7 +26,9 @@ const MyProducts: React.FC<Props> = ({
     setSoldAmount, 
     setSelectedUser,     
     product, 
-    setProduct
+    setProduct,
+    activeuser
+
  }) =>{
 
     const SelectProduct = async (UserID: string) => {
@@ -30,7 +37,6 @@ const MyProducts: React.FC<Props> = ({
         // setSelectedUser(selectedProduct)
                 const QuantityInput = document.getElementById('QuantityInput') as HTMLInputElement;
 
-        console.log(selectedProduct)
         setIsSelected(true);
         if(QuantityInput){ setTimeout(() => {
                 QuantityInput?.focus(); 
@@ -41,9 +47,13 @@ const MyProducts: React.FC<Props> = ({
         
     };    
 
+    const myproduct: Product[] = (activeuser as ActiveUser).products;
+
+    const myproducts = userData.filter(product => myproduct.includes(product._id));
+
     return (
 <>
-        { userData.map((item, index) => (
+        { myproducts.map((item, index) => (
       
               <div onClick={() => { SelectProduct(item._id) }}  key={item._id} className='userConteinet'>
       

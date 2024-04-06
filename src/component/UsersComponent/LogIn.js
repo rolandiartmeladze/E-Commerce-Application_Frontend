@@ -23,41 +23,24 @@ const Login = ({ singup, setSingUp, login, setLogIn }) => {
                 throw new Error(errorResponse.message || 'Invalid email or password');
             }
 
-            const { token } = await response.json();
-            localStorage.setItem('token', token);
+            const { user } = await response.json();
+            localStorage.setItem('token', user._id);
+            localStorage.setItem('user', `${user.name} ${user.lastname}`);
+            localStorage.setItem('address', user.address);
 
-            fetchUserData();
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+                
+
+            // fetchUserData();
         } catch (error) {
             console.error('Error during login:', error);
             alert('An error occurred during login');
         }
     };
 
-    const fetchUserData = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            console.log(token)
-    
-            const response = await fetch('/user', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error('Failed to fetch user data');
-            }
-    
-            const userData = await response.json();
-            console.log('User data:', userData);
-            // Handle user data here
-        } catch (error) {
-            console.error('Fetch user data error:', error);
-            // Handle fetch user data error
-        }
-    };
-    
     const handleSignUp = () => {
         setSingUp(!singup);
         setLogIn(!login);

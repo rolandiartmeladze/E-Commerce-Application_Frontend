@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 import './AddProducte.css';
 
 import ArrowRigth from "../../icon/arrow.png";
@@ -14,6 +14,11 @@ import ArrowRigth from "../../icon/arrow.png";
               import OptionalItem from "./OptionalItem";
 
                   import Loading from "../Loading";
+
+
+                  import serverUri from '../../component/serverUrl';
+
+import { Console } from "console";
 
 
 interface UserContainerProps {
@@ -67,17 +72,22 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
   
       }) => {
 
-            const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
 
-            const [response, setResponse] = useState({ message: "" });
             const [newuser, setNewUser] = useState(false);
+
             const [inputValues, setInputValues] = useState<string[]>(['', '', '', '']);
             
                 const advanceForm = document.getElementById("advanceForm") as HTMLFormElement;
-                const advanceFormInputs: HTMLCollectionOf<HTMLInputElement> | undefined = advanceForm?.getElementsByTagName("input");
-                const currencyElement = document.getElementById("currency") as HTMLSelectElement | null;
+                const advanceFormInputs = advanceForm?.querySelectorAll<HTMLInputElement>('input, textarea');
+
+                             const currencyElement = document.getElementById("currency") as HTMLSelectElement | null;
+
                 const quantityElement = document.getElementById("Quantityunit") as HTMLSelectElement | null;
         
+
+                const serverlink = serverUri();
+
+
             const addProductF = () => {product ? setProduct(false) : setProduct(true);};
 
   // ახდენს მონაცემების რამუშავებას აქტიური ექციის შესაბამისად
@@ -105,10 +115,11 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                         img.push({ [`${item.accept}${fileIndex}`]: item.value });
                         fileIndex++;
                     }
+                    
                 });
             
           AdvanceInfo.img = img;
-                    
+                    console.log(inputsArray)
           return AdvanceInfo;
     }
   };
@@ -120,38 +131,50 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
   // იყენებს POST მეთოდს მონაცემების ცასაწერად
   const addnewproduct = async () => {
 
-    console.log(activeuser);
-    const productowner = `${activeuser.name} ${activeuser.lastname}`;
+
+    const userid = localStorage.getItem('token');
+    const owner = localStorage.getItem('user');
+    const location  =localStorage.getItem('address');
+
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1; 
+    const year = today.getFullYear();  
+
+    const data = `${day}/${month}/${year}`;
+
+
+
     const productData ={
       ...optimiseinfo(),
-      owner: productowner,
+      owner: owner,
       view: 0,
-      location: activeuser.address,
-      sale: 0
+      location: location,
+      sale: 0,
+      userID: userid,
+      data: data
     }; 
 
-    console.log(productData);
+    console.log(productData)
       setNewUser(true);
         try {
-            const response = await fetch(`http://localhost:80/createProduct`, {
+
+            const response = await fetch(`${serverlink}/createProduct`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(productData),
             });
               if (!response.ok) {throw new Error("Failed to fetch advance data");}
                   const NewUser = await response.json();
-                    setResponse(NewUser);
+                  console.log(NewUser)
                     setInputValues(['', '', '', '']);
                     
-                      
+                                          
+
         
             } 
               catch (error) {console.error("Error:", error);} 
-              finally { setNewUser(false); fetchData(); advanceForm.reset(); 
-              //   setTimeout(() => {
-              //     window.location.reload(); 
-              // }, 2000);
-              }
+              finally { setNewUser(false); fetchData(); advanceForm.reset(); }
   };
 
 

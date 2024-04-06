@@ -49,7 +49,7 @@ const BasicInfo: React.FC<inputsvalue> = ({inputValues, setInputValues}) => {
                         value={inputValues[3] || ""}
                         onChange={(e) => setInputValue(e, 3)} />
 
-            <textarea className="inputItem" placeholder="description"
+            <textarea className="inputItem"  placeholder="description"
                       value={inputValues[4] || ""}
                       onChange={(e) => setInputValue(e, 4)} />
 

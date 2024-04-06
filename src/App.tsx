@@ -19,11 +19,19 @@ interface User {
 
 function App(): JSX.Element{
   
-  // const serverUrl = "https://limitless-tor-40344-c89ae9237437.herokuapp.com";
-  // const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+  const token = localStorage.getItem('token');
+
+    const [usermode, setUserMode] = useState<boolean>(() => {
+      if (token) { return true;} 
+        else { return false;}
+  });  
+  
+  // console.log(usermode);
 
 
   const [loading, setLoading] = useState<boolean>(false);
+
+
   const [findstatus, setFindStatus] = useState<boolean>(false);
   const [notfound, setNotound] = useState<boolean>(false);
   const [findInput, setFindInput] = useState<string>('');
@@ -75,48 +83,70 @@ function App(): JSX.Element{
       // როდესაც ჩაიტვირთრბა app.js აგზავნის მოთხოვნას GET მონაცემთა ბაზაში 
       // ამოწმებს შედეგს და ანიჭებს მიღებულ მონაცემებს dataResponse ცვლადს
       // რაც აისახება რეალურ გარემოში
-      const fetchData = async () => {
-        setLoading(true);
-        try {
-
-          const usersResponse = await fetch(`${serverlink}/checkProducts`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        });
-            if (!usersResponse.ok) {throw new Error('Failed to fetch users data');}
-            const usersData = await usersResponse.json();
-            setUserData(usersData);
-      
 
 
-            const Activeuser = await fetch(`${serverlink}/Activeuser`, {
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-          });
-                if (!Activeuser.ok) {throw new Error('Failed to fetch advance data');}
-                const Activeuserresponse = await Activeuser.json();
-                setActiveUser(Activeuserresponse[0]);
-                setMembers(Activeuserresponse);
-                console.log(activeuser);
-    
 
-          setLoading(false)
-      } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      };
 
+        
+ 
+               const fetchData = async () => {
+
+                               setLoading(true);
+
+                try {
+                    if (token) {
+                        const userResponse = await fetch(`${serverlink}/user?token=${token}`);
+                        if (userResponse.ok) {
+                            const userData = await userResponse.json();
+                            // console.log('User data:', userData);
+                            setActiveUser(userData)
+                        } else {
+                            throw new Error('Failed to fetch user data');
+                        }
+                    }
+            
+                    const usersResponse = await fetch(`${serverlink}/checkProducts`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+                    if (!usersResponse.ok) {
+                        throw new Error('Failed to fetch users data');
+                    }
+                    const usersData = await usersResponse.json();
+                    setUserData(usersData);
+            
+                    // const activeUserResponse = await fetch(`${serverlink}/Activeuser`, {
+                    //     method: 'GET',
+                    //     headers: {
+                    //         'Content-Type': 'application/json'
+                    //     },
+                    // });
+                    // if (!activeUserResponse.ok) {
+                    //     throw new Error('Failed to fetch advance data');
+                    // }
+                    // const activeUserResponseJson = await activeUserResponse.json();
+                    
+                    
+                    // setActiveUser(activeUserResponseJson[0]);
+                    // setMembers(activeUserResponseJson);
+                    // console.log(activeUser);
+            
+                    setLoading(false);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                    setLoading(false);
+                }
+            };
+            
           useEffect(() => {
             fetchData();
           }, []); 
   return (
     <>
 
-<Header singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} />
+<Header singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} usermode={usermode} />
 <Aside {...componentsprops}      activeuser={activeuser}
     setActiveUser={setActiveUser} members={members}
 />
@@ -142,6 +172,8 @@ function App(): JSX.Element{
 
     activeuser={activeuser}
     setActiveUser={setActiveUser}
+
+    usermode={usermode}
 
   />
 

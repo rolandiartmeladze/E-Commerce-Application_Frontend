@@ -51,6 +51,8 @@ interface UserContainerProps {
     
         activeuser:object
         setActiveUser:Function;
+
+        usermode:boolean;
     
       
       }
@@ -112,7 +114,9 @@ function ProductsConteiner({
     
 
         activeuser,
-        setActiveUser
+        setActiveUser,
+
+        usermode
     
   
 }: UserContainerProps) {
@@ -138,9 +142,9 @@ function ProductsConteiner({
                             
 
 
-                            const usermode = () => {
-                                inUerMode? setInUserMode(false):setInUserMode(true)
-                            } 
+                        //     const usermode = () => {
+                        //         inUerMode? setInUserMode(false):setInUserMode(true)
+                        //     } 
                             
 
 return (
@@ -149,11 +153,13 @@ return (
 {/* <button onClick={usermode}>{!inUerMode? 'myroom' : 'all users mode'}</button> */}
 
 {!singup && !login ?
+
 <div style={{position: 'relative'}}  className='userTable'>
 
 {/* {notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
 {loading ? <Loaing />:null} */}
 
+{usermode && 
 
         <AddNewProduct fetchData={fetchData}
                 product={product} 
@@ -168,7 +174,7 @@ return (
                 setActiveUser={setActiveUser}
             
                 />
-
+}
         {findstatus? 
                 <div className='find-result-btn-coneiner'>
                 <span className='find-result-btn-coneiner-title'> Found 
@@ -180,21 +186,29 @@ return (
               :null
 }
 
-               
-              
-                        
-                                                            <h1 className='products-header'> My Products</h1>
+                                                       <h1 className='products-header'> {usermode? 'My Products' : 'Most Popular'}</h1>
+
+              {usermode && 
+                        <>
     
                                 <AddProductBtn  addProductFunction={addProductFunction} product={product} />
         
       
 
-<MyProducts userData={userData} setUserData={setUserData} setIsSelected={setIsSelected}
-    setSoldAmount={setSoldAmount} setSelectedUser={setSelectedUser}     product={product} 
-    setProduct={setProduct}
+                                                <MyProducts 
+                                                userData={userData} 
+                                                setUserData={setUserData} 
+                                                setIsSelected={setIsSelected}
+                                                setSoldAmount={setSoldAmount} 
+                                                setSelectedUser={setSelectedUser}     
+                                                product={product} 
+                                                setProduct={setProduct}
+                                                activeuser={activeuser}
 
-/>
+                                                />
+</>
 
+}
       </div>
       : 
 

@@ -9,11 +9,26 @@ import testimg from '../../img/slide_9.jpg';
 
 
 
-interface props{
-    userData:any[];
+interface Props{
+    userData: userprops[];
+}
+interface userprops{
+    name:string;
+    _id: string;
+    location:string;
+    quantityUnit:string;
+    quantity:number;
+    price:number;
+    currency:string;
+    owner:string;
+    email:string;
+    phone:string;
+
 }
 
-const AllProductsConteiner = ({ userData }:props) => {
+
+
+const AllProductsConteiner: React.FC<Props> = ({ userData }) => {
 
 
     return(
@@ -33,14 +48,14 @@ const AllProductsConteiner = ({ userData }:props) => {
 </div>
         <div style={{width:'74%'}}  className='userHeaderline userHeaderlineall'>
 
-                <samp className='productname all-product-conteiner'>{('ეს არის მომხმარებილს სახელი რომელიც შეიძლება ყოს საკმაოდ გრძელი.').substring(0,50)}{'...'}</samp>
-                <samp className='productname all-product-conteiner'>{'__Address'}</samp>
+                <samp className='productname all-product-conteiner'>{(`${item.name}`).substring(0,50)}{'...'}</samp>
+                <samp className='productname all-product-conteiner'>{item.location}</samp>
 
 
         </div>
 </div>
 
-<div className='userInfoLineall'>
+<div style={{paddingBottom:'0px'}} className='userInfoLineall'>
 
                 <div  className='userInfoLineall-item'>
                         <span style={{
@@ -49,14 +64,14 @@ const AllProductsConteiner = ({ userData }:props) => {
                                 margin:'3px'
                                 }}>მარაგშია
                         </span> 
-                        <span>{300} {'kg'}</span></div>
+                        <span>{item.quantity} {item.quantityUnit}</span></div>
                 <div  className='userInfoLineall-item'>
                         <span style={{
                                 fontWeight: '800', 
                                 color:'red', 
                                 margin:'3px'
                                 }}>ფასი</span> 
-                                <span>{4500}  {'$'}</span>
+                                <span>{item.price}  {item.currency}</span>
                                 </div>
 
 
@@ -85,6 +100,11 @@ const AllProductsConteiner = ({ userData }:props) => {
 
                                 </div>
 
+                                <li style={{width:'100%'}}><samp>Add Favorit</samp><samp> ____ Share Product</samp></li>
+
+
+
+
 
         </div>
         
@@ -92,18 +112,19 @@ const AllProductsConteiner = ({ userData }:props) => {
 
 <div className='moredetalt'>
     <ul style={{padding:'0', margin:'0'}}>
-    <li><samp>მფლობელი:</samp> <samp> Roland Rrtmeladze</samp></li>
-    <li><samp>მეილი:</samp><samp><a>Rartmeladze@gmail.com</a></samp></li>
-    <li><samp>ტელეფონი:</samp><samp><a>(+995) 595 03-56-58</a></samp></li>
-    <li style={{alignItems: 'flex-start'}}><samp>აღწერა:</samp>
+    <li><samp>Owner: </samp> <samp> {item.owner}</samp></li>
+    <li><samp>Email: </samp> <samp><a>{item.email}</a></samp></li>
+    <li><samp>Phone: </samp> <samp><a>{item.phone}</a></samp></li>
+
+    {/* <li style={{alignItems: 'flex-start'}}><samp>აღწერა:</samp>
     <samp style={{fontSize:'80%'}}>
         {('ესა რის მოკლე აღწერა აღნიშნული პროდუქტისთვის რომელიც შეიძლება იყოს საკმაოდ გრრძელი ამიტომ აქ გამოჩნდება მხოლოდ ნაწილი დანარჩენი დეტალურად ნახვის შემთხვევაში').substring(0,100)}{'...'} </samp></li>
         <li style={{alignItems: 'flex-start'}}><samp>კომენტარი:</samp>
     <samp style={{fontSize:'80%'}}>
-        {('ესა რის მომხარებლის მიერ დამარებული კომენტარი აღნიშნული პროდუქტისთვის რომელიც შეიძლება იყოს საკმაოდ გრრძელი ამიტომ აქ გამოჩნდება მხოლოდ ნაწილი დანარჩენი დეტალურად ნახვის შემთხვევაში').substring(0,100)}{'...'} </samp></li>
-        <li><samp>ნახვა:{1200}</samp><samp> ___ გაყიგვა:{10}</samp></li>
-        <li><samp>რჩეულებში დამატება</samp><samp> ____ გაზიარება</samp></li>
-        <li><samp>Data:</samp><samp>30/03/2023. 18:00</samp></li>
+        {('ესა რის მომხარებლის მიერ დამარებული კომენტარი აღნიშნული პროდუქტისთვის რომელიც შეიძლება იყოს საკმაოდ გრრძელი ამიტომ აქ გამოჩნდება მხოლოდ ნაწილი დანარჩენი დეტალურად ნახვის შემთხვევაში').substring(0,100)}{'...'} </samp></li> */}
+        
+        {/* <li><samp>ნახვა:{1200}</samp><samp> ___ გაყიგვა:{10}</samp></li> */}
+        <li><samp>Data:</samp><samp>30/03/2023</samp></li>
     </ul>
 </div>
 
