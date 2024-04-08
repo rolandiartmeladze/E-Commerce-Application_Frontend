@@ -1,5 +1,6 @@
 import React from "react";
 import  FindIcon from '../icon/find.png';
+import serverUri from '../component/serverUrl';
 
 interface findeprops {
     setUserData: Function;
@@ -33,8 +34,8 @@ const FindeComponent =({
 
 
 }:findeprops)=>{
-    
-    const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
+    const serverlink = serverUri();
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
@@ -49,7 +50,7 @@ const FindeComponent =({
             setLoading(true);
                 try {
                         const FindInput = findInput;
-                        const findProduct = await fetch(`http://localhost:80/findProduct?FindInput=${FindInput}`, {
+                        const findProduct = await fetch(`${serverlink}/findProduct?FindInput=${FindInput}`, {
                                 method: 'GET',
                                 headers: {'Content-Type': 'application/json'},
                         });

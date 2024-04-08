@@ -1,12 +1,17 @@
-import React, {useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
 import ProductsConteiner from './component/ProductsConteiner/ProductsConteiner';
 import Aside from './component/Aside';
 
-
+import AllProductsConteiner from './component/ProductsConteiner/AllProductConteiner';
 import serverUri from './component/serverUrl';
+
+
+import Login from './component/UsersComponent/LogIn';
+import SignUp from './component/UsersComponent/SingUp';
+// import MyProducts from './component/ProductsConteiner/MyProducts';
 
 interface User {
   Name: string;
@@ -18,6 +23,8 @@ interface User {
 
 
 function App(): JSX.Element{
+
+  
   
   const token = localStorage.getItem('token');
 
@@ -36,8 +43,7 @@ function App(): JSX.Element{
   const [notfound, setNotound] = useState<boolean>(false);
   const [findInput, setFindInput] = useState<string>('');
 
-  // const [userResponse, setUserData] = useState<any[]>([]);
-  const [userData, setUserData] = useState<any[]>([]);
+    const [userData, setUserData] = useState<any[]>([]);
     const [advanceData, setAdvanceData] = useState<any[]>([]);
 
     const [isselected, setIsSelected] = useState(false);
@@ -52,9 +58,10 @@ function App(): JSX.Element{
 
 
     const [activeuser,setActiveUser] = useState({});
-    const [members,setMembers] = useState<any>([]);
 
-    
+    const [members, setMembers] = useState<any>([]);
+
+
                         const serverlink = serverUri();
 
 
@@ -87,7 +94,6 @@ function App(): JSX.Element{
 
 
 
-        
  
                const fetchData = async () => {
 
@@ -105,37 +111,32 @@ function App(): JSX.Element{
                         }
                     }
             
-                    const usersResponse = await fetch(`${serverlink}/checkProducts`, {
+                    const productsResponse = await fetch(`${serverlink}/checkProducts`, {
                         method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                     });
-                    if (!usersResponse.ok) {
-                        throw new Error('Failed to fetch users data');
-                    }
-                    const usersData = await usersResponse.json();
-                    setUserData(usersData);
-            
-                    // const activeUserResponse = await fetch(`${serverlink}/Activeuser`, {
-                    //     method: 'GET',
-                    //     headers: {
-                    //         'Content-Type': 'application/json'
-                    //     },
-                    // });
-                    // if (!activeUserResponse.ok) {
-                    //     throw new Error('Failed to fetch advance data');
-                    // }
-                    // const activeUserResponseJson = await activeUserResponse.json();
-                    
-                    
-                    // setActiveUser(activeUserResponseJson[0]);
-                    // setMembers(activeUserResponseJson);
-                    // console.log(activeUser);
-            
-                    setLoading(false);
-                } catch (error) {
-                    console.error('Error fetching data:', error);
+                    if (!productsResponse.ok) { throw new Error('Failed to fetch users data'); }
+                    const productsData = await productsResponse.json();
+                          setUserData(productsData);
+
+
+                          const membersdata = await fetch(`${serverlink}/Members`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                        });
+                        if (!membersdata.ok) {
+                            throw new Error('Failed to fetch users data');
+                        }
+                        const membersResponse = await membersdata.json();
+                        setMembers(membersResponse);
+        
+                        setLoading(false);
+
+
+
+                } catch (error) {console.error('Error fetching data:', error);
                     setLoading(false);
                 }
             };
@@ -146,36 +147,86 @@ function App(): JSX.Element{
   return (
     <>
 
-<Header singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} usermode={usermode} />
-<Aside {...componentsprops}      activeuser={activeuser}
-    setActiveUser={setActiveUser} members={members}
-/>
+<div className="app">
+
+<Header 
+      singup={singup} 
+      setSingUp={setSingUp} 
+      login={login} 
+      setLogIn={setLogIn} 
+      usermode={usermode} 
+      />
+{!usermode &&
+<div className='meniu'>
+  <h1>Products: {userData.length}</h1> 
+  <h1> Members: {members.length}</h1> 
+  <h1> Favorite: {'0'}</h1>
+  <h1> Category{'>'}</h1>
+  </div>
+}
+
+{usermode &&
+<div className="main">
+
+      <div className='main-products-container'>
+
+      <ProductsConteiner {...componentsprops}
+          inUerMode={inUerMode}
+          setInUserMode={setInUserMode}
+          findInput={findInput}
+          setFindInput={setFindInput}
+          fetchData={fetchData}
+          advanceData={advanceData}
+          setAdvanceData={setAdvanceData}
+          singup={singup} 
+          setSingUp={setSingUp}
+          product={product} 
+          setProduct={setProduct}
+
+
+          login={login}
+          setLogIn={setLogIn}
+
+          activeuser={activeuser}
+          setActiveUser={setActiveUser}
+
+          usermode={usermode}
+
+        />
+
+      </div>
+
+
+        <Aside {...componentsprops}      
+                activeuser={activeuser}
+                setActiveUser={setActiveUser} 
+                members={members}
+                />
+
+</div>
+
+}
+
+{login || singup ? (
+  <div className="sing-up-container">
+    {login ? (
+      <Login singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} />
+    ) : (
+      <SignUp singup={singup} setSingUp={setSingUp} />
+    )}
+  </div>
+):null}
+<div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
+
+<AllProductsConteiner userData={userData} usermode={usermode} />
+
+<footer className="footer">Footer</footer>
+
+</div>
 
 
 
-  <ProductsConteiner {...componentsprops}
-    inUerMode={inUerMode}
-    setInUserMode={setInUserMode}
-    findInput={findInput}
-    setFindInput={setFindInput}
-    fetchData={fetchData}
-    advanceData={advanceData}
-    setAdvanceData={setAdvanceData}
-    singup={singup} 
-    setSingUp={setSingUp}
-    product={product} 
-    setProduct={setProduct}
-
-
-    login={login}
-    setLogIn={setLogIn}
-
-    activeuser={activeuser}
-    setActiveUser={setActiveUser}
-
-    usermode={usermode}
-
-  />
+</div>
 
 
 

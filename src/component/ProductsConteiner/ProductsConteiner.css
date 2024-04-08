@@ -25,7 +25,7 @@
 
     .userTable{
       display: flex;
-      margin-top: 15px;
+      margin-top: 0px;
       padding: 0px;
       width: 75%;
       float: left;
@@ -351,15 +351,14 @@ box-shadow: 2px 0.8px 5px 0.5px black inset;
 
 }
 .products-header {
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  width: 98%;
+  width: 100%;
   margin: auto;
   text-align: left;
-  backdrop-filter: blur(4px);
-  box-shadow: inset 2px 2px 1500px 0.5px rgba(255, 55, 0, 0.4), 2px 2px 4px 0.5px black;
+  backdrop-filter: blur(1px);
+  box-shadow: inset 2px 2px 1500px 0.2px rgba(255, 55, 0, 0.4), 2px 2px 4px 0.4px black;
   padding-left: 12px;
-  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-top: 0px;
 }
 
 .all-product-conceiner-II{
@@ -379,7 +378,7 @@ box-shadow: 2px 0.8px 5px 0.5px black inset;
 
       .userTable{
         margin: auto;
-        margin-top: 15px;
+        margin-top: 0px;
         width: 98%;
         float: none;
       }

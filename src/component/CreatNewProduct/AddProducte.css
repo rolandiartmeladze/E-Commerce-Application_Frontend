@@ -19,13 +19,13 @@ textarea:focus{ box-shadow: -0.3px -0.2px 1px 0.3px rgba(0, 0, 0, 0.3) inset;}
 
 .update-advanse{
         height: 45px;
-        width: 98%;
+        width: 100%;
         display: flex; 
         justify-content: center;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        /* border-top-left-radius: 8px;
+        border-top-right-radius: 8px; */
         transition: 0.5s ease-in-out;
-        margin-top: 10px;
+        /* margin-top: 10px; */
         justify-content: flex-start;
         flex-direction: column;
         align-items: center;
@@ -46,8 +46,8 @@ textarea:focus{ box-shadow: -0.3px -0.2px 1px 0.3px rgba(0, 0, 0, 0.3) inset;}
         cursor: pointer;
         display: flex;
         align-items: center;
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
+        /* border-top-left-radius: 0px;
+        border-top-right-radius: 0px; */
         width: 100%;
         padding: 0;
         margin: 0;

@@ -54,14 +54,14 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
     <div className='Header'>
 
       <>
-      {usermode &&
+      {usermode?
       <div className='userinhear'>
         <img className='user-icon' src={userIcin} alt='User Icon' />
         <div style={{display: 'flex', flexDirection:'column', alignItems:'flex-start'}}>
         <h2>{localStorage.getItem('user')}</h2>
         <h4>{localStorage.getItem('address')}</h4>
         </div>
-      </div>
+      </div>:<h1 style={{margin:'0', padding:'0', position:'absolute', top:'4px', left:'25px'}}>MyShop.App</h1>
       }
 
       </>

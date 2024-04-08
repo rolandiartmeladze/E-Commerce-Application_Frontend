@@ -65,7 +65,7 @@ const MyProducts: React.FC<Props> = ({
                               <samp className="product-addres">{item.address}</samp>
                               
                               </samp>
-                              <div className='headerMore'>...</div>
+                              <div style={{color:'cyan'}} className='headerMore'>...</div>
                       </div>
               
                               <div className='userInfoLine'>

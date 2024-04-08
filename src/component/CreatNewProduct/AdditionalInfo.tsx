@@ -65,7 +65,7 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
 
   <div
     id="addcommentid"
-    onClick={() => handleItemClick("text", "Comment")}
+    onClick={() => handleItemClick("text", "comment")}
     className="add-btn-conteiner"
   >
     <div className="addnewinputicon">

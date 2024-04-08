@@ -3,6 +3,7 @@ import '../style/Aside.css';
 import FindeComponent from './FindeComponent';
 import { patch } from 'semver';
 // import  FindIcon from '../icon/find.png';
+import serverUri from '../component/serverUrl';
 
 
 interface ProducteData {
@@ -33,8 +34,7 @@ interface ProducteData {
                         activeuser:object;
                         setActiveUser:Function;
 
-                        members:any[];
-                    
+                        members:any;
 
             
             
@@ -70,8 +70,6 @@ function Aside({
 }:ProducteData) {
 
 
-    // console.log(members)
-
 
     const Amount = (event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -80,61 +78,19 @@ function Aside({
             const QuantityInput = document.getElementById('QuantityInput') as HTMLInputElement;
 
         if (value > 0) {
-            if (value >= selectedUser.Quantity) { 
-                QuantityInput.value = selectedUser.Quantity;
+            if (value >= selectedUser.quantity) { 
+                QuantityInput.value = selectedUser.quantity;
                 QuantityInput.style.color = 'red';
-                setSoldAmount(selectedUser.Quantity);
+                setSoldAmount(selectedUser.quantity);
             } 
                 else {setSoldAmount(value);}    
             }
         else{QuantityInput.value = ''; setSoldAmount(0);}
     };
 
-      const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
 
-    // const SalePoduct = async ()  => {
 
-
-    // }
-
-
-    // const sale = async () => {
-    //     if (soldAmount > 0) {
-    //         const productId = selectedUser._id;
-    //         const quantity = selectedUser.Quantity;
-    //         const newQuantity = quantity - soldAmount;
-
-    
-    //         try {
-    //             const response = await fetch(`http://localhost/SaleProduct/${productId}?newQuantity=${newQuantity}`, {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //             });
-    //             const data = await response.json();
-    //             console.log(data);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-
-    //         console.log(productId)
-
-    //     }
-    // };          
-    
-    
-//     if (selectedUser !== null) {
-//     const productId = selectedUser._id;
-//     const quantity = selectedUser.Quantity;
-//     const newQuantity = quantity - soldAmount;
-
-//     // Call saleproduct function with productId and newQuantity
-//     saleproduct(productId, newQuantity);
-// } else {
-//     console.error('selectedUser is null');
-// }
 
 
     const sale = () => {
@@ -142,39 +98,39 @@ function Aside({
         const quantity = selectedUser.Quantity;
         const newQuantity = quantity - soldAmount;
     
-        saleproduct(productId, newQuantity);
+        // saleproduct(productId, newQuantity);
 
     }
             //     const productId = selectedUser._id;
             // const quantity = selectedUser.Quantity;
             // const newQuantity = quantity - soldAmount;
 
-                    async function saleproduct(productId:string, newQuantity:number) {
-                        try{
+                //     async function saleproduct(productId:string, newQuantity:number) {
+                //         try{
 
                         
-                        const url =  `http://localhost:80/SaleProduct/${productId}?newQuantity=${newQuantity}`;
+                //         const url =  `http://localhost:80/SaleProduct/${productId}?newQuantity=${newQuantity}`;
                     
                     
-                        const options = {
-                            method: 'PUT',
-                            headers: {'Content-Type': 'application/json'}
-                        }
+                //         const options = {
+                //             method: 'PUT',
+                //             headers: {'Content-Type': 'application/json'}
+                //         }
 
-                        const response  = await fetch(url, options);
-                        if(response.ok){
-                            const data = await response.json();
-                            // console.log('uprated:', data);
-                        } else{ 
-                            const errorMessage = await response.text();
-                            console.error('ont working' , errorMessage);
-                        }
+                //         const response  = await fetch(url, options);
+                //         if(response.ok){
+                //             const data = await response.json();
+                //             // console.log('uprated:', data);
+                //         } else{ 
+                //             const errorMessage = await response.text();
+                //             console.error('ont working' , errorMessage);
+                //         }
 
 
-                    } catch (error){
-                        console.error('not working', error);
-                    }
-                }
+                //     } catch (error){
+                //         console.error('not working', error);
+                //     }
+                // }
     
 
                 // console.log(activeuser)
@@ -223,11 +179,15 @@ function Aside({
                         </div>
 
                         <ul style={{marginTop:'45px'}}>
-                        
-                    {members?.map((item, index) => (
-                    <li key={index}>
-                        <samp>{item.name}</samp>
-                        <samp>{item.lastname}</samp>
+                        <h3>Test Members</h3>
+                    {members?.slice(0, 1).map((item:any, index:number) => (
+                    <li  style={{display:'flex', flexDirection:'column' , alignItems:'flex-start'}} key={index}>
+                        <div>
+                        <samp>{item.name}</samp> <samp>{item.lastname}</samp>
+                        </div>
+                        <div>
+                        <samp  style={{color: 'black'}}>{item.email}</samp><samp  style={{color: 'black'}}>{'rolandi123'}</samp>
+                        </div>
                         </li>
                     ))}
                         

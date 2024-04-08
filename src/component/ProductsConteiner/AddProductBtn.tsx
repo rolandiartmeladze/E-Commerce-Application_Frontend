@@ -32,12 +32,12 @@ const AddProductBtn: React.FC<addbtn> = ({
 
         <div style={{justifyContent: 'center'}} 
                 className='userHeaderline'>
-        <img src={UserIcon} alt='User Icon' />
+        
         </div>
 
                 <AddUserHead className='userInfoLine'>
                 <h3>Add Product</h3>
-                <img src={AddIcon} alt='User Icon' />
+                <img width={40} src={AddIcon} alt='User Icon' />
                 </AddUserHead>
 
 </div>

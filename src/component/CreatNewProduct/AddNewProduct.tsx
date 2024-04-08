@@ -80,7 +80,7 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                 const advanceForm = document.getElementById("advanceForm") as HTMLFormElement;
                 const advanceFormInputs = advanceForm?.querySelectorAll<HTMLInputElement>('input, textarea');
 
-                             const currencyElement = document.getElementById("currency") as HTMLSelectElement | null;
+                const currencyElement = document.getElementById("currency") as HTMLSelectElement | null;
 
                 const quantityElement = document.getElementById("Quantityunit") as HTMLSelectElement | null;
         

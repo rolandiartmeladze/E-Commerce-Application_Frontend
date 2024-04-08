@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './ProductsConteiner.css';
 import '../UsersComponent/SingUp.css';
-import styled from 'styled-components';
 
 
 
 
 import AddNewProduct from '../CreatNewProduct/AddNewProduct';
-import Loaing from '../Loading';
 import AddProductBtn from './AddProductBtn';
-import testimg from '../../img/slide_9.jpg';
-import SingUp from '../UsersComponent/SingUp';
-import AllProductsConteiner from './AllProductConteiner';
 import MyProducts from './MyProducts';
-import Login from '../UsersComponent/LogIn';
 
 
 
@@ -57,30 +51,6 @@ interface UserContainerProps {
       
       }
 
-      const LoadConteiner = styled.div`
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                backdrop-filter: blur(5.5px);
-                bottom: 0;
-                top: 55px;
-                font-size: 200%;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                flex-direction: column;
-                z-index: 5;
-    `;
-    
-
-
-    interface FormDataprops {
-        name: string;
-        email: string;
-        phone: string;
-        password: string;
-    }
 function ProductsConteiner({
         fetchData, 
         loading, 
@@ -123,7 +93,6 @@ function ProductsConteiner({
 
 
 
-        const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
 
 
@@ -139,27 +108,17 @@ function ProductsConteiner({
 
 
 
-                            
-
-
-                        //     const usermode = () => {
-                        //         inUerMode? setInUserMode(false):setInUserMode(true)
-                        //     } 
-                            
+                                            
 
 return (
 <>
 
-{/* <button onClick={usermode}>{!inUerMode? 'myroom' : 'all users mode'}</button> */}
-
-{!singup && !login ?
-
-<div style={{position: 'relative'}}  className='userTable'>
+<div   style={{position: 'relative', width: '100%'}}  className='userTable'>
 
 {/* {notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
 {loading ? <Loaing />:null} */}
+        <h1 className='products-header'> <samp>My Products</samp>{" "}<samp>Favorite</samp> </h1>
 
-{usermode && 
 
         <AddNewProduct fetchData={fetchData}
                 product={product} 
@@ -174,8 +133,8 @@ return (
                 setActiveUser={setActiveUser}
             
                 />
-}
-        {findstatus? 
+
+                {findstatus && 
                 <div className='find-result-btn-coneiner'>
                 <span className='find-result-btn-coneiner-title'> Found 
                   <span className='find-result-btn-coneiner-result-count'>{userData.length}</span> 
@@ -183,12 +142,11 @@ return (
                 </span> 
                 <span onClick={closefinde} className='closeFindeBtn'>Close Finde</span>
               </div>
-              :null
-}
+              
+        }
 
-                                                       <h1 className='products-header'> {usermode? 'My Products' : 'Most Popular'}</h1>
 
-              {usermode && 
+              
                         <>
     
                                 <AddProductBtn  addProductFunction={addProductFunction} product={product} />
@@ -208,31 +166,20 @@ return (
                                                 />
 </>
 
-}
+
       </div>
-      : 
-
-      <div className="sing-up-conteiner">
-
-               {login? <Login singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn}/> :null}
-
-                {singup? <SingUp singup={singup} setSingUp={setSingUp} />  : null}
-      
-      </div>
-}
+    
 
 
 
-{inUerMode?
+
 
 <>
 
-<AllProductsConteiner userData={userData} />
 
 </>
 
-:null
-}
+
 
 
 </>
