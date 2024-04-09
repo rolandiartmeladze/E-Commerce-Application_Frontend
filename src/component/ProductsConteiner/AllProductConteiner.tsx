@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './ProductsConteiner.css';
 import './product.css';
 
 
 import user from '../../icon/user.png';
-import shareicon from '../../icon/cost.png';
+import view from '../../icon/view.png';
+import cost from '../../icon/cost.png';
+import share from '../../icon/share.png';
+import favicon0 from '../../icon/fav.png';
+import favicon1 from '../../icon/favcheck.png';
 
 import testimg from '../../img/slide_9.jpg';
 
@@ -13,6 +17,9 @@ import testimg from '../../img/slide_9.jpg';
 interface Props{
     userData: userprops[];
     usermode:boolean;
+    favorits:any; 
+    setFavorits:Function;
+    chekfavorits:Function;
 }
 interface userprops{
     name:string;
@@ -27,15 +34,38 @@ interface userprops{
     phone:string;
     comment:string;
     description:string;
+    view:number;
+    sale:number;
 
 }
 
 
 
-const AllProductsConteiner: React.FC<Props> = ({ userData, usermode }) => {
+const AllProductsConteiner: React.FC<Props> = ({ userData, usermode, favorits, setFavorits, chekfavorits}) => {
 
+    
+const handleItemClick = async (itemId: string) => {
+    let newItem = itemId;
+    
+    let storedFavorites = localStorage.getItem('favorits');
+    let favorites = storedFavorites ? JSON.parse(storedFavorites) : [];
+    
+    let updatedFavorites = [...favorites];
+    
+    const index = updatedFavorites.indexOf(newItem);
+    if (index === -1) {
+        updatedFavorites.push(newItem);
+    } else {
+        updatedFavorites.splice(index, 1);
+    }
+    
+    localStorage.setItem('favorits', JSON.stringify(updatedFavorites));
+    
+    setFavorits(updatedFavorites);
 
-    return(
+    console.log(updatedFavorites);
+};
+        return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
         {usermode && <h1 className="products-header"> All Products</h1>}
@@ -52,15 +82,28 @@ const AllProductsConteiner: React.FC<Props> = ({ userData, usermode }) => {
         <img width="30" src={user} alt='owner icon' />
         {item.owner}
     </div>
-    <div className="product-info-item name">
+    <div className="product-info-item add">
         <p>
-                  <samp> {item.name}</samp>
- 
+        <samp>{(item.name.length > 20) ? item.name.slice(0, 35) + '...' : item.name}</samp> 
         </p>
     </div>
-    <div className="product-info-item">
-        {item.comment}
+    <div className="product-info-item add">
+        <p>
+        <samp><samp>{item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp></samp> 
+        </p>
     </div>
+    <div style={{color:'red'}} className="product-info-item">{(item.price).toFixed(2)} {item.currency}</div>
+
+    <div className="product-info-item end">
+    <samp><img src={view} alt="view icon"/>{item.view}</samp>
+    <samp><img src={cost} alt="cost icon"/>{item.sale}</samp>
+    <samp><img src={share} alt="share icon"/>{0}</samp>
+    <samp onClick={() => handleItemClick(item._id)} style={{position:'absolute', right: '3px', bottom: '8px'}}>
+        <img style={{width: '30px'}} width={30} src={
+            favorits.includes(item._id) ? favicon1 : favicon0 }
+         alt="fav icon"/>
+        </samp>
+        </div>
 </div>
     </article>
 

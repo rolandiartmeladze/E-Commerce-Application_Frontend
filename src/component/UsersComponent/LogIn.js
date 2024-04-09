@@ -27,6 +27,8 @@ const Login = ({ singup, setSingUp, login, setLogIn }) => {
             localStorage.setItem('token', user._id);
             localStorage.setItem('user', `${user.name} ${user.lastname}`);
             localStorage.setItem('address', user.address);
+            localStorage.removeItem('favorits');
+
 
 
             setTimeout(() => {

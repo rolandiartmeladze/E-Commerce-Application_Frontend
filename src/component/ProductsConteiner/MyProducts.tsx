@@ -12,11 +12,17 @@ interface Props {
     product: any[];
     setProduct: Function;
     activeuser:object;
+    ismain:boolean;
+    isfav:boolean;
 
 };
 
 interface Product { _id: string; }
-interface ActiveUser { products: Product[]; }
+interface Favorits { _id: string; }
+interface ActiveUser { 
+        products: Product[];
+        favorits: Favorits[];
+ }
 
 
 const MyProducts: React.FC<Props> = ({ 
@@ -27,7 +33,9 @@ const MyProducts: React.FC<Props> = ({
     setSelectedUser,     
     product, 
     setProduct,
-    activeuser
+    activeuser,
+    ismain,
+    isfav
 
  }) =>{
 
@@ -47,7 +55,16 @@ const MyProducts: React.FC<Props> = ({
         
     };    
 
-    const myproduct: Product[] = (activeuser as ActiveUser).products;
+    let myproduct: Product[];
+
+    if (ismain) {
+        myproduct = (activeuser as ActiveUser).products;
+    } else if (isfav) {
+        myproduct = (activeuser as ActiveUser).favorits;
+    } else {
+        myproduct = [];
+    }
+    
 
     const myproducts = userData.filter(product => myproduct.includes(product._id));
 
@@ -60,16 +77,20 @@ const MyProducts: React.FC<Props> = ({
                       <div className='userHeaderline'>
                               {/* <img src={UserIcon} alt='User Icon' /> */}
                               <samp className="uroduct-header-info"> 
-                                <span className="product-name">{item.name} </span>
+                                <span className="product-name">{(item.name.length > 20) ? item.name.slice(0, 30) + '...' : item.name} </span>
       
                               <samp className="product-addres">{item.address}</samp>
                               
                               </samp>
-                              <div style={{color:'cyan'}} className='headerMore'>...</div>
+                              {ismain && <div style={{color:'cyan'}} className='headerMore'>...</div>}
+                              
                       </div>
               
                               <div className='userInfoLine'>
+                                                {ismain && 
+                                                
                                       <samp style={{display: 'flex', alignItems:'center', flexDirection: 'column', justifyContent:'center'}}><h1>რაოდენობა</h1> <h3>{item.quantity} {item.quantityUnit}</h3></samp>
+                                      }
                                       <samp style={{display: 'flex', alignItems:'center', flexDirection: 'column', justifyContent:'center'}}><h1>ფასი</h1><h3> {item.price}  {item.currency}</h3></samp>
                                       <div style={{flexDirection: 'column',  height: '40%'}}  className='userInfoLineall-item'>
                                <div style={{ alignItems: 'center' ,  display:'flex', flexDirection: 'row'}}>
@@ -98,9 +119,11 @@ const MyProducts: React.FC<Props> = ({
 
                               </div>
               
-                                      <div style={{width: '80%'}} className='userTotal'> 
-                                      <samp>
-                                              <h2>ღირებულება: <samp>{(item.quantity * item.price).toFixed(1)} {item.currency}</samp></h2>
+                                      <div style={{width:'80%'}} className='userTotal'> 
+                                      <samp >
+                                      {ismain && <h2>ღირებულება: <samp>{(item.quantity * item.price).toFixed(1)} {item.currency}</samp></h2>}
+                                      {isfav && <h2>owner: <samp>{item.owner}</samp></h2>}
+                                              
                                       </samp>
                                       </div>
       

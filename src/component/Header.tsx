@@ -9,10 +9,11 @@ interface headerprops{
   login:boolean;
   setLogIn:Function;
   usermode:boolean;
+  chekfavorits:Function;
 }
 
 
-const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, usermode}) => {
+const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, usermode, chekfavorits}) => {
 
 
   const singupbtn = () =>{
@@ -42,6 +43,9 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       localStorage.removeItem('address');
+
+      chekfavorits();
+      localStorage.removeItem('favorits');
 
       window.location.reload();
       // Additional logout actions can be added if needed

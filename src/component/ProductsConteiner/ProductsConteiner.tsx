@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './ProductsConteiner.css';
 import '../UsersComponent/SingUp.css';
@@ -47,10 +47,12 @@ interface UserContainerProps {
         setActiveUser:Function;
 
         usermode:boolean;
-    
+        favorits:any[];
       
       }
-
+      interface Product { _id: string; }
+      interface ActiveUser { products: Product[]; }
+      
 function ProductsConteiner({
         fetchData, 
         loading, 
@@ -86,8 +88,8 @@ function ProductsConteiner({
         activeuser,
         setActiveUser,
 
-        usermode
-    
+        usermode,
+        favorits
   
 }: UserContainerProps) {
 
@@ -106,9 +108,20 @@ function ProductsConteiner({
                             setFindInput('');
                         }
 
+                        const myproduct: Product[] = (activeuser as ActiveUser)?.products || [];
+
+                        const [ismain ,setIsMain] = useState(true);
+                        const [isfav ,setIsFav] = useState(false);
 
 
-                                            
+                        const setfavoritmode = () =>{
+                                !isfav && setIsFav(true); setIsMain(false)
+                          }
+
+                          const setmyproductmode = () =>{
+                                !ismain && setIsFav(false); setIsMain(true)
+                          }
+                                                
 
 return (
 <>
@@ -117,7 +130,20 @@ return (
 
 {/* {notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
 {loading ? <Loaing />:null} */}
-        <h1 className='products-header'> <samp>My Products</samp>{" "}<samp>Favorite</samp> </h1>
+        <h1 className='products-header'> 
+        <samp onClick={setmyproductmode} style={{
+                boxShadow: ismain? 'none': 'inset 0px 0.5px 3px 0.3px rgb(235, 15, 15)',
+                color: ismain? 'black': 'rgb(22, 8, 145)',
+                cursor: ismain? 'default' : 'pointer',
+                }} className='my-favorits-btn'>My Products 
+              <span className='my-favorits-numb'>{myproduct.length}</span></samp>
+                <samp onClick={setfavoritmode} style={{
+                boxShadow: isfav? 'none': 'inset 0px 0.5px 3px 0.3px rgb(235, 15, 15)',
+                color: isfav? 'black': 'rgb(22, 8, 145)',
+                cursor: isfav? 'default' : 'pointer',
+
+                }} className='my-favorits-btn' >Favorites 
+                        <span className='my-favorits-numb'>{favorits.length}</span></samp>  </h1>
 
 
         <AddNewProduct fetchData={fetchData}
@@ -148,8 +174,10 @@ return (
 
               
                         <>
+
+                        {ismain&& <AddProductBtn  addProductFunction={addProductFunction} product={product} />}
     
-                                <AddProductBtn  addProductFunction={addProductFunction} product={product} />
+                                
         
       
 
@@ -162,6 +190,8 @@ return (
                                                 product={product} 
                                                 setProduct={setProduct}
                                                 activeuser={activeuser}
+                                                ismain={ismain}
+                                                isfav={isfav}
 
                                                 />
 </>

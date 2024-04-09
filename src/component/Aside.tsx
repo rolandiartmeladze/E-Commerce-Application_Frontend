@@ -83,7 +83,10 @@ function Aside({
                 QuantityInput.style.color = 'red';
                 setSoldAmount(selectedUser.quantity);
             } 
-                else {setSoldAmount(value);}    
+                else {setSoldAmount(value);
+                    QuantityInput.style.color = 'black';
+
+                }    
             }
         else{QuantityInput.value = ''; setSoldAmount(0);}
     };

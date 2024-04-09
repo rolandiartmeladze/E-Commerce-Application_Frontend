@@ -61,8 +61,9 @@ function App(): JSX.Element{
 
     const [members, setMembers] = useState<any>([]);
 
+    const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
 
-                        const serverlink = serverUri();
+          const serverlink = serverUri();
 
 
 
@@ -93,6 +94,35 @@ function App(): JSX.Element{
 
 
 
+      const chekfavorits  = async () => {
+
+        try {
+            
+            const option = {
+                userId: token,
+                favorits:favorits
+            }
+            const favorit = await fetch('http://localhost:3001/FavoritProduct', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(option),
+            })
+            if (!favorit.ok) {
+                throw new Error('Failed to fetch users data');
+            }
+
+               const favoritResponse = await favorit.json();
+               localStorage.setItem('favorits', JSON.stringify(favoritResponse));
+                    setFavorits(favoritResponse);
+        } catch (error) { console.error('Error fetching data:', error);}
+
+    
+
+
+};
+
 
  
                const fetchData = async () => {
@@ -101,14 +131,19 @@ function App(): JSX.Element{
 
                 try {
                     if (token) {
+
                         const userResponse = await fetch(`${serverlink}/user?token=${token}`);
                         if (userResponse.ok) {
                             const userData = await userResponse.json();
-                            // console.log('User data:', userData);
                             setActiveUser(userData)
                         } else {
                             throw new Error('Failed to fetch user data');
                         }
+
+
+                        
+                        chekfavorits();
+
                     }
             
                     const productsResponse = await fetch(`${serverlink}/checkProducts`, {
@@ -144,6 +179,7 @@ function App(): JSX.Element{
           useEffect(() => {
             fetchData();
           }, []); 
+
   return (
     <>
 
@@ -155,12 +191,13 @@ function App(): JSX.Element{
       login={login} 
       setLogIn={setLogIn} 
       usermode={usermode} 
+      chekfavorits={chekfavorits}
       />
 {!usermode &&
 <div className='meniu'>
   <h1>Products: {userData.length}</h1> 
   <h1> Members: {members.length}</h1> 
-  <h1> Favorite: {'0'}</h1>
+  <h1> Favorite: {favorits.length}</h1>
   <h1> Category{'>'}</h1>
   </div>
 }
@@ -192,6 +229,7 @@ function App(): JSX.Element{
 
           usermode={usermode}
 
+          favorits={favorits}
         />
 
       </div>
@@ -218,7 +256,13 @@ function App(): JSX.Element{
 ):null}
 <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
 
-<AllProductsConteiner userData={userData} usermode={usermode} />
+<AllProductsConteiner 
+userData={userData} 
+usermode={usermode} 
+favorits={favorits} 
+setFavorits={setFavorits}  
+chekfavorits={chekfavorits} 
+/>
 
 <footer className="footer">Footer</footer>
 

@@ -14,22 +14,22 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
     let inputElement: JSX.Element;
     const comentbtn = document.getElementById('addcommentid');
     
-    if (value === "Comment") {
+    if (value === "comment") {
       if (comentbtn) {
         comentbtn.style.display = 'none';
       }
       inputElement = (
         <textarea
           className="inputItem"
-          key={inputFields.length} // Ensure each input has a unique key
-          placeholder={value}
+          key={inputFields.length} 
+          placeholder="comment"
         />
       );
     } else {
       inputElement = (
         <input
           className="inputItem"
-          key={inputFields.length} // Ensure each input has a unique key
+          key={inputFields.length} 
           accept={value === "img" ? "image/*" : ""}
           type={type}
         />

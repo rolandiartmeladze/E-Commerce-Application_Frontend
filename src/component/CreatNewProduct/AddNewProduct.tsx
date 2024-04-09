@@ -157,24 +157,31 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
     console.log(productData)
       setNewUser(true);
+        
         try {
+              setTimeout( async () => {
+                
 
             const response = await fetch(`${serverlink}/createProduct`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(productData),
             });
+
               if (!response.ok) {throw new Error("Failed to fetch advance data");}
                   const NewUser = await response.json();
                   console.log(NewUser)
                     setInputValues(['', '', '', '']);
-                    
+                               }, 500);
+   
                                           
 
         
-            } 
+            }
+             
               catch (error) {console.error("Error:", error);} 
               finally { setNewUser(false); fetchData(); advanceForm.reset(); }
+
   };
 
 
