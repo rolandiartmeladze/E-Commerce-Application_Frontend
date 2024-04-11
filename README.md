@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# My Full Stack E-Commerce Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to my full stack e-commerce application! This project is built using React, TypeScript, Node.js, Express, MongoDB, and Mongoose Atlas. It provides a platform for users to create accounts, add products, sell items online, manage inventory, search for products, and more.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication:** Users can create accounts with personal data, and their passwords are securely hashed before being stored in the database.
+- **Authorization:** Only authorized users can access certain features and functionalities.
+- **Product Management:** Users can add products to the website, providing details such as product name, description, and contact information.
+- **Online Sales:** Users can sell products online, deducting the sold items from the available inventory.
+- **Inventory Management:** The application keeps track of inventory levels and updates them accordingly.
+- **Sales Funnel (Planned):** A feature to control sales and analyze profit/cost balance of stocks is planned for future implementation.
+- **Search Functionality:** Users can search for products by name using the search field.
+- **Favorites and Purchase Orders:** Users can add products to favorites and place purchase orders.
+- **Analytics (Planned):** Tracking of sales and sharing rate of product views is planned for future implementation.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Frontend:** HTML, CSS, JavaScript, React, TypeScript
+- **Backend:** Node.js, Express
+- **Database:** MongoDB, Mongoose Atlas
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+To run this project locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone this repository.
+2. Navigate to the project directory.
+3. Install dependencies using `npm install` or `yarn install`.
+4. Set up your MongoDB database and obtain connection credentials.
+5. Configure your environment variables for database connection.
+6. Run the frontend and backend servers using `npm start` or `yarn start`.
+7. Access the application in your browser.
 
-### `npm run build`
+## Contributing
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request with your changes.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### `npm run eject`
+## Acknowledgements
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Special thanks to the developers of React, Node.js, MongoDB, and all the other open-source technologies that made this project possible.
