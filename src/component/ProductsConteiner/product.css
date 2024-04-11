@@ -98,7 +98,6 @@ text-align: left;
     cursor: pointer;
     transition: 0.5s ease-in-out;
 }
-
 .my-favorits-numb{
 color: yellow;
 background-color: rgb(255, 0, 0, 0.5);
@@ -117,4 +116,10 @@ transition: 0.5s ease-in-out;
 .my-favorits-btn:hover {
     box-shadow: inset 2px 2px 3px 2px rgb(235, 15, 15, 0.5);
 
+}
+@media only screen and (max-width: 1024px) {
+    .my-favorits-btn{
+        margin-bottom: 10px;
+    }
+    
 }

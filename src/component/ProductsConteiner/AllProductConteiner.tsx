@@ -20,6 +20,7 @@ interface Props{
     favorits:any; 
     setFavorits:Function;
     chekfavorits:Function;
+    activeuser:object;
 }
 interface userprops{
     name:string;
@@ -41,7 +42,9 @@ interface userprops{
 
 
 
-const AllProductsConteiner: React.FC<Props> = ({ userData, usermode, favorits, setFavorits, chekfavorits}) => {
+const AllProductsConteiner: React.FC<Props> = ({ userData, usermode, favorits, setFavorits, chekfavorits, activeuser}) => {
+
+    console.log(activeuser);
 
     
 const handleItemClick = async (itemId: string) => {
@@ -64,6 +67,9 @@ const handleItemClick = async (itemId: string) => {
     setFavorits(updatedFavorites);
 
     console.log(updatedFavorites);
+
+
+
 };
         return(
     

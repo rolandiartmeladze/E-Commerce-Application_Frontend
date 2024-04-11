@@ -262,6 +262,7 @@ usermode={usermode}
 favorits={favorits} 
 setFavorits={setFavorits}  
 chekfavorits={chekfavorits} 
+activeuser={activeuser}
 />
 
 <footer className="footer">Footer</footer>

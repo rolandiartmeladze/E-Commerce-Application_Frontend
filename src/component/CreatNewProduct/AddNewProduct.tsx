@@ -238,3 +238,7 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 };
 
 export default AddNewProduct;
+
+
+
+

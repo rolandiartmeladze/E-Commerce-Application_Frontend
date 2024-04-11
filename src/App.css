@@ -150,3 +150,13 @@ body{
   padding: 10px 0; 
 }
 
+@media only screen and (max-width: 750px) {
+
+.main{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.main-products-container {
+  margin-right: 0;
+}
+}

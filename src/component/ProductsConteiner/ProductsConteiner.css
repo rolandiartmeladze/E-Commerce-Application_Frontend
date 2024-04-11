@@ -363,6 +363,8 @@ box-shadow: 2px 0.8px 5px 0.5px black inset;
   align-items: center;
 }
 
+
+
 .all-product-conceiner-II{
   display: flex; 
   width:100%; 
@@ -386,6 +388,12 @@ box-shadow: 2px 0.8px 5px 0.5px black inset;
       }
 
     }
+    @media only screen and (max-width: 750px) {
+      .userTable{
+position: relative
+;      }
+
+      }    
     @media only screen and (max-width: 550px) {
 
       .userConteinet {

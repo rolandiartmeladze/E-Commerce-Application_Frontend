@@ -145,7 +145,7 @@ function Aside({
 
                 <div className='Aside'>
                     
-                    <h1>Product info </h1>
+                    <h1>info </h1>
 
 
 
@@ -188,7 +188,7 @@ function Aside({
                         <div>
                         <samp>{item.name}</samp> <samp>{item.lastname}</samp>
                         </div>
-                        <div>
+                        <div   style={{ display: 'flex' ,   flexDirection: 'column'}}>
                         <samp  style={{color: 'black'}}>{item.email}</samp><samp  style={{color: 'black'}}>{'rolandi123'}</samp>
                         </div>
                         </li>
