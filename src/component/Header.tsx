@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../style/Header.css';
  import userIcin from '../icon/user.png';
- import locIcon from '../icon/loc1.png';
+ import findIcon from '../icon/find.png';
+
 
 interface headerprops{
   singup:boolean; 
@@ -88,6 +89,20 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
   </div>
 }
 
+    <div style={{
+        position:'absolute',
+        bottom:'2px',
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'center'
+    }}>
+      <input style={{
+        padding: '10px',
+        textAlign:'center',
+        width:'80%'
+      }} type='text' placeholder='Find Product'  />
+      <img style={{cursor:'pointer'}} width={30} src={findIcon} alt='find icon' />
+    </div>
       
     </div>
   );

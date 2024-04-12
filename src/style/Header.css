@@ -124,6 +124,8 @@ color: red;
 @media only screen and (max-width: 750px) {
     .Header{
         padding: 6px;
+        display: flex;
+    justify-content: flex-start;
     }
 
     .Meniu-Btn {

@@ -198,7 +198,7 @@ function App(): JSX.Element{
   <h1>Products: {userData.length}</h1> 
   <h1> Members: {members.length}</h1> 
   <h1> Favorite: {favorits.length}</h1>
-  <h1> Category{'>'}</h1>
+  <h1> Category{'0'}</h1>
   </div>
 }
 

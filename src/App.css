@@ -149,12 +149,29 @@ body{
   text-align: center;
   padding: 10px 0; 
 }
+@media only screen and (max-width: 1024px) {
+
+  .main{
+    padding: 10px;
+  }
+
+}  
 
 @media only screen and (max-width: 750px) {
 
 .main{
   display: flex;
   flex-direction: column-reverse;
+}
+.meniu {
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-around;
+  height: auto;
+}
+.meniu h1 {
+  margin: 4px;
+  margin-left: 20px;
 }
 .main-products-container {
   margin-right: 0;
