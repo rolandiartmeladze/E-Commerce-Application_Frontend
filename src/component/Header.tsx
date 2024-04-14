@@ -3,14 +3,28 @@ import '../style/Header.css';
  import userIcin from '../icon/user.png';
  import findIcon from '../icon/find.png';
 import styled from 'styled-components';
+import serverUri from '../component/serverUrl';
 
-interface headerprops{
-  singup:boolean; 
-  setSingUp:Function;
-  login:boolean;
-  setLogIn:Function;
-  usermode:boolean;
-  chekfavorits:Function;
+const serverlink = serverUri();
+
+
+interface HeaderProps {
+  singup: any; // Define type for singup
+  setSingUp: any; // Define type for setSingUp
+  login: any; // Define type for login
+  setLogIn: any; // Define type for setLogIn
+  usermode: boolean; // Define type for usermode
+  chekfavorits: any; // Define type for chekfavorits
+  findstatus: boolean; // Define type for findstatus
+  setFindStatus: any; // Define type for setFindStatus
+  loading: boolean; // Define type for loading
+  setLoading: any; // Define type for setLoading
+  userData: any; // Define type for userData
+  setUserData: any; // Define type for setUserData
+  notfound: boolean; // Define type for notfound
+  setNotound: any; // Define type for setNotound
+  findInput: string; // Define type for findInput
+  setFindInput: any; // Define type for setFindInput
 }
 
 const SearchContainer = styled.div`
@@ -61,7 +75,19 @@ const StyledButton = styled.button`
   }
 `;
 
-const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, usermode, chekfavorits}) => {
+const Header: React.FC<HeaderProps> = ({singup, setSingUp, login, setLogIn, usermode, chekfavorits,
+  findstatus,
+  setFindStatus,
+  loading, 
+  setLoading, 
+  userData, 
+  setUserData ,
+  notfound,
+  setNotound,
+  findInput,
+  setFindInput
+
+}) => {
 
 
   const singupbtn = () =>{
@@ -98,12 +124,58 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
       window.location.reload();
       // Additional logout actions can be added if needed
   };
+
+  const findRequest = async () => {
+
+    if(findInput.length >0){
+
+    setLoading(true);
+        try {
+                const FindInput = findInput;
+                const findProduct = await fetch(`${serverlink}/findProduct?FindInput=${FindInput}`, {
+                        method: 'GET',
+                        headers: {'Content-Type': 'application/json'},
+                });
+                if (!findProduct.ok) {throw new Error('Failed to fetch users data');}
+                const findResult = await findProduct.json();
+                setUserData(findResult);
+                if(findResult.length === 0){ setNotound(true); setFindStatus(false); }
+                else{setNotound(false);}                  
+
+            } 
+        catch (error) {console.error( error);} 
+        finally { setLoading(false);  if(userData.length > 0){setFindStatus(true)} }
+    }
+    else{
+
+        const input: HTMLInputElement | null = document.getElementById("FindProduct") as HTMLInputElement;
+        if(input){
+        input.style.borderColor = "red";
+        input.placeholder = "Enter a search term";
+        setTimeout(() => {
+            input.style.borderColor = "black";
+            input.placeholder = "search term";
+
+        }, 500);
+        }
+        
+    }
+
+};
+
   
-  const handleFindButtonClick = () => {
+  const handleFindButtonClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Add functionality for the find button click
-    console.log('Find button clicked');
+      const newValue = e.target.value;
+      setFindInput(newValue);
+
   };
+
   
+
+    const home = () => {
+      window.location.reload();
+    }
 
 
     return (
@@ -117,7 +189,7 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
         <h2>{localStorage.getItem('user')}</h2>
         <h4>{localStorage.getItem('address')}</h4>
         </div>
-      </div>:<h1 style={{margin:'0', padding:'0', position:'absolute', top:'4px', left:'25px'}}>MyShop.App</h1>
+      </div>:<h1 onClick={home} style={{margin:'0', cursor: 'pointer', padding:'0', position:'absolute', top:'4px', left:'25px'}}>MyShop.App</h1>
       }
 
       </>
@@ -142,8 +214,12 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
 
  {!usermode && (
         <SearchContainer>
-          <StyledInput type='text' placeholder='Find Product' />
-          <StyledButton onClick={handleFindButtonClick}>
+          <StyledInput id='FindProduct' 
+                  onChange={handleFindButtonClick} 
+                  value={findInput} 
+      
+          type='text' placeholder='Find Product' />
+          <StyledButton  onClick={findRequest}>
             {/* <img width={30} src={findIcon} alt='find icon' /> */}
             {'Find'}
           </StyledButton>

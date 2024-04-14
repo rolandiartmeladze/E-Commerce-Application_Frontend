@@ -192,6 +192,16 @@ function App(): JSX.Element{
       setLogIn={setLogIn} 
       usermode={usermode} 
       chekfavorits={chekfavorits}
+      userData={userData} 
+    setUserData={setUserData} 
+    loading={loading}
+    setLoading={setLoading}
+    findstatus={findstatus}
+    setFindStatus={setFindStatus}
+    notfound={notfound}
+    setNotound={setNotound}
+    findInput={findInput}
+    setFindInput={setFindInput}
       />
 {!usermode &&
 <div className='meniu'>
