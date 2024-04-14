@@ -36,6 +36,8 @@ interface ProducteData {
 
                         members:any;
 
+                        usermode:boolean;
+
             
             
   }
@@ -63,7 +65,8 @@ function Aside({
 
     activeuser,
     setActiveUser,
-    members
+    members, 
+    usermode
 
 
 
@@ -158,7 +161,9 @@ function Aside({
     notfound={notfound}
     setNotound={setNotound}
     findInput={findInput}
-    setFindInput={setFindInput} />
+    setFindInput={setFindInput} 
+    usermode={usermode}
+    />
 
                         <ul>
                             <li>Name:<samp>{selectedUser?.name}</samp> </li>

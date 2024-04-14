@@ -249,6 +249,7 @@ function App(): JSX.Element{
                 activeuser={activeuser}
                 setActiveUser={setActiveUser} 
                 members={members}
+                usermode={usermode}
                 />
 
 </div>
