@@ -168,7 +168,9 @@ body{
   flex-direction: column;
   justify-content: space-around;
   height: auto;
+  
 }
+
 .meniu h1 {
   margin: 4px;
   margin-left: 20px;

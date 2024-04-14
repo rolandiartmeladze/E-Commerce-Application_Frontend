@@ -154,8 +154,9 @@ color: red;
     
     .userBtn {
         right: 10px;
-        padding: 5px;
+        padding: 1px;
         font-size: 70%;
+        top: 5px;
     }
   }
 

@@ -44,9 +44,8 @@ interface userprops{
 
 const AllProductsConteiner: React.FC<Props> = ({ userData, usermode, favorits, setFavorits, chekfavorits, activeuser}) => {
 
-    console.log(activeuser);
 
-    
+
 const handleItemClick = async (itemId: string) => {
     let newItem = itemId;
     

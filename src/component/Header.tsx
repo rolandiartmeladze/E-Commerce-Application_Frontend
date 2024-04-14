@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../style/Header.css';
  import userIcin from '../icon/user.png';
  import findIcon from '../icon/find.png';
-
+import styled from 'styled-components';
 
 interface headerprops{
   singup:boolean; 
@@ -13,6 +13,53 @@ interface headerprops{
   chekfavorits:Function;
 }
 
+const SearchContainer = styled.div`
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  width: 98%;
+  justify-content: center;
+  margin:auto;
+  @media screen and (max-width: 550px) {
+    width: 96%;
+  }
+
+`;
+
+const StyledInput = styled.input`
+  padding: 10px;
+  text-align: center;
+  width: 80%;
+  border: 1px solid #daac;
+  border-radius: 5px;
+  backdrop-filter: blur(8px); 
+  background-color: rgba(255, 255, 255, 0.3);
+  outline: none;
+  transition: 0.4s ease-in-out;
+
+
+  &::placeholder { 
+  font-weight: 800;
+}
+&:focus {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+  
+  `;
+
+const StyledButton = styled.button`
+  background-color: rgba(255, 255, 255, 0.6); 
+  border: none;
+  padding: 2px 15px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.9); 
+  }
+`;
 
 const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, usermode, chekfavorits}) => {
 
@@ -52,6 +99,10 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
       // Additional logout actions can be added if needed
   };
   
+  const handleFindButtonClick = () => {
+    // Add functionality for the find button click
+    console.log('Find button clicked');
+  };
   
 
 
@@ -84,26 +135,20 @@ const Header: React.FC<headerprops> = ({singup, setSingUp, login, setLogIn, user
 }
 
 {usermode &&
-  <div style={{padding:'3px 8px '}} onClick={logout} className='userBtn'>
+  <div style={{padding:'3px 8px ', right:'12px'}} onClick={logout} className='userBtn'>
     <samp>Log Out</samp>
   </div>
 }
 
-    <div style={{
-        position:'absolute',
-        bottom:'2px',
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'center'
-    }}>
-      <input style={{
-        padding: '10px',
-        textAlign:'center',
-        width:'80%'
-      }} type='text' placeholder='Find Product'  />
-      <img style={{cursor:'pointer'}} width={30} src={findIcon} alt='find icon' />
-    </div>
-      
+ {!usermode && (
+        <SearchContainer>
+          <StyledInput type='text' placeholder='Find Product' />
+          <StyledButton onClick={handleFindButtonClick}>
+            {/* <img width={30} src={findIcon} alt='find icon' /> */}
+            {'Find'}
+          </StyledButton>
+        </SearchContainer>
+      )}      
     </div>
   );
 }

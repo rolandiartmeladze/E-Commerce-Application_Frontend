@@ -51,7 +51,20 @@ interface UserContainerProps {
       
       }
       interface Product { _id: string; }
-      interface ActiveUser { products: Product[]; }
+      interface ActiveUser { 
+        products: Product[]; 
+        favorits: Favorits[]; 
+
+      }
+
+      interface Favorits {
+        _id: string;
+        name: string;
+      }
+      
+
+      
+    
       
 function ProductsConteiner({
         fetchData, 
@@ -109,6 +122,8 @@ function ProductsConteiner({
                         }
 
                         const myproduct: Product[] = (activeuser as ActiveUser)?.products || [];
+                        const favproduct: Favorits[] = (activeuser as ActiveUser)?.favorits || [];
+
 
                         const [ismain ,setIsMain] = useState(true);
                         const [isfav ,setIsFav] = useState(false);
@@ -143,7 +158,7 @@ return (
                 cursor: isfav? 'default' : 'pointer',
 
                 }} className='my-favorits-btn' >Favorites 
-                        <span className='my-favorits-numb'>{favorits.length}</span></samp>  </h1>
+                        <span className='my-favorits-numb'>{favproduct.length}</span></samp>  </h1>
 
 
         <AddNewProduct fetchData={fetchData}
