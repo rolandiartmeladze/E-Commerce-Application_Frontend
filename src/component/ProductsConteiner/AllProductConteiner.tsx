@@ -84,12 +84,15 @@ const handleItemClick = async (itemId: string) => {
 
         <div className="product-info">
     <div className="product-info-item">
-        <img width="30" src={user} alt='owner icon' />
-        {item.owner}
+        {/* {item.owner} */}
+        {(item.name.length > 20) ? item.name.slice(0, 35) + '...' : item.name}
     </div>
     <div className="product-info-item add">
         <p>
-        <samp>{(item.name.length > 20) ? item.name.slice(0, 35) + '...' : item.name}</samp> 
+        <samp style={{display:'flex', alignItems:' center'}}>
+            <img style={{marginRight:'5px'}} width="20" src={user} alt='owner icon' /> 
+                    {item.owner}
+</samp> 
         </p>
     </div>
     <div className="product-info-item add">
@@ -104,9 +107,9 @@ const handleItemClick = async (itemId: string) => {
     <samp><img src={cost} alt="cost icon"/>{item.sale}</samp>
     <samp><img src={share} alt="share icon"/>{0}</samp>
     <samp onClick={() => handleItemClick(item._id)} style={{position:'absolute', right: '3px', bottom: '8px'}}>
-        <img style={{width: '30px'}} width={30} src={
+        {/* <img style={{width: '30px'}} width={30} src={
             favorits.includes(item._id) ? favicon1 : favicon0 }
-         alt="fav icon"/>
+         alt="fav icon"/> */}
         </samp>
         </div>
 </div>

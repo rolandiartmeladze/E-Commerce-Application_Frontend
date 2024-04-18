@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+// import { getFileExtension, uploadFile } from './utils';
 import './AddProducte.css';
 
 import ArrowRigth from "../../icon/arrow.png";
@@ -84,6 +85,7 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
                 const quantityElement = document.getElementById("Quantityunit") as HTMLSelectElement | null;
         
+                const categoryElement = document.getElementById("CategoryOptions") as HTMLSelectElement | null;
 
                 const serverlink = serverUri();
 
@@ -93,19 +95,23 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
   // ახდენს მონაცემების რამუშავებას აქტიური ექციის შესაბამისად
   // აბრუნებს მასივს ან მასივსა სა ობიექტის კომბინაციას
   // ახალი პროდუქტის დასამატებლად ან არსებული ძირითადი მონაცემების განახლებისტვის
-  const optimiseinfo = () => {  
+  const getOptimizedInfo = () => {  
 
-    if (advanceFormInputs && currencyElement && quantityElement) {
+    if (advanceFormInputs && currencyElement && quantityElement && categoryElement) {
 
         const inputsArray = Array.from(advanceFormInputs);
         const selectedCurrency = currencyElement.value;
         const selectedQuantity = quantityElement.value;
+
+        const selectedCategory = categoryElement.value;
+
         const AdvanceInfo: Record<string, any> = {};
 
           AdvanceInfo.currency = selectedCurrency;
           AdvanceInfo.quantityiunit = selectedQuantity;
-
-            const img: { [key: string]: string }[] = []; 
+          AdvanceInfo.category = selectedCategory;
+          
+          const img: { [key: string]: string }[] = []; 
             let fileIndex = 0;
 
                 inputsArray.forEach((item: InputItem, index: number) => {
@@ -119,7 +125,8 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                 });
             
           AdvanceInfo.img = img;
-                    console.log(inputsArray)
+          
+          console.log(inputsArray)
           return AdvanceInfo;
     }
   };
@@ -129,63 +136,95 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
   // შესაბამისი მონაცემების მქონეე ახალ პროდუცტს
   // შედეგი მომენტალურად აისახება გვერდზე
   // იყენებს POST მეთოდს მონაცემების ცასაწერად
-  const addnewproduct = async () => {
-
-
-    const userid = localStorage.getItem('token');
+  const addNewProduct = async () => {
+    const userId = localStorage.getItem('token');
     const owner = localStorage.getItem('user');
-    const location  =localStorage.getItem('address');
+    const location = localStorage.getItem('address');
 
     const today = new Date();
     const day = today.getDate();
-    const month = today.getMonth() + 1; 
-    const year = today.getFullYear();  
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const date = `${day}/${month}/${year}`;
 
-    const data = `${day}/${month}/${year}`;
+    const productData = {
+        ...getOptimizedInfo(), // This function now returns the optimized data
+        owner,
+        view: 0,
+        location,
+        sale: 0,
+        userID: userId,
+        date
+    };
 
 
+    console.log(productData);
+    setNewUser(true);
 
-    const productData ={
-      ...optimiseinfo(),
-      owner: owner,
-      view: 0,
-      location: location,
-      sale: 0,
-      userID: userid,
-      data: data
-    }; 
+    try {
+        const response = await fetch(`${serverlink}/createProduct`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(productData),
+        });
 
-    console.log(productData)
-      setNewUser(true);
-        
-        try {
-              setTimeout( async () => {
-                
+        if (!response.ok) {
+            throw new Error("Failed to fetch advance data");
+        }
 
-            const response = await fetch(`${serverlink}/createProduct`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(productData),
-            });
-
-              if (!response.ok) {throw new Error("Failed to fetch advance data");}
-                  const NewUser = await response.json();
-                  console.log(NewUser)
-                    setInputValues(['', '', '', '']);
-                               }, 500);
-   
-                                          
-
-        
-            }
-             
-              catch (error) {console.error("Error:", error);} 
-              finally { setNewUser(false); fetchData(); advanceForm.reset(); }
-
-  };
+        const newUser = await response.json();
+        console.log(newUser);
+        setInputValues(['', '', '', '']);
+    } catch (error) {
+        console.error("Error:", error);
+    } finally {
+        setNewUser(false);
+        fetchData(); // Ensure fetchData is defined and serves the intended purpose
+        setTimeout(() => {
+            advanceForm.reset(); // Ensure advanceForm is defined and serves the intended purpose
+        }, 10000);
+    }
+};
 
 
       
+
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     const files = event.target.files;
+  //     if (files && files.length > 0) {
+  //         setSelectedFile(files[0]);
+  //     }
+  // };
+
+  // const handleUpload = async () => {
+  //     if (selectedFile) {
+  //         const formData = new FormData();
+  //         formData.append('image', selectedFile);
+
+  //         try {
+  //             const response = await fetch(`http:/localhost:3001/upload`, {
+  //                 method: 'POST',
+  //                 body: formData,
+  //             });
+  //             if (!response.ok) {
+  //                 throw new Error('Failed to upload file');
+  //             }
+  //             console.log('File uploaded successfully');
+  //             console.log(response);
+  //             const uploadResp = await response.json(); // Parse response JSON
+  //             console.log(uploadResp);
+  //         } catch (error) {
+  //             console.error('Error uploading file:', error);
+  //         }
+  //     } else {
+  //         console.warn('No file selected.');
+  //     }
+  // };  
+
+
+
 
   return (
     <>
@@ -227,9 +266,15 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                   {product ? <div className="advance-info-btn-conteiner" >
                       <button disabled={newuser} 
                               className="advance-info-btn"
-                              onClick={addnewproduct}>
+                              onClick={addNewProduct}>
                         {"Add New Product"} </button>
                   </div>:null}
+
+
+                  {/* <div>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={handleUpload}>Upload Photo</button>
+        </div> */}
 
       </div>
 
@@ -238,7 +283,5 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 };
 
 export default AddNewProduct;
-
-
 
 

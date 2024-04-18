@@ -25,11 +25,19 @@ const quantityOptions = quantities.map((quantity, index) => (
   </option>
 ));
 
+const cattegorys = ["All","Clothing","Technique","Food","Accessories"];
+
+const categoryOptions = cattegorys.map((cattegory, index) => (
+  <option key={index} value={cattegory}>
+    {cattegory}
+  </option>
+));
+
     return (
 
 
 <article style={{ width: "35%" }}>
-<h1> Currency/Quantity </h1>
+{/* <h1> Currency/Quantity </h1> */}
         <div className="selection-conteiner">
           <h2 className="currency-label">Choose a Currency:</h2>
             <select className="currency-select" id="currency">
@@ -43,6 +51,14 @@ const quantityOptions = quantities.map((quantity, index) => (
           {quantityOptions}
           </select>
         </div>
+
+        <div className="selection-conteiner">
+          <h2 className="currency-label">Choose a Category:</h2>
+          <select className="currency-select" id="CategoryOptions">
+          {categoryOptions}
+          </select>
+        </div>
+
         {/* __3 */}
 </article>
 
