@@ -38,6 +38,9 @@ interface ProducteData {
 
                         usermode:boolean;
 
+                        myRoom:boolean;
+
+
             
             
   }
@@ -66,7 +69,9 @@ function Aside({
     activeuser,
     setActiveUser,
     members, 
-    usermode
+    usermode,
+    myRoom
+
 
 
 
@@ -146,7 +151,7 @@ function Aside({
     return (
             <>
 
-                <div className='Aside'>
+                <div style={{display: myRoom? 'block': 'none'}} className='Aside'>
                     
                     <h1>info </h1>
 
@@ -163,6 +168,7 @@ function Aside({
     findInput={findInput}
     setFindInput={setFindInput} 
     usermode={usermode}
+    myRoom={myRoom}
     />
 
                         <ul>

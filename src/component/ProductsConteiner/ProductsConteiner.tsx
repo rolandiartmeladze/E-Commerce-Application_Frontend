@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './ProductsConteiner.css';
 import '../UsersComponent/SingUp.css';
-
+import arrowIcon from '../../icon/arrow.png';
 
 
 
@@ -48,6 +48,9 @@ interface UserContainerProps {
 
         usermode:boolean;
         favorits:any[];
+        myRoom:boolean;
+        setMyRoom:Function;
+
       
       }
       interface Product { _id: string; }
@@ -102,7 +105,10 @@ function ProductsConteiner({
         setActiveUser,
 
         usermode,
-        favorits
+        favorits,
+        myRoom,
+        setMyRoom
+
   
 }: UserContainerProps) {
 
@@ -129,17 +135,49 @@ function ProductsConteiner({
                         const [isfav ,setIsFav] = useState(false);
 
 
+                        const myroom = () => {
+                                
+                                if(myRoom){
+                                setMyRoom(false);
+                                 setIsMain(false); 
+                                 setIsFav(false);      
+                                } else {
+                                        setMyRoom(true);
+                                        setIsMain(true);
+                                }
+                                  
+                                
+                        }
+
                         const setfavoritmode = () =>{
-                                !isfav && setIsFav(true); setIsMain(false)
+                                if(!isfav && (favproduct.length > 0)){
+                                        setIsFav(true); 
+                                        setIsMain(false);
+                                        setMyRoom(true);
+                                }
+                                  
+                                
                           }
 
                           const setmyproductmode = () =>{
-                                !ismain && setIsFav(false); setIsMain(true)
+                                !ismain && setIsFav(false); setIsMain(true);
+                                setMyRoom(true);
                           }
                                                 
 
 return (
 <>
+{findstatus && 
+                <div className='find-result-btn-coneiner'>
+                <span className='find-result-btn-coneiner-title'> Found 
+                  <span className='find-result-btn-coneiner-result-count'>{userData.length}</span> 
+                  products 
+                </span> 
+                <span onClick={closefinde} className='closeFindeBtn'>Close Finde</span>
+              </div>
+              
+        }
+
 
 <div   style={{position: 'relative', width: '100%'}}  className='userTable'>
 
@@ -158,58 +196,58 @@ return (
                 cursor: isfav? 'default' : 'pointer',
 
                 }} className='my-favorits-btn' >Favorites 
-                        <span className='my-favorits-numb'>{favproduct.length}</span></samp>  </h1>
+                        <span className='my-favorits-numb'>{favproduct.length}</span></samp> 
+                        
+                        <samp onClick={myroom} style={{
+                                display: 'flex', alignItems: 'center' ,position:'absolute', right: '10px', cursor: 'pointer'}}>
+                                        {myRoom? 'close':'open'}
+                        <img style={{transform: myRoom? 'rotate(90deg)': 'rotate(0deg)'}} width={30} src={arrowIcon} alt='arrow icon'/></samp>
 
+                         </h1>
 
-        <AddNewProduct fetchData={fetchData}
-                product={product} 
-                setProduct={setProduct}  
-                addProductFunction={addProductFunction} 
-                setUserData={setUserData}  
-                advanceData={advanceData} 
-                setAdvanceData={setAdvanceData} 
-                soldAmount={soldAmount}
-                setSoldAmount={setSoldAmount}
-                activeuser={activeuser}
-                setActiveUser={setActiveUser}
-            
-                />
-
-                {findstatus && 
-                <div className='find-result-btn-coneiner'>
-                <span className='find-result-btn-coneiner-title'> Found 
-                  <span className='find-result-btn-coneiner-result-count'>{userData.length}</span> 
-                  products 
-                </span> 
-                <span onClick={closefinde} className='closeFindeBtn'>Close Finde</span>
-              </div>
-              
-        }
 
 
               
-                        <>
 
-                        {ismain&& <AddProductBtn  addProductFunction={addProductFunction} product={product} />}
     
                                 
         
       
 
-                                                <MyProducts 
-                                                userData={userData} 
-                                                setUserData={setUserData} 
-                                                setIsSelected={setIsSelected}
-                                                setSoldAmount={setSoldAmount} 
-                                                setSelectedUser={setSelectedUser}     
-                                                product={product} 
-                                                setProduct={setProduct}
-                                                activeuser={activeuser}
-                                                ismain={ismain}
-                                                isfav={isfav}
+                                               {myRoom && 
+                                                  <>
 
-                                                />
-</>
+                                                        {ismain&& 
+                                                                <>
+                                                                <AddNewProduct fetchData={fetchData}
+                                                                                product={product} 
+                                                                                setProduct={setProduct}  
+                                                                                addProductFunction={addProductFunction} 
+                                                                                setUserData={setUserData}  
+                                                                                advanceData={advanceData} 
+                                                                                setAdvanceData={setAdvanceData} 
+                                                                                soldAmount={soldAmount}
+                                                                                setSoldAmount={setSoldAmount}
+                                                                                activeuser={activeuser}
+                                                                                setActiveUser={setActiveUser}/>
+                                                                <AddProductBtn  addProductFunction={addProductFunction} product={product} />
+                                                                </>
+                                                        }
+                                                
+                                                   <MyProducts userData={userData} 
+                                                                setUserData={setUserData} 
+                                                                setIsSelected={setIsSelected}
+                                                                setSoldAmount={setSoldAmount} 
+                                                                setSelectedUser={setSelectedUser}     
+                                                                product={product} 
+                                                                setProduct={setProduct}
+                                                                activeuser={activeuser}
+                                                                ismain={ismain}
+                                                                isfav={isfav}/>
+                                                
+                                                  </>
+
+                                               } 
 
 
       </div>

@@ -61,6 +61,9 @@ function App(): JSX.Element{
 
     const [members, setMembers] = useState<any>([]);
 
+    const [myRoom, setMyRoom] = useState(true);
+
+
     const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
 
           const serverlink = serverUri();
@@ -102,7 +105,7 @@ function App(): JSX.Element{
                 userId: token,
                 favorits:favorits
             }
-            const favorit = await fetch('http://localhost:3001/FavoritProduct', {
+            const favorit = await fetch(`${serverlink}/FavoritProduct`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -202,6 +205,8 @@ function App(): JSX.Element{
     setNotound={setNotound}
     findInput={findInput}
     setFindInput={setFindInput}
+    myRoom={myRoom} 
+
       />
 {!usermode &&
 <div className='meniu'>
@@ -213,9 +218,9 @@ function App(): JSX.Element{
 }
 
 {usermode &&
-<div className="main">
+<div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%'}} className="main">
 
-      <div className='main-products-container'>
+      <div style={{marginRight: myRoom? '8px': '0px'}} className='main-products-container'>
 
       <ProductsConteiner {...componentsprops}
           inUerMode={inUerMode}
@@ -240,6 +245,8 @@ function App(): JSX.Element{
           usermode={usermode}
 
           favorits={favorits}
+          myRoom={myRoom} 
+          setMyRoom={setMyRoom}
         />
 
       </div>
@@ -250,6 +257,7 @@ function App(): JSX.Element{
                 setActiveUser={setActiveUser} 
                 members={members}
                 usermode={usermode}
+                myRoom={myRoom} 
                 />
 
 </div>

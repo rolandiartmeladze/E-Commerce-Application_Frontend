@@ -145,22 +145,22 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
     const day = today.getDate();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
-    const date = `${day}/${month}/${year}`;
+    const datatime = `${day}/${month}/${year}`;
 
     const productData = {
-        ...getOptimizedInfo(), // This function now returns the optimized data
+        ...getOptimizedInfo(), 
         owner,
         view: 0,
         location,
         sale: 0,
         userID: userId,
-        date
+        datatime
     };
 
 
     console.log(productData);
     setNewUser(true);
-
+  
     try {
         const response = await fetch(`${serverlink}/createProduct`, {
             method: "POST",
@@ -179,11 +179,12 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
         console.error("Error:", error);
     } finally {
         setNewUser(false);
-        fetchData(); // Ensure fetchData is defined and serves the intended purpose
+        fetchData(); 
         setTimeout(() => {
-            advanceForm.reset(); // Ensure advanceForm is defined and serves the intended purpose
-        }, 10000);
+            advanceForm.reset(); 
+        }, 1000);
     }
+
 };
 
 
@@ -251,7 +252,6 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
                         : "change-info-conteiner-active change-info-conteiner"}>
 
               <article style={{ overflowY: "scroll", width: "60%", display: 'flex', flexDirection: 'column' }}>
-                <h1 style={{width:'100%'}}>{"Add product info"}</h1>
                   <form id="advanceForm" className="advance-info-form">
                       {/* __1 */}<BasicInfo inputValues={inputValues} setInputValues={setInputValues} />
                       {/* __2 */}<AdditionalInfo activeUser={activeuser} /> 

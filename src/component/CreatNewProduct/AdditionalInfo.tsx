@@ -57,13 +57,17 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
     <input className="inputItem" value={activeUser.address || ''} placeholder="location" type="text" disabled />
   </div>
 
+        <div className="additionalInputConteiner" >
+        <textarea className="inputItem" placeholder="comment" />
+        </div>
+
   {inputFields.map((input, index) => (
     <div className="additionalInputConteiner" key={index}>
       {input}
     </div>
   ))}
 
-  <div
+  {/* <div
     id="addcommentid"
     onClick={() => handleItemClick("text", "comment")}
     className="add-btn-conteiner"
@@ -71,7 +75,7 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
     <div className="addnewinputicon">
       <img src={addcomment} alt="add info" />
     </div>Add Comment
-  </div>
+  </div> */}
 
   <div style={{marginBottom: '5px'}}
     id="addimageid"

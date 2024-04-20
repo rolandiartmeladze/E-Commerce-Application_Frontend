@@ -70,6 +70,8 @@ interface findeprops {
                     setFindInput: Function;
 
                     usermode:boolean;
+
+                    myRoom:any;
   }
 
 
@@ -84,7 +86,8 @@ const FindeComponent =({
     setNotound,
     findInput,
     setFindInput, 
-    usermode
+    usermode,
+    myRoom
 
 
 }:findeprops)=>{
@@ -138,7 +141,7 @@ const FindeComponent =({
 
     return(
         <>
-    {!usermode? (
+    {!usermode || !myRoom? (
         <SearchContainer>
           <StyledInput id='FindProduct' 
                   onChange={handleChange} 

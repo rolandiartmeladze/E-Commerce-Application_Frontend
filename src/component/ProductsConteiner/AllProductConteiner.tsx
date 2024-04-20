@@ -17,7 +17,7 @@ import testimg from '../../img/slide_9.jpg';
 interface Props{
     userData: userprops[];
     usermode:boolean;
-    favorits:any; 
+    favorits:any[]; 
     setFavorits:Function;
     chekfavorits:Function;
     activeuser:object;
@@ -107,9 +107,9 @@ const handleItemClick = async (itemId: string) => {
     <samp><img src={cost} alt="cost icon"/>{item.sale}</samp>
     <samp><img src={share} alt="share icon"/>{0}</samp>
     <samp onClick={() => handleItemClick(item._id)} style={{position:'absolute', right: '3px', bottom: '8px'}}>
-        {/* <img style={{width: '30px'}} width={30} src={
+        <img style={{width: '30px'}} width={30} src={
             favorits.includes(item._id) ? favicon1 : favicon0 }
-         alt="fav icon"/> */}
+         alt="fav icon"/>
         </samp>
         </div>
 </div>

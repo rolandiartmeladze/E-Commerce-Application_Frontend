@@ -37,6 +37,8 @@ interface HeaderProps {
   setNotound: any;
   findInput: string;
   setFindInput: any;
+  myRoom:boolean;
+
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -56,6 +58,8 @@ const Header: React.FC<HeaderProps> = ({
   setNotound,
   findInput,
   setFindInput,
+  myRoom 
+
 }) => {
   const loginbtn = () => {
     !login ? setLogIn(true) : setLogIn(false);
@@ -113,21 +117,22 @@ const Header: React.FC<HeaderProps> = ({
       )}
 
       {/* ძებნის ფუნქცია არაავტორიზებული მომხმარებლისთვი */}
-      {!usermode && (
-        <FindeComponent
-          userData={userData}
-          setUserData={setUserData}
-          loading={loading}
-          setLoading={setLoading}
-          findstatus={findstatus}
-          setFindStatus={setFindStatus}
-          notfound={notfound}
-          setNotound={setNotound}
-          findInput={findInput}
-          setFindInput={setFindInput}
-          usermode={usermode}
-        />
-      )}
+      {(!usermode || !myRoom) && (
+      <FindeComponent 
+        userData={userData}
+        setUserData={setUserData}
+        loading={loading}
+        setLoading={setLoading}
+        findstatus={findstatus}
+        setFindStatus={setFindStatus}
+        notfound={notfound}
+        setNotound={setNotound} 
+        findInput={findInput}
+        setFindInput={setFindInput}
+        usermode={usermode}
+        myRoom={myRoom} 
+      />
+    )}
     </div>
   );
 };
