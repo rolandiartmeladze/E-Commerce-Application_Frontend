@@ -13,16 +13,17 @@ import favicon1 from '../../icon/favcheck.png';
 import testimg from '../../img/slide_9.jpg';
 
 
+interface ActiveUserProps {products: string[];}
 
 interface Props{
-    userData: userprops[];
+    userData: Productprops[];
     usermode:boolean;
     favorits:any[]; 
     setFavorits:Function;
     chekfavorits:Function;
-    activeuser:object;
+    activeuser:ActiveUserProps;
 }
-interface userprops{
+interface Productprops{
     name:string;
     _id: string;
     location:string;
@@ -37,14 +38,10 @@ interface userprops{
     description:string;
     view:number;
     sale:number;
-
 }
 
 
-
-const AllProductsConteiner: React.FC<Props> = ({ userData, usermode, favorits, setFavorits, chekfavorits, activeuser}) => {
-
-
+const AllProductsConteiner: React.FC<Props> = ({ userData, favorits, setFavorits, chekfavorits, activeuser, usermode}) => {
 
 const handleItemClick = async (itemId: string) => {
     let newItem = itemId;
@@ -55,27 +52,22 @@ const handleItemClick = async (itemId: string) => {
     let updatedFavorites = [...favorites];
     
     const index = updatedFavorites.indexOf(newItem);
-    if (index === -1) {
-        updatedFavorites.push(newItem);
-    } else {
-        updatedFavorites.splice(index, 1);
-    }
-    
+        if (index === -1) {updatedFavorites.push(newItem);} 
+        else {updatedFavorites.splice(index, 1);}
     localStorage.setItem('favorits', JSON.stringify(updatedFavorites));
-    
-    setFavorits(updatedFavorites);
-
-    console.log(updatedFavorites);
-
-
-
+        setFavorits(updatedFavorites);
 };
+
+        let products;
+        if(usermode){products = userData.filter(product => !activeuser.products.includes(product._id));} 
+        else{products = userData}
+
         return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
-        {usermode && <h1 className="products-header"> All Products</h1>}
+        {usermode && <h1 className="products-header"> All Products:-<samp style={{color:'red'}}>{products.length}</samp></h1>}
 <div className="productarray">
-        {userData.map((item) =>(
+        {products.map((item) =>(
 
     <article key={item._id} className="product-conteiner">
         <div className="img-conteiner">
@@ -102,15 +94,17 @@ const handleItemClick = async (itemId: string) => {
     </div>
     <div style={{color:'red'}} className="product-info-item">{(item.price).toFixed(2)} {item.currency}</div>
 
-    <div className="product-info-item end">
+    <div style={{ justifyContent: !usermode?  'space-around': 'flex-start', marginTop:'8px'}} className="product-info-item end">
     <samp><img src={view} alt="view icon"/>{item.view}</samp>
     <samp><img src={cost} alt="cost icon"/>{item.sale}</samp>
     <samp><img src={share} alt="share icon"/>{0}</samp>
-    <samp onClick={() => handleItemClick(item._id)} style={{position:'absolute', right: '3px', bottom: '8px'}}>
+    {usermode&&
+    (<samp onClick={() => handleItemClick(item._id)} style={{position:'absolute', right: '3px', bottom: '8px'}}>
         <img style={{width: '30px'}} width={30} src={
             favorits.includes(item._id) ? favicon1 : favicon0 }
          alt="fav icon"/>
-        </samp>
+        </samp>)}
+    
         </div>
 </div>
     </article>

@@ -57,7 +57,7 @@ function App(): JSX.Element{
     const [login, setLogIn] = useState(false);
 
 
-    const [activeuser,setActiveUser] = useState({});
+    const [activeuser,setActiveUser] = useState<any>({});
 
     const [members, setMembers] = useState<any>([]);
 
@@ -212,15 +212,15 @@ function App(): JSX.Element{
 <div className='meniu'>
   <h1>Products: {userData.length}</h1> 
   <h1> Members: {members.length}</h1> 
-  <h1> Favorite: {favorits.length}</h1>
+  {/* <h1> Favorite: {favorits.length}</h1> */}
   <h1> Category{'0'}</h1>
   </div>
 }
 
 {usermode &&
-<div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%'}} className="main">
+<div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
 
-      <div style={{marginRight: myRoom? '8px': '0px'}} className='main-products-container'>
+      <div style={{marginRight: myRoom? '8px': '0px', paddingBottom: myRoom? '10px': '0px'}} className='main-products-container'>
 
       <ProductsConteiner {...componentsprops}
           inUerMode={inUerMode}
@@ -234,16 +234,11 @@ function App(): JSX.Element{
           setSingUp={setSingUp}
           product={product} 
           setProduct={setProduct}
-
-
           login={login}
           setLogIn={setLogIn}
-
           activeuser={activeuser}
           setActiveUser={setActiveUser}
-
           usermode={usermode}
-
           favorits={favorits}
           myRoom={myRoom} 
           setMyRoom={setMyRoom}
@@ -273,6 +268,7 @@ function App(): JSX.Element{
     )}
   </div>
 ):null}
+
 <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
 
 <AllProductsConteiner 
@@ -284,15 +280,61 @@ chekfavorits={chekfavorits}
 activeuser={activeuser}
 />
 
-<footer className="footer">Footer</footer>
 
 </div>
 
 
 
 </div>
+<footer className="footer">
+  
+  <ul>
+    <h4>Admin</h4>
+  <li>
+         Roland Artmeladze
 
+    </li>
+    <li>
+         <a href='mailto:Rartmeladze@gmail.com'>Rartmeladze@gmail.com</a>
 
+    </li>
+    <li>
+         <a href='tel:+995595035668'>(+995) 595 03-56-68</a>
+    </li>
+  </ul>
+
+  <ul>
+    <h4>info</h4>
+  <li>
+  <a href='#'> About Project </a>
+
+    </li>
+    <li>
+         <a href='#'>Contacts</a>
+
+    </li>
+    <li>
+         <a href='#'>Rante</a>
+    </li>
+  </ul>
+
+  <ul>
+    <h4>total</h4>
+  <li>
+   Products- {userData.length}
+
+    </li>
+    <li>
+         Members- {members.length}
+
+    </li>
+    <li>
+         Category- 5
+    </li>
+  </ul>
+
+<div style={{width:'100%', textAlign:'center', marginBottom:'8px', color:'cyan', fontWeight:'700'}}>@ Roland Artmeladze  2024</div>
+</footer>
 
 
       </>

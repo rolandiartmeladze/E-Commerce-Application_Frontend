@@ -56,14 +56,9 @@ const MyProducts: React.FC<Props> = ({
     };    
 
     let myproduct: Product[];
-
-    if (ismain) {
-        myproduct = (activeuser as ActiveUser).products;
-    } else if (isfav) {
-        myproduct = (activeuser as ActiveUser).favorits;
-    } else {
-        myproduct = [];
-    }
+    if (ismain) {myproduct = (activeuser as ActiveUser).products;} 
+    else if (isfav) {myproduct = (activeuser as ActiveUser).favorits;} 
+    else { myproduct = [];}
     
 
     const myproducts = userData.filter(product => myproduct.includes(product._id));

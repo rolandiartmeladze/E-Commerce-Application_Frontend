@@ -132,7 +132,8 @@
 
   .find-result-btn-coneiner{
     width:  98%;
-    margin-top:  10px; 
+    /* margin-top:  10px;  */
+    margin-bottom: 8px;
     display: flex; 
     justify-content: space-between;
   }
