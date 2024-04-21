@@ -64,6 +64,8 @@ function App(): JSX.Element{
     const [myRoom, setMyRoom] = useState(true);
 
 
+    const [category, setcategory] = useState(false);
+
     const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
 
           const serverlink = serverUri();
@@ -134,46 +136,30 @@ function App(): JSX.Element{
 
                 try {
                     if (token) {
-
                         const userResponse = await fetch(`${serverlink}/user?token=${token}`);
                         if (userResponse.ok) {
                             const userData = await userResponse.json();
                             setActiveUser(userData)
-                        } else {
-                            throw new Error('Failed to fetch user data');
-                        }
-
-
-                        
+                        } else { throw new Error('Failed to fetch user data'); }
                         chekfavorits();
-
                     }
-            
+          
                     const productsResponse = await fetch(`${serverlink}/checkProducts`, {
-                        method: 'GET',
-                        headers: { 'Content-Type': 'application/json' },
-                    });
-                    if (!productsResponse.ok) { throw new Error('Failed to fetch users data'); }
-                    const productsData = await productsResponse.json();
+                          method: 'GET',
+                          headers: { 'Content-Type': 'application/json' },
+                          });
+                      if (!productsResponse.ok) { throw new Error('Failed to fetch users data'); }
+                      const productsData = await productsResponse.json();
                           setUserData(productsData);
 
-
                           const membersdata = await fetch(`${serverlink}/Members`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                        });
-                        if (!membersdata.ok) {
-                            throw new Error('Failed to fetch users data');
-                        }
+                                method: 'GET',
+                                headers: {'Content-Type': 'application/json'},
+                                });
+                        if (!membersdata.ok) {  throw new Error('Failed to fetch users data'); }
                         const membersResponse = await membersdata.json();
                         setMembers(membersResponse);
-        
                         setLoading(false);
-
-
-
                 } catch (error) {console.error('Error fetching data:', error);
                     setLoading(false);
                 }
@@ -183,19 +169,46 @@ function App(): JSX.Element{
             fetchData();
           }, []); 
 
+
+          const selectCategory = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
+            const selectedCategory: string = event.target.value;
+            if(selectedCategory !== "All"){
+
+            try {
+              const sortedcategory = await fetch(`http://localhost:3001/sortedcategory?category=${encodeURIComponent(selectedCategory)}`, {                
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+              });
+              if (!sortedcategory.ok) { throw new Error('Failed to fetch users data'); }
+              const categoryresponse = await sortedcategory.json();
+              setUserData(categoryresponse);
+            } catch (error) { console.log('Error:', error); }
+          }else if(selectedCategory === "All"){fetchData();}
+
+          
+          }
+                    
+          const categories: string[] = ["All", "Clothing", "Technique", "Food", "Accessories"];
+          
+          const categoryOptions: JSX.Element[] = categories.map((category: string, index: number) => (
+            <option style={{ backgroundColor: 'black' }} key={index} value={category}>
+              {category}
+            </option>
+          ));
+
+
   return (
     <>
 
 <div className="app">
 
-<Header 
-      singup={singup} 
-      setSingUp={setSingUp} 
-      login={login} 
-      setLogIn={setLogIn} 
-      usermode={usermode} 
-      chekfavorits={chekfavorits}
-      userData={userData} 
+<Header singup={singup} 
+        setSingUp={setSingUp} 
+        login={login} 
+        setLogIn={setLogIn} 
+        usermode={usermode} 
+        chekfavorits={chekfavorits}
+        userData={userData} 
     setUserData={setUserData} 
     loading={loading}
     setLoading={setLoading}
@@ -205,15 +218,27 @@ function App(): JSX.Element{
     setNotound={setNotound}
     findInput={findInput}
     setFindInput={setFindInput}
-    myRoom={myRoom} 
+    myRoom={myRoom} />
 
-      />
 {!usermode &&
 <div className='meniu'>
-  <h1>Products: {userData.length}</h1> 
+  <h1>Result: {userData.length}</h1> 
   <h1> Members: {members.length}</h1> 
   {/* <h1> Favorite: {favorits.length}</h1> */}
-  <h1> Category{'0'}</h1>
+  <h1 style={{display:'flex', alignItems: 'center'}}> Category: 
+        <select onChange={selectCategory} style={{
+            padding: '4px',
+            background: 'none',
+            fontWeight: '800',
+            border: 'none',
+            textAlign: 'center',
+            color: 'yellow',
+            marginLeft: '4px'
+          }} name="category" id="category">
+          {categoryOptions}
+        </select>
+
+  </h1>
   </div>
 }
 
@@ -271,14 +296,12 @@ function App(): JSX.Element{
 
 <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
 
-<AllProductsConteiner 
-userData={userData} 
-usermode={usermode} 
-favorits={favorits} 
-setFavorits={setFavorits}  
-chekfavorits={chekfavorits} 
-activeuser={activeuser}
-/>
+<AllProductsConteiner userData={userData} 
+    usermode={usermode} 
+    favorits={favorits} 
+    setFavorits={setFavorits}  
+    chekfavorits={chekfavorits} 
+    activeuser={activeuser} />
 
 
 </div>
@@ -290,48 +313,24 @@ activeuser={activeuser}
   
   <ul>
     <h4>Admin</h4>
-  <li>
-         Roland Artmeladze
-
-    </li>
-    <li>
-         <a href='mailto:Rartmeladze@gmail.com'>Rartmeladze@gmail.com</a>
-
-    </li>
-    <li>
-         <a href='tel:+995595035668'>(+995) 595 03-56-68</a>
-    </li>
+    <li> Roland Artmeladze </li>
+    <li> <a href='mailto:Rartmeladze@gmail.com'>Rartmeladze@gmail.com</a> </li>
+    <li> <a href='tel:+995595035668'>(+995) 595 03-56-68</a> </li>
   </ul>
 
-  <ul>
-    <h4>info</h4>
-  <li>
-  <a href='#'> About Project </a>
+      <ul>
+        <h4>info</h4>
+        <li> <a href='#'> About Project </a> </li>
+        <li> <a href='#'>Contacts</a> </li>
+        <li> <a href='#'>Rante</a> </li>
+      </ul>
 
-    </li>
-    <li>
-         <a href='#'>Contacts</a>
-
-    </li>
-    <li>
-         <a href='#'>Rante</a>
-    </li>
-  </ul>
-
-  <ul>
-    <h4>total</h4>
-  <li>
-   Products- {userData.length}
-
-    </li>
-    <li>
-         Members- {members.length}
-
-    </li>
-    <li>
-         Category- 5
-    </li>
-  </ul>
+          <ul>
+            <h4>total</h4>
+            <li> Products- {userData.length} </li>
+            <li> Members- {members.length} </li>
+            <li> Category- 5 </li>
+          </ul>
 
 <div style={{width:'100%', textAlign:'center', marginBottom:'8px', color:'cyan', fontWeight:'700'}}>@ Roland Artmeladze  2024</div>
 </footer>

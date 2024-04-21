@@ -38,6 +38,7 @@ interface Productprops{
     description:string;
     view:number;
     sale:number;
+    category: string;
 }
 
 
@@ -92,9 +93,12 @@ const handleItemClick = async (itemId: string) => {
         <samp><samp>{item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp></samp> 
         </p>
     </div>
+
+    <div className="product-info-item"><samp>Category: {item.category}</samp></div>    
     <div style={{color:'red'}} className="product-info-item">{(item.price).toFixed(2)} {item.currency}</div>
 
     <div style={{ justifyContent: !usermode?  'space-around': 'flex-start', marginTop:'8px'}} className="product-info-item end">
+    
     <samp><img src={view} alt="view icon"/>{item.view}</samp>
     <samp><img src={cost} alt="cost icon"/>{item.sale}</samp>
     <samp><img src={share} alt="share icon"/>{0}</samp>

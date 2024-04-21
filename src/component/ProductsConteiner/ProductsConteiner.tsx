@@ -55,15 +55,14 @@ interface UserContainerProps {
       }
       interface Product { _id: string; }
       interface ActiveUser { 
-        products: Product[]; 
-        favorits: Favorits[]; 
-
-      }
+                products: Product[]; 
+                favorits: Favorits[]; 
+                }
 
       interface Favorits {
-        _id: string;
-        name: string;
-      }
+                _id: string;
+                name: string;
+                }
       
 
       
@@ -183,6 +182,7 @@ return (
 
 {/* {notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
 {loading ? <Loaing />:null} */}
+
         <h1 className='products-header'> 
         <samp onClick={setmyproductmode} style={{
                 boxShadow: ismain? 'none': 'inset 0px 0.5px 3px 0.3px rgb(235, 15, 15)',
