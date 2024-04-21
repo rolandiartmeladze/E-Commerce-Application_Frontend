@@ -175,7 +175,7 @@ function App(): JSX.Element{
             if(selectedCategory !== "All"){
 
             try {
-              const sortedcategory = await fetch(`http://localhost:3001/sortedcategory?category=${encodeURIComponent(selectedCategory)}`, {                
+              const sortedcategory = await fetch(`${serverlink}/sortedcategory?category=${encodeURIComponent(selectedCategory)}`, {                
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
               });

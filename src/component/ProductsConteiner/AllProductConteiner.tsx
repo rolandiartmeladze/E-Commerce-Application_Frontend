@@ -63,6 +63,26 @@ const handleItemClick = async (itemId: string) => {
         if(usermode){products = userData.filter(product => !activeuser.products.includes(product._id));} 
         else{products = userData}
 
+
+        const viewProduct = async (productId:string) =>{
+            console.log(productId)
+
+            try {
+                            const updateViewNumber = await fetch(`http://localhost:3001/updateView/${productId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (!updateViewNumber.ok) { throw new Error('Failed to fetch users data'); };
+            const updateViewResponse = await updateViewNumber.json();
+                    console.log(updateViewResponse);
+            } catch (error) {
+               console.log('Error:', error); 
+            }
+
+        }
+
+
+
         return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
@@ -70,7 +90,7 @@ const handleItemClick = async (itemId: string) => {
 <div className="productarray">
         {products.map((item) =>(
 
-    <article key={item._id} className="product-conteiner">
+    <article onClick={() => viewProduct(item._id)} key={item._id} className="product-conteiner">
         <div className="img-conteiner">
             <img  src={testimg} alt="prodict img" />
         </div>
