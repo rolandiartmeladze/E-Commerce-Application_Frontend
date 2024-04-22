@@ -41,9 +41,8 @@ interface UserContainerProps {
 }
 
 interface AdvanceInfo {
-  [key: string]: string | any[]; // You may need to adjust the type accordingly
-  // Define other properties as needed
-  imgObjects: { [key: string]: string }[]; // Array of objects with string keys and values
+  [key: string]: string | any[]; 
+  imgObjects: { [key: string]: string }[]; 
 }
 
 interface InputItem {
@@ -145,7 +144,30 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
     const day = today.getDate();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
-    const datatime = `${day}/${month}/${year}`;
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let period = 'AM'; // Default period is AM
+    
+    // Adjust hours and period for PM format
+    if (hours >= 12) {
+        period = 'PM';
+        if (hours > 12) {
+            hours -= 12;
+        }
+    }
+    
+    minutes = typeof minutes === 'string' ? parseInt(minutes, 10) : minutes;
+
+        
+    const datatime = `${day}/${month}/${year} ${hours}:${minutes} ${period}`;
+        
+
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
+    let id = '';
+    for (let i = 0; i < 2; i++) {id += letters.charAt(Math.floor(Math.random() * letters.length));}
+    for (let i = 0; i < 6; i++) {id += numbers.charAt(Math.floor(Math.random() * numbers.length));}
+
 
     const productData = {
         ...getOptimizedInfo(), 
@@ -154,7 +176,9 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
         location,
         sale: 0,
         userID: userId,
-        datatime
+        datatime,
+        share: 0,
+        id: id
     };
 
 

@@ -64,7 +64,7 @@ function App(): JSX.Element{
     const [myRoom, setMyRoom] = useState(true);
 
 
-    const [category, setcategory] = useState(false);
+    // const [category, setcategory] = useState(false);
 
     const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
 
