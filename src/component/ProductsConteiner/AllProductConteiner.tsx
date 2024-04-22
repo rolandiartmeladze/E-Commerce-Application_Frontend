@@ -29,9 +29,7 @@ const ProductConteiner = styled.div`
     padding: 8px;
     backdrop-filter: blur(2px);
     box-shadow: 3px 3px 300px 5px inset rgb(15, 42, 42, 0.1);
-  
     border-radius: 10px 10px 0px 0px;
-
 `;
 
 const ProductHeadInfo = styled.div`
@@ -154,6 +152,8 @@ position: relative;
   margin: auto;
   padding-left: 14px;
   margin-bottom: 10px;
+  box-shadow: 1px 1px 3px 0px black;
+  border-radius: 10px 0px 0px 10px;
 
   &::before {
     content: '';
@@ -195,6 +195,17 @@ const AddfavIcon = styled.samp<{ product: object | null }>`
           & img {width: 30px;}
 `;
 
+const ProductAside = styled.div`
+      width: 29%;
+      margin-left: 8px;
+      border-radius: 10px 10px 0 0;
+      padding: 0px;
+      padding-top: 0px;
+      backdrop-filter: blur(2px);
+      box-shadow: 3px 3px 300px 5px inset rgb(225, 2, 2, 0.3);
+      border-radius: 10px 10px 0px 0px;
+`;
+
 interface ActiveUserProps {products: string[];}
 
 interface Props{
@@ -210,6 +221,7 @@ interface Props{
     activeuser:ActiveUserProps;
     loading:boolean
     setLoading:Function;
+    members:any[];
 
 
 }
@@ -250,9 +262,11 @@ interface FavoriteIconComponentProps {
 
 const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, favorits, 
                                                 setFavorits, chekfavorits, activeuser, usermode,
-                                                incart, setInCart
+                                                incart, setInCart, members
                                               }) => {
 
+
+                                                console.log(members)
 const handleItemClick = async (itemId: string) => {
     let newItem = itemId;
     
@@ -346,6 +360,9 @@ const handleClickCart = async (itemId: string) => {
             </AddfavIcon>
           );
         };
+
+
+        const token = localStorage.getItem('token');
 
         return(
     
@@ -536,8 +553,50 @@ const handleClickCart = async (itemId: string) => {
         </ProductConteiner>
 
 
-<div style={{width: '29%', backgroundColor: 'red', marginLeft: '8px', borderRadius: '10px 10px 0 0'}}>
-    </div>
+<ProductAside>
+<div style={{width: '100%', height: '40px',  display: 'flex', boxShadow: '0px 2px 4px 0px black', borderRadius: '10px 10px 0px 0px', alignItems:'flex-end'
+}}> 
+
+<samp style={{margin: '0px 15px', cursor:'pointer', marginBottom: '3px'}} >
+              <img width={25} src={cart} alt="cart icon" />
+              <span style={{color:'red', fontWeight: '700' , position:'absolute', top: '1px'}}>{incart.length}</span>
+            </samp>
+
+   
+            <samp style={{margin: '0px 15px', cursor:'pointer', marginBottom: '3px'}} >
+              <img width={25} src={favicon1} alt="cart icon" />
+              <span style={{color:'red', fontWeight: '700' , position:'absolute', top: '1px'}}>{favorits.length}</span>
+            </samp>
+
+
+
+
+</div>
+
+<div style={{ width: '100%', background: 'green', display: 'flex', marginTop:'8px' }}>
+  {usermode && (
+    <>
+{members.find(user => user._id === token) && (
+  <>
+    {members.map(user => {
+      if (user._id === token) {
+        return (
+          <div key={user._id}>
+            <div>{user.name} {user.lastname}</div>
+            <div>{user.email}</div>
+            <div>{user.phone}</div>
+            <div>{user.address}</div>
+          </div>
+        );
+      }
+      return null;
+    })}
+  </>
+)}
+    </>
+  )}
+</div>
+    </ProductAside>
 
     </>
 

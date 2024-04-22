@@ -307,6 +307,7 @@ function App(): JSX.Element{
     activeuser={activeuser} 
     loading={loading}
     setLoading={setLoading}
+    members={members}
 
     />
 
