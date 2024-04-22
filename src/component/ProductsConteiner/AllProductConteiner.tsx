@@ -4,7 +4,7 @@ import './product.css';
 import styled from "styled-components";
 
 import serverUri from '../../component/serverUrl';
-
+import LoadingComponent from "../Loading";
 
 import user from '../../icon/user.png';
 import view from '../../icon/view.png';
@@ -16,16 +16,22 @@ import mail from '../../icon/mail.png';
 import phone from '../../icon/phone.png';
 import favicon0 from '../../icon/fav.png';
 import favicon1 from '../../icon/favcheck.png';
+import addcart from '../../icon/addcart.png';
+import cart from '../../icon/cart.png';
 
 import testimg from '../../img/slide_9.jpg';
 
 const ProductConteiner = styled.div`
-    // color:red;
     width: 70%;
     max-width: none;
     margin: 3px;
     border-radius: 0;
     padding: 8px;
+    backdrop-filter: blur(2px);
+    box-shadow: 3px 3px 300px 5px inset rgb(15, 42, 42, 0.1);
+  
+    border-radius: 10px 10px 0px 0px;
+
 `;
 
 const ProductHeadInfo = styled.div`
@@ -140,6 +146,55 @@ const Table = styled.table`
            }
 `;
 
+const SimilarProductHead = styled.h1`
+position: relative;
+  padding: 4px;
+  text-align: left;
+  width: 96%;
+  margin: auto;
+  padding-left: 14px;
+  margin-bottom: 10px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 10px;
+    background-color: red; 
+    border-radius: 10px 0px 0px 10px;
+  }
+`;
+
+const AddCartIcon = styled.samp<{ product: object | null }>`
+        position: absolute; 
+        right: ${props => props.product !== null ? '65px' : '-12px'};
+        bottom: 8px;
+        box-shadow: 1px 1px 0px 0px black;
+        border-bottom-right-radius: 8px;
+        padding: 4px;
+        cursor: pointer;
+        transition: 0.4s ease-in-out;
+
+          &&:hover { box-shadow: 1px 1px 0px 0px red;}
+          & img {width: 30px;}
+`;
+
+const AddfavIcon = styled.samp<{ product: object | null }>`
+        position: absolute; 
+        right: ${props => props.product !== null ? '15px' : '-12px'};
+        bottom: ${props => props.product !== null ? '8px' : '50px'};
+        box-shadow: 1px 1px 0px 0px black;
+        border-bottom-right-radius: 8px;
+        cursor: pointer;
+        padding: 4px;
+        transition: 0.4s ease-in-out;
+
+          &&:hover { box-shadow: 1px 1px 0px 0px red;}
+          & img {width: 30px;}
+`;
+
 interface ActiveUserProps {products: string[];}
 
 interface Props{
@@ -147,8 +202,16 @@ interface Props{
     usermode:boolean;
     favorits:any[]; 
     setFavorits:Function;
+
+    incart:any[]; 
+    setInCart:Function;
+
     chekfavorits:Function;
     activeuser:ActiveUserProps;
+    loading:boolean
+    setLoading:Function;
+
+
 }
 interface Productprops{
     name:string;
@@ -170,9 +233,25 @@ interface Productprops{
     category: string;
     datatime: string;
 }
+interface CartIconComponentProps {
+  itemId: string;
+  incart: string[]; 
+  handleClickCart: (itemId: string) => void; 
+  product:any;
+}
+
+interface FavoriteIconComponentProps {
+  itemId: string;
+  favorits: string[];
+  handleItemClick: (itemId: string) => void; 
+  product:any;
+}
 
 
-const AllProductsConteiner: React.FC<Props> = ({ userData, favorits, setFavorits, chekfavorits, activeuser, usermode}) => {
+const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, favorits, 
+                                                setFavorits, chekfavorits, activeuser, usermode,
+                                                incart, setInCart
+                                              }) => {
 
 const handleItemClick = async (itemId: string) => {
     let newItem = itemId;
@@ -189,17 +268,43 @@ const handleItemClick = async (itemId: string) => {
         setFavorits(updatedFavorites);
 };
 
+
+
+const handleClickCart = async (itemId: string) => {
+  let newItem = itemId;
+  
+  let storedcarts = localStorage.getItem('incart');
+  let incart = storedcarts ? JSON.parse(storedcarts) : [];
+  
+  let updatedcarts = [...incart];
+  
+  const index = updatedcarts.indexOf(newItem);
+      if (index === -1) {updatedcarts.push(newItem);} 
+      else {updatedcarts.splice(index, 1);}
+  localStorage.setItem('incart', JSON.stringify(updatedcarts));
+      setInCart(updatedcarts);
+};
+
           const serverlink = serverUri();
             const [product, setProduct] = useState<Productprops | null>(null);
-
+            const [lastClickedProductId, setLastClickedProductId] = useState<string | null>(null);
         let products;
         if(usermode){products = userData.filter(product => !activeuser.products.includes(product._id));} 
         else{products = userData}
 
         console.log(product)
 
+        const clickF =(productId:string) =>{
+          viewProduct(productId);
+          setLastClickedProductId(productId);
+          setLoading(true);
+
+        }
+
         const viewProduct = async (productId:string) =>{
+
             try {
+              setLoading(true);
               const updateViewNumber = await fetch(`${serverlink}/updateView/${productId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -207,13 +312,40 @@ const handleItemClick = async (itemId: string) => {
                 if (!updateViewNumber.ok) { throw new Error('Failed to fetch users data'); };
                 const updateViewResponse = await updateViewNumber.json();
                     setProduct(updateViewResponse);
+                    setLoading(false);
+
                     // console.log(updateViewResponse);
                     
             } catch (error) {console.log('Error:', error);}
 
         }
 
-
+        const CartIconComponent = ({ itemId, incart, handleClickCart, product }: CartIconComponentProps) => {
+          return (
+            <AddCartIcon 
+            onClick={(e) => { 
+                      e.stopPropagation(); 
+                      handleClickCart(itemId); 
+                    }}
+                    product={product}
+                    >
+              <img src={incart.includes(itemId) ? cart : addcart} alt="cart icon" />
+            </AddCartIcon>
+          );
+        };
+        const FavoriteIconComponent = ({ itemId, favorits, handleItemClick, product  }: FavoriteIconComponentProps) => {
+          return (
+            
+            <AddfavIcon 
+            product={product}
+            onClick={(e) => { 
+              e.stopPropagation(); 
+              handleItemClick(itemId); 
+              }}>
+              <img src={favorits.includes(itemId) ? favicon1 : favicon0} alt="fav icon" />
+            </AddfavIcon>
+          );
+        };
 
         return(
     
@@ -223,8 +355,14 @@ const handleItemClick = async (itemId: string) => {
 
 {product === null ? 
 (
-  products.map((item) => (
-    <article onClick={() => viewProduct(item._id)} key={item._id} className="product-conteiner">
+  products.map((item, index) => (
+    <article  onClick={() => {
+      clickF(item._id);
+    }} key={item._id} className="product-conteiner">
+
+{loading && lastClickedProductId === item._id && <LoadingComponent />}
+
+
       <div className="img-conteiner">
         <img src={testimg} alt="product img" />
       </div>
@@ -250,14 +388,21 @@ const handleItemClick = async (itemId: string) => {
         <div className="product-info-item"><samp>Category: {item.category}</samp></div>
         <div style={{ color: 'red' }} className="product-info-item">{(item.price).toFixed(2)} {item.currency}</div>
 
-        <div style={{ justifyContent: !usermode ? 'space-around' : 'flex-start', marginTop: '8px' }} className="product-info-item end">
+        <div style={{ marginTop: '8px' }} className="product-info-item end">
           <samp><img src={view} alt="view icon" />{item.view}</samp>
           <samp><img src={cost} alt="cost icon" />{item.sale}</samp>
-          <samp><img src={share} alt="share icon" />{0}</samp>
-          {usermode &&
-            (<samp onClick={() => handleItemClick(item._id)} style={{ position: 'absolute', right: '3px', bottom: '8px' }}>
-              <img style={{ width: '30px' }} width={30} src={favorits.includes(item._id) ? favicon1 : favicon0} alt="fav icon" />
-            </samp>)}
+          <samp><img src={share} alt="share icon" />{item.share}</samp>
+
+          <FavoriteIconComponent itemId={item._id} 
+              favorits={favorits} 
+              handleItemClick={handleItemClick} 
+              product={product} />
+
+              <CartIconComponent itemId={item._id} 
+                  incart={incart} 
+                  handleClickCart={handleClickCart} 
+                  product={product} />
+
         </div>
       </div>
     </article>
@@ -279,6 +424,7 @@ const handleItemClick = async (itemId: string) => {
           ))}
       </ImgsBox>
   </ImgConteiner>
+
 
         <MainInfo>
           <InfoLine>
@@ -340,16 +486,16 @@ const handleItemClick = async (itemId: string) => {
 <div style={{borderTop:'0.5px solid black', marginTop:'5px'}}>
 
           <InfoLine>         
-              <h4>Description:</h4>
+          <h4>Description:</h4>
               <samp> {product.description} </samp>
           </InfoLine>
 
           <InfoLine>
           <h4>Comment:</h4>
-              <samp>
-                {product.comment}
-                </samp>
+              <samp>{product.comment}</samp>
           </InfoLine>
+
+
 <div style={{marginLeft: '25px'}}>
 
 <h3 style={{padding: '0', margin: '0', textAlign: 'left'}}>Contact Info:</h3>
@@ -374,6 +520,12 @@ const handleItemClick = async (itemId: string) => {
               <samp>{product.location}</samp>
           </InfoLine>
 
+          
+    <FavoriteIconComponent itemId={product._id} favorits={favorits} handleItemClick={handleItemClick} product={product} />
+    <CartIconComponent itemId={product._id} incart={incart} handleClickCart={handleClickCart}  product={product} 
+                           
+                            />
+
           </div>
 
         
@@ -382,15 +534,30 @@ const handleItemClick = async (itemId: string) => {
 
 
         </ProductConteiner>
-<div style={{width: '15%'}}>
-    </div>    
+
+
+<div style={{width: '29%', backgroundColor: 'red', marginLeft: '8px', borderRadius: '10px 10px 0 0'}}>
+    </div>
+
     </>
 
 )}
 
 
-
 </div>
+
+{
+product !== null && (
+<>
+<SimilarProductHead>Similar products</SimilarProductHead >
+<div style={{width: '98%', margin:'auto', minHeight: '150px', marginBottom:'10px', boxShadow: '0px -2px 9px 0px black', borderRadius: '6px 6px 0 0'}}>
+    </div>
+    </>
+) 
+
+    
+}
+
     </div>
  );
 

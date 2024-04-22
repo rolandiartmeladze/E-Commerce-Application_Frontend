@@ -1,6 +1,6 @@
 body{
   text-align: center;
-  background-image: url(./img/Bg1.webp);
+  /* background-image: url(./img/Bg1.webp); */
   background-attachment: fixed;
   background-size: cover;
   background-position: right;
@@ -22,7 +22,6 @@ body{
   flex-direction: column;
   z-index: 5;
   color: red;
-
 }
 @media screen and (max-width: 768px){
   .App {

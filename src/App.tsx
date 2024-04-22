@@ -67,6 +67,7 @@ function App(): JSX.Element{
     // const [category, setcategory] = useState(false);
 
     const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
+    const [incart, setInCart] = useState<any[]>(JSON.parse(localStorage.getItem('incart') ?? '[]'));
 
           const serverlink = serverUri();
 
@@ -300,8 +301,14 @@ function App(): JSX.Element{
     usermode={usermode} 
     favorits={favorits} 
     setFavorits={setFavorits}  
+    incart={incart} 
+    setInCart={setInCart}
     chekfavorits={chekfavorits} 
-    activeuser={activeuser} />
+    activeuser={activeuser} 
+    loading={loading}
+    setLoading={setLoading}
+
+    />
 
 
 </div>
