@@ -11,6 +11,9 @@ import view from '../../icon/view.png';
 import cost from '../../icon/cost.png';
 import share from '../../icon/share.png';
 import clock from '../../icon/clock.png';
+import loc from '../../icon/loc1.png';
+import mail from '../../icon/mail.png';
+import phone from '../../icon/phone.png';
 import favicon0 from '../../icon/fav.png';
 import favicon1 from '../../icon/favcheck.png';
 
@@ -18,7 +21,7 @@ import testimg from '../../img/slide_9.jpg';
 
 const ProductConteiner = styled.div`
     // color:red;
-    width: 85%;
+    width: 70%;
     max-width: none;
     margin: 3px;
     border-radius: 0;
@@ -76,30 +79,65 @@ const MainInfo = styled.div`
         display:flex;
         flex-grow: 1;
         align-items: flex-start;
+        flex-direction: column;
+        margin-left: 6px;
 `;
 
 const InfoLine = styled.div`
         width:100%;
         display:flex;
         flex-wrap: wrap;
+        align-items: center;
+        margin: 5px;
+            & img {
+              width: 30px;
+              margin-right: 6px;
+            }
+
+        & samp {
+          margin: 0;
+          display: flex;
+          white-space: pre-wrap;
+          text-align: left;
+          font-size:115%;
+          font-weight: 500;
+        }
+      
+        & h4 {
+          margin: 0px;
+          margin-right: 5px;
+        }
+
 `;
 
 const LineItem = styled.div`
 display: flex;
 justify-content: flex-start;
 align-items: center;
+margin:4px;
 margin-right: 18px;
 
       
 & samp {
-  font-weight: 900;
-  font-size:120%;
+  font-weight: 600;
+  font-size:100%;
 }
 
 & img {
   width:20px;
   margin-right: 8px;
 }
+`;
+
+const Table = styled.table`
+      text-align: left;
+          & tr {margin: 8px; 
+            
+            & th {
+              white-space: nowrap;
+              vertical-align: top;
+            }
+           }
 `;
 
 interface ActiveUserProps {products: string[];}
@@ -162,7 +200,7 @@ const handleItemClick = async (itemId: string) => {
 
         const viewProduct = async (productId:string) =>{
             try {
-              const updateViewNumber = await fetch(`http://localhost:3001/updateView/${productId}`, {
+              const updateViewNumber = await fetch(`${serverlink}/updateView/${productId}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     });
@@ -243,129 +281,105 @@ const handleItemClick = async (itemId: string) => {
   </ImgConteiner>
 
         <MainInfo>
-          <InfoLine style={{justifyContent: 'space-evenly'}}>
+          <InfoLine>
                     <LineItem>
-                      <samp>ID: </samp> 
-                      {/* <samp>{product._id}</samp> */}
-                      <samp>{product.id}</samp>
+                      <h4>ID: </h4> 
+                        <samp>{product.id}</samp>
                     </LineItem>
 
                         <LineItem>
                           <img src={view} alt="view icon" /> 
-                          <samp>{product.view}</samp>
+                            <samp>{product.view}</samp>
                         </LineItem>
 
                             <LineItem>
                               <img src={cost} alt="cost icon" /> 
-                              <samp>{product.sale}</samp>
+                                <samp>{product.sale}</samp>
                             </LineItem>
 
                                 <LineItem style={{cursor: 'pointer'}}>
                                   <img src={share} alt="cost icon" /> 
-                                  <samp>{product?.share}</samp>
+                                    <samp>{product?.share}</samp>
                                 </LineItem>
 
                                     <LineItem>
                                       <img src={clock} alt="time icon" /> 
-                                      <samp>{product.datatime}</samp>
+                                        <samp>{product.datatime}</samp>
                                     </LineItem>
-
-                    
-
           </InfoLine>
 
-
-          {/* <div>Product Name: {product.name.substring(0,50)}{product.name.length > 50? '...':null}</div> */}
-                {/* <samp className='productname all-product-conteiner'>{(`${product.name}`).substring(0,50)}{'...'}</samp>
-                <samp className='productname all-product-conteiner'>{product.location}</samp> */}
+      <Table>
+        <tbody>
+          <tr>
+            <th>Name:</th>
+            <td><samp>{product.name}</samp></td>
+          </tr>
+          <tr>
+            <th>In stock:</th>
+            <td><samp style={{color: 'red'}}>{product.quantity} {product.quantityUnit}.</samp></td>
+          </tr>
+          <tr>
+            <th>Price:</th>
+            <td><samp style={{color: 'red'}}>{product.price.toFixed(2)} {product.currency}.</samp></td>
+          </tr>
+        </tbody>
+      </Table>
+          
+      <InfoLine>
+            <h4><img style={{marginRight:'0'}} width={20} src={user} alt="user icon" /></h4>
+              <samp>{product.owner}</samp>
+          </InfoLine>
 
 
         </MainInfo>
 </ProductHeadInfo>
 
-<div style={{paddingBottom:'0px'}} className='userInfoLineall'>
-
-                <div  className='userInfoLineall-item'>
-                        <span style={{
-                                fontWeight: '800', 
-                                color:'red', 
-                                margin:'3px'
-                                }}>მარაგშია
-                        </span> 
-                        <span>{product.quantity} {product.quantityUnit}</span></div>
-                <div  className='userInfoLineall-item'>
-                        <span style={{
-                                fontWeight: '800', 
-                                color:'red', 
-                                margin:'3px'
-                                }}>ფასი</span> 
-                                <span>{product.price}  {product.currency}</span>
-                                </div>
-
-
-                                <div style={{flexDirection: 'column',  height: '40%'}}  className='userInfoLineall-item'>
-                               <div style={{ alignItems: 'center' ,  display:'flex', flexDirection: 'row'}}>
-
-                                <span style={{
-                                fontWeight: '800', 
-                                color:'red', 
-                                margin:'3px',
-                                marginRight: '6px'
-                                }}>
-                                    {/* <img width={15} src={vewicon} alt='wiev' />   */}
-                                    </span> 
-                                <span style={{fontSize: '80%'}}>1250</span>
-                                
-                                </div>
-
-                                <div style={{ alignItems: 'center' ,  display:'flex', flexDirection: 'row'}}>
-                                <span style={{
-                                fontWeight: '800', 
-                                color:'red', 
-                                margin:'3px',
-                                marginRight: '6px'
-                                }}>
-                                    {/* <img width={15} src={shareicon} alt='wiev' />   */}
-                                    </span> 
-                                <span style={{fontSize: '80%'}}>150</span>
-                                </div>
-
-                                </div>
-
-                                <li style={{width:'100%'}}><samp>Add Favorit</samp><samp> ____ Share Product</samp></li>
-
-
-
-
-
-        </div>
         
 
 
-<div className='moredetalt'>
-    <ul style={{padding:'0', margin:'0'}}>
-    <li><samp>Owner: </samp> <samp> {product.owner}</samp></li>
-    <li><samp>Email: </samp> <samp><a>{product.email}</a></samp></li>
-    <li><samp>Phone: </samp> <samp><a>{product.phone}</a></samp></li>
+<div style={{borderTop:'0.5px solid black', marginTop:'5px'}}>
 
-    {/* <li style={{alignItems: 'flex-start'}}><samp>აღწერა:</samp>
-    <samp style={{fontSize:'80%'}}>
-        {('ესა რის მოკლე აღწერა აღნიშნული პროდუქტისთვის რომელიც შეიძლება იყოს საკმაოდ გრრძელი ამიტომ აქ გამოჩნდება მხოლოდ ნაწილი დანარჩენი დეტალურად ნახვის შემთხვევაში').substring(0,100)}{'...'} </samp></li>
-        <li style={{alignItems: 'flex-start'}}><samp>კომენტარი:</samp>
-    <samp style={{fontSize:'80%'}}>
-        {('ესა რის მომხარებლის მიერ დამარებული კომენტარი აღნიშნული პროდუქტისთვის რომელიც შეიძლება იყოს საკმაოდ გრრძელი ამიტომ აქ გამოჩნდება მხოლოდ ნაწილი დანარჩენი დეტალურად ნახვის შემთხვევაში').substring(0,100)}{'...'} </samp></li> */}
+          <InfoLine>         
+              <h4>Description:</h4>
+              <samp> {product.description} </samp>
+          </InfoLine>
+
+          <InfoLine>
+          <h4>Comment:</h4>
+              <samp>
+                {product.comment}
+                </samp>
+          </InfoLine>
+<div style={{marginLeft: '25px'}}>
+
+<h3 style={{padding: '0', margin: '0', textAlign: 'left'}}>Contact Info:</h3>
+
+          <InfoLine>
+          <img src={phone} alt="emailicon" />
+          <a href={`tel:${product.phone}`}>
+            <samp>{product.phone}</samp>
+          </a>
+          </InfoLine>
+
+          <InfoLine>
+            <img src={mail} alt="emailicon" />
+              <a href={`mailto:${product.email}`}>
+              <samp>{product.email}</samp>
+          </a>
+
+          </InfoLine>
+
+          <InfoLine>
+          <img src={loc} alt="emailicon" />
+              <samp>{product.location}</samp>
+          </InfoLine>
+
+          </div>
+
         
-        {/* <li><samp>ნახვა:{1200}</samp><samp> ___ გაყიგვა:{10}</samp></li> */}
-        <li><samp>Data:</samp><samp>30/03/2023</samp></li>
-    </ul>
+        
 </div>
 
-                <div className='userTotal'> 
-                შეიძინე ახავე
-                {/* <samp>
-                        <h2>ღირებულება: <samp>{(300*450).toFixed(1)} {'$'}</samp></h2>
-                </samp> */}
-                </div>
 
         </ProductConteiner>
 <div style={{width: '15%'}}>
