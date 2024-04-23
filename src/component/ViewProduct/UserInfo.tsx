@@ -13,13 +13,16 @@ interface Props{
 
  const ConteinerItem = styled.div`
         width: 96%;
-        margin: auto;
-        margin-top: 4px;
+        margin:2px auto;
         padding: 2px 0px;
         box-shadow: 0px 0px 1px 0.3px black inset;
         position: relative;
         display: flex;
         align-items: center;
+        & samp{
+          display: flex;
+
+        }
           & span {
               position: absolute;
               top: -3px;
@@ -36,8 +39,8 @@ interface Props{
  const ItemInput = styled.input`
         width: 85%;
         height: 100%;
-        margin: auto;
-        padding: 4px;
+        // margin: auto;
+        // padding: 4px;
         background: none;
         border: none;
         outline: none;

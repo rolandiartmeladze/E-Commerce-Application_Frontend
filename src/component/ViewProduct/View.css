@@ -1,0 +1,7 @@
+
+
+
+
+.incar-conteiner::-webkit-scrollbar {width: 10px;}
+.incar-conteiner::-webkit-scrollbar-track {background: rgb(241, 241, 241, 0);}
+.incar-conteiner::-webkit-scrollbar-thumb {background: rgb(211, 48, 7, 0.4);}

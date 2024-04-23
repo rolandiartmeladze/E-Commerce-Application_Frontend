@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 const ConteinerItem = styled.div`
         width: 96%;
-        margin: auto;
-        margin-top: 4px;
+        margin:2px auto ;
         padding: 3px 0px;
         box-shadow: 0px 0px 1px 0.3px black inset;
         position: relative;

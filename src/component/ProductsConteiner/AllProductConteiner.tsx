@@ -547,7 +547,7 @@ const handleClickCart = async (itemId: string) => {
                         incart={incart} 
                         favorits={favorits} 
                         usermode={usermode} 
-                        product={product} />
+                        product={product} handleClickCart={handleClickCart} />
 
     </>
 
