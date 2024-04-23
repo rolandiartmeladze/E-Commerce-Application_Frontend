@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import serverUri from '../../component/serverUrl';
 import LoadingComponent from "../Loading";
+import ViewProductAside from "../ViewProduct/ViewProductAside";
+
 
 import user from '../../icon/user.png';
 import view from '../../icon/view.png';
@@ -195,16 +197,6 @@ const AddfavIcon = styled.samp<{ product: object | null }>`
           & img {width: 30px;}
 `;
 
-const ProductAside = styled.div`
-      width: 29%;
-      margin-left: 8px;
-      border-radius: 10px 10px 0 0;
-      padding: 0px;
-      padding-top: 0px;
-      backdrop-filter: blur(2px);
-      box-shadow: 3px 3px 300px 5px inset rgb(225, 2, 2, 0.3);
-      border-radius: 10px 10px 0px 0px;
-`;
 
 interface ActiveUserProps {products: string[];}
 
@@ -362,7 +354,6 @@ const handleClickCart = async (itemId: string) => {
         };
 
 
-        const token = localStorage.getItem('token');
 
         return(
     
@@ -552,51 +543,11 @@ const handleClickCart = async (itemId: string) => {
 
         </ProductConteiner>
 
-
-<ProductAside>
-<div style={{width: '100%', height: '40px',  display: 'flex', boxShadow: '0px 2px 4px 0px black', borderRadius: '10px 10px 0px 0px', alignItems:'flex-end'
-}}> 
-
-<samp style={{margin: '0px 15px', cursor:'pointer', marginBottom: '3px'}} >
-              <img width={25} src={cart} alt="cart icon" />
-              <span style={{color:'red', fontWeight: '700' , position:'absolute', top: '1px'}}>{incart.length}</span>
-            </samp>
-
-   
-            <samp style={{margin: '0px 15px', cursor:'pointer', marginBottom: '3px'}} >
-              <img width={25} src={favicon1} alt="cart icon" />
-              <span style={{color:'red', fontWeight: '700' , position:'absolute', top: '1px'}}>{favorits.length}</span>
-            </samp>
-
-
-
-
-</div>
-
-<div style={{ width: '100%', background: 'green', display: 'flex', marginTop:'8px' }}>
-  {usermode && (
-    <>
-{members.find(user => user._id === token) && (
-  <>
-    {members.map(user => {
-      if (user._id === token) {
-        return (
-          <div key={user._id}>
-            <div>{user.name} {user.lastname}</div>
-            <div>{user.email}</div>
-            <div>{user.phone}</div>
-            <div>{user.address}</div>
-          </div>
-        );
-      }
-      return null;
-    })}
-  </>
-)}
-    </>
-  )}
-</div>
-    </ProductAside>
+      <ViewProductAside members={members}  
+                        incart={incart} 
+                        favorits={favorits} 
+                        usermode={usermode} 
+                        product={product} />
 
     </>
 
