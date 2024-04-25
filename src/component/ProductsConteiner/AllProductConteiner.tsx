@@ -277,7 +277,33 @@ const handleItemClick = async (itemId: string) => {
 
 
 const handleClickCart = async (itemId: string) => {
+
+  const token = localStorage.getItem('token');
   let newItem = itemId;
+
+
+  if(usermode){
+    try {  
+      const userID = token;
+      const checkCartItem = await fetch(`http://localhost:3001/addCarItem/${userID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({itemId}),
+
+        });
+
+        if(!checkCartItem.ok){ throw new Error('not working'); }
+        const cartResponse = await checkCartItem.json();
+        console.log(cartResponse);
+        setInCart(cartResponse)
+
+
+    } catch (error) {
+      // console.log(error, "not Found");
+    }
+
+  }
+
   
   let storedcarts = localStorage.getItem('incart');
   let incart = storedcarts ? JSON.parse(storedcarts) : [];
@@ -294,6 +320,7 @@ const handleClickCart = async (itemId: string) => {
           const serverlink = serverUri();
             const [product, setProduct] = useState<Productprops | null>(null);
             const [lastClickedProductId, setLastClickedProductId] = useState<string | null>(null);
+            
         let products;
         if(usermode){products = userData.filter(product => !activeuser.products.includes(product._id));} 
         else{products = userData}
@@ -547,7 +574,10 @@ const handleClickCart = async (itemId: string) => {
                         incart={incart} 
                         favorits={favorits} 
                         usermode={usermode} 
-                        product={product} handleClickCart={handleClickCart} />
+                        product={product} 
+                        handleClickCart={handleClickCart} 
+                        activeuser={activeuser}
+                        />
 
     </>
 

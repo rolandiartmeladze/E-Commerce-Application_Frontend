@@ -10,6 +10,7 @@ import img from '../../img/slide_9.jpg';
 
 import UserInfo from "./UserInfo";
 import ProductInfo from "./ProductInfo";
+import { error } from "console";
 
 
 
@@ -20,6 +21,7 @@ interface Props{
           favorits:string[];
           product: any | null;
           handleClickCart:Function;
+          activeuser: any;
           }
 
 
@@ -176,9 +178,43 @@ const InfoConteiner = styled.div`
 
         const bgcolor =`linear-gradient(to top, rgba(25, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0) 40%)`;
 
+        const [incartResponse, setInCartResponse] = useState<any[]>([]);
+
+        const inputnumb = incartResponse.length || incart.length;
+
+
+
+
         const cartbtn  = async ()  =>{
+
+
               cart? serCart(false) : serCart(true);
               fav && setFav(false);
+
+              console.log(incart)
+
+
+              
+              try {
+                
+                const option = {
+                incart:incart
+            }
+                const checkCartItem = await fetch(`http://localhost:3001/checkCartItems`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(option),
+                    });
+
+                  if(!checkCartItem.ok){ throw new Error('not working'); }
+                  const cartResponse = await checkCartItem.json();
+                  setInCartResponse(cartResponse);
+              } catch (error) {
+                // console.log(error, "not Found");
+              }
+
               };
 
 
@@ -223,10 +259,8 @@ const InfoConteiner = styled.div`
 
               );
               }
-      
-                  const products = [1,2];
 
-              const [quantities, setQuantities] = useState(Array(products.length).fill(1));
+              const [quantities, setQuantities] = useState(Array(inputnumb).fill(1));
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
         const newQuantities = [...quantities];
@@ -248,8 +282,8 @@ const InfoConteiner = styled.div`
   };
 
       let totalCost = 0;
-  products.forEach((item,index) =>{
-    totalCost +=  product?.price * quantities[index];
+      incartResponse.forEach((item,index) =>{
+    totalCost +=  item?.price * quantities[index];
   })
 
 
@@ -270,20 +304,21 @@ const InfoConteiner = styled.div`
                       {fav || cart? 
                       <>
                       <CloseBtn />
-                      {cart&& <>
+                      {cart&& 
+                      <>
                       
                         
                       <Container className="incar-conteiner">
-{products.map((producti, index) => (
-                        <ProductConteiner key={product._id}>
+                    {incartResponse.map((producti, index) => (
+                        <ProductConteiner key={producti._id}>
                             <ImgConteiner>
                                 <img src={img} alt="img" />
                             </ImgConteiner>
 
                               <ProductInfoCont>
-                                <samp>Name: {product.name.substring(0, 20)}{product.owner.length > 20 && '...'}</samp>
-                                <samp>Price: {product.price.toFixed(1)} {product.currency}</samp>
-                                <samp>Cost: {(product.price * quantities[index]).toFixed(1)} {product.currency}</samp>
+                                <samp>Name: {producti.name.substring(0, 20)}{producti.owner.length > 20 && '...'}</samp>
+                                <samp>Price: {producti.price.toFixed(1)} {producti.currency}</samp>
+                                <samp>Cost: {(producti.price * quantities[index]).toFixed(1)} {producti.currency}</samp>
                               </ProductInfoCont>
                                 <div style={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
                               <ProductQuantityCont>
@@ -294,7 +329,7 @@ const InfoConteiner = styled.div`
 
                               <ProductQuantityCont>
                               
-                              <button onClick={()=>{removecart(product._id)}} >Delete</button>
+                              <button onClick={()=>{removecart(producti._id)}} >Delete</button>
                               </ProductQuantityCont>
                                       </div>
 
