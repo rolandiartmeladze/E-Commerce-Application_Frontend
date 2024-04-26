@@ -2,6 +2,9 @@
 
 Welcome to my full stack e-commerce application! This project is built using React, TypeScript, Node.js, Express, MongoDB, and Mongoose Atlas. It provides a platform for users to create accounts, add products, sell items online, manage inventory, search for products, and more.
 
+Ratifirebuleba! Sig'nifik’ant’uli damouk’idebelia mok’medebuli. Rasats sak’maod akhali p’roektis vizualuri da punktsionaluri det’alebi arsebuli ik’neba mziuri, shemushavebuli, da ganakhlebuli. Dzalian es shenishvna ro arsebuli dro da resursi uket’eben ras gak’vt rogorc’ ert’-ert’ komponenti. Punktsionaluri shemadgeneli, sheileba da monitoringis k’omp’onentebs eseni adgilobriv miac’ben gaigzavneba shesabamisad shenishvna, ukve akhali p’roduktis shekmna pot’os damatebis shesadzlebloba. Registratsiis meilis validuroba, maghali da dabali regist’ris simboloebis shedareba, da avt’orizatsiis gaimeoreba mok’medebuls es shenishvna ro ar arsebobs aseti momxmareblebi. Rats’ iqneba es.
+
+
 ## Features
 
 - **User Authentication:** Users can create accounts with personal data, and their passwords are securely hashed before being stored in the database.
@@ -38,7 +41,7 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
 ## Acknowledgements
 
