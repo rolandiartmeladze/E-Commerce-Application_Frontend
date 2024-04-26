@@ -2,7 +2,23 @@
 
 Welcome to my full stack e-commerce application! This project is built using React, TypeScript, Node.js, Express, MongoDB, and Mongoose Atlas. It provides a platform for users to create accounts, add products, sell items online, manage inventory, search for products, and more.
 
-Ratifirebuleba! Sig'nifik’ant’uli damouk’idebelia mok’medebuli. Rasats sak’maod akhali p’roektis vizualuri da punktsionaluri det’alebi arsebuli ik’neba mziuri, shemushavebuli, da ganakhlebuli. Dzalian es shenishvna ro arsebuli dro da resursi uket’eben ras gak’vt rogorc’ ert’-ert’ komponenti. Punktsionaluri shemadgeneli, sheileba da monitoringis k’omp’onentebs eseni adgilobriv miac’ben gaigzavneba shesabamisad shenishvna, ukve akhali p’roduktis shekmna pot’os damatebis shesadzlebloba. Registratsiis meilis validuroba, maghali da dabali regist’ris simboloebis shedareba, da avt’orizatsiis gaimeoreba mok’medebuls es shenishvna ro ar arsebobs aseti momxmareblebi. Rats’ iqneba es.
+
+ ### <h2 style="color: red;">An important note !!!</h2>
+
+Because the main visual and functional details of the project are independently developed and implemented by me, which takes quite a lot of time and resources, so I try. Phased implementation of functional components Currently, the project does not include the possibility to buy or sell React Router, the product, sales log and order monitoring components. I am actively working on the implementation of these details in the project and the existing functional development
+The ability to add a photo when creating a new product has not yet been defined.
+The email validity function during registration is also not fully developed,
+Comparison of upper and lower case characters during input
+So during authorization, you must repeat the data specified during registration.
+
+##### <span style="color:red;">You can enter the system with your registered email and password or</span>
+ 
+<ul>
+  <li><h4>Email: <samp>User@gmail.com</samp></h4></li>
+  <li><h4>Pass: <samp>Rolandi123</samp></h4></li>
+</ul>
+
+
 
 
 ## Features
