@@ -15,7 +15,7 @@ So during authorization, you must repeat the data specified during registration.
  
 <ul>
   <li><h4>Email: <samp>User@gmail.com</samp></h4></li>
-  <li><h4>Pass: <samp>Rolandi123</samp></h4></li>
+  <li><h4>Pass: <samp>rolandi123</samp></h4></li>
 </ul>
 
 
