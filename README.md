@@ -11,7 +11,7 @@ The email validity function during registration is also not fully developed,
 Comparison of upper and lower case characters during input
 So during authorization, you must repeat the data specified during registration.
 
-##### <span style="color:red;">You can enter the system with your registered email and password or</span>
+##### <span style="color:red;">You can enter the system with your registered email and password => </span>
  
 <ul>
   <li><h4>Email: <samp>User@gmail.com</samp></h4></li>
