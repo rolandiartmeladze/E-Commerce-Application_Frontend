@@ -1,7 +1,9 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import './View.css';
 
+
+// import Loaing from "../Loading";
 
 
 import img from '../../img/slide_9.jpg';
@@ -14,6 +16,14 @@ interface Props{
           incartResponse:any[];
           handleClickCart:Function;
           checkcart:Function;
+          loading:boolean;
+          setLoading:Function;
+          cartbtn:Function;
+          setFav:Function;
+          // totalCost:number | null;
+          // setClickedIndex:Function;
+          // clickedIndex: number | null;
+          // setClickedIndex
           }
 
 
@@ -74,14 +84,15 @@ interface Props{
 
                       const ProductQuantityCont = styled.div`
                       margin-left: 10px;
-                      margin-top: 4px;
+                      margin-top: 3px;
                       display: flex;
-                      flex-direction: row;
-                      height: 25px;
+                      
+                      height: 50%;
                       align-items: center;
+                      flex-direction: row-reverse;
 
                         input {
-                          max-width: 35px;
+                          max-width: 20px;
                           text-align: center;
                           border-radius: 2px;
                           border: none;
@@ -100,56 +111,154 @@ interface Props{
                       }
                       button {
                             cursor: pointer;
+                            padding: 2px;
+                        }
+                        samp {
+                          height: 100%;
+                          display:flex;
+                          flex-direction: column;
+                          button {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            padding: 2px;
+                            height:50%;
+                        }
+
                         }
                       `;
 
+                        const Loading = styled.div`
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        backdrop-filter: blur(5.5px);
+                        bottom: 0;
+                        top: 0px;
+                        font-size: 100%;
+                        font-weight: 700;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        z-index: 5;
+                        color: red;
+                      `;
                       
 
-      const InCartConteiner = ({incartResponse, incart, handleClickCart, checkcart}:Props) => {
+      const InCartConteiner = ({incartResponse, incart, handleClickCart, checkcart ,
+        loading,
+        setLoading, 
+        cartbtn, 
+        setFav
+        
 
-        const inputnumb = incartResponse.length || incart.length;
+      }:Props) => {
 
+        const [totalCost, setTotalCost] = useState<number>(0);
+        const [clickedIndex, setClickedIndex] = useState<number | null>(null);
 
-        const [quantities, setQuantities] = useState(Array(inputnumb).fill(1));
+        
+                const [inputnumb, setInputNumb] = useState<number>(incartResponse.length || incart.length);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index:number) => {
-        const newQuantities = [...quantities];
-        newQuantities[index] = e.target.value;
-        setQuantities(newQuantities);
-    }
-
-
-    const handleIncrement = (index:number) => {
-      const newQuantities = [...quantities];
-      newQuantities[index]++;
-      setQuantities(newQuantities);
-  };
-
-  const handleDecrement = (index:number) => {
-      const newQuantities = [...quantities];
-      newQuantities[index] > 0 && newQuantities[index]--;
-      setQuantities(newQuantities);
-  };
-
-      let totalCost = 0;
-      incartResponse.forEach((item,index) =>{
-    totalCost +=  item?.price * quantities[index];
-  })
+        const [quantities, setQuantities] = useState<number[]>(Array(inputnumb).fill(1));
 
 
-        const removecart = (ID:string) =>{
-           const item = ID;
-           handleClickCart(item);
-            checkcart();
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+          const newQuantities = [...quantities];
+          newQuantities[index] = parseInt(e.target.value);
+          setQuantities(newQuantities);
+        };
+        
+        const handleIncrement = (index: number) => {
+          const newQuantities = [...quantities];
+          newQuantities[index]++;
+          setQuantities(newQuantities);
+        };
+        
+        const handleDecrement = (index: number) => {
+          const newQuantities = [...quantities];
+          newQuantities[index] > 0 && newQuantities[index]--;
+          setQuantities(newQuantities);
+        };
+        
+        // const [totalCost, setTotalCost] = useState<number>(0);
+        // const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+        
+        // const calculateTotalCost = () => {
+        //   let newTotalCost = 0;
+        //   incartResponse.forEach((item, index) => {
+        //     newTotalCost += (item?.price || 0) * quantities[index];
+        //   });
+        //   setTotalCost(newTotalCost);
+        // };
+        
+        // const [inputnumb, setInputNumb] = useState<number>(incartResponse.length || incart.length);
 
-        }
+        // const [quantities, setQuantities] = useState<number[]>(Array(inputnumb).fill(1));
 
-    return(
+
+
+
+        const calculateTotalCost = () => {
+          let newTotalCost = 0;
+          incartResponse.forEach((item, index) => {
+            newTotalCost += (item?.price || 0) * quantities[index];
+          });
+          setTotalCost(newTotalCost);
+        };
+
+        console.log(quantities)
+
+
+        useEffect(() => {
+          if (incartResponse.length > 0) {
+            calculateTotalCost();
+          }
+        }, [incartResponse]);
+        
+        const removecart = async (ID: string, index: number) => {
+          setLoading(true);
+
+        
+          let item = document.getElementById(`${`product${index}`}`) as HTMLDivElement;
+        
+          if (item) {
+            item.remove();
+          } else {
+            checkcart(incart);
+          }
+        
+          handleClickCart(ID);
+          setClickedIndex(index);
+        console.log(quantities);
+        
+
+          const newQuantities = [...quantities];
+          quantities.splice(index, 1); 
+          setQuantities(newQuantities);
+        
+          console.log(quantities)
+          // Recalculate total cost after removing item
+
+          // calculateTotalCost();
+
+          // checkcart();
+        };
+          
+        return(
                       
                      <>   
+
                       <Container className="incar-conteiner">
+
                     {incartResponse.map((producti, index) => (
-                        <ProductConteiner key={producti._id}>
+                        <ProductConteiner  id={`${`product${index}`}`} key={producti._id}>
+
+{/* {loading &&   index  <Loaing />}  */}
+                            {loading && clickedIndex === index &&  (<Loading >pleas Waite</Loading>)} 
+
                             <ImgConteiner>
                                 <img src={img} alt="img" />
                             </ImgConteiner>
@@ -159,16 +268,20 @@ interface Props{
                                 <samp>Price: {producti.price.toFixed(1)} {producti.currency}</samp>
                                 <samp>Cost: {(producti.price * quantities[index]).toFixed(1)} {producti.currency}</samp>
                               </ProductInfoCont>
-                                <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', position:'absolute', right:'7px'}}>
-                              <ProductQuantityCont>
+                                <div style={{display:'flex', height: '90%',  flexDirection: 'column', alignItems: 'center', position:'absolute', right:'5px'}}>
+                              <ProductQuantityCont >
+                                <samp>
                               <button  onClick={() => handleIncrement(index)}>+</button>
-                              <input type="number" onChange={(e) => handleChange(e, index)} value={quantities[index]}  />
                               <button onClick={() => handleDecrement(index)}>-</button>
+                                </samp>
+                              <input type="number" onChange={(e) => handleChange(e, index)} value={quantities[index]}  />
                               </ProductQuantityCont>
 
-                              <ProductQuantityCont>
+                              <ProductQuantityCont id={`${producti._id}`}>
                               
-                              <button onClick={()=>{removecart(producti._id)}} >Delete</button>
+                              <button  onClick={() => {
+    removecart(producti._id, index);
+}}> Delete</button>
                               </ProductQuantityCont>
                                       </div>
 

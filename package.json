@@ -1,7 +1,6 @@
 {
   "name": "Frontend_App",
   "version": "0.1.0",
-  "homepage": "https://rolandiartmeladze.github.io/Journal-Accounting-Frontend/",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",

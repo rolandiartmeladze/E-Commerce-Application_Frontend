@@ -69,6 +69,9 @@ function App(): JSX.Element{
     const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
     const [incart, setInCart] = useState<any[]>(JSON.parse(localStorage.getItem('incart') ?? '[]'));
 
+
+    const [inproduct, sesInProduct] = useState<boolean>(false);
+
           const serverlink = serverUri();
 
 
@@ -223,7 +226,9 @@ function App(): JSX.Element{
 
 {!usermode &&
 <div className='meniu'>
-  <h1>Result: {userData.length}</h1> 
+  {!inproduct? <h1> Result: {userData.length}</h1> :<h1  style={{textDecoration:'underline', cursor:'pointer'}} onClick={()=>{window.location.reload()}}> Home</h1>}
+  
+   
   <h1> Members: {members.length}</h1> 
   {/* <h1> Favorite: {favorits.length}</h1> */}
   <h1 style={{display:'flex', alignItems: 'center'}}> Category: 
@@ -308,6 +313,7 @@ function App(): JSX.Element{
     loading={loading}
     setLoading={setLoading}
     members={members}
+    sesInProduct={sesInProduct}
 
     />
 

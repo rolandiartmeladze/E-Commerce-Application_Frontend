@@ -215,6 +215,8 @@ interface Props{
     setLoading:Function;
     members:any[];
 
+    sesInProduct:Function;
+
 
 }
 interface Productprops{
@@ -254,7 +256,7 @@ interface FavoriteIconComponentProps {
 
 const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, favorits, 
                                                 setFavorits, chekfavorits, activeuser, usermode,
-                                                incart, setInCart, members
+                                                incart, setInCart, members, sesInProduct
                                               }) => {
 
 
@@ -285,7 +287,7 @@ const handleClickCart = async (itemId: string) => {
   if(usermode){
     try {  
       const userID = token;
-      const checkCartItem = await fetch(`http://localhost:3001/addCarItem/${userID}`, {
+      const checkCartItem = await fetch(`https://lavish-husky-gaura.glitch.me/addCarItem/${userID}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({itemId}),
@@ -331,6 +333,7 @@ const handleClickCart = async (itemId: string) => {
           viewProduct(productId);
           setLastClickedProductId(productId);
           setLoading(true);
+          sesInProduct(true);
 
         }
 
@@ -385,7 +388,16 @@ const handleClickCart = async (itemId: string) => {
         return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
-        {usermode && <h1 className="products-header"> All Products:-<samp style={{color:'red'}}>{products.length}</samp></h1>}
+      
+
+       {usermode? <>
+{product === null? 
+          (<h1 className="products-header">Product: {userData.length}</h1>):
+          (<h1 style={{textDecoration:'underline', cursor:'pointer'}} className="products-header" onClick={() => { window.location.reload() }}>Home</h1>)}
+ </>
+        
+        :(null)}
+
 <div style={{flexWrap: product === null? 'wrap' : 'nowrap'}} className="productarray">
 
 {product === null ? 
@@ -577,6 +589,10 @@ const handleClickCart = async (itemId: string) => {
                         product={product} 
                         handleClickCart={handleClickCart} 
                         activeuser={activeuser}
+                        loading={loading}
+                        setLoading={setLoading}
+                        
+                    
                         />
 
     </>

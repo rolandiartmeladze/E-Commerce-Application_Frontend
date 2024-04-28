@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import styled from "styled-components";
 import './View.css';
 
@@ -21,7 +21,9 @@ interface Props{
           product: any | null;
           handleClickCart:Function;
           activeuser: any;
-          }
+          loading:boolean;
+          setLoading:Function;
+                }
 
 
 const ProductAside = styled.div`
@@ -91,9 +93,9 @@ const InfoConteiner = styled.div`
 
                       
 
-      const ViewProductAside = ({members, usermode, incart, favorits, product, handleClickCart}:Props) => {
+      const ViewProductAside = ({members, usermode, incart, favorits, product, handleClickCart, loading, setLoading}:Props) => {
 
-        const [cart, serCart] = useState(false);
+        const [cart, setCart] = useState(false);
         const [fav, setFav] = useState(false);
 
         const bgcolor =`linear-gradient(to top, rgba(25, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0) 40%)`;
@@ -102,54 +104,51 @@ const InfoConteiner = styled.div`
 
 
                 const checkcart = async ()=>{
+          
+                  
+                      try {
+                        const option = {incart:incart}
+                        const checkCartItem = await fetch(`https://lavish-husky-gaura.glitch.me/checkCartItems`, {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(option),
+                            });
 
-              
-              try {
-                
-                const option = {
-                incart:incart
-            }
-                const checkCartItem = await fetch(`http://localhost:3001/checkCartItems`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(option),
-                    });
+                          if(!checkCartItem.ok){ throw new Error('not working'); }
+                          const cartResponse = await checkCartItem.json();
+                          setInCartResponse(cartResponse);
+                          setLoading(false);
 
-                  if(!checkCartItem.ok){ throw new Error('not working'); }
-                  const cartResponse = await checkCartItem.json();
-                  setInCartResponse(cartResponse);
-              } catch (error) {
-                // console.log(error, "not Found");
-              }
-                }
+                      } catch (error) {console.log(error, "not Found");}
+               
+                      }
 
         const cartbtn  = async ()  =>{
 
 
-              cart? serCart(false) : serCart(true);
+              cart? setCart(false) : setCart(true);
               fav && setFav(false);
-              checkcart();
 
+              checkcart();
 
               };
 
 
             const favbtn  = async ()  =>{
                   fav? setFav(false): setFav(true);
-                  cart && serCart(false);
+                  cart && setCart(false);
                   };
 
                 const closebtn  = ()  =>{
                       fav && setFav(false);
-                      cart && serCart(false);
+                      cart && setCart(false);
+                      checkcart();
                       };
 
 
     const InCartBtn = () => {
       return(
-        <CartBtn style={{background: cart? bgcolor : 'none'}} onClick={cartbtn}>
+        <CartBtn style={{background: cart? bgcolor : 'none'}} onClick={cartbtn} >
           <img width={25} src={cartIcon} alt="cart icon" />
           <CartNum>{incart.length}</CartNum>
         </CartBtn>
@@ -179,6 +178,12 @@ const InfoConteiner = styled.div`
               }
 
 
+              // if(incartResponse.length < 0){
+              //   cartbtn();
+              // }
+            
+
+
     return(
             <ProductAside>
 
@@ -197,6 +202,10 @@ const InfoConteiner = styled.div`
                       incart={incart} 
                       handleClickCart={handleClickCart} 
                       checkcart={checkcart}
+                      loading={loading}
+                      setLoading={setLoading}   
+                      cartbtn={cartbtn}     
+                      setFav={setFav}                     
                       />
                       }
                       <div>footer</div>
