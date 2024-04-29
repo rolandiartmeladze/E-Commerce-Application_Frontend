@@ -23,6 +23,7 @@ interface Props{
           activeuser: any;
           loading:boolean;
           setLoading:Function;
+          userData:any[];
                 }
 
 
@@ -93,35 +94,12 @@ const InfoConteiner = styled.div`
 
                       
 
-      const ViewProductAside = ({members, usermode, incart, favorits, product, handleClickCart, loading, setLoading}:Props) => {
+      const ViewProductAside = ({members, usermode, incart, favorits, product, handleClickCart, loading, setLoading ,userData}:Props) => {
 
         const [cart, setCart] = useState(false);
         const [fav, setFav] = useState(false);
 
         const bgcolor =`linear-gradient(to top, rgba(25, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0) 40%)`;
-
-        const [incartResponse, setInCartResponse] = useState<any[]>([]);
-
-
-                const checkcart = async ()=>{
-          
-                  
-                      try {
-                        const option = {incart:incart}
-                        const checkCartItem = await fetch(`https://lavish-husky-gaura.glitch.me/checkCartItems`, {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify(option),
-                            });
-
-                          if(!checkCartItem.ok){ throw new Error('not working'); }
-                          const cartResponse = await checkCartItem.json();
-                          setInCartResponse(cartResponse);
-                          setLoading(false);
-
-                      } catch (error) {console.log(error, "not Found");}
-               
-                      }
 
         const cartbtn  = async ()  =>{
 
@@ -129,7 +107,7 @@ const InfoConteiner = styled.div`
               cart? setCart(false) : setCart(true);
               fav && setFav(false);
 
-              checkcart();
+              // checkcart();
 
               };
 
@@ -142,7 +120,7 @@ const InfoConteiner = styled.div`
                 const closebtn  = ()  =>{
                       fav && setFav(false);
                       cart && setCart(false);
-                      checkcart();
+                      // checkcart();
                       };
 
 
@@ -198,14 +176,12 @@ const InfoConteiner = styled.div`
                       <CloseBtn />
                       {cart&& 
                       <InCartConteiner 
-                      incartResponse={incartResponse} 
                       incart={incart} 
                       handleClickCart={handleClickCart} 
-                      checkcart={checkcart}
                       loading={loading}
                       setLoading={setLoading}   
                       cartbtn={cartbtn}     
-                      setFav={setFav}                     
+                      setFav={setFav}      
                       />
                       }
                       <div>footer</div>
