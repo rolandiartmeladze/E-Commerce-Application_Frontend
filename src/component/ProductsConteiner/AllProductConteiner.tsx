@@ -6,7 +6,7 @@ import styled from "styled-components";
 import serverUri from '../../component/serverUrl';
 import LoadingComponent from "../Loading";
 import ViewProductAside from "../ViewProduct/ViewProductAside";
-
+import BuyFromCart from '../BuyProduct/BuyFromCart';
 
 import user from '../../icon/user.png';
 import view from '../../icon/view.png';
@@ -22,6 +22,7 @@ import addcart from '../../icon/addcart.png';
 import cart from '../../icon/cart.png';
 
 import testimg from '../../img/slide_9.jpg';
+// import BuyFromCart from "../BuyProduct/BuyFromCart";
 
 const ProductConteiner = styled.div`
     width: 70%;
@@ -385,6 +386,13 @@ const handleClickCart = async (itemId: string) => {
 
 
 
+
+        const [buy, setBuy] = useState<boolean>(false);
+
+        const closebtn = () => {
+          setBuy(false)
+        }
+
         return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
@@ -458,6 +466,33 @@ const handleClickCart = async (itemId: string) => {
 : 
 (
     <>
+    {/* {<div style={{position: 'absolute', zIndex:'5'}} id="Container"></div>} */}
+    
+      {buy &&    <div style={{
+        position:'absolute', 
+        width: '98%', 
+        height: '100%', 
+        margin:'auto', 
+        background: 'none', 
+        zIndex:'5', 
+        backdropFilter: 'blur(12px)',
+        boxShadow: '0px 0px 3px 2px black',
+        borderRadius: '10px',
+        }} id="conteiner" >    
+        <button onClick={closebtn}
+        style={{
+       position:'absolute', 
+       right:'10px', 
+       top: '10px', 
+       cursor: 'pointer', 
+       padding: '5px 10px', 
+       borderRadius: '4px'
+       }}>Close</button>
+   </div>
+}
+    {/* { <BuyFromCart />} */}
+
+
 <ProductConteiner  key={product._id}>
 
 <ProductHeadInfo>
@@ -592,6 +627,7 @@ const handleClickCart = async (itemId: string) => {
                         loading={loading}
                         setLoading={setLoading}
                         userData={userData}
+                        setBuy={setBuy}
                     
                         />
 

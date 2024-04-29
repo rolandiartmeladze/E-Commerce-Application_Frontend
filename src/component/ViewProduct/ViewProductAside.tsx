@@ -24,6 +24,7 @@ interface Props{
           loading:boolean;
           setLoading:Function;
           userData:any[];
+          setBuy:Function;
                 }
 
 
@@ -94,7 +95,17 @@ const InfoConteiner = styled.div`
 
                       
 
-      const ViewProductAside = ({members, usermode, incart, favorits, product, handleClickCart, loading, setLoading ,userData}:Props) => {
+      const ViewProductAside = ({
+        members, 
+        usermode, 
+        incart, 
+        favorits, 
+        product, 
+        handleClickCart, 
+        loading, 
+        setLoading ,userData,
+        setBuy
+      }:Props) => {
 
         const [cart, setCart] = useState(false);
         const [fav, setFav] = useState(false);
@@ -181,10 +192,10 @@ const InfoConteiner = styled.div`
                       loading={loading}
                       setLoading={setLoading}   
                       cartbtn={cartbtn}     
-                      setFav={setFav}      
+                      setFav={setFav}  
+                      setBuy={setBuy}    
                       />
                       }
-                      <div>footer</div>
 
                       {fav&& <div>cart</div>}
                       </> :null}

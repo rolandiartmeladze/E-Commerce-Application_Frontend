@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import ReactDOMServer from 'react-dom/server';
 import './View.css';
 import img from '../../img/slide_9.jpg';
+import BuyFromCart from "../BuyProduct/BuyFromCart";
 
 interface Props {
   incart: string[];
@@ -10,6 +12,7 @@ interface Props {
   setLoading: Function;
   cartbtn: Function;
   setFav: Function;
+  setBuy:Function;
 }
 
 
@@ -132,12 +135,31 @@ interface CartItem {
 }
 
 
+
+// const BayProducts = ({products}: any) => {
+  
+//   return(
+// <>
+// <div style={{position:'absolute', width: '80%', height: '80%', margin:'auto', backgroundColor: 'green', zIndex:'5'}}>
+
+// <h1>
+// {products.length}
+// </h1>
+// </div>
+
+// </>
+//   );
+// }
+
+
+
 const InCartConteiner = ({
   
   incart,
   handleClickCart,
   loading,
   setLoading,
+  setBuy
 }: Props) => {
 
 
@@ -145,11 +167,7 @@ const InCartConteiner = ({
   const [incartResponse, setInCartResponse] = useState<any[]>([]);
 
 
-  
 
-  // const initialQuantities = incartResponse.map(item => ({ id: item._id, quantity: 1 }));
-
-  // Set the initial state of quantities
   const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
 
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
@@ -236,20 +254,45 @@ const initialQuantities = cartResponse.map((item: CartItem)=> ({ id: item._id, q
   
     handleClickCart(ID);
     setClickedIndex(index);
-
-
-
-    console.log(quantities)
-
-  
-
   };
+
+
           
-  
 
 
-  return (
+    const BuyBtn  =()=> {
+
+  const handleAppendToContainer = (): Node => {
+    const buyFromCartElement = <BuyFromCart products={incartResponse} setBuy={setBuy} cost={totalCost}  quantities={quantities}  />;
+    const buyFromCartString = ReactDOMServer.renderToString(buyFromCartElement);
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = buyFromCartString;
+    return tempDiv.firstChild as Node;
+  };
+
+      setBuy(true);
+
+
+    setTimeout(() => {
+         const container = document.getElementById('conteiner');
+ 
+          if (container) {
+      // container.style.display = 'flex';
+      container.appendChild(handleAppendToContainer());
+    }
+
+
+    }, 200);
+    }
+
+
+
+    
+    return (
     <>   
+
+
+
       <Container className="incar-conteiner">
         {incartResponse.map((producti, index) => (
           <ProductConteiner  id={`product${index}`} key={producti._id}>
@@ -280,6 +323,14 @@ const initialQuantities = cartResponse.map((item: CartItem)=> ({ id: item._id, q
         ))}
       </Container>
       <div>Total Cost= {totalCost.toFixed(1)} {"$"} </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width:'100%' }}>
+  <button style={{
+    padding: '5px',
+    cursor: 'pointer',
+    marginRight: '8px'
+  }} disabled={incartResponse.length <= 0} onClick={BuyBtn}>Buy Now</button>
+</div>
+
     </>
   );
 };
