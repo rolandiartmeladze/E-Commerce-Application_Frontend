@@ -1,46 +1,126 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
+import UserInfo from "../BuyProduct/Userinfo";
 
+
+const Conteiner = styled.div`
+        display:  flex;
+        flex-direction:  column;
+        align-items:  center; 
+        `;
+
+        const Header = styled.h1`
+        text-align: left;
+        border-radius: 10px 10px 0px 0px;
+        margin: 0;
+        background-color: brown;
+        font-weight: 900;
+        display: flex;
+        paddin: 5px;
+    `;
+        const ProductList = styled.ul`
+            display: flex;
+            flex-direction: column; 
+            width: 60%; 
+        `;
+
+
+            const ProductsTable = styled.table`
+                    background-color:  rgb(24, 22, 19, 0.4); 
+                    padding: 10px; 
+                    margin-top:  0px; 
+                    color:  white; 
+                    
+                    `;
+
+                const ProductsTableHead = styled.tr`
+                    box-shadow: 0 0 1px 0.5px black;
+                    padding: 2px;
+                    `;
+
+                    const ProductName = styled.td`
+                        text-align: left;
+                        max-width: 160px;
+                    `;
+
+                        const Footer = styled.div`
+                                width:  100%; 
+                                text-align: left; 
+                                background-color: wheat; 
+                                padding: 0px 0px 10px 0px; 
+                                margin: 0px; 
+                                border-radius: 0px 0px 10px 10px;
+                                h4{
+                                    margin: 4px; 
+                                    margin-left: 12px;
+                                }
+                                `;
 interface Props{
     products:any[];
-    setBuy:Function;
     cost:number;
     quantities:any[];
-
+    usermode: boolean;
+    members:any[];
 }
-const BuyFromCart = ({products, cost, quantities}: Props) => {
 
+const BuyFromCart = ({products, cost, quantities, usermode, members}: Props) => {
+
+
+    
     return(
         <>
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} id="BuyConteiner" >
+        <Conteiner  id="BuyConteiner">
 
-<ul style={{display:'flex', flexDirection:'column', width:'60%'}}>
-        <h1> თქვენ შეარჩიეთ - {products.length} პროდუქტი </h1>
 
-        <table style={{ backgroundColor: 'rgb(24, 22, 19, 0.4)', padding:'10px', marginTop: '10px', color: 'white', borderRadius:'10px 10px 0px 0px'}}>
+<ProductList>
+
+<UserInfo usermode={usermode} members={members} />
+
+        <Header> <samp>თქვენ შეარჩიეთ - {products.length} პროდუქტი </samp></Header>
+
+        <ProductsTable>
             <tbody>
-            <tr style={{boxShadow:'0 0 1px 0.5px black'}}><td>Name</td> <td>quantity</td> <td>price</td> <td>cost</td></tr>
-            {products.map((product, index) => (
-            <tr key={product._id}><td style={{textAlign:'left'}}><samp>{index+1}: - </samp>{product.name}</td> <td> {quantities[index].quantity } {product.quantityUnit}</td> <td>{product.price.toFixed(1)} {product.currency}</td> <td>{(quantities[index].quantity * product.price).toFixed(1)} {product.currency}</td></tr>
+            <ProductsTableHead>
+                <td>Name</td> 
+                <td>quantity</td> 
+                <td>price</td> 
+                <td>cost</td>
+            </ProductsTableHead>
 
-        ) 
+            {products.map((product, index) => (
+                <tr key={product._id}>
+                    <ProductName>
+                        <samp>
+                            {index+1}: - 
+                        </samp>
+                        {product.name}
+                    </ProductName> 
+                    <td> 
+                        {quantities[index].quantity } 
+                        {product.quantityUnit}
+                    </td> 
+                    <td>
+                        {product.price.toFixed(1)} 
+                        {product.currency}
+                    </td> 
+                    <td>
+                        {(quantities[index].quantity * product.price).toFixed(1)} 
+                        {product.currency}
+                    </td>
+                </tr>
+                 ) 
         )}
 
             </tbody>
-        </table>
-        <div style={{width: '100%', textAlign:'left', backgroundColor:'wheat', padding:'0px 0px 10px 0px', margin:'0px', borderRadius: '0px 0px 10px 10px'}}>
-            <h4 style={{margin:'4px', marginLeft: '12px' }}> საერთო ღირებულებით - {cost} ₾.</h4> 
-            </div> 
+        </ProductsTable>
 
-            <div style={{width: '100%', textAlign:'left', display: 'flex', alignItems: 'center'}}>
-            <samp><input type="checkbox"></input> ვეთანხმები პირობებს</samp>
-        </div>
-        <div style={{width: '100%', textAlign:'left', display: 'flex', alignItems: 'center'}}>
-        <button>Pay Now</button>
-        <button>Tacke invoice</button>
-        </div>
-</ul>
+        <Footer>
+            <h4> საერთო ღირებულებით - {cost} ₾.</h4> 
+        </Footer> 
+
+</ProductList>
    
-</div>
+</Conteiner>
 
 
         </>

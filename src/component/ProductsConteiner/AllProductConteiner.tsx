@@ -22,6 +22,8 @@ import addcart from '../../icon/addcart.png';
 import cart from '../../icon/cart.png';
 
 import testimg from '../../img/slide_9.jpg';
+
+import Invoic from "../BuyProduct/Invoic";
 // import BuyFromCart from "../BuyProduct/BuyFromCart";
 
 const ProductConteiner = styled.div`
@@ -199,7 +201,82 @@ const AddfavIcon = styled.samp<{ product: object | null }>`
 `;
 
 
-interface ActiveUserProps {products: string[];}
+//____
+const BuyFromCartCont = styled.div`
+      position: absolute;
+      width: 98%;
+      min-height: 100%;
+      height: auto;
+      margin: auto;
+      background: none;
+      z-index: 5;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 3px 2px black;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: flex-end;
+    `;
+
+const BuyModeCloseBtn = styled.button`
+      position: absolute; 
+      right: 10px; 
+      top:  10px; 
+      cursor:  pointer; 
+      padding:  5px 10px; 
+      border-radius: 4px
+      `;
+
+      const BtnsConteiner = styled.div`
+            width:  100%; 
+            text-align: left;
+            display:  flex;
+            justify-content: center;
+            margin-top: 8px ;
+            margin-bottom: 10px;
+            align-items: center;
+            
+              button{
+                padding: 8px 15px; 
+                border-radius: 8px; 
+                cursor: pointer; 
+                margin: 6px;
+              }
+            `;
+            
+
+            //_____
+            // const Invoicuserconteiner = styled.div`
+            //       position: absolute; 
+            //       z-index:  6;
+            //       width:100%; 
+            //       height:  100%; 
+            //       background-color: white;
+            //       border-radius: 10px;
+            //       h5{
+            //         text-align: left;
+            //         margin: 4px 0px;
+            //       }
+            //       ul{
+
+            //         li{
+            //           width: 90%;
+            //           margin-left: 12px;
+            //           box-shadow: none;
+            //           border-bottom: 0.1px solid black;
+            //         }
+            //       }
+
+            //       table{
+            //         width: 90%;
+            //         margin: auto;
+            //         background-color: rgb(0, 0, 0, 0.2);
+            //         border-radius: 8px;
+            //       }
+         
+            // `;
+
+      interface ActiveUserProps {products: string[];}
 
 interface Props{
     userData: Productprops[];
@@ -261,7 +338,14 @@ const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, f
                                               }) => {
 
 
-                                                console.log(members)
+                                                // console.log(members)
+
+
+                                                const [incartResponse, setInCartResponse] = useState<any[]>([]);
+
+                                                const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
+
+
 const handleItemClick = async (itemId: string) => {
     let newItem = itemId;
     
@@ -393,11 +477,138 @@ const handleClickCart = async (itemId: string) => {
           setBuy(false)
         }
 
+        const [check, setCheck] = useState<boolean>(false);
+        const accept = () => {
+            setCheck(prevCheck => !prevCheck);
+        }
+    
+
+        const [invoic, setInvoic] = useState<boolean>(false);
+
+         const tackeinvois =()=>{
+          setInvoic(prevInvoic => !prevInvoic);
+          // console.log(user)
+         }
+
+        // const closeinvoic = () =>{
+        //   let item = document.getElementById('invoic') as HTMLDivElement;
+        //   if(item){
+        //     item.style.display = 'none';
+        //     // setCheck(false);
+        //     setInvoic(false);
+        //   } 
+        // }
+
+//         const userinfo = () => {
+
+//           let username = document.getElementById('UserName') as HTMLInputElement;
+//           let useremail = document.getElementById('UserEmail') as HTMLInputElement;
+//           let userphone = document.getElementById('UserPhone') as HTMLInputElement;
+//           let useraddress = document.getElementById('UserAddress') as HTMLInputElement;
+
+//           const ActivProducts:any[] = [];
+//             let cost = 0;
+//           incartResponse.forEach((product, index) => {
+
+//             const productCost = product.price * quantities[index].quantity;
+//             cost += productCost;
+
+//             ActivProducts.push({
+//               'name': product.name, 
+//               'price': product.price, 
+//               'quantities':quantities[index], 
+//               'cost': (product.price * quantities[index].quantity),
+//               'quantityUnit': product.quantityUnit,
+//               'currency': product.currency
+//             })
+//         })
+
+//           const invoice ={
+//             "user info":{
+//             'name': username.value,
+//             'email': useremail.value,
+//             'phone': userphone.value,
+//             'address': useraddress.value
+//           }, 
+//             "product info": ActivProducts
+            
+//           }
+
+
+          
+
+//           // return invoice;
+
+//           return (
+//             <>
+//             <Invoicuserconteiner id="invoic">
+//             <ul>
+//               <h5>User:</h5>
+//               <li>Name: {invoice["user info"].name}</li>
+//               <li>Email: {invoice["user info"].email}</li>
+//               <li>Phone: {invoice["user info"].phone}</li>
+//               <li>Address: {invoice["user info"].address}</li>
+              
+//               <h5 style={{marginTop:'15px'}}>Bank:</h5>
+
+//               <li>Bank Name: {'Bank Of Georgia'}</li>
+//               <li>Accounc Number:  {'22 GE 65 BG 00 00 00 20 01 19 97'}</li>
+//               <li>Owner:  {'Roland Artmeladze'}</li>
+//               <li>Destination:  {'Invoic N245638'}</li>
+              
+
+//             </ul>
+//          <h5 style={{marginLeft: '20px'}}>Products:</h5>
+
+//               <table>
+//                 <tbody>
+//                 <tr style={{backgroundColor:'rgb(0, 0, 0, 0.3)'}}><td>Name</td><td>quantity</td><td>Price</td><td>Cost</td></tr>
+//                 {invoice["product info"].map((item, index) => (
+//                   <tr>
+//                     <td>
+//                     {item.name}
+//                     </td>
+//                     <td>
+//                       {quantities[index].quantity} {item.quantityUnit}
+//                       </td>
+//                       <td>
+//                         {item.price} {item.currency}
+//                         </td>
+//                         <td>
+//                           {quantities[index].quantity * item.price} {item.currency}
+//                           </td>
+//                           </tr>
+//                 ))}
+//                 </tbody>              
+//               </table>
+//             <h3 style={{margin: '5px', textAlign:'left', marginLeft:'10px', color:'red', backgroundColor: 'rgb(0, 0, 200, 0.3)', padding: '4px', borderRadius: '6px'}}> Total: {cost} ₾.</h3>
+
+// <div style={{textAlign: 'left', marginLeft: '15px', position:'absolute', bottom: '5px'}}>
+//   Data Time: {data.Now()}
+// </div>
+// <div style={{position: 'absolute', right: '10px', top: '5px'}}>
+
+// <button>Download</button>
+// <button>Share Now</button>
+// <button onClick={closeinvoic}>Close</button>
+
+// </div>
+
+//               </Invoicuserconteiner>
+
+
+//             </>
+//           );
+//          }
+
+
+         
+
+
         return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
       
-
        {usermode? <>
 {product === null? 
           (<h1 className="products-header">Product: {userData.length}</h1>):
@@ -468,27 +679,22 @@ const handleClickCart = async (itemId: string) => {
     <>
     {/* {<div style={{position: 'absolute', zIndex:'5'}} id="Container"></div>} */}
     
-      {buy &&    <div style={{
-        position:'absolute', 
-        width: '98%', 
-        height: '100%', 
-        margin:'auto', 
-        background: 'none', 
-        zIndex:'5', 
-        backdropFilter: 'blur(12px)',
-        boxShadow: '0px 0px 3px 2px black',
-        borderRadius: '10px',
-        }} id="conteiner" >    
-        <button onClick={closebtn}
-        style={{
-       position:'absolute', 
-       right:'10px', 
-       top: '10px', 
-       cursor: 'pointer', 
-       padding: '5px 10px', 
-       borderRadius: '4px'
-       }}>Close</button>
-   </div>
+      {buy &&  
+      <BuyFromCartCont id="conteiner" > 
+            {invoic && <Invoic quantities={quantities} incartResponse={incartResponse} setInvoic={setInvoic} />}
+   
+        <BuyModeCloseBtn onClick={closebtn} >Close</BuyModeCloseBtn>
+
+        <BtnsConteiner>
+                <button onClick={tackeinvois} disabled={!check}>Tacke invoice</button>
+                <button disabled={!check}>Pay Now</button>
+        </BtnsConteiner>
+
+        <BtnsConteiner>
+            <samp><input onChange={accept} type="checkbox"></input> ვეთანხმები პირობებს</samp>
+        </BtnsConteiner>
+
+   </BuyFromCartCont>
 }
     {/* { <BuyFromCart />} */}
 
@@ -627,6 +833,12 @@ const handleClickCart = async (itemId: string) => {
                         loading={loading}
                         setLoading={setLoading}
                         userData={userData}
+
+                        incartResponse={incartResponse}
+                        setInCartResponse={setInCartResponse}
+                        quantities={quantities} 
+                        setQuantities={setQuantities}
+
                         setBuy={setBuy}
                     
                         />

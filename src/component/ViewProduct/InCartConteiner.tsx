@@ -13,6 +13,12 @@ interface Props {
   cartbtn: Function;
   setFav: Function;
   setBuy:Function;
+  usermode:boolean;
+  members:any[];
+  incartResponse:any[];
+  setInCartResponse:Function;
+  quantities:any[];
+  setQuantities:Function;
 }
 
 
@@ -136,21 +142,6 @@ interface CartItem {
 
 
 
-// const BayProducts = ({products}: any) => {
-  
-//   return(
-// <>
-// <div style={{position:'absolute', width: '80%', height: '80%', margin:'auto', backgroundColor: 'green', zIndex:'5'}}>
-
-// <h1>
-// {products.length}
-// </h1>
-// </div>
-
-// </>
-//   );
-// }
-
 
 
 const InCartConteiner = ({
@@ -159,16 +150,22 @@ const InCartConteiner = ({
   handleClickCart,
   loading,
   setLoading,
-  setBuy
+  setBuy,
+  usermode,
+  members, 
+  incartResponse, 
+  setInCartResponse,
+  quantities, 
+  setQuantities
 }: Props) => {
 
 
   
-  const [incartResponse, setInCartResponse] = useState<any[]>([]);
+  // const [incartResponse, setInCartResponse] = useState<any[]>([]);
 
 
 
-  const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
+  // const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
 
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const [totalCost, setTotalCost] = useState<number>(0);
@@ -193,8 +190,8 @@ const InCartConteiner = ({
         setLoading(false);
 
         if(quantities.length<=0){
-const initialQuantities = cartResponse.map((item: CartItem)=> ({ id: item._id, quantity: 1 }));
-      setQuantities(initialQuantities);
+          const initialQuantities = cartResponse.map((item: CartItem)=> ({ id: item._id, quantity: 1 }));
+                setQuantities(initialQuantities);
 
         }
 
@@ -208,8 +205,8 @@ const initialQuantities = cartResponse.map((item: CartItem)=> ({ id: item._id, q
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const newQuantities = [...quantities];
-    newQuantities[index].quantity = Number(e.target.value);
-    setQuantities(newQuantities);
+          newQuantities[index].quantity = Number(e.target.value);
+          setQuantities(newQuantities);
   }
 
   const handleIncrement = (index: number) => {
@@ -263,7 +260,13 @@ const initialQuantities = cartResponse.map((item: CartItem)=> ({ id: item._id, q
     const BuyBtn  =()=> {
 
   const handleAppendToContainer = (): Node => {
-    const buyFromCartElement = <BuyFromCart products={incartResponse} setBuy={setBuy} cost={totalCost}  quantities={quantities}  />;
+    const buyFromCartElement = <BuyFromCart 
+                                            products={incartResponse} 
+                                            cost={totalCost}  
+                                            quantities={quantities}  
+                                            usermode={usermode}
+                                            members={members}
+                                            />;
     const buyFromCartString = ReactDOMServer.renderToString(buyFromCartElement);
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = buyFromCartString;

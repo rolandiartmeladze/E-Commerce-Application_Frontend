@@ -25,6 +25,10 @@ interface Props{
           setLoading:Function;
           userData:any[];
           setBuy:Function;
+          incartResponse:any[]; 
+          setInCartResponse:Function;
+          quantities:any[]; 
+          setQuantities:Function;
                 }
 
 
@@ -103,8 +107,13 @@ const InfoConteiner = styled.div`
         product, 
         handleClickCart, 
         loading, 
-        setLoading ,userData,
-        setBuy
+        setLoading ,
+        userData,
+        setBuy,
+        incartResponse, 
+        setInCartResponse,
+        quantities, 
+        setQuantities
       }:Props) => {
 
         const [cart, setCart] = useState(false);
@@ -193,6 +202,12 @@ const InfoConteiner = styled.div`
                       setLoading={setLoading}   
                       cartbtn={cartbtn}     
                       setFav={setFav}  
+                      usermode={usermode}
+                      members={members}
+                      incartResponse={incartResponse}
+                      setInCartResponse={setInCartResponse}
+                      quantities={quantities} 
+                      setQuantities={setQuantities}
                       setBuy={setBuy}    
                       />
                       }
