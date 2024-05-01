@@ -123,6 +123,13 @@ transition: 0.5s ease-in-out;
     }
     
 }
+@media only screen and (max-width: 750px) {
+    .productarray{
+        flex-direction: column-reverse;
+    }
+
+}
+
 
 @media only screen and (max-width: 500px) {
     .product-conteiner{

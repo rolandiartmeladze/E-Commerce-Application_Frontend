@@ -43,6 +43,11 @@ const ProductAside = styled.div`
       border-radius: 10px 10px 0px 0px;
       display: flex;
       flex-direction: column;
+
+      @media (max-width: 750px) {
+        width: 98%;
+      }
+      
 `;
 
 

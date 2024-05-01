@@ -8,36 +8,90 @@ import styled from "styled-components";
 
 
 const Invoicuserconteiner = styled.div`
-position: absolute; 
-z-index:  6;
-width:100%; 
-height:  100%; 
-background-color: white;
-border-radius: 10px;
-h5{
-  text-align: left;
-  margin: 4px 0px;
-}
-ul{
+      position: absolute; 
+      z-index:  6;
+      width:100%; 
+      height:  100%; 
+      background-color: white;
+      border-radius: 10px;
+        h5{
+          text-align: left;
+          margin: 4px 3px;
+          display: inline;
+        }
+        h4{
+          margin: 5px;
+          text-align:left;
+        }
+        h3{
+              margin: 5px;
+              text-align: left; 
+              color:red; 
+              background-color: rgb(0, 0, 200, 0.3); 
+              padding: 4px;
+        }
 
-  li{
-    width: 90%;
-    margin-left: 12px;
-    box-shadow: none;
-    border-bottom: 0.1px solid black;
+          ul{
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            li{
+              width: 90%;
+              box-shadow: none;
+              display: inline;
+              margin: 1px; 
+              padding: 3px;
+              margin-left: 12px;
+              padding-left: 0px;
+                h5{
+                  border-bottom: 0.1px solid black;
+                }
+  
+  
+
+            }
+          }
+
+            table{
+              width: 100%;
+              margin: auto;
+              background-color: rgb(0, 0, 0, 0.2);
+              
+            }
+
+`;
+
+const InvoicHead = styled.div`
+      text-align: left; 
+      background-color: rgb(0, 50, 0, 0.2); 
+      padding: 6px;
+       
+`;
+
+const BtnsConteiner = styled.div`
+      position: absolute;
+      right: 10px;
+      top: 0px;
+      padding: 2px;
+      button{
+        cursor: pointer;
+        padding: 4px 5px; 
+        margin: 0px 2px;
+        border-radius: 5px;
+      }
+
+@media (max-width: 750px) {
+  display:flex;
+  flex-direction: column;
+  z-index: 3;
+  button{
+    margin: 1px;
   }
-}
 
-table{
-  width: 90%;
-  margin: auto;
-  background-color: rgb(0, 0, 0, 0.2);
-  border-radius: 8px;
 }
 
 `;
 
- 
 const Invoic = ({quantities , incartResponse, setInvoic}) => {
 
   const [generatingPDF, setGeneratingPDF] = useState(false);
@@ -65,15 +119,13 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
         let item = document.getElementById('invoic');
         if(item){
           item.style.display = 'none';
-          // setCheck(false);
           setInvoic(false);
         } 
       }
 
       const data = {
         Now: () => {
-          // Define the behavior of the Now function
-          return new Date().toLocaleString(); // Example: Return current date and time as a string
+          return new Date().toLocaleString(); 
         }
       };
 
@@ -115,28 +167,44 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
 
     
 
-    // return invoice;
 
     return (
       <>
       <Invoicuserconteiner id="invoic">
-      <ul>
-        <h5>User:</h5>
-        <li>Name: {invoice["user info"].name}</li>
-        <li>Email: {invoice["user info"].email}</li>
-        <li>Phone: {invoice["user info"].phone}</li>
-        <li>Address: {invoice["user info"].address}</li>
-        
-        <h5 style={{marginTop:'15px'}}>Bank:</h5>
+        <InvoicHead>
+          <h5>Invoic ID: </h5><samp>N36154</samp>  {'<>'}
+          <h5>Data Time: </h5> <samp>{data.Now()}</samp>
 
-        <li>Bank Name: {'Bank Of Georgia'}</li>
-        <li>Accounc Number:  {'22 GE 65 BG 00 00 00 20 01 19 97'}</li>
-        <li>Owner:  {'Roland Artmeladze'}</li>
-        <li>Destination:  {'Invoic N245638'}</li>
-        
+                  {!generatingPDF&& (
+              <BtnsConteiner>
+                    <button onClick={Download}>Download</button>
+                    <button>Share Now</button>
+                    <button onClick={closeinvoic}>Close</button>
+              </BtnsConteiner>
+)}
 
-      </ul>
-   <h5 style={{marginLeft: '20px'}}>Products:</h5>
+        </InvoicHead>
+
+ 
+  <div style={{display:'flex', flexWrap:'wrap'}}>
+        <ul>
+          <h5>User:</h5>
+            <li><h5>Name:</h5> <samp>{invoice["user info"].name}</samp></li>
+            <li><h5>Email:</h5> <samp>{invoice["user info"].email}</samp></li>
+            <li><h5>Phone:</h5> <samp>{invoice["user info"].phone}</samp></li>
+            <li><h5>Address:</h5> <samp>{invoice["user info"].address}</samp></li>
+        </ul>
+
+          <ul>
+            <h5>Bank:</h5>
+              <li><h5>Bank Name:</h5> <samp>{'Bank Of Georgia'}</samp></li>
+              <li><h5>Accounc Number:</h5>  <samp>{'22 GE 65 BG 00 00 00 20 01 19 97'}</samp></li>
+              <li><h5>Owner:</h5>  <samp>{'Roland Artmeladze'}</samp></li>
+              <li><h5>Destination:</h5>  <samp>{'Invoic N245638'}</samp></li>
+          </ul>
+  </div>
+
+   <h4 style={{marginLeft: '20px'}}>Products:</h4>
 
         <table>
           <tbody>
@@ -160,21 +228,10 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
           ))}
           </tbody>              
         </table>
-      <h3 style={{margin: '5px', textAlign:'left', marginLeft:'10px', color:'red', backgroundColor: 'rgb(0, 0, 200, 0.3)', padding: '4px', borderRadius: '6px'}}> Total: {cost} ₾.</h3>
+      <h3> Total: {cost} ₾.</h3>
 
-<div style={{textAlign: 'left', marginLeft: '15px', position:'absolute', bottom: '5px'}}>
-Data Time: {data.Now()}
-</div>
 
-{!generatingPDF&& (
-<div style={{position: 'absolute', right: '10px', top: '5px'}}>
 
-<button onClick={Download}>Download</button>
-<button>Share Now</button>
-<button onClick={closeinvoic}>Close</button>
-
-</div>
-)}
 
 
         </Invoicuserconteiner>

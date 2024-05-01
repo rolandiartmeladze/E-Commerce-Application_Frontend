@@ -14,14 +14,22 @@ const Conteiner = styled.div`
         border-radius: 10px 10px 0px 0px;
         margin: 0;
         background-color: brown;
-        font-weight: 900;
         display: flex;
-        paddin: 5px;
+
+        font-weight: 400;
+    font-size: 150%;
+    display: flex;
+    padding: 5px;
+}
     `;
         const ProductList = styled.ul`
             display: flex;
             flex-direction: column; 
             width: 60%; 
+            @media (max-width: 750px) {
+                padding-top: 35px;
+                width: 98%;
+            }
         `;
 
 

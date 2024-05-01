@@ -35,10 +35,21 @@ const ProductConteiner = styled.div`
     backdrop-filter: blur(2px);
     box-shadow: 3px 3px 300px 5px inset rgb(15, 42, 42, 0.1);
     border-radius: 10px 10px 0px 0px;
+    
+    @media (max-width: 750px) {
+      width: 98%;
+      padding: 3px;
+    }
+    
 `;
 
 const ProductHeadInfo = styled.div`
       display:flex;
+      @media (max-width: 750px) {
+      flex-direction: column;
+
+      }
+  
 `;
 
 const ImgConteiner = styled.div`
@@ -56,6 +67,15 @@ const ImgConteiner = styled.div`
       margin-top: 4px;
       border-radius:6px;
     }
+
+    @media (max-width: 750px) {
+
+      margin:auto;
+      max-width: 320%;
+      width: 98%;
+            
+      }
+
 `;
 
 const ImgsBox = styled.div`
