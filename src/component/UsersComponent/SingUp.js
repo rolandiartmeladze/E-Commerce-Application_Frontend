@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import './SingUp.css';
 
+import { Link } from 'react-router-dom'; 
+
 import serverUri from '../../component/serverUrl';
 
 
-const SignUp = ({ singup, setSingUp }) => {
+const SignUp = () => {
 
-    // const serverUrl = "https://dry-shore-70664-df3b504ad877.herokuapp.com";
 
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
@@ -33,25 +34,17 @@ const SignUp = ({ singup, setSingUp }) => {
             };
 
             const response = await fetch(`${serverlink}/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            });
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(formData)
+                });
 
-            if (response.ok) {
-                setTimeout(() => {
-                    window.location.reload(); 
-                }, 2000);
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message); 
-                console.log(errorMessage)
-            }
-        } catch (error) {
-            console.error('Error registering user:', error);
-        }
+            if (response.ok) { setTimeout(() => { window.location.reload(); }, 2000); } 
+            else { const errorData = await response.json();
+                    setErrorMessage(errorData.message); 
+                    console.log(errorMessage)
+                 }
+        } catch (error) { console.error('Error registering user:', error); }
     };
 
     const handleSubmit = async (e) => {
@@ -60,16 +53,21 @@ const SignUp = ({ singup, setSingUp }) => {
     };
 
     const closebtn = () =>{
-        setSingUp(false)
+        // setSingUp(false)
     }
 
     return (
 <>
             <h1 className="sing-up-header" >Sign Up Form</h1>
             <form className="sing-up-form">
-            <div style={{top:'-35px', right:'10px'}} onClick={closebtn} className="closeloginform">
+                       <Link to={'/'}>
+ <div 
+    style={{top:'-35px', right:'10px'}} 
+    onClick={closebtn} 
+    className="closeloginform">
                 {'Close'}
             </div>
+</Link>
 
 
                 <div className="sing-up-input-conteiner">

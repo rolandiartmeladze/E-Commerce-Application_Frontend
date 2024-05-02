@@ -75,7 +75,7 @@ const ProductInfo = ({ product }:productProps) => {
 
                 <ConteinerItem>
                     <h5>{'Quantity / '}{product.quantityUnit}:</h5>
-                        <ItemInput onChange={Amount} 
+                        <ItemInput id="productquantity" onChange={Amount} 
                                     type="number"  
                                     value={`${productNum}`}/>
 

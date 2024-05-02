@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import serverUri from '../../component/serverUrl';
-import { Link, useNavigate } from 'react-router-dom'; 
+import serverUri from '../serverUrl';
 
-const Login = () => {
+
+const LoginComp = () => {
     const serverlink = serverUri();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Use useNavigate hook for programmatic navigation
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -31,25 +30,36 @@ const Login = () => {
             localStorage.setItem('address', user.address);
             localStorage.removeItem('favorits');
 
-            navigate(`/`); 
+
 
             setTimeout(() => {
                 window.location.reload();
             }, 500);
+                
+
+            // fetchUserData();
         } catch (error) {
             console.error('Error during login:', error);
             alert('An error occurred during login');
         }
     };
 
+    const handleSignUp = () => {
+        // setSingUp(!singup);
+        // setLogIn(!login);
+    };
+
+    const handleClose = () => {
+        // setLogIn(false);
+    };
+
     return (
         <>
             <h1 className="sing-up-header">Login Form</h1>
             <form className="sing-up-form">
-                <Link to={'/'}>
-                <div className="closeloginform">
+                <div onClick={handleClose} className="closeloginform">
                     Close
-                </div></Link>
+                </div>
                 <div className="sing-up-input-conteiner">
                     <div className="sing-up-input-label">Email:</div>
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" required />
@@ -64,13 +74,11 @@ const Login = () => {
                 <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} className="sing-up-btn-conteiner">
                     <samp style={{ display: 'flex', alignItems: 'center' }}><samp><input type="checkbox"></input></samp>Remember password</samp>
                     <sapm style={{ margin: '8px', cursor: 'pointer' }}>Forget Password</sapm>
-                    <Link to="/singup">
-                    <button style={{ position: 'relative', right: '0', padding: '10px 20px' }} className="sing-up-btn">Sign Up</button>
-                    </Link>
+                    <button style={{ position: 'relative', right: '0', padding: '10px 20px' }} className="sing-up-btn" onClick={handleSignUp}>Sign Up</button>
                 </div>
             </form>
         </>
     );
 };
 
-export default Login;
+export default LoginComp;

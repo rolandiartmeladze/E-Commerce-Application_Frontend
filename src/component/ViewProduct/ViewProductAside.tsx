@@ -105,21 +105,14 @@ const InfoConteiner = styled.div`
                       
 
       const ViewProductAside = ({
-        members, 
-        usermode, 
-        incart, 
-        favorits, 
-        product, 
-        handleClickCart, 
-        loading, 
-        setLoading ,
-        userData,
-        setBuy,
-        incartResponse, 
-        setInCartResponse,
-        quantities, 
-        setQuantities
-      }:Props) => {
+            members, usermode,  
+            favorits, product, 
+            handleClickCart, incart,
+            loading, setLoading ,
+            userData, setQuantities,
+            setBuy, incartResponse, 
+            setInCartResponse, quantities
+          }:Props) => {
 
         const [cart, setCart] = useState(false);
         const [fav, setFav] = useState(false);
@@ -127,13 +120,8 @@ const InfoConteiner = styled.div`
         const bgcolor =`linear-gradient(to top, rgba(25, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0) 40%)`;
 
         const cartbtn  = async ()  =>{
-
-
               cart? setCart(false) : setCart(true);
               fav && setFav(false);
-
-              // checkcart();
-
               };
 
 
@@ -145,7 +133,6 @@ const InfoConteiner = styled.div`
                 const closebtn  = ()  =>{
                       fav && setFav(false);
                       cart && setCart(false);
-                      // checkcart();
                       };
 
 
@@ -199,22 +186,16 @@ const InfoConteiner = styled.div`
                       {fav || cart? 
                       <>
                       <CloseBtn />
-                      {cart&& 
-                      <InCartConteiner 
-                      incart={incart} 
-                      handleClickCart={handleClickCart} 
-                      loading={loading}
-                      setLoading={setLoading}   
-                      cartbtn={cartbtn}     
-                      setFav={setFav}  
-                      usermode={usermode}
-                      members={members}
-                      incartResponse={incartResponse}
-                      setInCartResponse={setInCartResponse}
-                      quantities={quantities} 
-                      setQuantities={setQuantities}
-                      setBuy={setBuy}    
-                      />
+
+                      {cart&& <InCartConteiner incart={incart} 
+                                    handleClickCart={handleClickCart} 
+                                    loading={loading} setLoading={setLoading}   
+                                    cartbtn={cartbtn} setFav={setFav}  
+                                    usermode={usermode} members={members}
+                                    incartResponse={incartResponse}
+                                    setInCartResponse={setInCartResponse}
+                                    quantities={quantities} setBuy={setBuy} 
+                                    setQuantities={setQuantities} />
                       }
 
                       {fav&& <div>cart</div>}
@@ -227,9 +208,16 @@ const InfoConteiner = styled.div`
                           <UserInfo members={members} 
                                     usermode={usermode} />
                           <ProductInfo product={product} />
+
+                          <div style={{width: '100%', display:'flex', justifyContent:'flex-end', position: 'relative', marginTop: '12px'}}>
+                            <button  style={{position:'absolute', right: '15px', padding: '3px 5px', cursor: 'pointer'}}>Buy Now</button>
+                          </div>
                           </>
                         )}
 
+                        {/* {!cart || !fav && (
+                          
+                        )} */}
                     </InfoConteiner>
 
             </ProductAside>

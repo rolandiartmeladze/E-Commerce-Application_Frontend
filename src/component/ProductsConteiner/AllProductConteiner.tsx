@@ -6,16 +6,12 @@ import styled from "styled-components";
 import serverUri from '../../component/serverUrl';
 import LoadingComponent from "../Loading";
 import ViewProductAside from "../ViewProduct/ViewProductAside";
-import BuyFromCart from '../BuyProduct/BuyFromCart';
 
 import user from '../../icon/user.png';
 import view from '../../icon/view.png';
 import cost from '../../icon/cost.png';
 import share from '../../icon/share.png';
-import clock from '../../icon/clock.png';
-import loc from '../../icon/loc1.png';
-import mail from '../../icon/mail.png';
-import phone from '../../icon/phone.png';
+
 import favicon0 from '../../icon/fav.png';
 import favicon1 from '../../icon/favcheck.png';
 import addcart from '../../icon/addcart.png';
@@ -23,151 +19,11 @@ import cart from '../../icon/cart.png';
 
 import testimg from '../../img/slide_9.jpg';
 
-import Invoic from "../BuyProduct/Invoic";
-// import BuyFromCart from "../BuyProduct/BuyFromCart";
 
-const ProductConteiner = styled.div`
-    width: 70%;
-    max-width: none;
-    margin: 3px;
-    border-radius: 0;
-    padding: 8px;
-    backdrop-filter: blur(2px);
-    box-shadow: 3px 3px 300px 5px inset rgb(15, 42, 42, 0.1);
-    border-radius: 10px 10px 0px 0px;
-    
-    @media (max-width: 750px) {
-      width: 98%;
-      padding: 3px;
-    }
-    
-`;
+import View from "../ViewProduct/View";
 
-const ProductHeadInfo = styled.div`
-      display:flex;
-      @media (max-width: 750px) {
-      flex-direction: column;
+import { Link } from 'react-router-dom';
 
-      }
-  
-`;
-
-const ImgConteiner = styled.div`
-    overflow: hidden;
-    max-width: 300px;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    & img {
-      height: auto;
-      width: 96%;
-      max-height: 96%;
-      margin-top: 4px;
-      border-radius:6px;
-    }
-
-    @media (max-width: 750px) {
-
-      margin:auto;
-      max-width: 320%;
-      width: 98%;
-            
-      }
-
-`;
-
-const ImgsBox = styled.div`
-      width: 100%;
-      height: 55px;
-      padding:3px;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-
-        & samp {
-          width: 55px;
-          height: 92%;
-          box-shadow: 0px 0px 3px 1px black;
-          border-radius: 4px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          
-            & img {
-              border-radius: 2px;
-              margin:0;
-            }
-        }
-
-`;
-
-const MainInfo = styled.div`
-        display:flex;
-        flex-grow: 1;
-        align-items: flex-start;
-        flex-direction: column;
-        margin-left: 6px;
-`;
-
-const InfoLine = styled.div`
-        width:100%;
-        display:flex;
-        flex-wrap: wrap;
-        align-items: center;
-        margin: 5px;
-            & img {
-              width: 30px;
-              margin-right: 6px;
-            }
-
-        & samp {
-          margin: 0;
-          display: flex;
-          white-space: pre-wrap;
-          text-align: left;
-          font-size:115%;
-          font-weight: 500;
-        }
-      
-        & h4 {
-          margin: 0px;
-          margin-right: 5px;
-        }
-
-`;
-
-const LineItem = styled.div`
-display: flex;
-justify-content: flex-start;
-align-items: center;
-margin:4px;
-margin-right: 18px;
-
-      
-& samp {
-  font-weight: 600;
-  font-size:100%;
-}
-
-& img {
-  width:20px;
-  margin-right: 8px;
-}
-`;
-
-const Table = styled.table`
-      text-align: left;
-          & tr {margin: 8px; 
-            
-            & th {
-              white-space: nowrap;
-              vertical-align: top;
-            }
-           }
-`;
 
 const SimilarProductHead = styled.h1`
 position: relative;
@@ -214,6 +70,7 @@ const AddfavIcon = styled.samp<{ product: object | null }>`
         border-bottom-right-radius: 8px;
         cursor: pointer;
         padding: 4px;
+        z-index: 6;
         transition: 0.4s ease-in-out;
 
           &&:hover { box-shadow: 1px 1px 0px 0px red;}
@@ -221,80 +78,6 @@ const AddfavIcon = styled.samp<{ product: object | null }>`
 `;
 
 
-//____
-const BuyFromCartCont = styled.div`
-      position: absolute;
-      width: 98%;
-      min-height: 100%;
-      height: auto;
-      margin: auto;
-      background: none;
-      z-index: 5;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 3px 2px black;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column-reverse;
-      justify-content: flex-end;
-    `;
-
-const BuyModeCloseBtn = styled.button`
-      position: absolute; 
-      right: 10px; 
-      top:  10px; 
-      cursor:  pointer; 
-      padding:  5px 10px; 
-      border-radius: 4px
-      `;
-
-      const BtnsConteiner = styled.div`
-            width:  100%; 
-            text-align: left;
-            display:  flex;
-            justify-content: center;
-            margin-top: 8px ;
-            margin-bottom: 10px;
-            align-items: center;
-            
-              button{
-                padding: 8px 15px; 
-                border-radius: 8px; 
-                cursor: pointer; 
-                margin: 6px;
-              }
-            `;
-            
-
-            //_____
-            // const Invoicuserconteiner = styled.div`
-            //       position: absolute; 
-            //       z-index:  6;
-            //       width:100%; 
-            //       height:  100%; 
-            //       background-color: white;
-            //       border-radius: 10px;
-            //       h5{
-            //         text-align: left;
-            //         margin: 4px 0px;
-            //       }
-            //       ul{
-
-            //         li{
-            //           width: 90%;
-            //           margin-left: 12px;
-            //           box-shadow: none;
-            //           border-bottom: 0.1px solid black;
-            //         }
-            //       }
-
-            //       table{
-            //         width: 90%;
-            //         margin: auto;
-            //         background-color: rgb(0, 0, 0, 0.2);
-            //         border-radius: 8px;
-            //       }
-         
-            // `;
 
       interface ActiveUserProps {products: string[];}
 
@@ -315,6 +98,8 @@ interface Props{
 
     sesInProduct:Function;
 
+    product:any | null; 
+    setProduct:Function;
 
 }
 interface Productprops{
@@ -352,18 +137,52 @@ interface FavoriteIconComponentProps {
 }
 
 
+const FavoriteIconComponent = ({ itemId, favorits, handleItemClick, product  }: FavoriteIconComponentProps) => {
+  return (
+    
+    <AddfavIcon 
+    product={product}
+    onClick={(e) => { 
+      e.stopPropagation(); 
+      e.preventDefault();
+      handleItemClick(itemId); 
+      }}>
+      <img src={favorits.includes(itemId) ? favicon1 : favicon0} alt="fav icon" />
+    </AddfavIcon>
+  );
+};
+
+const CartIconComponent = ({ itemId, incart, handleClickCart, product }: CartIconComponentProps) => {
+  return (
+    <AddCartIcon 
+    onClick={(e) => { 
+              e.stopPropagation();
+              e.preventDefault(); 
+              handleClickCart(itemId); 
+            }}
+            product={product}
+            >
+      <img src={incart.includes(itemId) ? cart : addcart} alt="cart icon" />
+    </AddCartIcon>
+  );
+};
+export { CartIconComponent };
+export { FavoriteIconComponent };
+
+
+
 const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, favorits, 
                                                 setFavorits, chekfavorits, activeuser, usermode,
-                                                incart, setInCart, members, sesInProduct
+                                                incart, setInCart, members, sesInProduct,     
+                                                product, 
+                                                setProduct
+                                            
+                                            
                                               }) => {
 
-
-                                                // console.log(members)
-
-
-                                                const [incartResponse, setInCartResponse] = useState<any[]>([]);
-
-                                                const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
+              const serverlink = serverUri();
+              // const [incartResponse, setInCartResponse] = useState<any[]>([]);
+              // const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
 
 
 const handleItemClick = async (itemId: string) => {
@@ -385,62 +204,50 @@ const handleItemClick = async (itemId: string) => {
 
 const handleClickCart = async (itemId: string) => {
 
-  const token = localStorage.getItem('token');
-  let newItem = itemId;
+          const token = localStorage.getItem('token');
+          let newItem = itemId;
 
+              if(usermode){
+                try {  
+                  const userID = token;
+                  const checkCartItem = await fetch(`${serverlink}/addCarItem/${userID}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({itemId}),
+                        });
 
-  if(usermode){
-    try {  
-      const userID = token;
-      const checkCartItem = await fetch(`https://lavish-husky-gaura.glitch.me/addCarItem/${userID}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({itemId}),
-
-        });
-
-        if(!checkCartItem.ok){ throw new Error('not working'); }
-        const cartResponse = await checkCartItem.json();
-        console.log(cartResponse);
-        setInCart(cartResponse)
-
-
-    } catch (error) {
-      // console.log(error, "not Found");
-    }
-
-  }
-
-  
-  let storedcarts = localStorage.getItem('incart');
-  let incart = storedcarts ? JSON.parse(storedcarts) : [];
-  
-  let updatedcarts = [...incart];
-  
-  const index = updatedcarts.indexOf(newItem);
-      if (index === -1) {updatedcarts.push(newItem);} 
-      else {updatedcarts.splice(index, 1);}
-  localStorage.setItem('incart', JSON.stringify(updatedcarts));
-      setInCart(updatedcarts);
+                    if(!checkCartItem.ok){ throw new Error('not working'); }
+                    const cartResponse = await checkCartItem.json();
+                    setInCart(cartResponse)
+                } catch (error) {console.log(error, "not Found");}
+              }
+        
+        let storedcarts = localStorage.getItem('incart');
+        let incart = storedcarts ? JSON.parse(storedcarts) : [];
+        let updatedcarts = [...incart];
+        
+        const index = updatedcarts.indexOf(newItem);
+            if (index === -1) {updatedcarts.push(newItem);} 
+            else {updatedcarts.splice(index, 1);}
+        localStorage.setItem('incart', JSON.stringify(updatedcarts));
+            setInCart(updatedcarts);
 };
 
-          const serverlink = serverUri();
-            const [product, setProduct] = useState<Productprops | null>(null);
+            // const [product, setProduct] = useState<Productprops | null>(null);
             const [lastClickedProductId, setLastClickedProductId] = useState<string | null>(null);
+            // const [buy, setBuy] = useState<boolean>(false);
+
             
         let products;
         if(usermode){products = userData.filter(product => !activeuser.products.includes(product._id));} 
         else{products = userData}
 
-        console.log(product)
-
         const clickF =(productId:string) =>{
-          viewProduct(productId);
-          setLastClickedProductId(productId);
-          setLoading(true);
-          sesInProduct(true);
-
-        }
+              viewProduct(productId);
+              setLastClickedProductId(productId);
+              setLoading(true);
+              sesInProduct(true);
+              }
 
         const viewProduct = async (productId:string) =>{
 
@@ -454,204 +261,40 @@ const handleClickCart = async (itemId: string) => {
                 const updateViewResponse = await updateViewNumber.json();
                     setProduct(updateViewResponse);
                     setLoading(false);
-
-                    // console.log(updateViewResponse);
                     
             } catch (error) {console.log('Error:', error);}
 
         }
-
-        const CartIconComponent = ({ itemId, incart, handleClickCart, product }: CartIconComponentProps) => {
-          return (
-            <AddCartIcon 
-            onClick={(e) => { 
-                      e.stopPropagation(); 
-                      handleClickCart(itemId); 
-                    }}
-                    product={product}
-                    >
-              <img src={incart.includes(itemId) ? cart : addcart} alt="cart icon" />
-            </AddCartIcon>
-          );
-        };
-        const FavoriteIconComponent = ({ itemId, favorits, handleItemClick, product  }: FavoriteIconComponentProps) => {
-          return (
-            
-            <AddfavIcon 
-            product={product}
-            onClick={(e) => { 
-              e.stopPropagation(); 
-              handleItemClick(itemId); 
-              }}>
-              <img src={favorits.includes(itemId) ? favicon1 : favicon0} alt="fav icon" />
-            </AddfavIcon>
-          );
-        };
-
-
-
-
-        const [buy, setBuy] = useState<boolean>(false);
-
-        const closebtn = () => {
-          setBuy(false)
-        }
-
-        const [check, setCheck] = useState<boolean>(false);
-        const accept = () => {
-            setCheck(prevCheck => !prevCheck);
-        }
-    
-
-        const [invoic, setInvoic] = useState<boolean>(false);
-
-         const tackeinvois =()=>{
-          setInvoic(prevInvoic => !prevInvoic);
-          // console.log(user)
-         }
-
-        // const closeinvoic = () =>{
-        //   let item = document.getElementById('invoic') as HTMLDivElement;
-        //   if(item){
-        //     item.style.display = 'none';
-        //     // setCheck(false);
-        //     setInvoic(false);
-        //   } 
-        // }
-
-//         const userinfo = () => {
-
-//           let username = document.getElementById('UserName') as HTMLInputElement;
-//           let useremail = document.getElementById('UserEmail') as HTMLInputElement;
-//           let userphone = document.getElementById('UserPhone') as HTMLInputElement;
-//           let useraddress = document.getElementById('UserAddress') as HTMLInputElement;
-
-//           const ActivProducts:any[] = [];
-//             let cost = 0;
-//           incartResponse.forEach((product, index) => {
-
-//             const productCost = product.price * quantities[index].quantity;
-//             cost += productCost;
-
-//             ActivProducts.push({
-//               'name': product.name, 
-//               'price': product.price, 
-//               'quantities':quantities[index], 
-//               'cost': (product.price * quantities[index].quantity),
-//               'quantityUnit': product.quantityUnit,
-//               'currency': product.currency
-//             })
-//         })
-
-//           const invoice ={
-//             "user info":{
-//             'name': username.value,
-//             'email': useremail.value,
-//             'phone': userphone.value,
-//             'address': useraddress.value
-//           }, 
-//             "product info": ActivProducts
-            
-//           }
-
-
-          
-
-//           // return invoice;
-
-//           return (
-//             <>
-//             <Invoicuserconteiner id="invoic">
-//             <ul>
-//               <h5>User:</h5>
-//               <li>Name: {invoice["user info"].name}</li>
-//               <li>Email: {invoice["user info"].email}</li>
-//               <li>Phone: {invoice["user info"].phone}</li>
-//               <li>Address: {invoice["user info"].address}</li>
-              
-//               <h5 style={{marginTop:'15px'}}>Bank:</h5>
-
-//               <li>Bank Name: {'Bank Of Georgia'}</li>
-//               <li>Accounc Number:  {'22 GE 65 BG 00 00 00 20 01 19 97'}</li>
-//               <li>Owner:  {'Roland Artmeladze'}</li>
-//               <li>Destination:  {'Invoic N245638'}</li>
-              
-
-//             </ul>
-//          <h5 style={{marginLeft: '20px'}}>Products:</h5>
-
-//               <table>
-//                 <tbody>
-//                 <tr style={{backgroundColor:'rgb(0, 0, 0, 0.3)'}}><td>Name</td><td>quantity</td><td>Price</td><td>Cost</td></tr>
-//                 {invoice["product info"].map((item, index) => (
-//                   <tr>
-//                     <td>
-//                     {item.name}
-//                     </td>
-//                     <td>
-//                       {quantities[index].quantity} {item.quantityUnit}
-//                       </td>
-//                       <td>
-//                         {item.price} {item.currency}
-//                         </td>
-//                         <td>
-//                           {quantities[index].quantity * item.price} {item.currency}
-//                           </td>
-//                           </tr>
-//                 ))}
-//                 </tbody>              
-//               </table>
-//             <h3 style={{margin: '5px', textAlign:'left', marginLeft:'10px', color:'red', backgroundColor: 'rgb(0, 0, 200, 0.3)', padding: '4px', borderRadius: '6px'}}> Total: {cost} ₾.</h3>
-
-// <div style={{textAlign: 'left', marginLeft: '15px', position:'absolute', bottom: '5px'}}>
-//   Data Time: {data.Now()}
-// </div>
-// <div style={{position: 'absolute', right: '10px', top: '5px'}}>
-
-// <button>Download</button>
-// <button>Share Now</button>
-// <button onClick={closeinvoic}>Close</button>
-
-// </div>
-
-//               </Invoicuserconteiner>
-
-
-//             </>
-//           );
-//          }
-
-
-         
 
 
         return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
       
-       {usermode? <>
-{product === null? 
-          (<h1 className="products-header">Product: {userData.length}</h1>):
-          (<h1 style={{textDecoration:'underline', cursor:'pointer'}} className="products-header" onClick={() => { window.location.reload() }}>Home</h1>)}
- </>
+       {usermode&& <><h1 className="products-header">Product: {userData.length}</h1> </>
         
-        :(null)}
+        }
 
-<div style={{flexWrap: product === null? 'wrap' : 'nowrap'}} className="productarray">
-
-{product === null ? 
-(
-  products.map((item, index) => (
-    <article  onClick={() => {
-      clickF(item._id);
-    }} key={item._id} className="product-conteiner">
-
-{loading && lastClickedProductId === item._id && <LoadingComponent />}
+<div style={{flexWrap:'wrap'}} className="productarray">
 
 
-      <div className="img-conteiner">
-        <img src={testimg} alt="product img" />
-      </div>
+  {
+    products.map((item, index) => (
+
+
+      <Link 
+      style={{minWidth: '280px', width: '23%',     color: 'black', textDecoration: 'none'}} 
+      to={`/product-ID/${item._id}`}>
+
+      <article  onClick={() => { clickF(item._id); }} 
+                key={item._id} 
+                className="product-conteiner">
+
+        {loading && lastClickedProductId === item._id && <LoadingComponent />}
+
+          <div className="img-conteiner">
+            <img src={testimg} alt="product img" />
+          </div>
 
       <div className="product-info">
         <div className="product-info-item">
@@ -679,208 +322,32 @@ const handleClickCart = async (itemId: string) => {
           <samp><img src={cost} alt="cost icon" />{item.sale}</samp>
           <samp><img src={share} alt="share icon" />{item.share}</samp>
 
-          <FavoriteIconComponent itemId={item._id} 
+          <FavoriteIconComponent 
+              itemId={item._id} 
               favorits={favorits} 
               handleItemClick={handleItemClick} 
-              product={product} />
+              product={product} 
+              />
 
-              <CartIconComponent itemId={item._id} 
+              <CartIconComponent 
+                  itemId={item._id} 
                   incart={incart} 
                   handleClickCart={handleClickCart} 
-                  product={product} />
+                  product={product} 
+                  />
 
         </div>
       </div>
     </article>
+    </Link>
   ))
-)
-: 
-(
-    <>
-    {/* {<div style={{position: 'absolute', zIndex:'5'}} id="Container"></div>} */}
-    
-      {buy &&  
-      <BuyFromCartCont id="conteiner" > 
-            {invoic && <Invoic quantities={quantities} incartResponse={incartResponse} setInvoic={setInvoic} />}
-   
-        <BuyModeCloseBtn onClick={closebtn} >Close</BuyModeCloseBtn>
 
-        <BtnsConteiner>
-                <button onClick={tackeinvois} disabled={!check}>Tacke invoice</button>
-                <button disabled={!check}>Pay Now</button>
-        </BtnsConteiner>
+  }
 
-        <BtnsConteiner>
-            <samp><input onChange={accept} type="checkbox"></input> ვეთანხმები პირობებს</samp>
-        </BtnsConteiner>
-
-   </BuyFromCartCont>
-}
-    {/* { <BuyFromCart />} */}
-
-
-<ProductConteiner  key={product._id}>
-
-<ProductHeadInfo>
-  <ImgConteiner>
-    <img src={testimg} alt='User Icon' />
-      <ImgsBox>
-          {[0,1,2,3,4].map((item,index)=>(
-            <samp key={index}>
-              <img src={testimg} alt="prodict imgs" />
-            </samp>
-          ))}
-      </ImgsBox>
-  </ImgConteiner>
-
-
-        <MainInfo>
-          <InfoLine>
-                    <LineItem>
-                      <h4>ID: </h4> 
-                        <samp>{product.id}</samp>
-                    </LineItem>
-
-                        <LineItem>
-                          <img src={view} alt="view icon" /> 
-                            <samp>{product.view}</samp>
-                        </LineItem>
-
-                            <LineItem>
-                              <img src={cost} alt="cost icon" /> 
-                                <samp>{product.sale}</samp>
-                            </LineItem>
-
-                                <LineItem style={{cursor: 'pointer'}}>
-                                  <img src={share} alt="cost icon" /> 
-                                    <samp>{product?.share}</samp>
-                                </LineItem>
-
-                                    <LineItem>
-                                      <img src={clock} alt="time icon" /> 
-                                        <samp>{product.datatime}</samp>
-                                    </LineItem>
-          </InfoLine>
-
-      <Table>
-        <tbody>
-          <tr>
-            <th>Name:</th>
-            <td><samp>{product.name}</samp></td>
-          </tr>
-          <tr>
-            <th>In stock:</th>
-            <td><samp style={{color: 'red'}}>{product.quantity} {product.quantityUnit}.</samp></td>
-          </tr>
-          <tr>
-            <th>Price:</th>
-            <td><samp style={{color: 'red'}}>{product.price.toFixed(2)} {product.currency}.</samp></td>
-          </tr>
-        </tbody>
-      </Table>
-          
-      <InfoLine>
-            <h4><img style={{marginRight:'0'}} width={20} src={user} alt="user icon" /></h4>
-              <samp>{product.owner}</samp>
-          </InfoLine>
-
-
-        </MainInfo>
-</ProductHeadInfo>
-
-        
-
-
-<div style={{borderTop:'0.5px solid black', marginTop:'5px'}}>
-
-          <InfoLine>         
-          <h4>Description:</h4>
-              <samp> {product.description} </samp>
-          </InfoLine>
-
-          <InfoLine>
-          <h4>Comment:</h4>
-              <samp>{product.comment}</samp>
-          </InfoLine>
-
-
-<div style={{marginLeft: '25px'}}>
-
-<h3 style={{padding: '0', margin: '0', textAlign: 'left'}}>Contact Info:</h3>
-
-          <InfoLine>
-          <img src={phone} alt="emailicon" />
-          <a href={`tel:${product.phone}`}>
-            <samp>{product.phone}</samp>
-          </a>
-          </InfoLine>
-
-          <InfoLine>
-            <img src={mail} alt="emailicon" />
-              <a href={`mailto:${product.email}`}>
-              <samp>{product.email}</samp>
-          </a>
-
-          </InfoLine>
-
-          <InfoLine>
-          <img src={loc} alt="emailicon" />
-              <samp>{product.location}</samp>
-          </InfoLine>
-
-          
-    <FavoriteIconComponent itemId={product._id} favorits={favorits} handleItemClick={handleItemClick} product={product} />
-    <CartIconComponent itemId={product._id} incart={incart} handleClickCart={handleClickCart}  product={product} 
-                           
-                            />
-
-          </div>
-
-        
-        
-</div>
-
-
-        </ProductConteiner>
-
-      <ViewProductAside members={members}  
-                        incart={incart} 
-                        favorits={favorits} 
-                        usermode={usermode} 
-                        product={product} 
-                        handleClickCart={handleClickCart} 
-                        activeuser={activeuser}
-                        loading={loading}
-                        setLoading={setLoading}
-                        userData={userData}
-
-                        incartResponse={incartResponse}
-                        setInCartResponse={setInCartResponse}
-                        quantities={quantities} 
-                        setQuantities={setQuantities}
-
-                        setBuy={setBuy}
-                    
-                        />
-
-    </>
-
-)}
 
 
 </div>
 
-{
-product !== null && (
-<>
-<SimilarProductHead>Similar products</SimilarProductHead >
-<div style={{width: '98%', margin:'auto', minHeight: '150px', marginBottom:'10px', boxShadow: '0px -2px 9px 0px black', borderRadius: '6px 6px 0 0'}}>
-    </div>
-    </>
-) 
-
-    
-}
 
     </div>
  );

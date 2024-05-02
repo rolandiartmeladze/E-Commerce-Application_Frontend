@@ -3,6 +3,47 @@ import styled from "styled-components";
 import UserInfo from "../BuyProduct/Userinfo";
 
 
+const BuyFromCartCont = styled.div`
+      position: absolute;
+      width: 98%;
+      min-height: 96%;
+      height: auto;
+      margin: auto;
+      background-color: white;
+      z-index: 5;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 3px 2px black;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      
+      section{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      h5{
+        margin: 3px;
+        text-align: left;
+    }
+    ul{
+        width: 48%;
+        li{
+            box-shadow: none;
+            padding: 2px;
+            margin: 1px;
+            h5{
+                border-bottom: 1px solid black;
+            }
+        
+        }
+    }
+    }
+
+    `;
+
+
+
 const Conteiner = styled.div`
         display:  flex;
         flex-direction:  column;
@@ -31,6 +72,9 @@ const Conteiner = styled.div`
                 width: 98%;
             }
         `;
+
+
+
 
 
             const ProductsTable = styled.table`
@@ -63,6 +107,17 @@ const Conteiner = styled.div`
                                     margin-left: 12px;
                                 }
                                 `;
+
+
+const Headercont = styled.header`
+        width: 100%;
+        background-color:  rgb(24, 22, 19, 0.3);
+        height: 30px;
+        border-radius: 10px 10px 0px 0px;
+        display: flex;
+        align-items: center;
+`;
+                                
 interface Props{
     products:any[];
     cost:number;
@@ -70,6 +125,68 @@ interface Props{
     usermode: boolean;
     members:any[];
 }
+interface Props1{
+    product:any;
+    members:any[];
+}
+const BuyProduct =({product, members}:Props1)=>{
+
+    let quantity = document.getElementById('productquantity') as HTMLInputElement;
+    let numb = quantity?.value;
+
+    const data = {
+        Now: () => {
+          return new Date().toLocaleString(); 
+        }
+      };
+
+      const token = localStorage.getItem('token');
+
+      const isMember = members.find(user => user._id === token);
+  
+
+return(
+    <BuyFromCartCont>
+        <Headercont>
+          <h5>Invoic ID: </h5><samp>N36154</samp>  {' <> '}
+          <h5>Data Time: </h5> <samp>{data.Now()}</samp>
+        </Headercont>
+
+<section>
+    <ul>
+        <h5>გადამხდელი</h5>
+
+        <li><h5>Name</h5><samp>{isMember?.name} {isMember?.lastname}</samp></li>
+
+    </ul>
+    <ul>
+      <h5>მიმღები</h5>
+        <li><h5>Name</h5><samp>{product.owner}</samp></li>
+        <li><h5>Bank:</h5> <samp>{'Bank Of Georgia'}</samp></li>
+        <li><h5>Accounc:</h5>  <samp>{'22 GE 65 BG 00 00 00 20 01 19 97'}</samp></li>
+        <li><h5>Destination:</h5>  <samp>{'Invoic N245638'}</samp></li>
+
+
+    </ul>
+
+<div style={{width: '100%'}}>
+    <table> 
+        <tbody>
+
+        <tr>
+            <td>Name</td><td>quantity</td><td>Price</td><td>Cost</td>
+        </tr>       
+
+        </tbody>
+
+    </table>   
+</div>
+</section>
+            
+    </BuyFromCartCont>
+);
+}
+export {BuyProduct};
 
 const BuyFromCart = ({products, cost, quantities, usermode, members}: Props) => {
 

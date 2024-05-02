@@ -37,8 +37,8 @@ interface UserContainerProps {
         setSingUp:Function;
         inUerMode:boolean;
         setInUserMode:Function;
-        product:any[];
-        setProduct:Function;
+        addproduct:any[];
+        setAddProduct:Function;
     
         login:boolean;
         setLogIn:Function;
@@ -93,8 +93,8 @@ function ProductsConteiner({
         inUerMode,
         setInUserMode,
     
-        product, 
-        setProduct,
+        addproduct, 
+        setAddProduct,
 
         login,
         setLogIn,
@@ -116,7 +116,7 @@ function ProductsConteiner({
 
 
 
-        const addProductFunction = () => {product? setProduct(false):setProduct(true)};
+        const addProductFunction = () => {addproduct? setAddProduct(false):setAddProduct(true)};
 
 
                 const closefinde = () => {
@@ -220,8 +220,8 @@ return (
                                                         {ismain&& 
                                                                 <>
                                                                 <AddNewProduct fetchData={fetchData}
-                                                                                product={product} 
-                                                                                setProduct={setProduct}  
+                                                                                product={addproduct} 
+                                                                                setProduct={setAddProduct}  
                                                                                 addProductFunction={addProductFunction} 
                                                                                 setUserData={setUserData}  
                                                                                 advanceData={advanceData} 
@@ -230,7 +230,7 @@ return (
                                                                                 setSoldAmount={setSoldAmount}
                                                                                 activeuser={activeuser}
                                                                                 setActiveUser={setActiveUser}/>
-                                                                <AddProductBtn  addProductFunction={addProductFunction} product={product} />
+                                                                <AddProductBtn  addProductFunction={addProductFunction} product={addproduct} />
                                                                 </>
                                                         }
                                                 
@@ -239,8 +239,8 @@ return (
                                                                 setIsSelected={setIsSelected}
                                                                 setSoldAmount={setSoldAmount} 
                                                                 setSelectedUser={setSelectedUser}     
-                                                                product={product} 
-                                                                setProduct={setProduct}
+                                                                product={addproduct} 
+                                                                setProduct={setAddProduct}
                                                                 activeuser={activeuser}
                                                                 ismain={ismain}
                                                                 isfav={isfav}/>

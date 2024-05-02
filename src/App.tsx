@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { BrowserRouter as Router, Routes, Route, Link, useParams  } from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
@@ -9,8 +12,17 @@ import AllProductsConteiner from './component/ProductsConteiner/AllProductContei
 import serverUri from './component/serverUrl';
 
 
+// import LoginComp from './component/Login/LoginComp';
+// import Home from './component/Home';
+
 import Login from './component/UsersComponent/LogIn';
 import SignUp from './component/UsersComponent/SingUp';
+
+import View from './component/ViewProduct/View';
+import ViewProductAside from './component/ViewProduct/ViewProductAside';
+
+
+
 // import MyProducts from './component/ProductsConteiner/MyProducts';
 
 interface User {
@@ -21,9 +33,29 @@ interface User {
   Quantity: number;
 }
 
+interface Productprops{
+  name:string;
+  _id: string;
+  id: string;
+  location:string;
+  quantityUnit:string;
+  quantity:number;
+  price:number;
+  currency:string;
+  owner:string;
+  email:string;
+  phone:string;
+  comment:string;
+  description:string;
+  view:number;
+  sale:number;
+  share:number;
+  category: string;
+  datatime: string;
+}
 
-function App(): JSX.Element{
 
+const App: React.FC = () => {
   
   
   const token = localStorage.getItem('token');
@@ -51,7 +83,7 @@ function App(): JSX.Element{
     const [soldAmount, setSoldAmount] = useState<number>(1);
 
     const [inUerMode, setInUserMode] = useState(true);
-    const [product, setProduct] = useState<any>(false);
+    const [addproduct, setAddProduct] = useState<any>(false);
 
     const [singup, setSingUp] = useState(false);
     const [login, setLogIn] = useState(false);
@@ -96,6 +128,9 @@ function App(): JSX.Element{
           
       
                             };
+
+
+
 
       // როდესაც ჩაიტვირთრბა app.js აგზავნის მოთხოვნას GET მონაცემთა ბაზაში 
       // ამოწმებს შედეგს და ანიჭებს მიღებულ მონაცემებს dataResponse ცვლადს
@@ -201,8 +236,90 @@ function App(): JSX.Element{
           ));
 
 
+
+
+
+
+
+          const [incartResponse, setInCartResponse] = useState<any[]>([]);
+          const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
+          const [buy, setBuy] = useState<boolean>(false);
+
+          const [product, setProduct] = useState<Productprops | null>(null);
+
+
+
+          const handleItemClick = async (itemId: string) => {
+            let newItem = itemId;
+            
+            let storedFavorites = localStorage.getItem('favorits');
+            let favorites = storedFavorites ? JSON.parse(storedFavorites) : [];
+            
+            let updatedFavorites = [...favorites];
+            
+            const index = updatedFavorites.indexOf(newItem);
+                if (index === -1) {updatedFavorites.push(newItem);} 
+                else {updatedFavorites.splice(index, 1);}
+            localStorage.setItem('favorits', JSON.stringify(updatedFavorites));
+                setFavorits(updatedFavorites);
+        };
+        
+        
+        
+        const handleClickCart = async (itemId: string) => {
+        
+                  const token = localStorage.getItem('token');
+                  let newItem = itemId;
+        
+                      if(usermode){
+                        try {  
+                          const userID = token;
+                          const checkCartItem = await fetch(`${serverlink}/addCarItem/${userID}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({itemId}),
+                                });
+        
+                            if(!checkCartItem.ok){ throw new Error('not working'); }
+                            const cartResponse = await checkCartItem.json();
+                            setInCart(cartResponse)
+                        } catch (error) {console.log(error, "not Found");}
+                      }
+                
+                let storedcarts = localStorage.getItem('incart');
+                let incart = storedcarts ? JSON.parse(storedcarts) : [];
+                let updatedcarts = [...incart];
+                
+                const index = updatedcarts.indexOf(newItem);
+                    if (index === -1) {updatedcarts.push(newItem);} 
+                    else {updatedcarts.splice(index, 1);}
+                localStorage.setItem('incart', JSON.stringify(updatedcarts));
+                    setInCart(updatedcarts);
+        };
+        
+        const ViewProductProps = {
+              product, incart, favorits, 
+              handleItemClick, buy,
+              handleClickCart, setBuy,
+              incartResponse, quantities,
+              members,
+              }
+
+              const ViewProductAsideProps = {
+                    members, incart, favorits,
+                    usermode, product, setBuy,
+                    handleClickCart, activeuser,
+                    loading, incartResponse,
+                    userData, setLoading,
+                    setInCartResponse, 
+                    quantities, setQuantities,
+                    }
+
+
   return (
+    
     <>
+    
 
 <div className="app">
 
@@ -226,7 +343,9 @@ function App(): JSX.Element{
 
 {!usermode &&
 <div className='meniu'>
-  {!inproduct? <h1> Result: {userData.length}</h1> :<h1  style={{textDecoration:'underline', cursor:'pointer'}} onClick={()=>{window.location.reload()}}> Home</h1>}
+  {!inproduct? <h1> Result: {userData.length}</h1> :                       
+  <Link to={'/'}>
+<h1  style={{textDecoration:'underline', cursor:'pointer'}}> Home</h1></Link>}
   
    
   <h1> Members: {members.length}</h1> 
@@ -248,7 +367,24 @@ function App(): JSX.Element{
   </div>
 }
 
-{usermode &&
+
+{/* {login || singup ? (
+  <div className="sing-up-container">
+    {login ? (
+      <Login singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} />
+    ) : (
+      <SignUp singup={singup} setSingUp={setSingUp} />
+    )}
+  </div>
+):null} */}
+
+<section style={{padding: '8px'}}>
+  <Routes>
+  <Route
+path={'/'}     
+element={
+      <>
+  {usermode &&
 <div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
 
       <div style={{marginRight: myRoom? '8px': '0px', paddingBottom: myRoom? '10px': '0px'}} className='main-products-container'>
@@ -263,8 +399,8 @@ function App(): JSX.Element{
           setAdvanceData={setAdvanceData}
           singup={singup} 
           setSingUp={setSingUp}
-          product={product} 
-          setProduct={setProduct}
+          addproduct={addproduct} 
+          setAddProduct={setAddProduct}
           login={login}
           setLogIn={setLogIn}
           activeuser={activeuser}
@@ -290,17 +426,9 @@ function App(): JSX.Element{
 
 }
 
-{login || singup ? (
-  <div className="sing-up-container">
-    {login ? (
-      <Login singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} />
-    ) : (
-      <SignUp singup={singup} setSingUp={setSingUp} />
-    )}
-  </div>
-):null}
 
 <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
+{userData && 
 
 <AllProductsConteiner userData={userData} 
     usermode={usermode} 
@@ -314,15 +442,57 @@ function App(): JSX.Element{
     setLoading={setLoading}
     members={members}
     sesInProduct={sesInProduct}
+    product={product} 
+    setProduct={setProduct}
 
     />
+}
 
 
 </div>
 
 
+      </>
+    }
+  />
+        <Route path="/login" element={<Login />} />
+        <Route path="/singup" element={<SignUp />} />
+
+        <Route path={`/product-ID/:productId`} element={ 
+                  <>
+
+          {<Link to={'/'}>
+            <h1 style={{textDecoration:'underline', cursor:'pointer', width: '99%' }} 
+            className="products-header">Home</h1></Link>}
+
+                  <div style={{flexWrap: 'nowrap', width: '100%', margin:'auto', padding: '0px', height: 'auto', 
+                  marginTop: '8px'}} className="productarray">
+  {product && (
+      <>
+        <View {...ViewProductProps} />
+        <ViewProductAside {...ViewProductAsideProps} />
+      </>
+)}                                      
 
 </div>
+
+
+          </>
+          
+        } />
+
+        
+
+        
+      </Routes>
+
+
+
+</section>
+
+
+
+
 <footer className="footer">
   
   <ul>
@@ -349,6 +519,8 @@ function App(): JSX.Element{
 <div style={{width:'100%', textAlign:'center', marginBottom:'8px', color:'cyan', fontWeight:'700'}}>@ Roland Artmeladze  2024</div>
 </footer>
 
+</div>
+
 
       </>
 
@@ -356,3 +528,11 @@ function App(): JSX.Element{
 }
 
 export default App;
+
+
+// const Home =() =>{
+//   return(<><h1>Home</h1></>)
+// }
+// const LogilComponent =() =>{
+//   return(<><h1>login</h1></>)
+// }

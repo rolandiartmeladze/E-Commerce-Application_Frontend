@@ -7,6 +7,10 @@ body{
   height: auto;
 }
 
+a{
+  text-decoration: none;
+  color: black;
+}
 .loadingconteiner{
   position: absolute;
   width: 100%;
@@ -72,7 +76,6 @@ body{
 }
 
 
-
 .meniu{
   background-color: rgba(100, 1, 47, 0.4);
   height: 40px;
@@ -93,7 +96,7 @@ body{
   display: grid;
   grid-template-rows: auto 1fr auto; /* Header, Main, Footer */
   grid-template-columns: 100%;
-  height: auto;
+  min-height: 100vh;
 }
 
 .header {
@@ -144,7 +147,7 @@ body{
 }
 
 .footer {
-  grid-row: 4;
+  /* grid-row: 4; */
   grid-column: 1;
   background-color: #333;
   color: white;
@@ -152,8 +155,6 @@ body{
   padding: 2px 0; 
   display: flex;
   flex-wrap: wrap;
-  /* position: absolute; */
-  /* bottom: 0; */
 }
 .footer a{
   color: white;

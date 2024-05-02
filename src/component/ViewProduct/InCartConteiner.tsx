@@ -280,7 +280,6 @@ const InCartConteiner = ({
          const container = document.getElementById('conteiner');
  
           if (container) {
-      // container.style.display = 'flex';
       container.appendChild(handleAppendToContainer());
     }
 

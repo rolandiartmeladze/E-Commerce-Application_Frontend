@@ -2,6 +2,9 @@ import React from "react";
 import "../style/Header.css";
 import styled from "styled-components";
 
+import { Link } from 'react-router-dom';
+
+
 import userIcin from "../icon/user.png";
 import FindeComponent from "./FindeComponent";
 
@@ -96,14 +99,15 @@ const Header: React.FC<HeaderProps> = ({
       </>
 
       {/* სისტემაში შესვლა */}
-      {!login && !singup && !usermode && (
+      {!usermode &&
         <div onClick={loginbtn} className="userBtn">
           <samp>
             <img width={30} src={userIcin} alt="user icon" />
           </samp>
-          <samp>Login</samp>
+          <Link to="/login"><samp>Login</samp></Link>
+          
         </div>
-      )}
+      }
 
       {/* სისტემიდან გამოსვლა */}
       {usermode && (
@@ -112,7 +116,9 @@ const Header: React.FC<HeaderProps> = ({
           onClick={logout}
           className="userBtn"
         >
-          <samp>Log Out</samp>
+                
+<Link to="/">
+          <samp>Log Out</samp></Link>
         </div>
       )}
 

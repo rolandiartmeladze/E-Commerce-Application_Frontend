@@ -211,7 +211,7 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
           <tr style={{backgroundColor:'rgb(0, 0, 0, 0.3)'}}>
             <td>Name</td><td>quantity</td><td>Price</td><td>Cost</td></tr>
           {invoice["product info"].map((item, index) => (
-            <tr>
+            <tr key={item._id}>
               <td>
               {item.name}
               </td>
