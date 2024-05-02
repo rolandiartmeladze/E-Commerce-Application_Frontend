@@ -55,6 +55,90 @@ interface Productprops{
 }
 
 
+const SimilarProductHead = styled.h1`
+      position: relative;
+      padding: 4px;
+      text-align: left;
+      width: 96%;
+      margin: auto;
+      padding-left: 14px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      box-shadow: 1px 1px 3px 0px black;
+      border-radius: 10px 0px 0px 10px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 10px;
+          background-color: red; 
+          border-radius: 10px 0px 0px 10px;
+        }
+  `;
+
+  const SimilarProductConteiner = styled.div`
+        width:  98%; 
+        margin: auto; 
+        min-height:  150px; 
+        margin-bottom: 10px; 
+        box-shadow:  0px -2px 9px 0px black; 
+        border-radius:  6px 6px 0 0;
+      `;
+
+  const ViewConteiner = styled.div`
+        flex-wrap:  nowrap; 
+        width:  100%; 
+        margin: auto; 
+        padding:  0px; 
+        height:  auto; 
+        margin-top:  8px; 
+        display:  flex; 
+        justify-content: space-around;
+  `;
+
+  const Productsnavigation = styled.h1`
+  text-decoration: none; 
+  width:  99%;
+  padding: 3px 0px;
+  
+    margin: 4px 0px;
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    box-shadow: inset 2px 2px 1500px 0.2px rgba(255, 55, 0, 0.4), 2px 2px 4px 0.4px black;
+    padding-left: 12px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+        samp{
+          margin: 1px 3px;
+          padding: 3px;
+        }
+        a{
+          transition: 0.4s ease-in-out;
+          padding: 3px;
+          cursor: pointer;
+          text-decoration: underline; 
+          &:hover {
+            box-shadow: 0.3px 1px 1px 0px black; 
+            color: red;
+          }
+
+        }
+  `;
+
+  const CategorySelection = styled.select`
+        padding:  4px;
+        background:  none;
+        font-weight:  800;
+        border:  none;
+        textialign:  center;
+        color:  yellow;
+        margin-left: 4px;
+      `;
 const App: React.FC = () => {
   
   
@@ -65,71 +149,33 @@ const App: React.FC = () => {
         else { return false;}
   });  
   
-  // console.log(usermode);
-
 
   const [loading, setLoading] = useState<boolean>(false);
-
-
   const [findstatus, setFindStatus] = useState<boolean>(false);
   const [notfound, setNotound] = useState<boolean>(false);
   const [findInput, setFindInput] = useState<string>('');
-
     const [userData, setUserData] = useState<any[]>([]);
     const [advanceData, setAdvanceData] = useState<any[]>([]);
-
-    const [isselected, setIsSelected] = useState(false);
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [soldAmount, setSoldAmount] = useState<number>(1);
-
-    const [inUerMode, setInUserMode] = useState(true);
-    const [addproduct, setAddProduct] = useState<any>(false);
-
-    const [singup, setSingUp] = useState(false);
-    const [login, setLogIn] = useState(false);
-
-
+      const [isselected, setIsSelected] = useState(false);
+      const [selectedUser, setSelectedUser] = useState<User | null>(null);
+      const [soldAmount, setSoldAmount] = useState<number>(1);
+        const [inUerMode, setInUserMode] = useState(true);
+        const [addproduct, setAddProduct] = useState<any>(false);
+          const [singup, setSingUp] = useState(false);
+          const [login, setLogIn] = useState(false);
     const [activeuser,setActiveUser] = useState<any>({});
-
     const [members, setMembers] = useState<any>([]);
-
     const [myRoom, setMyRoom] = useState(true);
-
-
-    // const [category, setcategory] = useState(false);
-
-    const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
-    const [incart, setInCart] = useState<any[]>(JSON.parse(localStorage.getItem('incart') ?? '[]'));
-
-
+      const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
+      const [incart, setInCart] = useState<any[]>(JSON.parse(localStorage.getItem('incart') ?? '[]'));
     const [inproduct, sesInProduct] = useState<boolean>(false);
+    const [incartResponse, setInCartResponse] = useState<any[]>([]);
+    const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
+    const [buy, setBuy] = useState<boolean>(false);
+    const [product, setProduct] = useState<Productprops | null>(null);
+
 
           const serverlink = serverUri();
-
-
-
-    const componentsprops = {
-          userData,
-          setUserData,
-          loading,
-          setLoading,
-          findstatus,
-          setFindStatus,
-          notfound,
-          setNotound,
-          findInput,
-          setFindInput,
-          isselected,
-          setIsSelected,
-          selectedUser,
-          setSelectedUser,   
-          soldAmount,
-          setSoldAmount
-          
-      
-                            };
-
-
 
 
       // როდესაც ჩაიტვირთრბა app.js აგზავნის მოთხოვნას GET მონაცემთა ბაზაში 
@@ -241,12 +287,6 @@ const App: React.FC = () => {
 
 
 
-          const [incartResponse, setInCartResponse] = useState<any[]>([]);
-          const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
-          const [buy, setBuy] = useState<boolean>(false);
-
-          const [product, setProduct] = useState<Productprops | null>(null);
-
 
 
           const handleItemClick = async (itemId: string) => {
@@ -297,25 +337,78 @@ const App: React.FC = () => {
                     setInCart(updatedcarts);
         };
         
-        const ViewProductProps = {
-              product, incart, favorits, 
-              handleItemClick, buy,
-              handleClickCart, setBuy,
-              incartResponse, quantities,
-              members,
+        
+    const componentsprops = {
+          userData,
+          setUserData,
+          loading,
+          setLoading,
+          findstatus,
+          setFindStatus,
+          notfound,
+          setNotound,
+          findInput,
+          setFindInput,
+          isselected,
+          setIsSelected,
+          selectedUser,
+          setSelectedUser,   
+          soldAmount,
+          setSoldAmount
+          };
+
+        const HeaderProps = {
+              singup, setSingUp, login, setLogIn, 
+              usermode, chekfavorits,
+              userData, setUserData,
+              loading, setLoading,
+              findstatus, setFindStatus, 
+              notfound, setNotound, findInput,
+              setFindInput, myRoom,
               }
 
-              const ViewProductAsideProps = {
-                    members, incart, favorits,
-                    usermode, product, setBuy,
-                    handleClickCart, activeuser,
-                    loading, incartResponse,
-                    userData, setLoading,
-                    setInCartResponse, 
-                    quantities, setQuantities,
-                    }
+          const ViewProductProps = {
+                product, incart, favorits, 
+                handleItemClick, buy,
+                handleClickCart, setBuy,
+                incartResponse, quantities,
+                members,
+                }
+
+                const ViewProductAsideProps = {
+                      members, incart, favorits,
+                      usermode, product, setBuy,
+                      handleClickCart, activeuser,
+                      loading, incartResponse,
+                      userData, setLoading,
+                      setInCartResponse, 
+                      quantities, setQuantities,
+                      }
+
+                      const ProductsConteinerProps = {
+                            userData, usermode, favorits, 
+                            setFavorits, incart, 
+                            setInCart, chekfavorits, 
+                            activeuser, loading,
+                            setLoading, members,
+                            sesInProduct, product, 
+                            setProduct,
+                            }
+
+                            const ProductsProps = {
+                                  inUerMode, setInUserMode,
+                                  findInput, setFindInput,
+                                  fetchData, advanceData,
+                                  setAdvanceData, singup,
+                                  setSingUp, addproduct, 
+                                  setAddProduct, login,
+                                  setLogIn, activeuser,
+                                  setActiveUser, usermode,
+                                  favorits, myRoom, setMyRoom,
+                                  }
 
 
+        
   return (
     
     <>
@@ -323,62 +416,12 @@ const App: React.FC = () => {
 
 <div className="app">
 
-<Header singup={singup} 
-        setSingUp={setSingUp} 
-        login={login} 
-        setLogIn={setLogIn} 
-        usermode={usermode} 
-        chekfavorits={chekfavorits}
-        userData={userData} 
-    setUserData={setUserData} 
-    loading={loading}
-    setLoading={setLoading}
-    findstatus={findstatus}
-    setFindStatus={setFindStatus}
-    notfound={notfound}
-    setNotound={setNotound}
-    findInput={findInput}
-    setFindInput={setFindInput}
-    myRoom={myRoom} />
-
-{!usermode &&
-<div className='meniu'>
-  {!inproduct? <h1> Result: {userData.length}</h1> :                       
-  <Link to={'/'}>
-<h1  style={{textDecoration:'underline', cursor:'pointer'}}> Home</h1></Link>}
-  
-   
-  <h1> Members: {members.length}</h1> 
-  {/* <h1> Favorite: {favorits.length}</h1> */}
-  <h1 style={{display:'flex', alignItems: 'center'}}> Category: 
-        <select onChange={selectCategory} style={{
-            padding: '4px',
-            background: 'none',
-            fontWeight: '800',
-            border: 'none',
-            textAlign: 'center',
-            color: 'yellow',
-            marginLeft: '4px'
-          }} name="category" id="category">
-          {categoryOptions}
-        </select>
-
-  </h1>
-  </div>
-}
+<Header {...HeaderProps} />
 
 
-{/* {login || singup ? (
-  <div className="sing-up-container">
-    {login ? (
-      <Login singup={singup} setSingUp={setSingUp} login={login} setLogIn={setLogIn} />
-    ) : (
-      <SignUp singup={singup} setSingUp={setSingUp} />
-    )}
-  </div>
-):null} */}
 
 <section style={{padding: '8px'}}>
+
   <Routes>
   <Route
 path={'/'}     
@@ -387,29 +430,12 @@ element={
   {usermode &&
 <div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
 
-      <div style={{marginRight: myRoom? '8px': '0px', paddingBottom: myRoom? '10px': '0px'}} className='main-products-container'>
+      <div style={{
+        marginRight: myRoom? '8px': '0px', 
+        paddingBottom: myRoom? '10px': '0px'}} 
+        className='main-products-container'>
 
-      <ProductsConteiner {...componentsprops}
-          inUerMode={inUerMode}
-          setInUserMode={setInUserMode}
-          findInput={findInput}
-          setFindInput={setFindInput}
-          fetchData={fetchData}
-          advanceData={advanceData}
-          setAdvanceData={setAdvanceData}
-          singup={singup} 
-          setSingUp={setSingUp}
-          addproduct={addproduct} 
-          setAddProduct={setAddProduct}
-          login={login}
-          setLogIn={setLogIn}
-          activeuser={activeuser}
-          setActiveUser={setActiveUser}
-          usermode={usermode}
-          favorits={favorits}
-          myRoom={myRoom} 
-          setMyRoom={setMyRoom}
-        />
+      <ProductsConteiner {...componentsprops} {...ProductsProps} />
 
       </div>
 
@@ -427,26 +453,30 @@ element={
 }
 
 
+
 <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
-{userData && 
 
-<AllProductsConteiner userData={userData} 
-    usermode={usermode} 
-    favorits={favorits} 
-    setFavorits={setFavorits}  
-    incart={incart} 
-    setInCart={setInCart}
-    chekfavorits={chekfavorits} 
-    activeuser={activeuser} 
-    loading={loading}
-    setLoading={setLoading}
-    members={members}
-    sesInProduct={sesInProduct}
-    product={product} 
-    setProduct={setProduct}
+{!usermode &&
+<div className='meniu'>
+  {!inproduct? <h1> Result: {userData.length}</h1> :                       
+  <Link to={'/'}>
+<h1  style={{textDecoration:'underline', cursor:'pointer'}}> Home</h1></Link>}
+  
+   
+  <h1> Members: {members.length}</h1> 
+  <h1 style={{display:'flex', alignItems: 'center'}}> Category: 
+        <CategorySelection 
+            onChange={selectCategory} 
+            name="category" 
+            id="category">
+          {categoryOptions}
+        </CategorySelection>
 
-    />
+  </h1>
+  </div>
 }
+
+  {userData && <AllProductsConteiner {...ProductsConteinerProps} /> }
 
 
 </div>
@@ -458,28 +488,32 @@ element={
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SignUp />} />
 
-        <Route path={`/product-ID/:productId`} element={ 
-                  <>
+            <Route path="/products" element={<><h1>Producst Conteiner</h1></>} />
 
-          {<Link to={'/'}>
-            <h1 style={{textDecoration:'underline', cursor:'pointer', width: '99%' }} 
-            className="products-header">Home</h1></Link>}
+            {/* View I Products */}
+              <Route path={`/product-ID/:productId`} element={ 
+                <div>
+                  <Productsnavigation>
+                    <samp><Link to={'/'}>Home{'>'}</Link></samp>
+                    <samp><Link to={'/products'}>Products{'>'}</Link></samp>
+                    <samp> {`${product?._id}`}</samp>
+                  </Productsnavigation>
+                
+                        <ViewConteiner>
+                            {product && 
+                              <>
+                                <View {...ViewProductProps} />
+                                <ViewProductAside {...ViewProductAsideProps} />
+                              </>
+                            }                                      
+                          </ViewConteiner>
 
-                  <div style={{flexWrap: 'nowrap', width: '100%', margin:'auto', padding: '0px', height: 'auto', 
-                  marginTop: '8px'}} className="productarray">
-  {product && (
-      <>
-        <View {...ViewProductProps} />
-        <ViewProductAside {...ViewProductAsideProps} />
-      </>
-)}                                      
-
-</div>
-
-
-          </>
-          
-        } />
+                            <>
+                              <SimilarProductHead>Similar products</SimilarProductHead >
+                              <SimilarProductConteiner> {'//'} </SimilarProductConteiner>
+                            </>
+                </div>
+              } />
 
         
 
@@ -528,11 +562,3 @@ element={
 }
 
 export default App;
-
-
-// const Home =() =>{
-//   return(<><h1>Home</h1></>)
-// }
-// const LogilComponent =() =>{
-//   return(<><h1>login</h1></>)
-// }

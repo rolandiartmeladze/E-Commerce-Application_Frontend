@@ -25,28 +25,6 @@ import View from "../ViewProduct/View";
 import { Link } from 'react-router-dom';
 
 
-const SimilarProductHead = styled.h1`
-position: relative;
-  padding: 4px;
-  text-align: left;
-  width: 96%;
-  margin: auto;
-  padding-left: 14px;
-  margin-bottom: 10px;
-  box-shadow: 1px 1px 3px 0px black;
-  border-radius: 10px 0px 0px 10px;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 10px;
-    background-color: red; 
-    border-radius: 10px 0px 0px 10px;
-  }
-`;
 
 const AddCartIcon = styled.samp<{ product: object | null }>`
         position: absolute; 
