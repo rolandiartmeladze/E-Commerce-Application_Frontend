@@ -4,6 +4,8 @@ import ReactDOMServer from 'react-dom/server';
 import './View.css';
 import img from '../../img/slide_9.jpg';
 import BuyFromCart from "../BuyProduct/BuyFromCart";
+import viewproduct from '../ProductsConteiner/VievUpdate'
+import { Link } from "react-router-dom";
 
 interface Props {
   incart: string[];
@@ -19,6 +21,7 @@ interface Props {
   setInCartResponse:Function;
   quantities:any[];
   setQuantities:Function;
+  setProduct:Function;
 }
 
 
@@ -133,6 +136,24 @@ const Loading = styled.div`
 `;
 
 
+const BuyBtnII   = styled.button` 
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 0px;
+    border-radius: 4px 0px 0px 4px;
+
+    border: none;
+    box-shadow: -2px 1px 2px 0.5px black;
+    transition: 0.4s ease-in-out;
+
+    &: hover {
+      box-shadow: -1px 0px 1px 0.2px black;
+      font-weight: 700;
+    transform: scale(1.01);
+    }
+
+`;
+
 
 
 interface CartItem {
@@ -140,7 +161,13 @@ interface CartItem {
   // Other properties if they exist
 }
 
+interface callprops{
+  index:number;
+  setProduct:Function;
+  setLoading:Function;
+  productID:string;
 
+}
 
 
 
@@ -156,7 +183,8 @@ const InCartConteiner = ({
   incartResponse, 
   setInCartResponse,
   quantities, 
-  setQuantities
+  setQuantities,
+  setProduct
 }: Props) => {
 
 
@@ -288,8 +316,11 @@ const InCartConteiner = ({
     }
 
 
+    const callproductfromcart = ({ productID, setProduct, setLoading, index }: callprops) => {
+      viewproduct(productID, setProduct, setLoading);
+      setClickedIndex(index);
+  }
 
-    
     return (
     <>   
 
@@ -297,6 +328,19 @@ const InCartConteiner = ({
 
       <Container className="incar-conteiner">
         {incartResponse.map((producti, index) => (
+          <>
+          <Link
+        onClick={() => { 
+          callproductfromcart({ 
+              productID: producti._id, 
+              setProduct: setProduct, 
+              setLoading: setLoading, 
+              index: index 
+          }); 
+      }} 
+         style={{minWidth: '280px', width: '23%',     color: 'black', textDecoration: 'none'}} 
+           to={`/product-ID/${producti._id}`}> 
+
           <ProductConteiner  id={`product${index}`} key={producti._id}>
             {loading && clickedIndex === index &&  <Loading >Please Wait</Loading>}
             <ImgConteiner>
@@ -322,15 +366,37 @@ const InCartConteiner = ({
               </ProductQuantityCont>
             </div>
           </ProductConteiner>
+          </Link>
+          </>
         ))}
       </Container>
-      <div>Total Cost= {totalCost.toFixed(1)} {"$"} </div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', width:'100%' }}>
-  <button style={{
-    padding: '5px',
-    cursor: 'pointer',
-    marginRight: '8px'
-  }} disabled={incartResponse.length <= 0} onClick={BuyBtn}>Buy Now</button>
+      <div style={{
+                    width: '70%', 
+                    borderRadius: '0px 10px 10px 0px', 
+                    padding: '7px 0px', margin: '6px', 
+                    // backgroundColor: 'gray', 
+                    marginLeft: '0px', 
+                    textAlign: 'left',
+                    boxShadow: '1px 0px 2px 0.5px black ', 
+                    paddingLeft: '10px',
+                    display: 'flex',
+                    
+                    }}> <samp 
+                    style={{
+                      cursor: 'default',
+
+                      display: 'flex', 
+                      color: 'red', 
+                      fontSize: '18px',
+                      fontWeight: '700',
+                      marginRight: '6px', 
+
+                    }}>Total Cost: = </samp>{totalCost.toFixed(1)} {"$"} </div>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'flex-end', 
+        width:'100%' }}>
+  <BuyBtnII  disabled={incartResponse.length <= 0} onClick={BuyBtn}>Buy Now</BuyBtnII >
 </div>
 
     </>

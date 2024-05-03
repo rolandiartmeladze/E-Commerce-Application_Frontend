@@ -375,7 +375,7 @@ const View =({product, incart, favorits, handleItemClick, handleClickCart, buy, 
               <samp>{product.location}</samp>
           </InfoLine>
 
-          
+
     <FavoriteIconComponent itemId={product._id} favorits={favorits} handleItemClick={handleItemClick} product={product} />
     <CartIconComponent itemId={product._id} incart={incart} handleClickCart={handleClickCart}  product={product} />
                            

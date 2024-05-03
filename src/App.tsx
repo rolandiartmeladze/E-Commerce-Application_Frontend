@@ -383,6 +383,7 @@ const App: React.FC = () => {
                       userData, setLoading,
                       setInCartResponse, 
                       quantities, setQuantities,
+                      setProduct
                       }
 
                       const ProductsConteinerProps = {
@@ -488,13 +489,13 @@ element={
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SignUp />} />
 
-            <Route path="/products" element={<><h1>Producst Conteiner</h1></>} />
+            <Route path="/products" element={<>{userData && <AllProductsConteiner {...ProductsConteinerProps} /> }</>} />
 
             {/* View I Products */}
               <Route path={`/product-ID/:productId`} element={ 
                 <div>
                   <Productsnavigation>
-                    <samp><Link to={'/'}>Home{'>'}</Link></samp>
+                    <samp><Link onClick={()=>{setProduct(null)}} to={'/'}>Home{'>'}</Link></samp>
                     <samp><Link to={'/products'}>Products{'>'}</Link></samp>
                     <samp> {`${product?._id}`}</samp>
                   </Productsnavigation>
