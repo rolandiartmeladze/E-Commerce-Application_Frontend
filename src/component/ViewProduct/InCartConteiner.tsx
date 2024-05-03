@@ -241,12 +241,15 @@ const InCartConteiner = ({
     const newQuantities = [...quantities];
     newQuantities[index].quantity++;
     setQuantities(newQuantities);
+    setClickedIndex(index)
+
   };
 
   const handleDecrement = (index: number) => {
     const newQuantities = [...quantities];
     newQuantities[index].quantity > 0 && newQuantities[index].quantity--;
     setQuantities(newQuantities);
+    setClickedIndex(index)
   };
 
 
@@ -278,7 +281,7 @@ const InCartConteiner = ({
     setLoading(true);
   
     handleClickCart(ID);
-    setClickedIndex(index);
+    setClickedIndex(null);
   };
 
 
@@ -316,11 +319,17 @@ const InCartConteiner = ({
     }
 
 
-    const callproductfromcart = ({ productID, setProduct, setLoading, index }: callprops) => {
-      viewproduct(productID, setProduct, setLoading);
-      setClickedIndex(index);
-  }
-
+    const callproductfromcart = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, { productID, setProduct, setLoading, index }: callprops) => {
+      e.stopPropagation();
+      e.preventDefault(); 
+      if (index !== clickedIndex) {
+        viewproduct(productID, setProduct, setLoading);
+        setClickedIndex(index);
+      }
+    }
+    
+    
+    
     return (
     <>   
 
@@ -329,17 +338,18 @@ const InCartConteiner = ({
       <Container className="incar-conteiner">
         {incartResponse.map((producti, index) => (
           <>
-          <Link
-        onClick={() => { 
-          callproductfromcart({ 
+<Link
+            key={producti._id}
+            to={`/product-ID/${producti._id}`}
+            style={{ textDecoration: 'none', color: 'black' }}
+            onClick={(e) => callproductfromcart(e, { 
               productID: producti._id, 
               setProduct: setProduct, 
               setLoading: setLoading, 
               index: index 
-          }); 
-      }} 
-         style={{minWidth: '280px', width: '23%',     color: 'black', textDecoration: 'none'}} 
-           to={`/product-ID/${producti._id}`}> 
+            })}
+             
+          > 
 
           <ProductConteiner  id={`product${index}`} key={producti._id}>
             {loading && clickedIndex === index &&  <Loading >Please Wait</Loading>}
