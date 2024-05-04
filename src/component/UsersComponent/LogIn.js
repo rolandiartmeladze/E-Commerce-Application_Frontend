@@ -6,7 +6,7 @@ const Login = () => {
     const serverlink = serverUri();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Use useNavigate hook for programmatic navigation
+    const navigate = useNavigate(); 
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -14,9 +14,7 @@ const Login = () => {
         try {
             const response = await fetch(`${serverlink}/login`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
 
@@ -30,12 +28,16 @@ const Login = () => {
             localStorage.setItem('user', `${user.name} ${user.lastname}`);
             localStorage.setItem('address', user.address);
             localStorage.removeItem('favorits');
+                    
+                        
+                navigate('/');
 
-            navigate(`/`); 
-
-            setTimeout(() => {
                 window.location.reload();
-            }, 500);
+
+
+            
+            
+            
         } catch (error) {
             console.error('Error during login:', error);
             alert('An error occurred during login');

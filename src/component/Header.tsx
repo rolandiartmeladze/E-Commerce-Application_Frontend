@@ -41,6 +41,7 @@ interface HeaderProps {
   findInput: string;
   setFindInput: any;
   myRoom:boolean;
+  setMyRoom:Function;
 
 }
 
@@ -61,7 +62,8 @@ const Header: React.FC<HeaderProps> = ({
   setNotound,
   findInput,
   setFindInput,
-  myRoom 
+  myRoom,
+  setMyRoom
 
 }) => {
   const loginbtn = () => {
@@ -111,15 +113,18 @@ const Header: React.FC<HeaderProps> = ({
 
       {/* სისტემიდან გამოსვლა */}
       {usermode && (
+        <>
         <div
           style={{ padding: "3px 8px ", right: "12px" }}
           onClick={logout}
           className="userBtn"
         >
                 
-<Link to="/">
+                <Link to="/">
           <samp>Log Out</samp></Link>
         </div>
+        </>
+
       )}
 
       {/* ძებნის ფუნქცია არაავტორიზებული მომხმარებლისთვი */}

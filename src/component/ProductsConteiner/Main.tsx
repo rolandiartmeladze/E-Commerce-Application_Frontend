@@ -9,6 +9,7 @@ import arrowIcon from '../../icon/arrow.png';
 import AddNewProduct from '../CreatNewProduct/AddNewProduct';
 import AddProductBtn from './AddProductBtn';
 import MyProducts from './MyProducts';
+import { Link } from 'react-router-dom';
 
 
 
@@ -137,7 +138,7 @@ function ProductsConteiner({
                         const myroom = () => {
                                 
                                 if(myRoom){
-                                setMyRoom(false);
+                                // setMyRoom(false);
                                  setIsMain(false); 
                                  setIsFav(false);      
                                 } else {
@@ -178,6 +179,12 @@ return (
         }
 
 
+<div style={{
+        marginRight: myRoom? '8px': '0px', 
+        paddingBottom: myRoom? '10px': '0px'}} 
+        className='main-products-container'>
+
+
 <div   style={{position: 'relative', width: '100%'}}  className='userTable'>
 
 {/* {notfound? <LoadConteiner style={{height: '200px'}} > {" product No found "} <button onClick={closefinde}>close</button></LoadConteiner> : null }
@@ -198,10 +205,21 @@ return (
                 }} className='my-favorits-btn' >Favorites 
                         <span className='my-favorits-numb'>{favproduct.length}</span></samp> 
                         
-                        <samp onClick={myroom} style={{
-                                display: 'flex', alignItems: 'center' ,position:'absolute', right: '10px', cursor: 'pointer'}}>
-                                        {myRoom? 'close':'open'}
-                        <img style={{transform: myRoom? 'rotate(90deg)': 'rotate(0deg)'}} width={30} src={arrowIcon} alt='arrow icon'/></samp>
+                        
+                       <samp onClick={myroom} 
+                        style={{
+                                display: 'flex', 
+                                alignItems: 'center' ,
+                                position:'absolute', 
+                                right: '10px', 
+                                cursor: 'pointer'
+                                }}>
+                                    <Link style={{display: 'contents'}} to={'/'}>     {myRoom? 'close':'open'} 
+                        <img style={{transform: myRoom? 'rotate(90deg)': 'rotate(0deg)'}} width={30} src={arrowIcon} alt='arrow icon'/>
+  </Link>
+                      
+                        </samp>
+                               
 
                          </h1>
 
@@ -217,7 +235,7 @@ return (
                                                {myRoom && 
                                                   <>
 
-                                                        {ismain&& 
+                                                        {/* {ismain&&  */}
                                                                 <>
                                                                 <AddNewProduct fetchData={fetchData}
                                                                                 product={addproduct} 
@@ -232,7 +250,7 @@ return (
                                                                                 setActiveUser={setActiveUser}/>
                                                                 <AddProductBtn  addProductFunction={addProductFunction} product={addproduct} />
                                                                 </>
-                                                        }
+                                                        {/* } */}
                                                 
                                                    <MyProducts userData={userData} 
                                                                 setUserData={setUserData} 
@@ -254,13 +272,9 @@ return (
     
 
 
+</div>
 
 
-
-<>
-
-
-</>
 
 
 

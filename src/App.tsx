@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Routes, Route, Link, useParams  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 
 import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
-import ProductsConteiner from './component/ProductsConteiner/ProductsConteiner';
+import Main from './component/ProductsConteiner/Main';
 import Aside from './component/Aside';
 
 import AllProductsConteiner from './component/ProductsConteiner/AllProductConteiner';
@@ -20,6 +20,7 @@ import SignUp from './component/UsersComponent/SingUp';
 
 import View from './component/ViewProduct/View';
 import ViewProductAside from './component/ViewProduct/ViewProductAside';
+import Footer from './component/Footer';
 
 
 
@@ -141,13 +142,17 @@ const SimilarProductHead = styled.h1`
       `;
 const App: React.FC = () => {
   
-  
+  const navigate = useNavigate(); 
+
   const token = localStorage.getItem('token');
 
     const [usermode, setUserMode] = useState<boolean>(() => {
-      if (token) { return true;} 
+
+      if (token) { return true; } 
         else { return false;}
   });  
+
+
   
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -255,39 +260,35 @@ const App: React.FC = () => {
           }, []); 
 
 
-          const selectCategory = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
-            const selectedCategory: string = event.target.value;
-            if(selectedCategory !== "All"){
-
-            try {
-              const sortedcategory = await fetch(`${serverlink}/sortedcategory?category=${encodeURIComponent(selectedCategory)}`, {                
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-              });
-              if (!sortedcategory.ok) { throw new Error('Failed to fetch users data'); }
-              const categoryresponse = await sortedcategory.json();
-              setUserData(categoryresponse);
-            } catch (error) { console.log('Error:', error); }
-          }else if(selectedCategory === "All"){fetchData();}
-
-          
-          }
-                    
           const categories: string[] = ["All", "Clothing", "Technique", "Food", "Accessories"];
+
+          const [categoria, setCategoria] = useState(categories[0]);
           
           const categoryOptions: JSX.Element[] = categories.map((category: string, index: number) => (
             <option style={{ backgroundColor: 'black' }} key={index} value={category}>
               {category}
             </option>
           ));
-
-
-
-
-
-
-
-
+          
+          const selectCategory = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
+            const selectedCategory: string = event.target.value;
+            if (selectedCategory !== "All") {
+              try {
+                const sortedcategory = await fetch(`${serverlink}/sortedcategory?category=${encodeURIComponent(selectedCategory)}`, {                
+                  method: 'GET',
+                  headers: { 'Content-Type': 'application/json' },
+                });
+                if (!sortedcategory.ok) { throw new Error('Failed to fetch users data'); }
+                const categoryresponse = await sortedcategory.json();
+                setUserData(categoryresponse);
+                setCategoria(selectedCategory); // Update selected category in state
+              } catch (error) { console.log('Error:', error); }
+            } else {
+              fetchData(); // Fetch original data if "All" category is selected
+              setCategoria(selectedCategory); // Update selected category in state
+            }
+          }
+          
 
           const handleItemClick = async (itemId: string) => {
             let newItem = itemId;
@@ -409,15 +410,83 @@ const App: React.FC = () => {
                                   }
 
 
+
+
+                                  const ProductsNavigation = ({ items }: { items: string[] }) => {
+                                      const click =()=>{setProduct(null)}
+                                    return (
+                                      <Productsnavigation>
+                                          {items.map((itemName, index) => (
+                                              itemName !== undefined && (
+                                                <samp key={index}>
+                                                  {itemName === 'home' && (<Link onClick={click} to={'/'}>Home{'>'}</Link>)}
+                                                  {itemName === 'products' && ( <Link onClick={click} to={'/products'}>Products{'>'}</Link> )}
+                                                </samp>
+                                              )
+                                            ))}
+                                            {product && <samp> ID:{`${product?.id}`}</samp>}
+                                        </Productsnavigation>
+                                    ); 
+                                  }
+
+
+                                  const Meniu = ({ items }: { items: string[] }) => {
+                                    return(
+                                      <div  style={{marginBottom: '7px'}} className='meniu'>
+                    {items.map((itemName, index) => (
+                        <>
+                          {itemName === 'home' && (
+                            <Link key={index} to={`/`}>
+                              <h1 style={{ textDecoration: 'underline', cursor: 'pointer' }}>{'Home'}</h1>
+                            </Link>
+                          )}
+                          {itemName === 'products' && (
+                            <Link key={index} to={`/products`}>
+                              <h1 style={{ textDecoration: 'underline', cursor: 'pointer' }}>{'Products'}</h1>
+                            </Link>
+                          )}  
+                          {usermode &&
+                          itemName === 'myRoom' && (
+                            <Link key={index} to={`/main`}>
+                              <h1 style={{ textDecoration: 'underline', cursor: 'pointer' }}>{'My Room'}</h1>
+                            </Link>
+                          )}                   
+
+
+                      
+                          </>
+
+                        ))}
         
-  return (
+        <h1 style={{ display: 'flex', alignItems: 'center' }}> Category: 
+              <CategorySelection 
+                onChange={selectCategory} 
+                name="category" 
+                id="category"
+                value={categoria} // Set selected value to the state variable
+              >
+                {categoryOptions}
+              </CategorySelection>
+            </h1>
+          
+      
+                                    
+                                     
+                                      
+                                      </div> 
+                                    
+                                    );
+                                  }
+
+
+                                                                    return (
     
     <>
     
 
 <div className="app">
 
-<Header {...HeaderProps} />
+<Header {...HeaderProps} setMyRoom={setMyRoom} />
 
 
 
@@ -428,54 +497,15 @@ const App: React.FC = () => {
 path={'/'}     
 element={
       <>
-  {usermode &&
-<div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
+  {/* {usermode &&
 
-      <div style={{
-        marginRight: myRoom? '8px': '0px', 
-        paddingBottom: myRoom? '10px': '0px'}} 
-        className='main-products-container'>
-
-      <ProductsConteiner {...componentsprops} {...ProductsProps} />
-
-      </div>
-
-
-        <Aside {...componentsprops}      
-                activeuser={activeuser}
-                setActiveUser={setActiveUser} 
-                members={members}
-                usermode={usermode}
-                myRoom={myRoom} 
-                />
-
-</div>
-
-}
+} */}
 
 
 
 <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
 
-{!usermode &&
-<div className='meniu'>
-  {!inproduct? <h1> Result: {userData.length}</h1> :                       
-  <Link to={'/'}>
-<h1  style={{textDecoration:'underline', cursor:'pointer'}}> Home</h1></Link>}
-  
-   
-  <h1> Members: {members.length}</h1> 
-  <h1 style={{display:'flex', alignItems: 'center'}}> Category: 
-        <CategorySelection 
-            onChange={selectCategory} 
-            name="category" 
-            id="category">
-          {categoryOptions}
-        </CategorySelection>
-
-  </h1>
-  </div>
-}
+<Meniu items={['home', 'products', 'myRoom']} />
 
   {userData && <AllProductsConteiner {...ProductsConteinerProps} /> }
 
@@ -486,19 +516,47 @@ element={
       </>
     }
   />
+
+<Route path="/main" element={                  
+<>
+{/* <ProductsNavigation items={['home']}  /> */}
+
+<Meniu items={['home', 'products', 'myRoom']} />
+
+  <div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
+
+
+  <Main {...componentsprops} {...ProductsProps} />
+
+    <Aside {...componentsprops}      
+            activeuser={activeuser}
+            setActiveUser={setActiveUser} 
+            members={members}
+            usermode={usermode}
+            myRoom={myRoom} 
+            />
+
+</div>
+</>
+
+} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SignUp />} />
 
-            <Route path="/products" element={<>{userData && <AllProductsConteiner {...ProductsConteinerProps} /> }</>} />
+            <Route path="/products" element={<>{userData && 
+            <>
+                  <ProductsNavigation items={['home', 'products']} />
+
+                <AllProductsConteiner {...ProductsConteinerProps} />
+            </>
+             }</>} />
 
             {/* View I Products */}
               <Route path={`/product-ID/:productId`} element={ 
                 <div>
-                  <Productsnavigation>
-                    <samp><Link onClick={()=>{setProduct(null)}} to={'/'}>Home{'>'}</Link></samp>
-                    <samp><Link to={'/products'}>Products{'>'}</Link></samp>
-                    <samp> {`${product?._id}`}</samp>
-                  </Productsnavigation>
+
+                  <ProductsNavigation items={['home', 'products']} />
                 
                         <ViewConteiner>
                             {product && 
@@ -525,34 +583,7 @@ element={
 
 </section>
 
-
-
-
-<footer className="footer">
-  
-  <ul>
-    <h4>Admin</h4>
-    <li> Roland Artmeladze </li>
-    <li> <a href='mailto:Rartmeladze@gmail.com'>Rartmeladze@gmail.com</a> </li>
-    <li> <a href='tel:+995595035668'>(+995) 595 03-56-68</a> </li>
-  </ul>
-
-      <ul>
-        <h4>info</h4>
-        <li> <a href='#'> About Project </a> </li>
-        <li> <a href='#'>Contacts</a> </li>
-        <li> <a href='#'>Rante</a> </li>
-      </ul>
-
-          <ul>
-            <h4>total</h4>
-            <li> Products- {userData.length} </li>
-            <li> Members- {members.length} </li>
-            <li> Category- 5 </li>
-          </ul>
-
-<div style={{width:'100%', textAlign:'center', marginBottom:'8px', color:'cyan', fontWeight:'700'}}>@ Roland Artmeladze  2024</div>
-</footer>
+    <Footer />
 
 </div>
 

@@ -94,7 +94,7 @@ a{
 /* App.css */
 .app {
   display: grid;
-  grid-template-rows: auto 1fr auto; /* Header, Main, Footer */
+  grid-template-rows: auto 1fr auto;  
   grid-template-columns: 100%;
   min-height: 100vh;
 }
@@ -145,38 +145,6 @@ a{
   margin: 0 auto; /* Centers the container horizontally */
   padding: 15px; /* Add padding for better appearance */
 }
-
-.footer {
-  /* grid-row: 4; */
-  grid-column: 1;
-  background-color: #333;
-  color: white;
-  text-align: left;
-  padding: 2px 0; 
-  display: flex;
-  flex-wrap: wrap;
-}
-.footer a{
-  color: white;
-  text-decoration: none;
-}
-.footer ul{
-  width: 32%;
-  display: flex;
-   flex-direction: column; 
-   align-items: center;
-}
-.footer li{
-  background: none;
-   display: inline-block;
-   box-shadow: none;
-   margin: 0;
-   }
-   .footer h4{
-     margin: 0;
-     text-align: center;
-     color: yellow;
-     }
   
 
 @media only screen and (max-width: 1024px) {
