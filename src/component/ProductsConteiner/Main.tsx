@@ -138,9 +138,9 @@ function ProductsConteiner({
                         const myroom = () => {
                                 
                                 if(myRoom){
-                                // setMyRoom(false);
-                                 setIsMain(false); 
-                                 setIsFav(false);      
+                                setMyRoom(false);
+                                //  setIsMain(false); 
+                                //  setIsFav(false);      
                                 } else {
                                         setMyRoom(true);
                                         setIsMain(true);

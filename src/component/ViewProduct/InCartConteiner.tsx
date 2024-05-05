@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server';
 import './View.css';
 import img from '../../img/slide_9.jpg';
 import BuyFromCart from "../BuyProduct/BuyFromCart";
-import viewproduct from '../ProductsConteiner/VievUpdate'
+import viewproduct from '../ProductComponent/VievUpdate'
 import { Link } from "react-router-dom";
 
 interface Props {

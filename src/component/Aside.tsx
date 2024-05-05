@@ -157,19 +157,6 @@ function Aside({
 
 
 
-<FindeComponent userData={userData} 
-    setUserData={setUserData} 
-    loading={loading}
-    setLoading={setLoading}
-    findstatus={findstatus}
-    setFindStatus={setFindStatus}
-    notfound={notfound}
-    setNotound={setNotound}
-    findInput={findInput}
-    setFindInput={setFindInput} 
-    usermode={usermode}
-    myRoom={myRoom}
-    />
 
                         <ul>
                             <li>Name:<samp>{selectedUser?.name}</samp> </li>

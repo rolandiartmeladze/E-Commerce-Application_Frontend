@@ -24,6 +24,8 @@ import View from './component/ViewProduct/View';
 import ViewProductAside from './component/ViewProduct/ViewProductAside';
 import Footer from './component/Footer';
 
+import Product from './component/ProductComponent/Product';
+
 
 
 // import MyProducts from './component/ProductsConteiner/MyProducts';
@@ -409,7 +411,7 @@ const App: React.FC = () => {
 
 <section style={{padding: '8px',  paddingTop: '2px'}}>
 
-    <Meniu setUserData={setUserData} fetchData={fetchData} usermode={usermode}/>
+    <Meniu setUserData={setUserData} fetchData={fetchData} usermode={usermode} setMyRoom={setMyRoom} />
  
   <Routes>
   <Route
@@ -466,7 +468,11 @@ element={
             <>                 
                   <ProductsNavigation items={['home', 'products']} />
 
+<hr></hr>
+
                 <AllProductsConteiner {...ProductsConteinerProps} />
+
+                {/* <Product products={userData} /> */}
             </>
              }</>} />
 

@@ -147,7 +147,6 @@ const Header: React.FC<HeaderProps> = ({
       )}
 
       {/* ძებნის ფუნქცია არაავტორიზებული მომხმარებლისთვი */}
-      {(!usermode || !myRoom) && (
       <FindeComponent 
         userData={userData}
         setUserData={setUserData}
@@ -162,7 +161,6 @@ const Header: React.FC<HeaderProps> = ({
         usermode={usermode}
         myRoom={myRoom} 
       />
-    )}
     </HeaderComponent>
   );
 };

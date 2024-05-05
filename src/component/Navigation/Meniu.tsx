@@ -69,10 +69,11 @@ margin-bottom: 7px;
     setUserData:Function;
     fetchData:Function;
     usermode:boolean;
+    setMyRoom:Function;
     // items:string[]
  }
 
-const Meniu = ({setUserData, fetchData, usermode}:MeniuProps) => {
+const Meniu = ({setUserData, fetchData, usermode, setMyRoom}:MeniuProps) => {
     const serverlink = serverUri();
     let items = ['home', 'myRoom', 'products',"About",'Contact'];
 
@@ -124,7 +125,7 @@ const Meniu = ({setUserData, fetchData, usermode}:MeniuProps) => {
                 )}
                     {usermode &&
                     itemName === 'myRoom' && (
-                    <Link key={index} to={`/main`}>
+                    <Link onClick={()=>{setMyRoom(true)}} key={index} to={`/main`}>
                         <li>{'My Room'}</li>
                     </Link>
                     )}                   

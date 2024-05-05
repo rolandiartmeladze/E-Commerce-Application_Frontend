@@ -22,8 +22,11 @@ import testimg from '../../img/slide_9.jpg';
 
 import View from "../ViewProduct/View";
 
+import viewProduct  from '../ProductComponent/VievUpdate';
+
 import { Link } from 'react-router-dom';
 
+import ProductComponent from '../ProductComponent/Product';
 
 
 const AddCartIcon = styled.samp<{ product: object | null }>`
@@ -159,10 +162,6 @@ const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, f
                                               }) => {
 
               const serverlink = serverUri();
-              // const [incartResponse, setInCartResponse] = useState<any[]>([]);
-              // const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
-
-
 const handleItemClick = async (itemId: string) => {
     let newItem = itemId;
     
@@ -221,30 +220,13 @@ const handleClickCart = async (itemId: string) => {
         else{products = userData}
 
         const clickF =(productId:string) =>{
-              viewProduct(productId);
+              viewProduct(productId, setProduct, setLoading);
               setLastClickedProductId(productId);
               setLoading(true);
               sesInProduct(true);
               }
 
-        const viewProduct = async (productId:string) =>{
-
-            try {
-              setLoading(true);
-              const updateViewNumber = await fetch(`${serverlink}/updateView/${productId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    });
-                if (!updateViewNumber.ok) { throw new Error('Failed to fetch users data'); };
-                const updateViewResponse = await updateViewNumber.json();
-                    setProduct(updateViewResponse);
-                    setLoading(false);
-                    
-            } catch (error) {console.log('Error:', error);}
-
-        }
-
-
+        
         return(
     
     <div style={{top:'0'}} className="all-product-conceiner-II">
@@ -252,9 +234,19 @@ const handleClickCart = async (itemId: string) => {
        {usermode&& <><h1 className="products-header">Product: {userData.length}</h1> </>
         
         }
+        
+<ProductComponent 
+                  products={products}  
+                  clickF={clickF} 
+                  incart={incart} 
+                  setInCart={setInCart} 
+                  favorits={favorits}
+                  setFavorits={setFavorits}
+                  loading={loading}
+                  />
+
 
 <div style={{flexWrap:'wrap'}} className="productarray">
-
 
   {
     products.map((item, index) => (
@@ -300,7 +292,7 @@ const handleClickCart = async (itemId: string) => {
           <samp><img src={cost} alt="cost icon" />{item.sale}</samp>
           <samp><img src={share} alt="share icon" />{item.share}</samp>
 
-          <FavoriteIconComponent 
+          {/* <FavoriteIconComponent 
               itemId={item._id} 
               favorits={favorits} 
               handleItemClick={handleItemClick} 
@@ -312,7 +304,7 @@ const handleClickCart = async (itemId: string) => {
                   incart={incart} 
                   handleClickCart={handleClickCart} 
                   product={product} 
-                  />
+                  /> */}
 
         </div>
       </div>

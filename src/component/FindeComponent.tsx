@@ -141,30 +141,19 @@ const FindeComponent =({
 
     return(
         <>
-    {!usermode || !myRoom? (
-        <SearchContainer>
-          <StyledInput id='FindProduct' 
-                  onChange={handleChange} 
-                  value={findInput} 
-      
-          type='text' placeholder='Find Product' />
-          <StyledButton  onClick={findRequest}>
-            {/* <img width={30} src={findIcon} alt='find icon' /> */}
-            {'Find'}
-          </StyledButton>
-        </SearchContainer>
-      ):(        
-      <div className='Finde'>
-      <input id='FindProduct' 
-          onChange={handleChange} 
-          value={findInput} 
-          type='text' 
-          placeholder='search term'/> 
-          <samp onClick={findRequest}>
-              <img src={FindIcon} alt='find icon' />
-          </samp>
-    </div>
-    )}      
+  <SearchContainer>
+    <StyledInput 
+      id='FindProduct' 
+      onChange={handleChange} 
+      value={findInput} 
+      type='text' 
+      placeholder='Find Product' 
+    />
+    <StyledButton onClick={findRequest}>
+      {'Find'}
+    </StyledButton>
+  </SearchContainer>
+
 
         </>
 
