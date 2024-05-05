@@ -22,8 +22,8 @@ const AddfavIcon = styled.samp`
           & img {width: 30px;}
 `;
 
-const Fav = ({ itemId, favorits, setFavorits}) => {
-    let product = null;
+const Fav = ({ itemId, favorits, setFavorits, product}) => {
+    // let product = null;
 
     return (
       

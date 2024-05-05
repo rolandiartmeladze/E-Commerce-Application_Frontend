@@ -135,15 +135,9 @@ const Conteiner = styled.div`
                     <samp><img src={cost} alt="cost icon" />{item.sale}</samp>
                     <samp><img src={share} alt="share icon" />{item.share}</samp>
         
-                    {/* <FavoriteIconComponent 
-                        itemId={item._id} 
-                        favorits={favorits} 
-                        handleItemClick={handleItemClick} 
-                        product={product} 
-                        /> */}
         
-                            <Fav {...FavProps} itemId={item._id}/>
-                            <Cart {...CartProps} itemId={item._id} />
+                            <Fav {...FavProps} itemId={item._id} product={null}/>
+                            <Cart {...CartProps} itemId={item._id} product={null} />
         
                 </div>
                 </div>

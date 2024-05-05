@@ -339,7 +339,7 @@ const App: React.FC = () => {
                 handleItemClick, buy,
                 handleClickCart, setBuy,
                 incartResponse, quantities,
-                members,
+                members, setFavorits, setInCart
                 }
 
                 const ViewProductAsideProps = {
@@ -468,11 +468,8 @@ element={
             <>                 
                   <ProductsNavigation items={['home', 'products']} />
 
-<hr></hr>
-
                 <AllProductsConteiner {...ProductsConteinerProps} />
 
-                {/* <Product products={userData} /> */}
             </>
              }</>} />
 

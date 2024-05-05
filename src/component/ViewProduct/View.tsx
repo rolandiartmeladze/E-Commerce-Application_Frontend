@@ -14,8 +14,11 @@ import phone from '../../icon/phone.png';
 
 import testimg from '../../img/slide_9.jpg';
 
-import { FavoriteIconComponent } from '../ProductsConteiner/AllProductConteiner';
-import { CartIconComponent } from '../ProductsConteiner/AllProductConteiner';
+import { Fav } from "../ProductComponent/AddFav";
+import {Cart} from '../ProductComponent/AddCart';
+
+
+
 import Invoic from "../BuyProduct/Invoic";
 
 import { BuyProduct } from '../BuyProduct/BuyFromCart';
@@ -215,21 +218,19 @@ interface Props{
     product:any;
     incart:any;
     favorits:any;
-    handleItemClick:any;
-    handleClickCart:any;
     buy:boolean;
     setBuy:Function;
     quantities:any; 
     incartResponse:any; 
     members:any[];
+    setFavorits:Function;
+    setInCart:Function;
     // setInvoic:any;
 }
 
 
 
-const View =({product, incart, favorits, handleItemClick, handleClickCart, buy, quantities, incartResponse, setBuy, members}: Props) =>{
-
-
+const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities, incartResponse, setBuy, members}: Props) =>{
 
   const closebtn = () => {setBuy(false)}
 
@@ -239,7 +240,9 @@ const View =({product, incart, favorits, handleItemClick, handleClickCart, buy, 
       const [invoic, setInvoic] = useState<boolean>(false);
       const tackeinvois =()=>{setInvoic(prevInvoic => !prevInvoic);}
 
-    
+
+      const FavProps = {favorits, setFavorits, product};
+      const CartProps = {incart, setInCart, product} 
     
     return(
       <>
@@ -376,8 +379,9 @@ const View =({product, incart, favorits, handleItemClick, handleClickCart, buy, 
           </InfoLine>
 
 
-    <FavoriteIconComponent itemId={product._id} favorits={favorits} handleItemClick={handleItemClick} product={product} />
-    <CartIconComponent itemId={product._id} incart={incart} handleClickCart={handleClickCart}  product={product} />
+          <Fav {...FavProps} itemId={product._id} />
+          <Cart {...CartProps} itemId={product._id} />
+
                            
                             
 

@@ -21,8 +21,8 @@ const AddCartIcon = styled.samp`
 `;
 
 
-const Cart = ({ itemId, incart, setInCart}) => {
-    let product = null;
+const Cart = ({ itemId, incart, setInCart, product}) => {
+    // let product = null;
     return (
       <AddCartIcon 
       onClick={(e) => { 
