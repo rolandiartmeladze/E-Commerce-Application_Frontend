@@ -23,6 +23,25 @@ const Userinfo = styled.div`
   align-items: flex-start;
 `;
 
+  const HeaderComponent = styled.div`
+    /* background:inherit; */
+    padding: 10px;
+
+    margin: 0;
+    height: 20%;
+    max-height: 250px;
+    box-shadow: 2px 2px 6px 0.5px rgb(0, 0, 0 , 0.8);
+    backdrop-filter: blur(2px);
+    position: relative;
+    min-height: 100px;
+    grid-row: 1;
+    grid-column: 1;
+    background-color: rgb(51, 51, 51, 0.2);
+    margin-bottom: 4px;
+
+
+  `;
+
 interface HeaderProps {
   singup: any;
   setSingUp: any;
@@ -84,7 +103,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <div className="Header">
+    <HeaderComponent>
       {/* ავტორიზებული მომხმარებლის მონაცემები ან ლოგო */}
       <>
         {usermode ? (
@@ -144,7 +163,7 @@ const Header: React.FC<HeaderProps> = ({
         myRoom={myRoom} 
       />
     )}
-    </div>
+    </HeaderComponent>
   );
 };
 

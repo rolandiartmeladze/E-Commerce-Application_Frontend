@@ -15,6 +15,8 @@ import serverUri from './component/serverUrl';
 // import LoginComp from './component/Login/LoginComp';
 // import Home from './component/Home';
 
+import Meniu from './component/Navigation/Meniu';
+
 import Login from './component/UsersComponent/LogIn';
 import SignUp from './component/UsersComponent/SingUp';
 
@@ -131,18 +133,9 @@ const SimilarProductHead = styled.h1`
         }
   `;
 
-  const CategorySelection = styled.select`
-        padding:  4px;
-        background:  none;
-        font-weight:  800;
-        border:  none;
-        textialign:  center;
-        color:  yellow;
-        margin-left: 4px;
-      `;
 const App: React.FC = () => {
   
-  const navigate = useNavigate(); 
+  // const navigate = useNavigate(); 
 
   const token = localStorage.getItem('token');
 
@@ -259,35 +252,6 @@ const App: React.FC = () => {
             fetchData();
           }, []); 
 
-
-          const categories: string[] = ["All", "Clothing", "Technique", "Food", "Accessories"];
-
-          const [categoria, setCategoria] = useState(categories[0]);
-          
-          const categoryOptions: JSX.Element[] = categories.map((category: string, index: number) => (
-            <option style={{ backgroundColor: 'black' }} key={index} value={category}>
-              {category}
-            </option>
-          ));
-          
-          const selectCategory = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
-            const selectedCategory: string = event.target.value;
-            if (selectedCategory !== "All") {
-              try {
-                const sortedcategory = await fetch(`${serverlink}/sortedcategory?category=${encodeURIComponent(selectedCategory)}`, {                
-                  method: 'GET',
-                  headers: { 'Content-Type': 'application/json' },
-                });
-                if (!sortedcategory.ok) { throw new Error('Failed to fetch users data'); }
-                const categoryresponse = await sortedcategory.json();
-                setUserData(categoryresponse);
-                setCategoria(selectedCategory); // Update selected category in state
-              } catch (error) { console.log('Error:', error); }
-            } else {
-              fetchData(); // Fetch original data if "All" category is selected
-              setCategoria(selectedCategory); // Update selected category in state
-            }
-          }
           
 
           const handleItemClick = async (itemId: string) => {
@@ -430,53 +394,6 @@ const App: React.FC = () => {
                                   }
 
 
-                                  const Meniu = ({ items }: { items: string[] }) => {
-                                    return(
-                                      <div  style={{marginBottom: '7px'}} className='meniu'>
-                    {items.map((itemName, index) => (
-                        <>
-                          {itemName === 'home' && (
-                            <Link key={index} to={`/`}>
-                              <h1 style={{ textDecoration: 'underline', cursor: 'pointer' }}>{'Home'}</h1>
-                            </Link>
-                          )}
-                          {itemName === 'products' && (
-                            <Link key={index} to={`/products`}>
-                              <h1 style={{ textDecoration: 'underline', cursor: 'pointer' }}>{'Products'}</h1>
-                            </Link>
-                          )}  
-                          {usermode &&
-                          itemName === 'myRoom' && (
-                            <Link key={index} to={`/main`}>
-                              <h1 style={{ textDecoration: 'underline', cursor: 'pointer' }}>{'My Room'}</h1>
-                            </Link>
-                          )}                   
-
-
-                      
-                          </>
-
-                        ))}
-        
-        <h1 style={{ display: 'flex', alignItems: 'center' }}> Category: 
-              <CategorySelection 
-                onChange={selectCategory} 
-                name="category" 
-                id="category"
-                value={categoria} // Set selected value to the state variable
-              >
-                {categoryOptions}
-              </CategorySelection>
-            </h1>
-          
-      
-                                    
-                                     
-                                      
-                                      </div> 
-                                    
-                                    );
-                                  }
 
 
                                                                     return (
@@ -490,8 +407,10 @@ const App: React.FC = () => {
 
 
 
-<section style={{padding: '8px'}}>
+<section style={{padding: '8px',  paddingTop: '2px'}}>
 
+    <Meniu setUserData={setUserData} fetchData={fetchData} usermode={usermode}/>
+ 
   <Routes>
   <Route
 path={'/'}     
@@ -505,7 +424,6 @@ element={
 
 <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
 
-<Meniu items={['home', 'products', 'myRoom']} />
 
   {userData && <AllProductsConteiner {...ProductsConteinerProps} /> }
 
@@ -519,9 +437,6 @@ element={
 
 <Route path="/main" element={                  
 <>
-{/* <ProductsNavigation items={['home']}  /> */}
-
-<Meniu items={['home', 'products', 'myRoom']} />
 
   <div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
 
@@ -543,9 +458,12 @@ element={
 
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SignUp />} />
+        <Route path="/about" element={<h2>About</h2>} />
+        <Route path="/contact" element={<h2>Contact</h2>} />
 
             <Route path="/products" element={<>{userData && 
-            <>
+
+            <>                 
                   <ProductsNavigation items={['home', 'products']} />
 
                 <AllProductsConteiner {...ProductsConteinerProps} />
