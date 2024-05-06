@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 
+
 import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
@@ -17,12 +18,19 @@ import serverUri from './component/serverUrl';
 
 import Meniu from './component/Navigation/Meniu';
 
+import { ProductsNavigation } from './component/Navigation/Meniu';
+
 import Login from './component/UsersComponent/LogIn';
 import SignUp from './component/UsersComponent/SingUp';
 
 import View from './component/ViewProduct/View';
 import ViewProductAside from './component/ViewProduct/ViewProductAside';
 import Footer from './component/Footer';
+
+// import HomeIcon from './icon/home.png';
+// import ProductIcon from './icon/product.png';
+// import LabelIcon from './icon/label.png';
+// import categoryIcon from './icon/category.png';
 
 import Product from './component/ProductComponent/Product';
 
@@ -104,38 +112,7 @@ const SimilarProductHead = styled.h1`
         justify-content: space-around;
   `;
 
-  const Productsnavigation = styled.h1`
-  text-decoration: none; 
-  width:  99%;
-  padding: 3px 0px;
-  
-    margin: 4px 0px;
-    -webkit-backdrop-filter: blur(1px);
-    backdrop-filter: blur(1px);
-    box-shadow: inset 2px 2px 1500px 0.2px rgba(255, 55, 0, 0.4), 2px 2px 4px 0.4px black;
-    padding-left: 12px;
-    margin-bottom: 5px;
-    margin-top: 0px;
-    display: flex;
-    align-items: center;
-        samp{
-          margin: 1px 3px;
-          padding: 3px;
-        }
-        a{
-          transition: 0.4s ease-in-out;
-          padding: 3px;
-          cursor: pointer;
-          text-decoration: underline; 
-          &:hover {
-            box-shadow: 0.3px 1px 1px 0px black; 
-            color: red;
-          }
-
-        }
-  `;
-
-const App: React.FC = () => {
+  const App: React.FC = () => {
   
   // const navigate = useNavigate(); 
 
@@ -374,29 +351,9 @@ const App: React.FC = () => {
                                   setActiveUser, usermode,
                                   favorits, myRoom, setMyRoom,
                                   }
+                                      const MeniuProps ={setUserData, fetchData, usermode, setMyRoom, setProduct};
 
-
-
-
-                                  const ProductsNavigation = ({ items }: { items: string[] }) => {
-                                      const click =()=>{setProduct(null)}
-                                    return (
-                                      <Productsnavigation>
-                                          {items.map((itemName, index) => (
-                                              itemName !== undefined && (
-                                                <samp key={index}>
-                                                  {itemName === 'home' && (<Link onClick={click} to={'/'}>Home{'>'}</Link>)}
-                                                  {itemName === 'products' && ( <Link onClick={click} to={'/products'}>Products{'>'}</Link> )}
-                                                </samp>
-                                              )
-                                            ))}
-                                            {product && <samp> ID:{`${product?.id}`}</samp>}
-                                        </Productsnavigation>
-                                    ); 
-                                  }
-
-
-
+                                  const NavigationProps = {setProduct, product};
 
                                                                     return (
     
@@ -411,7 +368,7 @@ const App: React.FC = () => {
 
 <section style={{padding: '8px',  paddingTop: '2px'}}>
 
-    <Meniu setUserData={setUserData} fetchData={fetchData} usermode={usermode} setMyRoom={setMyRoom} />
+    <Meniu {...MeniuProps} />
  
   <Routes>
   <Route
@@ -466,18 +423,23 @@ element={
             <Route path="/products" element={<>{userData && 
 
             <>                 
-                  <ProductsNavigation items={['home', 'products']} />
+                  <ProductsNavigation items={['home', 'products']} {...NavigationProps} />
 
                 <AllProductsConteiner {...ProductsConteinerProps} />
 
             </>
              }</>} />
 
+              <Route path="/category" element={<>
+                <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps} />
+              
+              </>} />
+
             {/* View I Products */}
               <Route path={`/product-ID/:productId`} element={ 
                 <div>
 
-                  <ProductsNavigation items={['home', 'products']} />
+                  <ProductsNavigation items={['home', 'products']} {...NavigationProps} />
                 
                         <ViewConteiner>
                             {product && 
