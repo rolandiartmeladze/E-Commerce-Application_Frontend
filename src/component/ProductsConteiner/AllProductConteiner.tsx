@@ -50,6 +50,7 @@ interface Productprops{
     datatime: string;
 }
 
+
 const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, favorits, 
                                                 setFavorits, chekfavorits, activeuser, usermode,
                                                 incart, setInCart, members, sesInProduct,     
@@ -68,6 +69,7 @@ const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, f
               sesInProduct(true);
               }
 
+
                 const Props ={products, clickF, incart, setInCart, favorits, setFavorits, loading}
 
         return(
@@ -79,7 +81,8 @@ const AllProductsConteiner: React.FC<Props> = ({loading, setLoading, userData, f
     </div>
  );
 
-}
+};
+
 
 export default AllProductsConteiner;
 

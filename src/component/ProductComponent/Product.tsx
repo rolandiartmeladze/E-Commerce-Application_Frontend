@@ -46,7 +46,7 @@ interface Productprops{
 
 const Conteiner = styled.div`
         width: 100%;
-        height: 100%;
+        // height: 100%;
         display: flex;
         flex-wrap: wrap;
         padding: 15px;

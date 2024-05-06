@@ -34,6 +34,9 @@ import Footer from './component/Footer';
 
 import Product from './component/ProductComponent/Product';
 
+import Category from './component/CategoriComponent/Category';
+
+// import { clickF } from "./component/ProductsConteiner/AllProductConteiner";
 
 
 // import MyProducts from './component/ProductsConteiner/MyProducts';
@@ -355,7 +358,8 @@ const SimilarProductHead = styled.h1`
 
                                   const NavigationProps = {setProduct, product};
 
-                                                                    return (
+
+          return (
     
     <>
     
@@ -430,9 +434,18 @@ element={
             </>
              }</>} />
 
-              <Route path="/category" element={<>
-                <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps} />
-              
+              <Route path="/category/:category" element={<>
+                <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps}  />
+                <Category
+                        incart={incart}
+                        setInCart={setInCart}
+                        favorits={favorits}
+                        setFavorits={setFavorits}
+                        loading={loading}
+                        setProduct={setProduct} 
+                        setLoading={setLoading}
+                    />
+
               </>} />
 
             {/* View I Products */}

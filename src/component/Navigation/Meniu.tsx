@@ -119,8 +119,20 @@ padding: 3px 0px;
     setProduct:Function;
  }
 
+  let categori = "all";
 
-let categori = "all";
+  let response: any = null;
+
+  const CategoryResponse = () => {
+    return response;
+  };
+  
+  export { CategoryResponse };
+
+
+
+
+
  const ProductsNavigation = ({ items, setProduct, product}: { items: string[], setProduct: Function, product: any}) => {
   const click =()=>{setProduct(null)}
   
@@ -172,9 +184,12 @@ const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuPr
           if (!sortedcategory.ok) { throw new Error('Failed to fetch users data'); }
           const categoryresponse = await sortedcategory.json();
           setUserData(categoryresponse);
+
+          response = categoryresponse;
           setCategoria(selectedCategory); 
           categori = selectedCategory;
-          navigate('/category');
+          navigate(`/category/${selectedCategory}`);
+
           setProduct(null);
 
         } catch (error) { console.log('Error:', error); }
