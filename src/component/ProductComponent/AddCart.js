@@ -17,12 +17,11 @@ const AddCartIcon = styled.samp`
         transition: 0.4s ease-in-out;
 
           &&:hover { box-shadow: 1px 1px 0px 0px red;}
-          & img {width: 30px;}
+           img {width: 30px !important;}
 `;
 
 
 const Cart = ({ itemId, incart, setInCart, product}) => {
-    // let product = null;
     return (
       <AddCartIcon 
       onClick={(e) => { 
@@ -36,12 +35,9 @@ const Cart = ({ itemId, incart, setInCart, product}) => {
       </AddCartIcon>
     );
   };
-  
   export {Cart};
 
-
-
-const AddCart = async (itemId, setInCart) => {
+  const AddCart = async (itemId, setInCart) => {
     const token = localStorage.getItem('token');
     let usermode = token ? true : false;
     let serverlink = "https://lavish-husky-gaura.glitch.me";

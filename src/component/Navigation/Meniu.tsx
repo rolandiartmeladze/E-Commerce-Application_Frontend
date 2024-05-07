@@ -3,38 +3,30 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
 
-import serverUri from '../serverUrl';
+// import serverUri from '../serverUrl';
 
 import HomeIcon from '../../icon/home.png';
 import ProductIcon from '../../icon/product.png';
 import LabelIcon from '../../icon/label.png';
 import categoryIcon from '../../icon/category.png';
 
+import sortedcategory from "../CategoriComponent/SortCategory";
 
-const CategorySelection = styled.select`
-        padding:  4px;
-        background:  none;
-        font-weight:  800;
-        border:  none;
-        textialign:  center;
-        color:  yellow;
-        margin-left: 4px;
-`;
 
 
 
 const MeniuCmponent = styled.div`
-background-color: rgba(100, 1, 47, 0.4);
-height: 40px;
-padding: 2px 0px;
-display: flex;
-flex-direction: row;
-box-shadow: 0px 2px 5px 0.5px black;
-align-items: center;
-justify-content:flex-end;
+  background-color: rgba(100, 1, 47, 0.4);
+  height: 40px;
+  padding: 2px 0px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 2px 5px 0.5px black;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 7px;
 
-margin-bottom: 7px;
- ul{
+  ul {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -43,32 +35,41 @@ margin-bottom: 7px;
     align-items: stretch;
     height: 100%;
     margin-right: 5px;
-   li{
 
-    display: flex;
-    flex-grow: 1;
-    height: 100%; 
-    margin: 0px;
-    margin-left: 3px;
-    padding: 0px 10px;
-    text-decoration: none;
-    backdrop-filter: contrast(1.5);   
-    font-weight: 700;
-    box-shadow: 0px 0px 1px 0.5px brown;
-    transition: 0.4s ease-in-out;
+    li {
+      display: flex;
+      flex-grow: 1;
+      height: 100%; 
+      margin: 0px;
+      margin-left: 3px;
+      padding: 0px 10px;
+      text-decoration: none;
+      backdrop-filter: contrast(1.5);   
+      font-weight: 700;
+      box-shadow: 0px 0px 1px 0.5px brown;
+      transition: 0.4s ease-in-out;
 
-    &: hover {
+      &:hover {
         backdrop-filter: contrast(0.5);  
         box-shadow: 0px 0px 1px 0.5px yellow;
         color: yellow;
- 
+      }
+
+      &:hover:before {
+        
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 50, 100, 0.2), rgba(0, 66, 0, 0.25) 40%, rgba(100, 250, 0, 0.3) 70%);
+        z-index: -1;
+      }
     }
-
-}
- 
-}
-
+  }
 `;
+
 
 
 
@@ -119,19 +120,6 @@ padding: 3px 0px;
     setProduct:Function;
  }
 
-  let categori = "all";
-
-  let response: any = null;
-
-  const CategoryResponse = () => {
-    return response;
-  };
-  
-  export { CategoryResponse };
-
-
-
-
 
  const ProductsNavigation = ({ items, setProduct, product}: { items: string[], setProduct: Function, product: any}) => {
   const click =()=>{setProduct(null)}
@@ -143,7 +131,7 @@ return (
             <samp key={index}>
               {itemName === 'home' && (<><Link onClick={click} to={'/'}><img src={HomeIcon} alt='Home icon' />Home{'>'}</Link></>)}
               {itemName === 'products' && ( <Link onClick={click} to={'/products'}><img src={ProductIcon} alt='Product icon' />Products{'>'}</Link> )}
-              {itemName === 'category' && ( <Link onClick={click} to={'/category'}><img src={categoryIcon} alt='Product icon' />{'category/' + categori}</Link> )}
+              {itemName === 'category' && ( <Link onClick={click} to={'/category'}><img src={categoryIcon} alt='Product icon' />{'category'}</Link> )}
             </samp>
           )
         ))}
@@ -155,55 +143,13 @@ return (
 
 export {ProductsNavigation};
 
+
 const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuProps) => {
-  const navigate = useNavigate(); 
+  
+      const navigate = useNavigate(); 
 
-    const serverlink = serverUri();
     let items = ['home', 'myRoom', 'products',"About",'Contact'];
-
-
-    const categories: string[] = ["All", "Clothing", "Technique", "Food", "Accessories"];
-
-    const [categoria, setCategoria] = useState(categories[0]);
-    
-    const categoryOptions: JSX.Element[] = categories.map((category: string, index: number) => (
-      <option style={{ backgroundColor: 'black' }} key={index} value={category}>
-        {category}
-      </option>
-    ));
-    
-    const selectCategory = async (event: React.ChangeEvent<HTMLSelectElement>): Promise<void> => {
-
-      const selectedCategory: string = event.target.value;
-      if (selectedCategory !== "All") {
-        try {
-          const sortedcategory = await fetch(`${serverlink}/sortedcategory?category=${encodeURIComponent(selectedCategory)}`, {                
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-          });
-          if (!sortedcategory.ok) { throw new Error('Failed to fetch users data'); }
-          const categoryresponse = await sortedcategory.json();
-          setUserData(categoryresponse);
-
-          response = categoryresponse;
-          setCategoria(selectedCategory); 
-          categori = selectedCategory;
-          navigate(`/category/${selectedCategory}`);
-
-          setProduct(null);
-
-        } catch (error) { console.log('Error:', error); }
-      } else {
-        fetchData(); 
-        setCategoria(selectedCategory); 
-        categori = "All";
-        navigate('/Products');
-        setProduct(null)
-
-      }
-    }
-
-
+  
     return(
       <MeniuCmponent>
         
@@ -246,17 +192,7 @@ const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuPr
               </>
             ))}
 
-                <li> Category: 
-                    <CategorySelection 
-                        onChange={selectCategory} 
-                        name="category" 
-                        id="category"
-                        value={categoria} 
-                        >
-                    {categoryOptions}
-                    </CategorySelection>
-                </li>
-
+{/* <Selected {...Props} /> */}
 </ul>
 
 
@@ -266,6 +202,8 @@ const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuPr
       </MeniuCmponent> 
     
     );
-  }
+  }  
+  
+
 
   export default Meniu;

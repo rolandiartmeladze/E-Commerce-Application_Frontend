@@ -19,14 +19,12 @@ const AddfavIcon = styled.samp`
         transition: 0.4s ease-in-out;
 
           &&:hover { box-shadow: 1px 1px 0px 0px red;}
-          & img {width: 30px;}
+          img {width: 30px !important;}
 `;
 
 const Fav = ({ itemId, favorits, setFavorits, product}) => {
-    // let product = null;
 
-    return (
-      
+  return (
       <AddfavIcon 
       onClick={(e) => { 
         e.stopPropagation(); 
@@ -38,7 +36,6 @@ const Fav = ({ itemId, favorits, setFavorits, product}) => {
       </AddfavIcon>
     );
   };
-
  export {Fav};
 
  const AddFav = async (itemId, setFavorits) => {

@@ -44,46 +44,109 @@ interface Productprops{
     datatime: string;
 }
 
-const Conteiner = styled.div`
-        width: 100%;
-        // height: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 15px;
-        justify-content:space-around;
-        a{ 
-            min-width:  280px; 
-            width:  23%;     
-            color:  black; 
-            text-decoration: none;
-        }
+    const Conteiner = styled.div`
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:space-around;
+                a{ 
+                    min-width:  280px; 
+                    width:  23%;
+                    padding: 0px 5px;  
+                    padding-left: 0px   
+                    color:  black; 
+                    text-decoration: none;
+                    margin-top: 18px;
+                }
 
-        article{ 
-            min-width: 280px;
-            width: 23%;
-            min-height: 200px;
-            height: auto;
-            background: inherit;
-            margin-top: 20px;
-            border-radius: 8px;
-            padding: 8px;
-            cursor: pointer;
-            backdrop-filter: blur(3px);
-            box-shadow: 1px 2px 6px 0.3px black;
-            padding-bottom: 5px;
-        }
-        `;
+                    article{ 
+                        min-width: 280px;
+                        width: 23%;
+                        min-height: 200px;
+                        height: auto;
+                        background: inherit;
+                        margin-top: 4px;
+                        border-radius: 8px;
+                        padding: 8px;
+                        cursor: pointer;
+                        backdrop-filter: blur(3px);
+                        box-shadow: 1px 2px 6px 0.3px black;
+                        padding-bottom: 5px;
+                    }
+            `;
+
         const ImgConteiner = styled.div`
             width: 100%;
             max-height: 150px;
-        img{
-         max-width: 98%;
-         max-height: 100%;
-         border-radius: 5px;
-        }
-        
+                img{
+                max-width: 98%;
+                max-height: 100%;
+                border-radius: 5px;
+                }
         `;
 
+            const ProductInfo = styled.div`
+                    width: 100%;
+                    padding-top: 4px;
+            `;
+
+                const InfoItem = styled.div`
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: flex-start;
+                    margin-left: 5px;
+                    margin-top: 3px;
+                    font-weight: 700;
+                    flex-grow: 1;
+                `;
+
+                    const ItemInfoAdd = styled.div`
+                        flex-wrap: wrap;
+                        height: auto;
+                        max-width: 100%;
+                        box-sizing: border-box; 
+                        word-wrap: break-word; 
+                        display: flex;
+                        align-items: flex-end;
+                        justify-content: flex-start;
+                        margin-left: 5px;
+                        margin-top: 3px;
+                        font-weight: 700;
+                        flex-grow: 1;
+                            p{
+                                width: 100%;
+                                padding: 0;
+                                margin: 0;
+                                text-align: left;
+                                samp{
+                                    img{
+                                        margin-right: 5px;
+                                    }
+                                }
+                            }
+                                img{
+                                    border-radius: 5px;
+                                }
+                    `;
+                        const ItemInfoEnd = styled.div`
+                            display: flex;
+                            align-items: flex-end;
+                            justify-content: flex-start;
+                            margin-left: 5px;
+                            margin-top: 3px;
+                            font-weight: 700;
+                            flex-grow: 1;
+                            margin-top: 12px;
+                                img{
+                                    width: 20px;
+                                    margin-right: 6px;                                
+                                }
+                                    samp{
+                                        display: flex;
+                                        align-items: center;
+                                        margin-right: 18px;                                
+                                    }
+                            `;
 
  const Product = ({products, clickF, incart, setInCart, loading, favorits, setFavorits }:Props) => {
     const CartProps = {incart, setInCart} 
@@ -92,63 +155,61 @@ const Conteiner = styled.div`
     const [clicked, setClicked] = useState<string | null>(null);
 
     return(
-        <>
-        <Conteiner>
+            <Conteiner>
 
-        {products.map((item, index) => (
-            <Link to={`/product-ID/${item._id}`}>
-                <article  
-                    onClick={() => { 
-                        clickF(item._id); 
-                        setClicked(item._id)}} 
-                    key={item._id} >
-        
-                {loading && clicked === item._id && <Loaing />}
-        
-                    <ImgConteiner>
-                        <img src={testimg} alt="product img" />
-                    </ImgConteiner>
-        
-                <div className="product-info">
-                <div className="product-info-item">
-                    {(item.name.length > 20) ? item.name.slice(0, 35) + '...' : item.name}
-                </div>
-                <div className="product-info-item add">
-                    <p>
-                    <samp style={{ display: 'flex', alignItems: 'center' }}>
-                        <img style={{ marginRight: '5px' }} width="20" src={user} alt='owner icon' />
-                        {item.owner}
-                    </samp>
-                    </p>
-                </div>
-                <div className="product-info-item add">
-                    <p>
-                    <samp>{item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp>
-                    </p>
-                </div>
-        
-                <div className="product-info-item"><samp>Category: {item.category}</samp></div>
-                <div style={{ color: 'red' }} className="product-info-item">{(item.price).toFixed(2)} {item.currency}</div>
-        
-                <div style={{ marginTop: '8px' }} className="product-info-item end">
-                    <samp><img src={view} alt="view icon" />{item.view}</samp>
-                    <samp><img src={cost} alt="cost icon" />{item.sale}</samp>
-                    <samp><img src={share} alt="share icon" />{item.share}</samp>
-        
-        
-                            <Fav {...FavProps} itemId={item._id} product={null}/>
-                            <Cart {...CartProps} itemId={item._id} product={null} />
-        
-                </div>
-                </div>
-            </article>
-          </Link>
-        ))}
-        </Conteiner>
+                {products.map((item, index) => (
+                    <Link onClick={() => { clickF(item._id); setClicked(item._id) }}  
+                        to={`/product-ID/${item._id}`}
+                        key={item._id} >
+                        <article key={item._id} >
+                            {loading && clicked === item._id && <Loaing />}
+                
+                                <ImgConteiner>
+                                    <img src={testimg} alt="product img" />
+                                </ImgConteiner>
+                    
+                        <ProductInfo>
 
-      </>
+                            <InfoItem>
+                                {(item.name.length > 20) ? item.name.slice(0, 35) + '...' : item.name}
+                            </InfoItem>
 
-    );
- }
+                                <ItemInfoAdd>
+                                    <p>
+                                    <samp style={{ display: 'flex', alignItems: 'center' }}>
+                                        <img width="20" src={user} alt='owner icon' />
+                                        {item.owner}
+                                    </samp>
+                                    </p>
+                                </ItemInfoAdd>
+                                    <ItemInfoAdd>
+                                        <p>
+                                        <samp>{item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp>
+                                        </p>
+                                    </ItemInfoAdd>
+                
+                            <InfoItem><samp>Category: {item.category}</samp></InfoItem>
+                            <InfoItem style={{ color: 'red' }}>{(item.price).toFixed(2)} {item.currency}</InfoItem>
+                
+                                <ItemInfoEnd>
+                                    <samp><img src={view} alt="view icon" />{item.view}</samp>
+                                    <samp><img src={cost} alt="cost icon" />{item.sale}</samp>
+                                    <samp><img src={share} alt="share icon" />{item.share}</samp>
+                        
+                        
+                                            <Fav {...FavProps} itemId={item._id} product={null} />
+                                            <Cart {...CartProps} itemId={item._id} product={null} />
+                        
+                                </ItemInfoEnd>
+
+                        </ProductInfo>
+
+                        </article>
+                </Link>
+                ))}
+
+            </Conteiner>
+        );
+ };
 
  export default Product;

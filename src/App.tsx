@@ -429,13 +429,7 @@ element={
             <>                 
                   <ProductsNavigation items={['home', 'products']} {...NavigationProps} />
 
-                <AllProductsConteiner {...ProductsConteinerProps} />
-
-            </>
-             }</>} />
-
-              <Route path="/category/:category" element={<>
-                <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps}  />
+                {/* <AllProductsConteiner {...ProductsConteinerProps} /> */}
                 <Category
                         incart={incart}
                         setInCart={setInCart}
@@ -444,7 +438,24 @@ element={
                         loading={loading}
                         setProduct={setProduct} 
                         setLoading={setLoading}
+                        userData={userData}
                     />
+
+
+            </>
+             }</>} />
+
+              <Route path="/category/" element={<>
+                <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps}  />
+                {/* <Category
+                        incart={incart}
+                        setInCart={setInCart}
+                        favorits={favorits}
+                        setFavorits={setFavorits}
+                        loading={loading}
+                        setProduct={setProduct} 
+                        setLoading={setLoading}
+                    /> */}
 
               </>} />
 
