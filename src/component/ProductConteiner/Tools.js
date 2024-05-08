@@ -127,19 +127,19 @@ box-shadow: 0px 1px 1px -0.5px;
 
 
   
-   const SortProduct =({setRespons})=>{
-    const [category, setCategory] = useState("All"); 
-  
-    // const navigate = useNavigate(); 
-  
+   const SortProduct =({setRespons, category, setCategory, setLoading, respons})=>{
+
     const loadCategory = async (category) => {
       try {
         if(category === "All") {  setRespons(await Product());  } 
         else { setRespons(await sortedcategory(category)); }
+        setLoading(false)
       } catch (error) { console.error('Error fetching category:', error); }
     };
   
     const selectCategory = async (event) => {
+        setRespons(null);
+        setLoading(true);
         const selectedCategory = event.target.value;  
         await loadCategory(selectedCategory);
         setCategory(selectedCategory);
@@ -148,8 +148,30 @@ box-shadow: 0px 1px 1px -0.5px;
       const selectData = async (event) => {
         const selectedData = event.target.value;  
             console.log(selectedData);
+            if(category !== 'All'){
+                // const sorted = respons.map(item => item.view).sort((a, b) => b.localeCompare(a));
+                
+                console.log('sort filtred product')
+                // console.log(sorted)
+            } else{
+                
+                const sortedRespons = respons.sort((a, b) => a[respons.view] - b[respons.view]);
+
+                const mappedViews = sortedRespons.map(view => view.name);
+                
+                console.log(mappedViews);
+
+                console.log('sort all product')
+            }
         // await loadCategory(selectedCategory);
       };
+
+      const reset =()=>{
+        
+        loadCategory("All"); 
+        setCategory("All");
+        setRespons(null);
+      }
       
     const CategoryItem = ["All", "Clothing", "Technique", "Food", "Accessories"];
   
@@ -212,7 +234,7 @@ box-shadow: 0px 1px 1px -0.5px;
                 type="button"
                 disabled={category === "All"}
                 value="Reset"
-                onClick={()=>{loadCategory("All"); setCategory("All")}}
+                onClick={()=>{reset();}}
                 />
           
                 </SortedPanel>
@@ -223,7 +245,7 @@ box-shadow: 0px 1px 1px -0.5px;
     export {SortProduct}
   
 
-    const Navigation = ({ items, setProduct, product}) => {
+    const Navigation = ({ items, setProduct, product, category}) => {
         const click =()=>{setProduct(null)}
         
       return (
@@ -234,7 +256,7 @@ box-shadow: 0px 1px 1px -0.5px;
                   <samp key={index}>
                     {itemName === 'home' && (<><Link onClick={click} to={'/'}><img src={HomeIcon} alt='Home icon' />Home{'>'}</Link></>)}
                     {itemName === 'products' && ( <Link onClick={click} to={'/products'}><img src={ProductIcon} alt='Product icon' />Products{'>'}</Link> )}
-                    {/* {itemName === 'category' && ( <> <img src={CategoryIcon} alt='Product icon' /> {'category'} </>)} */}
+                    {(itemName === 'category' && (category !== 'All' || null)) && ( <Link onClick={click} to={'/products'}><img src={CategoryIcon} alt='Product icon' /> {'Category/'}{category} </Link>)}
                   </samp>
                 )
               ))}

@@ -356,8 +356,9 @@ const SimilarProductHead = styled.h1`
                                   }
                                       const MeniuProps ={setUserData, fetchData, usermode, setMyRoom, setProduct};
 
-                                  const NavigationProps = {setProduct, product};
 
+
+                                  const NavigationProps = {setProduct, product};
 
           return (
     
@@ -444,26 +445,13 @@ element={
             </>
              }</>} />
 
-              <Route path="/category/" element={<>
-                {/* <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps}  /> */}
-                {/* <Category
-                        incart={incart}
-                        setInCart={setInCart}
-                        favorits={favorits}
-                        setFavorits={setFavorits}
-                        loading={loading}
-                        setProduct={setProduct} 
-                        setLoading={setLoading}
-                    /> */}
 
-              </>} />
-
-            {/* View I Products */}
               <Route path={`/product-ID/:productId`} element={ 
                 <div>
 
-                  <Navigation items={['home', 'products']} {...NavigationProps} />
-                
+                  <Navigation items={['home', 'products']} category={null} {...NavigationProps} />
+                  {loading && <h2>Loading ...</h2>}
+
                         <ViewConteiner>
                             {product && 
                               <>

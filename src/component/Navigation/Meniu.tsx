@@ -79,63 +79,47 @@ const MeniuCmponent = styled.div`
 
 const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuProps) => {
   
-      const navigate = useNavigate(); 
-
     let items = ['home', 'myRoom', 'products',"About",'Contact'];
   
-    return(
+    return (
       <MeniuCmponent>
-        
-<ul>
-
-
-
-
-          {items.map((itemName, index) => (
-              <>
-                {itemName === 'home' && (
-                  <Link key={index} to={`/`}>
-                    <li>{'Home'}</li>
-                  </Link>
-                )}
-                    {usermode &&
-                    itemName === 'myRoom' && (
-                    <Link onClick={()=>{setMyRoom(true)}} key={index} to={`/main`}>
-                        <li>{'My Room'}</li>
-                    </Link>
-                    )}                   
-                        {itemName === 'products' && (
-                        <Link onClick={()=>{setProduct(null)}} key={index} to={`/products`}>
-                            <li>{'Products'}</li>
-                        </Link>
-                        )}  
-
-                        {itemName === 'About' && (
-                        <Link key={index} to={`/about`}>
-                            <li>{'About'}</li>
-                        </Link>
-                        )}  
-
-                            {itemName === 'Contact' && (
-                            <Link key={index} to={`/contact`}>
-                                <li>{'Contact'}</li>
-                            </Link>
-                            )}  
-
-              </>
-            ))}
-
-{/* <Selected {...Props} /> */}
-</ul>
-
-
-    
-     
-      
-      </MeniuCmponent> 
-    
-    );
-  }  
+          <ul key='meniunav'>
+              {items.map((itemName, index) => {
+                  let key = `${itemName}-${index}`; 
+                  return (
+                      <React.Fragment key={key}>
+                          {itemName === 'home' && (
+                              <Link to={`/`} key={key}>
+                                  <li>{'Home'}</li>
+                              </Link>
+                          )}
+                          {usermode && itemName === 'myRoom' && (
+                              <Link onClick={() => { setMyRoom(true) }} to={`/main`} key={key}>
+                                  <li>{'My Room'}</li>
+                              </Link>
+                          )}
+                          {itemName === 'products' && (
+                              <Link onClick={() => { setProduct(null) }} to={`/products`} key={key}>
+                                  <li>{'Products'}</li>
+                              </Link>
+                          )}
+                          {itemName === 'About' && (
+                              <Link to={`/about`} key={key}>
+                                  <li>{'About'}</li>
+                              </Link>
+                          )}
+                          {itemName === 'Contact' && (
+                              <Link to={`/contact`} key={key}>
+                                  <li>{'Contact'}</li>
+                              </Link>
+                          )}
+                      </React.Fragment>
+                  );
+              })}
+          </ul>
+      </MeniuCmponent>
+  );
+} 
   
 
 

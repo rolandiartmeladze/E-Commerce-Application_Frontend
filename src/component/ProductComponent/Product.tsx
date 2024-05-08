@@ -12,6 +12,9 @@ import view from '../../icon/view.png';
 import cost from '../../icon/cost.png';
 import share from '../../icon/share.png';
 import testimg from '../../img/slide_9.jpg';
+import time from '../../icon/time.svg';
+import category from '../../icon/category.png';
+import description from '../../icon/description.svg';
 
 interface Props{
     products: Productprops[];
@@ -174,21 +177,41 @@ interface Productprops{
                                 {(item.name.length > 20) ? item.name.slice(0, 35) + '...' : item.name}
                             </InfoItem>
 
+
                                 <ItemInfoAdd>
-                                    <p>
-                                    <samp style={{ display: 'flex', alignItems: 'center' }}>
+                                   <div style={{
+                                    display: 'flex',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap'}}> 
+                                    <samp style={{ display: 'flex', alignItems: 'center', marginRight: '6px' }}>
                                         <img width="20" src={user} alt='owner icon' />
                                         {item.owner}
                                     </samp>
-                                    </p>
+                                    
+                                        <samp style={{ display: 'flex', alignItems: 'center' }}>
+                                        <img width="20" src={time} alt='time icon' /> {item.datatime}
+                                        </samp>
+
+                                    </div>
+                                </ItemInfoAdd>                            
+                                
+                
+                            <ItemInfoAdd>
+                                <p>
+                                <samp style={{ display: 'flex', alignItems: 'flex-end' }}>
+                                <img width="20" src={category} alt='category icon' />  {item.category}</samp>
+
+                                </p>
                                 </ItemInfoAdd>
+
                                     <ItemInfoAdd>
                                         <p>
-                                        <samp>{item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp>
+                                        <samp style={{ display: 'flex', alignItems: 'flex-end' }}>
+                                         <img width="20" src={description} alt='category icon' />
+                                            {item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp>
                                         </p>
                                     </ItemInfoAdd>
-                
-                            <InfoItem><samp>Category: {item.category}</samp></InfoItem>
+
                             <InfoItem style={{ color: 'red' }}>{(item.price).toFixed(2)} {item.currency}</InfoItem>
                 
                                 <ItemInfoEnd>

@@ -30,31 +30,36 @@ interface Props {
 
 
 const ProductsConteiner = ({ incart, setInCart, favorits, setFavorits, loading, setProduct, setLoading, product }: Props) => {
-    
+        setLoading(true);
     const [respons, setRespons] = useState<any | null>(null); 
+    const [category, setCategory] = useState("All"); 
 
-    const NavigationProps = {setProduct, product};
 
         async function fetchData() {
             try { setRespons(await Product()); } 
             catch (error) { console.error('Error fetching product data:', error);}
         }
-            useEffect(() => { fetchData();}, []);
+            useEffect(() => { fetchData()}, []);
 
+
+            respons && setLoading(false);
 
     const clickF = (productId: string) => {
         viewProduct(productId, setProduct, setLoading);
         setLoading(true);
     };
 
+    const NavigationProps = {setProduct, product, category};
+     const ProductProps = {clickF, incart, setInCart, favorits, setFavorits, loading}
+
     return (
         <>
         <ProductTools>
-        <Navigation items={['home', 'products']} {...NavigationProps} />
-        <SortProduct setRespons={setRespons} />
+        <Navigation items={['home', 'products', 'category']} {...NavigationProps} />
+        <SortProduct setRespons={setRespons} setLoading={setLoading} category={category} setCategory={setCategory} respons={respons}  />
         </ProductTools>
-
-            {respons && <ProductComponent products={respons} clickF={clickF} incart={incart} setInCart={setInCart} favorits={favorits} setFavorits={setFavorits} loading={loading} />}
+        {loading && <h2>Loading ...</h2>}
+            {respons && <ProductComponent products={respons}  {...ProductProps} />}
         </>
     );
 };
