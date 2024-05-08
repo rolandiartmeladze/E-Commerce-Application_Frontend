@@ -1,16 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Link, useNavigate } from 'react-router-dom'; 
 
 import styled from "styled-components";
 
-// import serverUri from '../serverUrl';
 
-import HomeIcon from '../../icon/home.png';
-import ProductIcon from '../../icon/product.png';
-import LabelIcon from '../../icon/label.png';
-import categoryIcon from '../../icon/category.png';
 
-import sortedcategory from "../CategoriComponent/SortCategory";
 
 
 
@@ -73,45 +67,6 @@ const MeniuCmponent = styled.div`
 
 
 
-const Productsnavigation = styled.h1`
-text-decoration: none; 
-width:  99%;
-padding: 3px 0px;
-
-  margin: 3px 0px;
-  -webkit-backdrop-filter: blur(1px);
-  backdrop-filter: blur(1px);
-  box-shadow: inset 2px 2px 1500px 0.2px rgba(255, 55, 0, 0.4), 2px 2px 4px 0.4px black;
-  padding-left: 12px;
-  margin-bottom: 5px;
-  margin-top: 0px;
-  display: flex;
-  align-items: center;
-      samp{
-        margin: 1px 1px;
-        padding: 2px;
-      }
-      a{
-        transition: 0.4s ease-in-out;
-        padding: 3px;
-        cursor: pointer;
-        text-decoration: underline; 
-
-        display: flex;
-        align-items: flex-end;
-
-        &:hover {
-          box-shadow: 0.3px 1px 1px 0px black; 
-          color: red;
-        }
-
-      }
-      img{
-        width: 25px;
-      }
-`;
-
-
  interface MeniuProps{
     setUserData:Function;
     fetchData:Function;
@@ -120,28 +75,6 @@ padding: 3px 0px;
     setProduct:Function;
  }
 
-
- const ProductsNavigation = ({ items, setProduct, product}: { items: string[], setProduct: Function, product: any}) => {
-  const click =()=>{setProduct(null)}
-  
-return (
-  <Productsnavigation>
-      {items.map((itemName, index) => (
-          itemName !== undefined && (
-            <samp key={index}>
-              {itemName === 'home' && (<><Link onClick={click} to={'/'}><img src={HomeIcon} alt='Home icon' />Home{'>'}</Link></>)}
-              {itemName === 'products' && ( <Link onClick={click} to={'/products'}><img src={ProductIcon} alt='Product icon' />Products{'>'}</Link> )}
-              {itemName === 'category' && ( <Link onClick={click} to={'/category'}><img src={categoryIcon} alt='Product icon' />{'category'}</Link> )}
-            </samp>
-          )
-        ))}
-        {product && <samp style={{display: 'flex'}}><img src={LabelIcon} alt='label icon' /> ID:{`${product?.id}`}</samp>}
-        
-    </Productsnavigation>
-); 
-}
-
-export {ProductsNavigation};
 
 
 const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuProps) => {

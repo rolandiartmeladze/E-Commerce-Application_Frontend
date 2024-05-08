@@ -18,7 +18,7 @@ import serverUri from './component/serverUrl';
 
 import Meniu from './component/Navigation/Meniu';
 
-import { ProductsNavigation } from './component/Navigation/Meniu';
+import { Navigation } from './component/ProductConteiner/Tools';
 
 import Login from './component/UsersComponent/LogIn';
 import SignUp from './component/UsersComponent/SingUp';
@@ -34,7 +34,7 @@ import Footer from './component/Footer';
 
 import Product from './component/ProductComponent/Product';
 
-import Category from './component/CategoriComponent/Category';
+import ProductsConteiner from './component/ProductConteiner/Products';
 
 // import { clickF } from "./component/ProductsConteiner/AllProductConteiner";
 
@@ -427,10 +427,8 @@ element={
             <Route path="/products" element={<>{userData && 
 
             <>                 
-                  <ProductsNavigation items={['home', 'products']} {...NavigationProps} />
 
-                {/* <AllProductsConteiner {...ProductsConteinerProps} /> */}
-                <Category
+                <ProductsConteiner 
                         incart={incart}
                         setInCart={setInCart}
                         favorits={favorits}
@@ -438,7 +436,8 @@ element={
                         loading={loading}
                         setProduct={setProduct} 
                         setLoading={setLoading}
-                        userData={userData}
+                        product={product}
+                        
                     />
 
 
@@ -446,7 +445,7 @@ element={
              }</>} />
 
               <Route path="/category/" element={<>
-                <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps}  />
+                {/* <ProductsNavigation items={['home', 'products', 'category']} {...NavigationProps}  /> */}
                 {/* <Category
                         incart={incart}
                         setInCart={setInCart}
@@ -463,7 +462,7 @@ element={
               <Route path={`/product-ID/:productId`} element={ 
                 <div>
 
-                  <ProductsNavigation items={['home', 'products']} {...NavigationProps} />
+                  <Navigation items={['home', 'products']} {...NavigationProps} />
                 
                         <ViewConteiner>
                             {product && 
