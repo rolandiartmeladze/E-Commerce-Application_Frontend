@@ -129,6 +129,9 @@ box-shadow: 0px 1px 1px -0.5px;
   
    const SortProduct =({setRespons, category, setCategory, setLoading, respons})=>{
 
+    const [view, setView] = useState("All");
+    const [time, setTime] = useState("All");
+
     const loadCategory = async (category) => {
       try {
         if(category === "All") {  setRespons(await Product());  } 
@@ -145,32 +148,65 @@ box-shadow: 0px 1px 1px -0.5px;
         setCategory(selectedCategory);
       };
 
-      const selectData = async (event) => {
-        const selectedData = event.target.value;  
-            console.log(selectedData);
-            if(category !== 'All'){
-                // const sorted = respons.map(item => item.view).sort((a, b) => b.localeCompare(a));
-                
-                console.log('sort filtred product')
-                // console.log(sorted)
-            } else{
-                
-                const sortedRespons = respons.sort((a, b) => a[respons.view] - b[respons.view]);
 
-                const mappedViews = sortedRespons.map(view => view.name);
-                
-                console.log(mappedViews);
+const SorttData = async (event) => {
 
-                console.log('sort all product')
-            }
-        // await loadCategory(selectedCategory);
-      };
+    setTime(event.target.value);
+    const data = respons.map(item => item.datatime);
 
-      const reset =()=>{
+if(event.target.value === "Newest"){
+    if(data){
+        const sortedNewestFirst = data.slice().sort((a, b) => new Date(b) - new Date(a));
+                setRespons(sortedNewestFirst)
+    }
         
+} else if(event.target.value === "Oldest"){    
+    if(data){
+
+    const sortedOldestFirst = data.slice().sort((a, b) => new Date(a) - new Date(b));
+            setRespons(sortedOldestFirst)
+    }
+} else{                 
+    setRespons(null);
+    loadCategory(category);
+    setLoading(true);
+}
+
+
+
+};
+
+
+
+
+
+
+    const SortView = async (event) => {
+            setView(event.target.value);
+
+            if(event.target.value === "Most View"){
+                const sortedRespons = respons.slice().sort((a, b) => b.view - a.view);
+                    setRespons(sortedRespons);
+                }
+            else if(event.target.value === "Less View"){
+                const sortedRespons = respons.slice().sort((a, b) => a.view - b.view);
+                    setRespons(sortedRespons);
+                } 
+            else{
+                setRespons(null);
+                loadCategory(category);
+                setLoading(true);
+            }
+
+};
+
+    
+      const reset =()=>{
+        setLoading(true);
+        setRespons(null);
+        setView("All");
         loadCategory("All"); 
         setCategory("All");
-        setRespons(null);
       }
       
     const CategoryItem = ["All", "Clothing", "Technique", "Food", "Accessories"];
@@ -199,31 +235,32 @@ box-shadow: 0px 1px 1px -0.5px;
                   <li>
                       <img src={DataTimeIcon} alt="Category Icon" />
                       <Selection 
-                          onChange={selectData} 
-                          name="category" 
-                          id="category"
-                          value={category} 
+                          onChange={SorttData} 
+                          name="sortDara" 
+                          id="sortData"
+                          value={time} 
                       >
-                          {["Newest", "Oldest"].map((category, index) => (
-                              <option key={index} value={category}>
-                                  {category}
+                          {['All',"Newest", "Oldest"].map((time, index) => (
+                              <option key={index} value={time}>
+                                  {time}
                               </option>
                           ))}                    
                           
   
                       </Selection>
                   </li>
+
                       <li>
                           <img src={ViewIcon} alt="Category Icon" />
                           <Selection 
-                              onChange={selectCategory} 
-                              name="category" 
-                              id="category"
-                              value={category} 
+                              onChange={SortView} 
+                              name="sortView" 
+                              id="SortView"
+                              value={view} 
                           >
-                              {["most popular", "less view"].map((category, index) => (
-                                  <option key={index} value={category}>
-                                      {category}
+                              {["All", "Most View", "Less View"].map((view, index) => (
+                                  <option key={index} value={view}>
+                                      {view}
                                   </option>
                               ))}
                           </Selection>                

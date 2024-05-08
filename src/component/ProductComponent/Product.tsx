@@ -205,7 +205,7 @@ interface Productprops{
                                 </ItemInfoAdd>
 
                                     <ItemInfoAdd>
-                                        <p>
+                                        <p style={{alignItems: 'flex-start'}}>
                                         <samp style={{ display: 'flex', alignItems: 'flex-end' }}>
                                          <img width="20" src={description} alt='category icon' />
                                             {item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp>
