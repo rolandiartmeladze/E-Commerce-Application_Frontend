@@ -344,6 +344,11 @@ const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities,
 <div style={{borderTop:'0.5px solid black', marginTop:'5px'}}>
 
           <InfoLine>         
+          <h4>Category:</h4>
+              <samp> {product.category} </samp>
+          </InfoLine>
+
+          <InfoLine>         
           <h4>Description:</h4>
               <samp> {product.description} </samp>
           </InfoLine>

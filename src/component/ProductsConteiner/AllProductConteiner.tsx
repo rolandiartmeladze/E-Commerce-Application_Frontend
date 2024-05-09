@@ -6,7 +6,7 @@ import styled from "styled-components";
 import viewProduct  from '../ProductComponent/VievUpdate';
 
 
-import ProductComponent from '../ProductComponent/Product';
+import ProductComponent from '../ProductComponent/ProductComponent';
 
 
 

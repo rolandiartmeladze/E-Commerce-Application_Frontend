@@ -151,7 +151,7 @@ interface Productprops{
                                     }
                             `;
 
- const Product = ({products, clickF, incart, setInCart, loading, favorits, setFavorits }:Props) => {
+ const ProductComponent = ({products, clickF, incart, setInCart, loading, favorits, setFavorits }:Props) => {
     const CartProps = {incart, setInCart} 
     const FavProps = {favorits, setFavorits} 
 
@@ -235,4 +235,4 @@ interface Productprops{
         );
  };
 
- export default Product;
+ export default ProductComponent;

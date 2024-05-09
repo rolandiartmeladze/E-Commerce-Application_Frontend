@@ -9,12 +9,11 @@ import Header from './component/Header';
 import Main from './component/ProductsConteiner/Main';
 import Aside from './component/Aside';
 
+import SimilarProduct from './component/ViewProduct/SimilarProduct';
+
 import AllProductsConteiner from './component/ProductsConteiner/AllProductConteiner';
 import serverUri from './component/serverUrl';
 
-
-// import LoginComp from './component/Login/LoginComp';
-// import Home from './component/Home';
 
 import Meniu from './component/Navigation/Meniu';
 
@@ -27,19 +26,11 @@ import View from './component/ViewProduct/View';
 import ViewProductAside from './component/ViewProduct/ViewProductAside';
 import Footer from './component/Footer';
 
-// import HomeIcon from './icon/home.png';
-// import ProductIcon from './icon/product.png';
-// import LabelIcon from './icon/label.png';
-// import categoryIcon from './icon/category.png';
 
-import Product from './component/ProductComponent/Product';
+import Product from './component/ProductComponent/ProductComponent';
 
 import ProductsConteiner from './component/ProductConteiner/Products';
 
-// import { clickF } from "./component/ProductsConteiner/AllProductConteiner";
-
-
-// import MyProducts from './component/ProductsConteiner/MyProducts';
 
 interface User {
   Name: string;
@@ -69,40 +60,6 @@ interface Productprops{
   category: string;
   datatime: string;
 }
-
-
-const SimilarProductHead = styled.h1`
-      position: relative;
-      padding: 4px;
-      text-align: left;
-      width: 96%;
-      margin: auto;
-      padding-left: 14px;
-      margin-bottom: 10px;
-      margin-top: 10px;
-      box-shadow: 1px 1px 3px 0px black;
-      border-radius: 10px 0px 0px 10px;
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 10px;
-          background-color: red; 
-          border-radius: 10px 0px 0px 10px;
-        }
-  `;
-
-  const SimilarProductConteiner = styled.div`
-        width:  98%; 
-        margin: auto; 
-        min-height:  150px; 
-        margin-bottom: 10px; 
-        box-shadow:  0px -2px 9px 0px black; 
-        border-radius:  6px 6px 0 0;
-      `;
 
   const ViewConteiner = styled.div`
         flex-wrap:  nowrap; 
@@ -462,8 +419,15 @@ element={
                           </ViewConteiner>
 
                             <>
-                              <SimilarProductHead>Similar products</SimilarProductHead >
-                              <SimilarProductConteiner> {'//'} </SimilarProductConteiner>
+                                 <SimilarProduct                         
+                                 incart={incart}
+                        setInCart={setInCart}
+                        favorits={favorits}
+                        setFavorits={setFavorits}
+                        loading={loading}
+                        setProduct={setProduct} 
+                        setLoading={setLoading}
+                        product={product} />
                             </>
                 </div>
               } />

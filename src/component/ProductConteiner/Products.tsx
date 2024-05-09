@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import ProductComponent from  '../ProductComponent/Product';
+import ProductComponent from  '../ProductComponent/ProductComponent';
 import viewProduct from '../ProductComponent/VievUpdate';
 
 import Product from '../../Tools';
