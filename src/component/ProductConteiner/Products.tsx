@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
+
 import styled from "styled-components";
 import ProductComponent from  '../ProductComponent/ProductComponent';
 import viewProduct from '../ProductComponent/VievUpdate';
@@ -30,10 +32,13 @@ interface Props {
 
 
 const ProductsConteiner = ({ incart, setInCart, favorits, setFavorits, loading, setProduct, setLoading, product }: Props) => {
-        setLoading(true);
+    
+    
+    setLoading(true);
     const [respons, setRespons] = useState<any | null>(null); 
-    const [category, setCategory] = useState("All"); 
-
+    // const [category, setCategory] = useState("All"); 
+ 
+    console.log(respons)
 
         async function fetchData() {
             try { setRespons(await Product()); } 
@@ -44,19 +49,26 @@ const ProductsConteiner = ({ incart, setInCart, favorits, setFavorits, loading, 
 
             respons && setLoading(false);
 
+
+const location = useLocation();
+
     const clickF = (productId: string) => {
-        viewProduct(productId, setProduct, setLoading);
+
+    //    const location =  
+
+
+        viewProduct(productId, setProduct, setLoading, location);
         setLoading(true);
     };
 
-    const NavigationProps = {setProduct, product, category};
+    const NavigationProps = {setProduct, product};
      const ProductProps = {clickF, incart, setInCart, favorits, setFavorits, loading}
 
     return (
         <>
         <ProductTools>
-        <Navigation items={['home', 'products', 'category']} {...NavigationProps} />
-        <SortProduct setRespons={setRespons} setLoading={setLoading} category={category} setCategory={setCategory} respons={respons}  />
+        <Navigation items={['home', 'products']} {...NavigationProps} />
+        <SortProduct setRespons={setRespons} setLoading={setLoading}respons={respons}  />
         </ProductTools>
         {loading && <h2>Loading ...</h2>}
             {respons && <ProductComponent products={respons}  {...ProductProps} />}

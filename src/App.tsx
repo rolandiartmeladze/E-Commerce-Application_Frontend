@@ -317,6 +317,9 @@ interface Productprops{
 
                                   const NavigationProps = {setProduct, product};
 
+
+
+
           return (
     
     <>
@@ -403,10 +406,10 @@ element={
              }</>} />
 
 
-              <Route path={`/product-ID/:productId`} element={ 
+              <Route path={`/products/:productId`} element={ 
                 <div>
 
-                  <Navigation items={['home', 'products']} category={null} {...NavigationProps} />
+                  <Navigation items={['home', 'products']} {...NavigationProps} />
                   {loading && <h2>Loading ...</h2>}
 
                         <ViewConteiner>

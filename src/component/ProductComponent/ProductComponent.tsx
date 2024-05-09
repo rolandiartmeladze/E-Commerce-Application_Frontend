@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
 
@@ -157,15 +157,25 @@ interface Productprops{
     const FavProps = {favorits, setFavorits} 
 
     const [clicked, setClicked] = useState<string | null>(null);
+    
 
+    // const SortLocal: string | null = localStorage.getItem('Sort');
+
+    // if (SortLocal !== null) {
+    //     const parsedSortLocal = JSON.parse(SortLocal);
+    //     console.log(parsedSortLocal.Category);
+    // } else {
+    //     console.log('SortLocal is null'); 
+    // }
+    
     return(
             <Conteiner>
 
                 {products.map((item, index) => (
-                   
+
                         <article key={item._id} > 
                         <Link onClick={() => { clickF(item._id); setClicked(item._id) }}  
-                        to={`/product-ID/${item._id}`}
+                        to={`/products/${item._id}`}
                         key={item._id} >
                             <>
 
