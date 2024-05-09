@@ -39,6 +39,8 @@ const SimilarProductHead = styled.h1`
         margin-bottom: 10px; 
         box-shadow:  0px -2px 9px 0px black; 
         border-radius:  6px 6px 0 0;
+        padding: 10px 0px;
+        align-items: center;
       `;
 
 
@@ -55,7 +57,9 @@ const SimilarProductHead = styled.h1`
     
     
     
-    
+    interface Product {
+        _id: string;
+    }
 
       const SimilarProduct = ({ incart, setInCart, favorits, setFavorits, loading, setProduct, setLoading, product }: Props) => {
           const [respons, setRespons] = useState<any>(null);
@@ -71,21 +75,21 @@ const SimilarProductHead = styled.h1`
               if (category) {
                   Similar();
               }
-          }, [category]);
+          }, [category,product]);
       
           const Similar = async () => {
               try {
                   const sortedRespons = await sortedcategory(category);
-                  setRespons(sortedRespons);
+                    const products = sortedRespons.filter((item: Product) => item._id !== product._id)
+                    if(sortedRespons.length >=3){
+                        setRespons(products.slice(0,4));
+                    } else{setRespons(products);}
+                  
               } catch (error) {
                   console.error('Error fetching category:', error);
               }
           };
       
-          // Logging respons whenever it changes
-          useEffect(() => {
-              console.log(respons);
-          }, [respons]);
 
           const clickF = (productId: string) => {
             viewProduct(productId, setProduct, setLoading);

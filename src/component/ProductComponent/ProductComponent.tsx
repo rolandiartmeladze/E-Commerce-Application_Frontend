@@ -53,13 +53,13 @@ interface Productprops{
             flex-wrap: wrap;
             justify-content:space-around;
                 a{ 
-                    min-width:  280px; 
-                    width:  23%;
-                    padding: 0px 5px;  
-                    padding-left: 0px   
+                    // min-width:  280px; 
+                    // width:  23%;
+                    // padding: 0px 5px;  
+                    // padding-left: 0px   
                     color:  black; 
                     text-decoration: none;
-                    margin-top: 18px;
+                    // margin-top: 18px;
                 }
 
                     article{ 
@@ -75,6 +75,7 @@ interface Productprops{
                         backdrop-filter: blur(3px);
                         box-shadow: 1px 2px 6px 0.3px black;
                         padding-bottom: 5px;
+                        margin: 15px  0px;
                     }
             `;
 
@@ -161,10 +162,13 @@ interface Productprops{
             <Conteiner>
 
                 {products.map((item, index) => (
-                    <Link onClick={() => { clickF(item._id); setClicked(item._id) }}  
+                   
+                        <article key={item._id} > 
+                        <Link onClick={() => { clickF(item._id); setClicked(item._id) }}  
                         to={`/product-ID/${item._id}`}
                         key={item._id} >
-                        <article key={item._id} >
+                            <>
+
                             {loading && clicked === item._id && <Loaing />}
                 
                                 <ImgConteiner>
@@ -226,9 +230,10 @@ interface Productprops{
                                 </ItemInfoEnd>
 
                         </ProductInfo>
-
+                                    </> 
+                                    </Link>
                         </article>
-                </Link>
+               
                 ))}
 
             </Conteiner>
