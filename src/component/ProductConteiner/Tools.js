@@ -10,9 +10,11 @@ import DataTimeIcon from '../../icon/clock.png';
 import ViewIcon from '../../icon/view.png';
 import LabelIcon from '../../icon/label.png';
 
+
 // Import tools
 import sortedcategory from "../ProductConteiner/SortCategory";
 import Product from '../../Tools';
+import serverUri from "../serverUrl";
 
 // Styled components
 const Selection = styled.select`
@@ -122,34 +124,71 @@ const Productsnavigation = styled.h1`
 
 // Main component
 const SortProduct = ({ setRespons, setLoading, respons }) => {
-
-
-
-        const storedSort = localStorage.getItem('Sort');
-        let sort = storedSort ? JSON.parse(storedSort) : { category: "All", view: "All", time: "All" };
-    
-        const [view, setView] = useState(sort.view);
-        const [time, setTime] = useState(sort.time);
-        const [selectedCategory, setSelectedCategory] = useState(sort.category);
-    
         const navigate = useNavigate();
-    
-        useEffect(() => {
-            const updatedSort = { ...sort, category: selectedCategory, view: view, time: time };
-            localStorage.setItem('Sort', JSON.stringify(updatedSort));
-            let link = `/products${selectedCategory !== "All" ? '/?category=' + selectedCategory : ""}${view !== "All" ? '/?view=' + view : ""}${time !== "All" ? '/?time=' + time : ""}`;
-            navigate(link);
-        }, [selectedCategory, time, view, navigate]);
-    
-        const location = useLocation();
+                const serverlink = serverUri();
+                const location = useLocation();
+
+const storedSort = localStorage.getItem('Sort');
+let sort = storedSort ? JSON.parse(storedSort) : { category: "All", view: "All", time: "All" };
+
+const [view, setView] = useState(sort.view);
+const [time, setTime] = useState(sort.time);
+const [selectedCategory, setSelectedCategory] = useState(sort.category);
+
+// Effect to update URL and fetch data when category, view, or time changes
+useEffect(() => {
+    const updatedSort = { ...sort, category: selectedCategory, view: view, time: time };
+    localStorage.setItem('Sort', JSON.stringify(updatedSort));
+
+    // Construct the link with updated query parameters
+    let link = `/products${selectedCategory !== "All" ? '?category=' + selectedCategory : ""}${view !== "All" ? '&' + 'view=' + view : ""}${time !== "All" ? '&' + 'time=' + time : ""}`;
+    navigate(link);
+   
+     if(selectCategory === "All") {
+        setRespons(Product());
+    }
+        else{fetchData(selectedCategory);}
+}, [selectedCategory, time, view, navigate]);
+
+// Effect to log category, time, and view when URL parameters change
+useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    const time = params.get('time');
+    const view = params.get('view');
+
+    console.log('Category:', category);
+    console.log('Time:', time);
+    console.log('View:', view);
+}, [location.search]);
+
+const fetchData = async (selectedCategory) => {
+    setLoading(true);
+    setRespons(null);
+    try {
+        const response = await fetch(`http://localhost:3001/sortedcategory/${window.location.search}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        setRespons(await response.json());
+        if(respons){setLoading(false)}
+    } catch (error) {
+        console.log('Error:', error);
+        return null;
+    }
+};
 
 
     const loadCategory = async (category) => {
 
+
         try {
             setLoading(true);
-            const response = category === "All" ? await Product() : await sortedcategory(category);
-            setRespons(response);
+            // const response = category === "All" ? await Product() : await fetchData(category);
+            // setRespons(response);
         } catch (error) {
             console.error('Error fetching category:', error);
         } finally {
