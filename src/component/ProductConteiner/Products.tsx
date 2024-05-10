@@ -40,12 +40,24 @@ const ProductsConteiner = ({ incart, setInCart, favorits, setFavorits, loading, 
  
     console.log(respons)
 
-        async function fetchData() {
-            try { setRespons(await Product()); } 
-            catch (error) { console.error('Error fetching product data:', error);}
+    async function fetchData() {
+        try {
+            setRespons(await Product());
+        } catch (error) {
+            console.error('Error fetching product data:', error);
         }
-            useEffect(() => { fetchData()}, []);
-
+    }                
+    
+    useEffect(() => {
+        const ProductsSortParams = localStorage.getItem('Sort');
+        if (ProductsSortParams) {
+            const SortsItem = JSON.parse(ProductsSortParams);
+            if (SortsItem && SortsItem.category === "All") {
+                fetchData();
+            }else return;
+        }
+    }, []);
+        
 
             respons && setLoading(false);
 
@@ -68,7 +80,7 @@ const location = useLocation();
         <>
         <ProductTools>
         <Navigation items={['home', 'products']} {...NavigationProps} />
-        <SortProduct setRespons={setRespons} setLoading={setLoading}respons={respons}  />
+        <SortProduct setRespons={setRespons} setLoading={setLoading}  />
         </ProductTools>
         {loading && <h2>Loading ...</h2>}
             {respons && <ProductComponent products={respons}  {...ProductProps} />}

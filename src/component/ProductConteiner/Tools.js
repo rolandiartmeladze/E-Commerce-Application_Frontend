@@ -123,116 +123,135 @@ const Productsnavigation = styled.h1`
 `;
 
 // Main component
-const SortProduct = ({ setRespons, setLoading, respons }) => {
-        const navigate = useNavigate();
-                const serverlink = serverUri();
-                const location = useLocation();
+const SortProduct = ({ setRespons, setLoading }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [view, setView] = useState("All");
+    const [time, setTime] = useState("All");
+    const [category, setCategory] = useState('All');
 
-const storedSort = localStorage.getItem('Sort');
-let sort = storedSort ? JSON.parse(storedSort) : { category: "All", view: "All", time: "All" };
+    useEffect(() => {
+        const ProductsSortParams = localStorage.getItem('Sort');
+        const SortsItem = JSON.parse(ProductsSortParams);
+        const params = new URLSearchParams(location.search);
 
-const [view, setView] = useState(sort.view);
-const [time, setTime] = useState(sort.time);
-const [selectedCategory, setSelectedCategory] = useState(sort.category);
+        const handlePopstate = () => {
+            const currentParams = new URLSearchParams(window.location.search);
+            const categoryParam = currentParams.get('category') || "All";
+            const timeParam = currentParams.get('time') || "All";
+            const viewParam = currentParams.get('view') || "All";
 
-// Effect to update URL and fetch data when category, view, or time changes
-useEffect(() => {
-    const updatedSort = { ...sort, category: selectedCategory, view: view, time: time };
-    localStorage.setItem('Sort', JSON.stringify(updatedSort));
+            setView(viewParam);
+            setTime(timeParam);
+            setCategory(categoryParam);
+        };
 
-    // Construct the link with updated query parameters
-    let link = `/products${selectedCategory !== "All" ? '?category=' + selectedCategory : ""}${view !== "All" ? '&' + 'view=' + view : ""}${time !== "All" ? '&' + 'time=' + time : ""}`;
-    navigate(link);
-   
-     if(selectCategory === "All") {
-        setRespons(Product());
-    }
-        else{fetchData(selectedCategory);}
-}, [selectedCategory, time, view, navigate]);
+        window.addEventListener('popstate', handlePopstate);
 
-// Effect to log category, time, and view when URL parameters change
-useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get('category');
-    const time = params.get('time');
-    const view = params.get('view');
+        if (SortsItem && params.size === 0) {
+            setView(SortsItem.view);
+            setTime(SortsItem.time);
+            setCategory(SortsItem.category);
+            fetchData();
+        } else if (params.size > 0) {
+            const categoryParam = params.get('category') || "All";
+            const timeParam = params.get('time') || "All";
+            const viewParam = params.get('view') || "All";
 
-    console.log('Category:', category);
-    console.log('Time:', time);
-    console.log('View:', view);
-}, [location.search]);
-
-const fetchData = async (selectedCategory) => {
-    setLoading(true);
-    setRespons(null);
-    try {
-        const response = await fetch(`http://localhost:3001/sortedcategory/${window.location.search}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            setView(viewParam);
+            setTime(timeParam);
+            setCategory(categoryParam);
+            const updatedSort = { category: categoryParam, view: viewParam, time: timeParam };
+            localStorage.setItem('Sort', JSON.stringify(updatedSort));
+            fetchData();            
         }
-        setRespons(await response.json());
-        if(respons){setLoading(false)}
-    } catch (error) {
-        console.log('Error:', error);
-        return null;
-    }
-};
 
+        return () => {
+            window.removeEventListener('popstate', handlePopstate);
+        };
+    }, []);
 
-    const loadCategory = async (category) => {
-
+    async function fetchData() {
+        setLoading(true);
 
         try {
-            setLoading(true);
-            // const response = category === "All" ? await Product() : await fetchData(category);
-            // setRespons(response);
+            const response = await fetch(`http://localhost:3001/sortedcategory/${window.location.search}`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+
+            setRespons(await response.json());
+
+            setLoading(false);
         } catch (error) {
-            console.error('Error fetching category:', error);
-        } finally {
+            console.log('Error:', error);
+
             setLoading(false);
         }
-    };
+    }
 
-    // Select category function
     const selectCategory = async (event) => {
-
-
         const selectedCategory = event.target.value;
-       setSelectedCategory(selectedCategory);
+        const updatedSort = { category: selectedCategory, view: view, time: time };
+        localStorage.setItem('Sort', JSON.stringify(updatedSort));
 
+        let link = `/products?${selectedCategory !== "All" ? 'category=' + selectedCategory : ""}${view !== "All" ? '&' + 'view=' + view : ""}${time !== "All" ? '&' + 'time=' + time : ""}`;
+        navigate(link);
 
-        await loadCategory(selectedCategory);
-
-
+        setCategory(selectedCategory);
+        fetchData();
     };
 
     const SortData = async (event) => {
-
         const selectedTime = event.target.value;
-       setTime(selectedTime);
-
-
+        setTime(selectedTime);
     };
 
     const SortView = async (event) => {
-
         const selectedView = event.target.value;
         setView(selectedView);
-
     };
 
-    // Reset function
     const reset = () => {
         setLoading(true);
         setRespons(null);
         setView("All");
         setTime("All");
-        setSelectedCategory("All");
-        loadCategory("All"); 
+        setCategory("All");
+        fetchData(); 
     };
+
+    // const CategoryItem = ["All", "Clothing", "Technique", "Food", "Accessories"];
+  
+   
+    // const SortData = async (event) => {
+
+    //     const selectedTime = event.target.value;
+    //    setTime(selectedTime);
+
+
+    // };
+
+    // const SortView = async (event) => {
+
+    //     const selectedView = event.target.value;
+    //     setView(selectedView);
+
+    // };
+
+    // // Reset function
+    // const reset = () => {
+    //     setLoading(true);
+    //     setRespons(null);
+    //     setView("All");
+    //     setTime("All");
+    //     setCategory("All");
+    //     loadCategory("All"); 
+    // };
 
     const CategoryItem = ["All", "Clothing", "Technique", "Food", "Accessories"];
   
@@ -246,7 +265,7 @@ const fetchData = async (selectedCategory) => {
                         onChange={selectCategory} 
                         name="category" 
                         id="category"
-                        value={selectedCategory || "All"} 
+                        value={category || "All"} 
                     >
                         {CategoryItem.map((category, index) => (
                             <option key={index} value={category}>
