@@ -195,10 +195,11 @@ const SortProduct = ({ setRespons, setLoading }) => {
 
 
     async function fetchData() {
-        
+        const server = 'https://lavish-husky-gaura.glitch.me';
+        setRespons(null);
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:3001/sortedcategory/${window.location.search}`, {
+            const response = await fetch(`${server}/sortedcategory/${window.location.search}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -232,6 +233,9 @@ const SortProduct = ({ setRespons, setLoading }) => {
         GenerateUrl(category, View, time);
 
         setView(View);
+        fetchData(); 
+
+
     };
 
 
