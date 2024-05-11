@@ -27,6 +27,11 @@ const Selection = styled.select`
     margin-left: 4px;
     outline: none;
     border-radius: 10px;
+    @media only screen and (max-width: 750px) {
+        flex-grow: 1;
+        margin-left: 1px;
+}
+
 
     option {
         background-color: white;
@@ -40,6 +45,12 @@ const SortedPanel = styled.nav`
     align-items: center;
     flex-direction: row;
     padding: 3px 0px;
+    @media only screen and (max-width: 750px) {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
 
     input {
         padding: 4px 10px;
@@ -55,6 +66,11 @@ const SortedPanel = styled.nav`
         color: ${({ disabled }) => (disabled ? 'black' : 'red')};
         font-weight: 600;
 
+        @media only screen and (max-width: 750px) {
+            bottom: 10px;
+        }
+
+
         &:hover {
             color: black;
             transform: scale(1.1);
@@ -69,6 +85,13 @@ const SortedPanel = styled.nav`
         display: flex;
         align-items: center;
 
+        @media only screen and (max-width: 750px) {
+            align-items: flex-start;
+            flex-direction: column;
+            margin-left: 10px;
+            }
+        
+
         li {
             box-shadow: none;
             background: none;
@@ -76,9 +99,33 @@ const SortedPanel = styled.nav`
             padding: 0px;
             margin: 0px 10px;
 
+            @media only screen and (max-width: 750px) {
+                          width: 100%;
+                          position: relative;
+                }
+    
+
+
             img {
+                z-index: 3;
                 width: 20px;
                 margin: 0px 2px;
+                position: relative;
+
+
+                @media only screen and (max-width: 750px) {
+                background-color: rgb(255, 0, 0, 0.3);
+                    padding: 2px;
+                    border-radius: 5px 0px 5px 0px;
+                                   }
+            
+
+
+            
+
+                
+
+                
             }
         }
     }
@@ -86,6 +133,11 @@ const SortedPanel = styled.nav`
     h3 {
         margin: 0px 10px;
         font-size: 100%;
+
+        @media only screen and (max-width: 750px) {
+            margin-left: 0px;
+            }
+
     }
 `;
 
@@ -110,6 +162,9 @@ const Productsnavigation = styled.h1`
         text-decoration: underline; 
         display: flex;
         align-items: flex-end;
+        @media only screen and (max-width: 750px) {
+            align-items: center;
+          }
 
         &:hover {
             box-shadow: 0.3px 1px 1px 0px black; 

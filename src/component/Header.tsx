@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 
 import userIcin from "../icon/user.png";
+import meniuicon from '../icon/menu.svg';
 import FindeComponent from "./FindeComponent";
 
 const Logo = styled.h1`
@@ -141,6 +142,10 @@ const Header: React.FC<HeaderProps> = ({
                 
                 <Link to="/">
           <samp>Log Out</samp></Link>
+        </div>
+
+        <div>
+        <img src={meniuicon} alt="" /> 
         </div>
         </>
 

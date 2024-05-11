@@ -81,7 +81,7 @@ interface Productprops{
 
         const ImgConteiner = styled.div`
             width: 100%;
-            max-height: 150px;
+            // max-height: 150px;
                 img{
                 max-width: 98%;
                 max-height: 100%;

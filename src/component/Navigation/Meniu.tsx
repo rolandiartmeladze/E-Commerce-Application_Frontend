@@ -30,6 +30,8 @@ const MeniuCmponent = styled.div`
     height: 100%;
     margin-right: 5px;
 
+
+
     li {
       display: flex;
       flex-grow: 1;
@@ -61,7 +63,74 @@ const MeniuCmponent = styled.div`
         z-index: -1;
       }
     }
+
+
   }
+
+
+  @media only screen and (max-width: 750px) {
+    background-color: rgb(50, 40, 20);
+    display: flex;
+    align-items: flex-start;   
+    height: auto;
+    position: absolute;
+    top: 0px;
+    width: 98%;  
+    flex-direction: column;  
+    z-index: 2;    
+    margin: auto;
+    border-radius: 0px 0px 15px 15px;
+
+ul{
+        display: flex;
+        width: 90%;
+        align-items: flex-start;  
+        flex-direction: column;   
+        margin:auto;
+        padding: 8px 0px;
+
+
+        li{
+            padding: 6px;
+            margin: 5px 4px;
+            justify-content: center;
+            background: none;
+            box-shadow: 0px 3px 3px -2px gray;
+            backdrop-filter: none;        
+
+
+            &:hover {
+                backdrop-filter:none;  
+                box-shadow: 0px 3px 3px -2px yellow;
+
+                color: yellow;
+              }
+        
+              &:hover:before {
+                
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: none;
+                z-index: -1;
+              }
+            }
+        
+
+        }
+        a{
+    width: 100%;
+    padding: 0px;
+    color: white;
+       
+}
+}
+
+                       }
+
 `;
 
 
@@ -83,6 +152,9 @@ const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuPr
   
     return (
       <MeniuCmponent>
+        <div>
+            close
+            </div>
           <ul key='meniunav'>
               {items.map((itemName, index) => {
                   let key = `${itemName}-${index}`; 
