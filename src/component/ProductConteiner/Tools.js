@@ -130,40 +130,62 @@ const SortProduct = ({ setRespons, setLoading }) => {
     const [time, setTime] = useState("All");
     const [category, setCategory] = useState('All');
 
+
+    const UpdateSort  =  (category, view, time) =>{
+        const updatedSort = { category, view, time };
+            localStorage.setItem('Sort', JSON.stringify(updatedSort));
+    }
+
+    const GenerateUrl =(category, view, time)=> {
+        let  link = `/products?${category !== "All" ? 'category=' + category : ""}${view !== "All" ? '&' + 'view=' + view : ""}${time !== "All" ? '&' + 'time=' + time : ""}`;
+        return navigate(link);
+    }
+
+    const LocParams = () =>{
+        const params = new URLSearchParams(location.search);
+            let info = {
+                "category": params.get('category') || "All",
+                "view": params.get('view') || "All",
+                "time": params.get('time') || "All",
+                "size": params.size,
+            }
+                return  info;
+    }
+
+
+
     useEffect(() => {
         const ProductsSortParams = localStorage.getItem('Sort');
         const SortsItem = JSON.parse(ProductsSortParams);
-        const params = new URLSearchParams(location.search);
 
-        const handlePopstate = () => {
-            const currentParams = new URLSearchParams(window.location.search);
-            const categoryParam = currentParams.get('category') || "All";
-            const timeParam = currentParams.get('time') || "All";
-            const viewParam = currentParams.get('view') || "All";
-
-            setView(viewParam);
-            setTime(timeParam);
-            setCategory(categoryParam);
-        };
+        let info =  LocParams();
+            const handlePopstate = () => {
+                    setView(info.view);
+                    setTime(info.time);
+                    setCategory(info.category);     
+            };
 
         window.addEventListener('popstate', handlePopstate);
 
-        if (SortsItem && params.size === 0) {
+        if (info.size === 0) {
+            if(SortsItem){            
             setView(SortsItem.view);
             setTime(SortsItem.time);
             setCategory(SortsItem.category);
+            GenerateUrl(SortsItem.category, SortsItem.time, SortsItem.view)
+            
             fetchData();
-        } else if (params.size > 0) {
-            const categoryParam = params.get('category') || "All";
-            const timeParam = params.get('time') || "All";
-            const viewParam = params.get('view') || "All";
-
-            setView(viewParam);
-            setTime(timeParam);
-            setCategory(categoryParam);
-            const updatedSort = { category: categoryParam, view: viewParam, time: timeParam };
-            localStorage.setItem('Sort', JSON.stringify(updatedSort));
-            fetchData();            
+            }else{
+                UpdateSort("All", "All", "All" );
+                navigate('/products')
+                fetchData();            
+                }
+        } else if (info.size > 0) {
+                setView(info.view);
+                setTime(info.time);
+                setCategory(info.category);
+                    UpdateSort(info.category, info.view, info.time );
+                        fetchData();            
         }
 
         return () => {
@@ -171,87 +193,59 @@ const SortProduct = ({ setRespons, setLoading }) => {
         };
     }, []);
 
-    async function fetchData() {
-        setLoading(true);
 
+    async function fetchData() {
+        
+        setLoading(true);
         try {
             const response = await fetch(`http://localhost:3001/sortedcategory/${window.location.search}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
+            if (!response.ok) { throw new Error('Failed to fetch data');}
+                setRespons(await response.json());
+            setLoading(false);
+        } catch (error) { console.log('Error:', error);
+            setLoading(false);
             }
-
-            setRespons(await response.json());
-
-            setLoading(false);
-        } catch (error) {
-            console.log('Error:', error);
-
-            setLoading(false);
-        }
     }
 
     const selectCategory = async (event) => {
-        const selectedCategory = event.target.value;
-        const updatedSort = { category: selectedCategory, view: view, time: time };
-        localStorage.setItem('Sort', JSON.stringify(updatedSort));
-
-        let link = `/products?${selectedCategory !== "All" ? 'category=' + selectedCategory : ""}${view !== "All" ? '&' + 'view=' + view : ""}${time !== "All" ? '&' + 'time=' + time : ""}`;
-        navigate(link);
-
-        setCategory(selectedCategory);
-        fetchData();
-    };
+        const Category = event.target.value;
+            UpdateSort(Category, view, time);
+                GenerateUrl(Category, view, time);
+                    setCategory(Category);
+                        fetchData();
+        };
 
     const SortData = async (event) => {
-        const selectedTime = event.target.value;
-        setTime(selectedTime);
+        const Time = event.target.value;
+        UpdateSort(category, view, Time);
+        GenerateUrl(category, view, Time);
+
+        setTime(Time);
     };
 
     const SortView = async (event) => {
-        const selectedView = event.target.value;
-        setView(selectedView);
+        const View = event.target.value;
+        UpdateSort(category, View, time);
+        GenerateUrl(category, View, time);
+
+        setView(View);
     };
 
-    const reset = () => {
+
+
+    const reset = async () => {
         setLoading(true);
         setRespons(null);
         setView("All");
         setTime("All");
-        setCategory("All");
+        setCategory("All");       
+        UpdateSort("All", "All", "All");
+        GenerateUrl("All", "All", "All");
         fetchData(); 
     };
-
-    // const CategoryItem = ["All", "Clothing", "Technique", "Food", "Accessories"];
-  
-   
-    // const SortData = async (event) => {
-
-    //     const selectedTime = event.target.value;
-    //    setTime(selectedTime);
-
-
-    // };
-
-    // const SortView = async (event) => {
-
-    //     const selectedView = event.target.value;
-    //     setView(selectedView);
-
-    // };
-
-    // // Reset function
-    // const reset = () => {
-    //     setLoading(true);
-    //     setRespons(null);
-    //     setView("All");
-    //     setTime("All");
-    //     setCategory("All");
-    //     loadCategory("All"); 
-    // };
 
     const CategoryItem = ["All", "Clothing", "Technique", "Food", "Accessories"];
   
@@ -314,10 +308,8 @@ const SortProduct = ({ setRespons, setLoading }) => {
     );
 };
 
-// Export SortProduct component
 export { SortProduct }
 
-// Navigation component
 const Navigation = ({ items, setProduct, product }) => {
     const click = () => { setProduct(null) };
     

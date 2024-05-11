@@ -38,25 +38,25 @@ const ProductsConteiner = ({ incart, setInCart, favorits, setFavorits, loading, 
     const [respons, setRespons] = useState<any | null>(null); 
     // const [category, setCategory] = useState("All"); 
  
-    console.log(respons)
+    // console.log(respons)
 
-    async function fetchData() {
-        try {
-            setRespons(await Product());
-        } catch (error) {
-            console.error('Error fetching product data:', error);
-        }
-    }                
+    // async function fetchData() {
+    //     try {
+    //         setRespons(await Product());
+    //     } catch (error) {
+    //         console.error('Error fetching product data:', error);
+    //     }
+    // }                
     
-    useEffect(() => {
-        const ProductsSortParams = localStorage.getItem('Sort');
-        if (ProductsSortParams) {
-            const SortsItem = JSON.parse(ProductsSortParams);
-            if (SortsItem && SortsItem.category === "All") {
-                fetchData();
-            }else return;
-        }
-    }, []);
+    // useEffect(() => {
+    //     const ProductsSortParams = localStorage.getItem('Sort');
+    //     if (ProductsSortParams) {
+    //         const SortsItem = JSON.parse(ProductsSortParams);
+    //         if (SortsItem && SortsItem.category === "All") {
+    //             fetchData();
+    //         }else return;
+    //     }
+    // }, []);
         
 
             respons && setLoading(false);
