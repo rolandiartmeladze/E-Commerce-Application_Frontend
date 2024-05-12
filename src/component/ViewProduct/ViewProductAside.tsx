@@ -45,6 +45,13 @@ const ProductAside = styled.div`
       display: flex;
       flex-direction: column;
 
+      @media (max-width: 900px) {
+
+      width: 98%;
+      border-radius:0px;
+
+      }
+
       @media (max-width: 750px) {
         width: 98%;
       }
@@ -61,6 +68,17 @@ const InfoConteiner = styled.div`
       flex-direction: column;
       padding: 4px 0px;
       flex:1;
+
+      button{
+        position:absolute; 
+        right: 15px; 
+        padding: 3px 5px; 
+        cursor: pointer;
+        @media (max-width: 900px) {
+          position:relative; 
+        }
+
+      }
       `;
 
       const CartBtn = styled.samp`
@@ -85,6 +103,11 @@ const InfoConteiner = styled.div`
                 box-shadow: 0px 2px 4px 0px black; 
                 border-radius: 10px 10px 0px 0px; 
                 align-items: flex-end;
+
+                @media (max-width: 900px) {
+
+                border-radius: 0px;
+                }
                 `;
 
                 const Closebtn = styled.samp`
@@ -213,7 +236,7 @@ const InfoConteiner = styled.div`
                           <ProductInfo product={product} />
 
                           <div style={{width: '100%', display:'flex', justifyContent:'flex-end', position: 'relative', marginTop: '12px'}}>
-                            <button  style={{position:'absolute', right: '15px', padding: '3px 5px', cursor: 'pointer'}}>Buy Now</button>
+                            <button>Buy Now</button>
                           </div>
                           </>
                         )}

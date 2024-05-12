@@ -70,6 +70,10 @@ interface Productprops{
         margin-top:  8px; 
         display:  flex; 
         justify-content: space-around;
+        @media only screen and (max-width: 900px) {
+          width:100%;
+          flex-direction: column;
+        }
   `;
 
   const App: React.FC = () => {

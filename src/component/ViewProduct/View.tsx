@@ -36,6 +36,10 @@ const ProductConteiner = styled.div`
     border-radius: 10px 10px 0px 0px;
     position: relative;
     
+    @media (max-width: 900px) {
+      width: 98%;
+      padding: 0px;
+    }
     @media (max-width: 750px) {
       width: 98%;
       padding: 3px;
@@ -45,7 +49,7 @@ const ProductConteiner = styled.div`
 
 const ProductHeadInfo = styled.div`
       display:flex;
-      @media (max-width: 750px) {
+      @media (max-width: 550px) {
       flex-direction: column;
 
       }
@@ -68,11 +72,12 @@ const ImgConteiner = styled.div`
       border-radius:6px;
     }
 
-    @media (max-width: 750px) {
+    @media (max-width: 650px) {
 
       margin:auto;
-      max-width: 320%;
       width: 98%;
+      max-width: none;
+
             
       }
 
@@ -118,6 +123,10 @@ const InfoLine = styled.div`
         flex-wrap: wrap;
         align-items: center;
         margin: 5px;
+        @media (max-width: 900px) {
+          margin: 5px 0px;
+
+        }
             & img {
               width: 30px;
               margin-right: 6px;
