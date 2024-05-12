@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, { useRef, useState, useEffect} from "react";
+
 import { Link, useNavigate } from 'react-router-dom'; 
 
 import styled from "styled-components";
-
-
+import CloseIcon from '../../icon/close.svg';
 
 
 
@@ -15,25 +15,22 @@ const MeniuCmponent = styled.div`
   padding: 2px 0px;
   display: flex;
   flex-direction: row;
-  box-shadow: 0px 2px 5px 0.5px black;
   align-items: center;
   justify-content: flex-end;
+  box-shadow: 0px 2px 5px 0.5px black;
   margin-bottom: 7px;
 
   ul {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     align-items: stretch;
     height: 100%;
     margin-right: 5px;
 
-
-
     li {
-      display: flex;
       flex-grow: 1;
       height: 100%; 
       margin: 0px;
@@ -52,7 +49,6 @@ const MeniuCmponent = styled.div`
       }
 
       &:hover:before {
-        
         content: "";
         position: absolute;
         top: 0;
@@ -63,14 +59,11 @@ const MeniuCmponent = styled.div`
         z-index: -1;
       }
     }
-
-
   }
-
 
   @media only screen and (max-width: 750px) {
     background-color: rgb(50, 40, 20);
-    display: flex;
+    display: none;
     align-items: flex-start;   
     height: auto;
     position: absolute;
@@ -80,60 +73,62 @@ const MeniuCmponent = styled.div`
     z-index: 2;    
     margin: auto;
     border-radius: 0px 0px 15px 15px;
-
-ul{
-        display: flex;
-        width: 90%;
-        align-items: flex-start;  
-        flex-direction: column;   
-        margin:auto;
-        padding: 8px 0px;
-
-
-        li{
-            padding: 6px;
-            margin: 5px 4px;
-            justify-content: center;
-            background: none;
-            box-shadow: 0px 3px 3px -2px gray;
-            backdrop-filter: none;        
-
-
-            &:hover {
-                backdrop-filter:none;  
-                box-shadow: 0px 3px 3px -2px yellow;
-
-                color: yellow;
-              }
-        
-              &:hover:before {
-                
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: none;
-                z-index: -1;
-              }
-            }
-        
-
+    ul {
+      width: 90%;
+      flex-direction: column;   
+      margin: auto;
+      padding: 8px 0px;
+      li {
+        padding: 6px;
+        margin: 5px 4px;
+        justify-content: center;
+        background: none;
+        box-shadow: 0px 3px 3px -2px gray;
+        backdrop-filter: none;        
+        &:hover {
+          backdrop-filter: none;  
+          box-shadow: 0px 3px 3px -2px yellow;
+          color: yellow;
         }
-        a{
-    width: 100%;
-    padding: 0px;
-    color: white;
-       
-}
-}
-
-                       }
-
+        &:hover:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: none;
+          z-index: -1;
+        }
+      }
+    }
+    a {
+      width: 100%;
+      padding: 0;
+      color: white;
+    }
+  }
 `;
 
+const CloseComponent = styled.div`
+      width: 100%;
+      height: 40px;
+      samp{
+        transition: 0.4s ease-in-out;
+        position: absolute;
+        right: 10px;
+        top:6px;
+        cursor: pointer;
+        border-radius: 5px;
+        &:hover{
+          box-shadow: 0px 0px 2px 0px red;
+        }
+      }
 
+      @media only screen and (min-width: 751px) {
+      display: none;
+      }
+`;
 
 
  interface MeniuProps{
@@ -142,46 +137,83 @@ ul{
     usermode:boolean;
     setMyRoom:Function;
     setProduct:Function;
+    menuVisible:boolean; 
+    toggleMenu:Function;
  }
 
 
 
-const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct}:MeniuProps) => {
+const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct,  menuVisible, toggleMenu}:MeniuProps) => {
   
+  const menuRef = useRef(null);
+
+
+  const menuStyles = {
+    display: menuVisible ? 'flex' : 'none',
+    // Add more styles as needed
+};
+
     let items = ['home', 'myRoom', 'products',"About",'Contact'];
+
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
   
+      window.addEventListener('resize', handleResize);
+  
+      // Clean up the event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []); // Empty dependency array to run this effect only once
+  
+    const isMobile = windowWidth <= 750;
+
+    const meniuOFF = () =>{
+      return toggleMenu();
+    }
+
     return (
-      <MeniuCmponent>
-        <div>
-            close
-            </div>
+      <MeniuCmponent ref={menuRef}  style={isMobile ? menuStyles : undefined}>
+
+
+        <CloseComponent>
+          <samp onClick={()=>{toggleMenu()}}>
+      <img src={CloseIcon} alt="Colse icon" />
+          </samp>
+            </CloseComponent>
+
+
           <ul key='meniunav'>
               {items.map((itemName, index) => {
                   let key = `${itemName}-${index}`; 
                   return (
                       <React.Fragment key={key}>
                           {itemName === 'home' && (
-                              <Link to={`/`} key={key}>
+                              <Link onClick={meniuOFF} to={`/`} key={key}>
                                   <li>{'Home'}</li>
                               </Link>
                           )}
                           {usermode && itemName === 'myRoom' && (
-                              <Link onClick={() => { setMyRoom(true) }} to={`/main`} key={key}>
+                              <Link onClick={() => { setMyRoom(true); toggleMenu()} } to={`/main`} key={key}>
                                   <li>{'My Room'}</li>
                               </Link>
                           )}
                           {itemName === 'products' && (
-                              <Link onClick={() => { setProduct(null) }} to={`/products`} key={key}>
+                              <Link onClick={() => { setProduct(null); toggleMenu() }} to={`/products`} key={key}>
                                   <li>{'Products'}</li>
                               </Link>
                           )}
                           {itemName === 'About' && (
-                              <Link to={`/about`} key={key}>
+                              <Link onClick={meniuOFF} to={`/about`} key={key}>
                                   <li>{'About'}</li>
                               </Link>
                           )}
                           {itemName === 'Contact' && (
-                              <Link to={`/contact`} key={key}>
+                              <Link onClick={meniuOFF} to={`/contact`} key={key}>
                                   <li>{'Contact'}</li>
                               </Link>
                           )}

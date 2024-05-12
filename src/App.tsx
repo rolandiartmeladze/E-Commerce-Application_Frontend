@@ -317,6 +317,12 @@ interface Productprops{
 
                                   const NavigationProps = {setProduct, product};
 
+                                  const [menuVisible, setMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  }
+
 
 
 
@@ -327,13 +333,13 @@ interface Productprops{
 
 <div className="app">
 
-<Header {...HeaderProps} setMyRoom={setMyRoom} />
+<Header {...HeaderProps} setMyRoom={setMyRoom}  toggleMenu={toggleMenu}  />
 
 
 
 <section style={{padding: '8px',  paddingTop: '2px'}}>
 
-    <Meniu {...MeniuProps} />
+    <Meniu {...MeniuProps}  menuVisible={menuVisible} toggleMenu={toggleMenu}  />
  
   <Routes>
   <Route

@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { useRef, useState } from 'react';
+
 import "../style/Header.css";
 import styled from "styled-components";
 
@@ -22,6 +24,59 @@ const Userinfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+`;
+const LoginBtn = styled.div`
+  display: flex;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  padding: 2px;
+  padding-right: 8px;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0.3px 0.3px 2px 0.1px black;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.8s ease-in-out;
+  background-color: rgb(10, 15, 30, 0.3);
+
+        &:hover{
+  box-shadow: 0.3px 0.3px 2px 0.1px black inset;
+  background-color: rgb(210, 105, 30, 0.1);
+}
+
+samp {
+  margin: 2px;
+  font-weight: 800;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+@media only screen and (max-width: 750px) {
+
+  right: 60px;
+
+}
+
+`;
+
+
+const MeniuBtn = styled.div`
+    display: none;
+    @media only screen and (max-width: 750px) {
+
+      display:flex;
+      rigth: 10px;
+
+      position: absolute; 
+      right: 10px;
+      cursor:pointer;
+      &:hover{
+        box-shadow:0px 0px 1px 0px;
+      }
+    }
+    
 `;
 
   const HeaderComponent = styled.div`
@@ -62,8 +117,11 @@ interface HeaderProps {
   setFindInput: any;
   myRoom:boolean;
   setMyRoom:Function;
+  toggleMenu: Function;
 
 }
+
+
 
 const Header: React.FC<HeaderProps> = ({
   singup,
@@ -83,9 +141,20 @@ const Header: React.FC<HeaderProps> = ({
   findInput,
   setFindInput,
   myRoom,
-  setMyRoom
+  setMyRoom,
+  toggleMenu 
 
 }) => {
+
+
+  // const [menuVisible, setMenuVisible] = useState(false);
+// const menuRef = useRef(null);
+
+// function toggleMenu() {
+//   setMenuVisible(!menuVisible);
+// }
+
+
   const loginbtn = () => {
     !login ? setLogIn(true) : setLogIn(false);
   };
@@ -122,13 +191,13 @@ const Header: React.FC<HeaderProps> = ({
 
       {/* სისტემაში შესვლა */}
       {!usermode &&
-        <div onClick={loginbtn} className="userBtn">
+        <LoginBtn onClick={loginbtn}>
           <samp>
             <img width={30} src={userIcin} alt="user icon" />
           </samp>
           <Link to="/login"><samp>Login</samp></Link>
           
-        </div>
+        </LoginBtn>
       }
 
       {/* სისტემიდან გამოსვლა */}
@@ -144,12 +213,12 @@ const Header: React.FC<HeaderProps> = ({
           <samp>Log Out</samp></Link>
         </div>
 
-        <div>
-        <img src={meniuicon} alt="" /> 
-        </div>
         </>
 
       )}
+        <MeniuBtn onClick={()=>{toggleMenu()}}>
+        <img src={meniuicon} alt="" /> 
+        </MeniuBtn>
 
       {/* ძებნის ფუნქცია არაავტორიზებული მომხმარებლისთვი */}
       <FindeComponent 
