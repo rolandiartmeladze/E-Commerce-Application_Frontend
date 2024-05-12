@@ -9,6 +9,8 @@ import Header from './component/Header';
 import Main from './component/ProductsConteiner/Main';
 import Aside from './component/Aside';
 
+import Home from './component/Home/Home';
+
 import SimilarProduct from './component/ViewProduct/SimilarProduct';
 
 import AllProductsConteiner from './component/ProductsConteiner/AllProductConteiner';
@@ -61,6 +63,18 @@ interface Productprops{
   datatime: string;
 }
 
+
+const Section = styled.section`
+ padding: 8px; 
+ paddingTop: 2px;
+
+ @media (max-width: 650px) {
+
+padding: 0px;
+        
+  }
+
+`;
   const ViewConteiner = styled.div`
         flex-wrap:  nowrap; 
         width:  100%; 
@@ -341,7 +355,7 @@ interface Productprops{
 
 
 
-<section style={{padding: '8px',  paddingTop: '2px'}}>
+<Section>
 
     <Meniu {...MeniuProps}  menuVisible={menuVisible} toggleMenu={toggleMenu}  />
  
@@ -349,20 +363,18 @@ interface Productprops{
   <Route
 path={'/'}     
 element={
-      <>
-  {/* {usermode &&
 
-} */}
+<>
 
+<Home  setProduct={setProduct} />
 
-
-<div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
+{/* <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
 
 
   {userData && <AllProductsConteiner {...ProductsConteinerProps} /> }
 
 
-</div>
+</div> */}
 
 
       </>
@@ -452,7 +464,7 @@ element={
 
 
 
-</section>
+</Section>
 
     <Footer />
 

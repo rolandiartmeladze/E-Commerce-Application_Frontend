@@ -78,7 +78,7 @@ interface Productprops{
                         margin: 15px  0px;
 
                         @media only screen and (max-width: 650px) {
-                            width: 96%;
+                            width: 92%;
                         }
                     }
             `;

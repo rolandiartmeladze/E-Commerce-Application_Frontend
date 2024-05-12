@@ -66,7 +66,6 @@ const location = useLocation();
 
     const clickF = (productId: string) => {
 
-    //    const location =  
 
 
         viewProduct(productId, setProduct, setLoading, location);
