@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
 import "../style/Header.css";
 import styled from "styled-components";
@@ -9,7 +9,8 @@ import { Link } from 'react-router-dom';
 
 import userIcin from "../icon/user.png";
 import meniuicon from '../icon/menu.svg';
-import FindeComponent from "./FindeComponent";
+
+import FindComponent from './Find/FindComponent';
 
 const Logo = styled.h1`
   margin: 0;
@@ -99,24 +100,10 @@ const MeniuBtn = styled.div`
   `;
 
 interface HeaderProps {
-  singup: any;
-  setSingUp: any;
   login: any;
   setLogIn: any;
   usermode: boolean;
   chekfavorits: any;
-  findstatus: boolean;
-  setFindStatus: any;
-  loading: boolean;
-  setLoading: any;
-  userData: any;
-  setUserData: any;
-  notfound: boolean;
-  setNotound: any;
-  findInput: string;
-  setFindInput: any;
-  myRoom:boolean;
-  setMyRoom:Function;
   toggleMenu: Function;
 
 }
@@ -124,24 +111,10 @@ interface HeaderProps {
 
 
 const Header: React.FC<HeaderProps> = ({
-  singup,
-  setSingUp,
   login,
   setLogIn,
   usermode,
   chekfavorits,
-  findstatus,
-  setFindStatus,
-  loading,
-  setLoading,
-  userData,
-  setUserData,
-  notfound,
-  setNotound,
-  findInput,
-  setFindInput,
-  myRoom,
-  setMyRoom,
   toggleMenu 
 
 }) => {
@@ -220,21 +193,8 @@ const Header: React.FC<HeaderProps> = ({
         <img src={meniuicon} alt="" /> 
         </MeniuBtn>
 
-      {/* ძებნის ფუნქცია არაავტორიზებული მომხმარებლისთვი */}
-      <FindeComponent 
-        userData={userData}
-        setUserData={setUserData}
-        loading={loading}
-        setLoading={setLoading}
-        findstatus={findstatus}
-        setFindStatus={setFindStatus}
-        notfound={notfound}
-        setNotound={setNotound} 
-        findInput={findInput}
-        setFindInput={setFindInput}
-        usermode={usermode}
-        myRoom={myRoom} 
-      />
+        <FindComponent />
+
     </HeaderComponent>
   );
 };

@@ -32,6 +32,7 @@ import Footer from './component/Footer';
 import Product from './component/ProductComponent/ProductComponent';
 
 import ProductsConteiner from './component/ProductConteiner/Products';
+import FindContainer from './component/Find/FindContainer';
 
 
 interface User {
@@ -211,6 +212,7 @@ padding: 0px;
 
           
 
+
           const handleItemClick = async (itemId: string) => {
             let newItem = itemId;
             
@@ -259,7 +261,15 @@ padding: 0px;
                     setInCart(updatedcarts);
         };
         
+
+        const [menuVisible, setMenuVisible] = useState(false);
+
+        const toggleMenu = () => {
+          setMenuVisible(!menuVisible);
+        }
+      
         
+
     const componentsprops = {
           userData,
           setUserData,
@@ -280,13 +290,11 @@ padding: 0px;
           };
 
         const HeaderProps = {
-              singup, setSingUp, login, setLogIn, 
-              usermode, chekfavorits,
-              userData, setUserData,
-              loading, setLoading,
-              findstatus, setFindStatus, 
-              notfound, setNotound, findInput,
-              setFindInput, myRoom,
+              login,
+              setLogIn,
+              usermode,
+              chekfavorits,
+              toggleMenu,
               }
 
           const ViewProductProps = {
@@ -335,11 +343,6 @@ padding: 0px;
 
                                   const NavigationProps = {setProduct, product};
 
-                                  const [menuVisible, setMenuVisible] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  }
 
 
 
@@ -351,7 +354,7 @@ padding: 0px;
 
 <div className="app">
 
-<Header {...HeaderProps} setMyRoom={setMyRoom}  toggleMenu={toggleMenu}  />
+<Header {...HeaderProps} />
 
 
 
@@ -360,26 +363,10 @@ padding: 0px;
     <Meniu {...MeniuProps}  menuVisible={menuVisible} toggleMenu={toggleMenu}  />
  
   <Routes>
-  <Route
-path={'/'}     
-element={
-
-<>
-
-<Home  setProduct={setProduct} />
-
-{/* <div style={{maxWidth:'1280px', width:'100%', margin:'auto'}}>
-
-
-  {userData && <AllProductsConteiner {...ProductsConteinerProps} /> }
-
-
-</div> */}
-
-
-      </>
-    }
-  />
+  <Route path={'/'}     
+          element={
+                  <Home  setProduct={setProduct} />
+                  } />
 
 <Route path="/main" element={                  
 <>
@@ -407,6 +394,11 @@ element={
         <Route path="/about" element={<h2>About</h2>} />
         <Route path="/contact" element={<h2>Contact</h2>} />
 
+
+        <Route path="/FindResult" element={
+                                            <FindContainer setProduct={setProduct} />
+                                          } />
+
             <Route path="/products" element={<>{userData && 
 
             <>                 
@@ -420,7 +412,6 @@ element={
                         setProduct={setProduct} 
                         setLoading={setLoading}
                         product={product}
-                        
                     />
 
 

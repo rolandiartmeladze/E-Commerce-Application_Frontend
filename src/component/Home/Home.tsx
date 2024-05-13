@@ -107,7 +107,7 @@ const Home = ({setProduct}:Props) => {
         let item: number = parseInt((numb - 1).toFixed(0));
 
 let TotalView = 0;
-const View = respons.forEach((product:any) => {
+    respons.forEach((product:any) => {
     TotalView += product.view;
 });
 

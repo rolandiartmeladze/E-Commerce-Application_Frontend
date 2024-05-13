@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../style/Aside.css';
-import FindeComponent from './FindeComponent';
-import { patch } from 'semver';
-// import  FindIcon from '../icon/find.png';
-import serverUri from '../component/serverUrl';
-
 
 interface ProducteData {
     setUserData: Function;
