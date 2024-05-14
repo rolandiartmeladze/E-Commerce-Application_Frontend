@@ -354,7 +354,7 @@ padding: 0px;
           return (
     
     <>
- <UploadImage />    
+ {/* <UploadImage />     */}
 
 <div className="app">
 
