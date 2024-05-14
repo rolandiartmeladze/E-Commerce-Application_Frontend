@@ -6,14 +6,14 @@ import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } 
 import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
-import Main from './component/ProductsConteiner/Main';
+import Main from './component/MainComponent/Main';
 import Aside from './component/Aside';
 
 import Home from './component/Home/Home';
 
 import SimilarProduct from './component/ViewProduct/SimilarProduct';
 
-import AllProductsConteiner from './component/ProductsConteiner/AllProductConteiner';
+import AllProductsConteiner from './component/MainComponent/AllProductConteiner';
 import serverUri from './component/serverUrl';
 
 
@@ -33,6 +33,10 @@ import Product from './component/ProductComponent/ProductComponent';
 
 import ProductsConteiner from './component/ProductConteiner/Products';
 import FindContainer from './component/Find/FindContainer';
+import UploadImage from './component/Upload/Upload';
+import AddProduct from './component/MainComponent/AddProduct/Add';
+
+
 
 
 interface User {
@@ -350,7 +354,7 @@ padding: 0px;
           return (
     
     <>
-    
+ <UploadImage />    
 
 <div className="app">
 
@@ -385,6 +389,14 @@ padding: 0px;
             />
 
 </div>
+</>
+
+} />
+
+
+<Route path="/main/add" element={                  
+<>
+<AddProduct  User={activeuser} />
 </>
 
 } />

@@ -8,6 +8,7 @@ import arrowIcon from '../../icon/arrow.png';
 
 import AddNewProduct from '../CreatNewProduct/AddNewProduct';
 import AddProductBtn from './AddProductBtn';
+import AddProduct from './AddProduct/Add';
 import MyProducts from './MyProducts';
 import { Link } from 'react-router-dom';
 
@@ -248,6 +249,9 @@ return (
                                                                                 setSoldAmount={setSoldAmount}
                                                                                 activeuser={activeuser}
                                                                                 setActiveUser={setActiveUser}/>
+
+                                                                                {/* <AddProduct /> */}
+                                                                                
                                                                 <AddProductBtn  addProductFunction={addProductFunction} product={addproduct} />
                                                                 </>
                                                         {/* } */}

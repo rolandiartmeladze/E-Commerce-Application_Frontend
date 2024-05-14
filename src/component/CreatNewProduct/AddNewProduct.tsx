@@ -198,6 +198,29 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
         const newUser = await response.json();
         console.log(newUser);
+
+//         const formData = new FormData();
+//         const advanceForm = document.getElementById("advanceForm") as HTMLFormElement;
+//         const advanceFormInputs = advanceForm?.querySelectorAll<HTMLInputElement>('input, textarea');
+//         const inputsArray = Array.from(advanceFormInputs);
+        
+//         inputsArray.forEach((item: HTMLInputElement, index: number) => {
+//             if (item.type === "file" && item.files && item.files[0]) {
+//                 formData.append('photo', item.files[0]);
+//             } else {
+//                 formData.append(item.name, item.value);
+//             }
+//         });
+
+
+//         console.log(formData)
+
+//  await fetch('./Upload.php', {
+//         method: "POST",
+//         body: formData,
+//     });
+
+
         setInputValues(['', '', '', '']);
     } catch (error) {
         console.error("Error:", error);
@@ -211,42 +234,6 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
 };
 
-
-      
-
-  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     const files = event.target.files;
-  //     if (files && files.length > 0) {
-  //         setSelectedFile(files[0]);
-  //     }
-  // };
-
-  // const handleUpload = async () => {
-  //     if (selectedFile) {
-  //         const formData = new FormData();
-  //         formData.append('image', selectedFile);
-
-  //         try {
-  //             const response = await fetch(`http:/localhost:3001/upload`, {
-  //                 method: 'POST',
-  //                 body: formData,
-  //             });
-  //             if (!response.ok) {
-  //                 throw new Error('Failed to upload file');
-  //             }
-  //             console.log('File uploaded successfully');
-  //             console.log(response);
-  //             const uploadResp = await response.json(); // Parse response JSON
-  //             console.log(uploadResp);
-  //         } catch (error) {
-  //             console.error('Error uploading file:', error);
-  //         }
-  //     } else {
-  //         console.warn('No file selected.');
-  //     }
-  // };  
 
 
 

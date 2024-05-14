@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,  ChangeEvent  } from "react";
 import './AddProducte.css';
 import addimage from "../../icon/addimage.png";
 import addcomment from "../../icon/addcomment.png";
@@ -9,6 +9,19 @@ interface Props {
 
 const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
   const [inputFields, setInputFields] = useState<JSX.Element[]>([]);
+
+  const [images, setImages] = useState<File[]>([]);
+
+  const setImageHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+      const selectedImage = e.target.files && e.target.files[0];
+      
+      if (selectedImage) {
+          setImages(prevImages => [...prevImages, selectedImage]);
+      }
+  
+      console.log(images); 
+  };
+  
   
   const handleAddInput = (type: string, value: string): void => {
     let inputElement: JSX.Element;
@@ -29,6 +42,7 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
       inputElement = (
         <input
           className="inputItem"
+          onChange={setImageHandler}
           key={inputFields.length} 
           accept={value === "img" ? "image/*" : ""}
           type={type}
@@ -56,6 +70,7 @@ const AdditionalInfo: React.FC<Props> = ({ activeUser }) => {
   <div className="additionalInputConteiner">
     <input className="inputItem" value={activeUser.address || ''} placeholder="location" type="text" disabled />
   </div>
+
 
         <div className="additionalInputConteiner" >
         <textarea className="inputItem" placeholder="comment" />
