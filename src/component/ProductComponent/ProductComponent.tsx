@@ -194,7 +194,7 @@ interface Productprops{
                             {loading && clicked === item._id && <Loaing />}
                 
                                 <ImgConteiner>
-                                    <img src={ `./Media/${item.userID}/${item.image[1]}`} alt="product img" />
+                                    <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${item.userID}/${item.image[0]}`} alt="product img" />
                                 </ImgConteiner>
                     
                         <ProductInfo>

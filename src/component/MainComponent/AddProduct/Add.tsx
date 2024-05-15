@@ -310,11 +310,16 @@ const AddProduct =({User}:Props)=>{
             formData.append(`photo_${index}`, image);
         });
     
-        const uploadImagesResponse = await fetch('/api/upload.php', {
-            method: "POST",
-            body: formData,
-        });
+        // const uploadImagesResponse = await fetch('https://embarrassing-unifor.000webhostapp.com/Upload.php', {
+        //     method: "POST",
+        //     body: formData,
+        // });
     
+        const uploadImagesResponse = await fetch('/Upload.php', {
+          method: "POST",
+          body: formData,
+      });
+
         if (!uploadImagesResponse.ok) {
             throw new Error("Failed to upload images");
         }
@@ -335,6 +340,10 @@ const AddProduct =({User}:Props)=>{
     
         const updatedProduct = await addImageResponse.json();
         console.log("Product updated with image filenames:", updatedProduct);
+
+        const Form = document.getElementById('FormElement') as HTMLFormElement;
+        Form.reset();
+
     } catch (error) {
         console.error("Error:", error);
     }
@@ -354,7 +363,7 @@ const AddProduct =({User}:Props)=>{
         
         <h1>Add New Products</h1>
 
-        <FormElement  action="Upload.php" method="POST">
+        <FormElement id="FormElement">
 
         <ProductInfo>
   <div>

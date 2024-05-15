@@ -282,11 +282,11 @@ const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities,
 
 <ProductHeadInfo>
   <ImgConteiner>
-    <img src={testimg} alt='User Icon' />
+    <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}/${product.image[1]}`} alt='User Icon' />
       <ImgsBox>
           {[0,1,2,3,4].map((item,index)=>(
             <samp key={index}>
-              <img src={testimg} alt="prodict imgs" />
+              <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}/${product.image[index]}`} alt="prodict imgs" />
             </samp>
           ))}
       </ImgsBox>
