@@ -317,7 +317,7 @@ const AddProduct =({User}:Props)=>{
       
 
 
-        const response =  await fetch('http://localhost/Upload.php', {
+        const response =  await fetch('./Upload.php', {
             method: "POST",
             body: formData,
         });
