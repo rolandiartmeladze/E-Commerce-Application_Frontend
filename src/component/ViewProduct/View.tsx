@@ -59,6 +59,7 @@ const ProductHeadInfo = styled.div`
 const ImgConteiner = styled.div`
     overflow: hidden;
     max-width: 300px;
+    transition: 0.4s ease-in;
     height: auto;
     display: flex;
     align-items: center;
@@ -66,8 +67,9 @@ const ImgConteiner = styled.div`
     flex-wrap: wrap;
     & img {
       height: auto;
-      width: 96%;
-      max-height: 96%;
+      width: auto;
+      max-width: 96%;
+      max-height: 170px;
       margin-top: 4px;
       border-radius:6px;
     }
@@ -251,7 +253,11 @@ const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities,
 
 
       const FavProps = {favorits, setFavorits, product};
-      const CartProps = {incart, setInCart, product} 
+      const CartProps = {incart, setInCart, product};
+
+      const [elementItem, setElementItem] = useState<number>(1);
+
+
     
     return(
       <>
@@ -282,10 +288,10 @@ const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities,
 
 <ProductHeadInfo>
   <ImgConteiner>
-    <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}/${product.image[1]}`} alt='User Icon' />
+    <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}/${product.image[elementItem]}`} alt='User Icon' />
       <ImgsBox>
-          {[0,1,2,3,4].map((item,index)=>(
-            <samp key={index}>
+          {product.image.map((item:string , index:number)=>(
+            <samp onClick={()=>{setElementItem(index)}} key={index}>
               <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}/${product.image[index]}`} alt="prodict imgs" />
             </samp>
           ))}

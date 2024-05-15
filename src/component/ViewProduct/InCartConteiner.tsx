@@ -328,7 +328,7 @@ const InCartConteiner = ({
       }
     }
     
-    
+    const Media = "https://embarrassing-unifor.000webhostapp.com/Media";
     
     return (
     <>   
@@ -354,7 +354,7 @@ const InCartConteiner = ({
           <ProductConteiner  id={`product${index}`} key={producti._id}>
             {loading && clickedIndex === index &&  <Loading >Please Wait</Loading>}
             <ImgConteiner>
-              <img src={img} alt="img" />
+              <img src={`${Media}/${producti.userID}/${producti.image[0]}`} alt="img" />
             </ImgConteiner>
             <ProductInfoCont>
               <samp>Name: {producti.name.substring(0, 16)}{producti.owner.length > 16 && '...'}</samp>
