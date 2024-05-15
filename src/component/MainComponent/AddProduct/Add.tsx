@@ -310,7 +310,7 @@ const AddProduct =({User}:Props)=>{
             formData.append(`photo_${index}`, image);
         });
     
-        const uploadImagesResponse = await fetch('/Upload.php', {
+        const uploadImagesResponse = await fetch('/api/upload.php', {
             method: "POST",
             body: formData,
         });
