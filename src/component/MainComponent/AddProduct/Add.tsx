@@ -183,7 +183,7 @@ const AddProduct =({User}:Props)=>{
 
     const [email, setEmail] = useState(User.email);
     const [phone, setPhone] = useState(User.phone);
-    const [location, setLocation] = useState(User.address);
+    // const [location, setLocation] = useState(User.address);
 
     const [currency, setCurrency] = useState('₾');
     const [quantityiunit,  setQuantityiunit] = useState('L');
@@ -202,11 +202,12 @@ const AddProduct =({User}:Props)=>{
     };
     
 
-
-
-    const addproduct = () =>{
       const userId = localStorage.getItem('token');
       const owner = localStorage.getItem('user');
+      const location = localStorage.getItem('address');
+
+
+    const Info = () =>{
   
       const today = new Date();
       const day = today.getDate();
@@ -236,6 +237,21 @@ const AddProduct =({User}:Props)=>{
       for (let i = 0; i < 2; i++) {id += letters.charAt(Math.floor(Math.random() * letters.length));}
       for (let i = 0; i < 6; i++) {id += numbers.charAt(Math.floor(Math.random() * numbers.length));}
 
+
+                const insertedItems: any = [];    
+
+      images.forEach((item: File, index: number) => {
+        if (item instanceof File) {
+          let name = id;
+          insertedItems.push({ [`${name}_${index}`]: item });
+        } else {
+          // Skip non-File items
+        }
+      });
+
+
+
+
       const productData = {
         name,
         address,
@@ -243,20 +259,19 @@ const AddProduct =({User}:Props)=>{
         price,
         description,
         comment,
-        email,
-        phone,
+        email: User.email,
+        phone: User.phone,
         location,
         currency,
         quantityiunit,
         category,
-        img: images,
         owner,
         view: 0,
         sale: 0,
         userID: userId,
         datatime,
         share: 0,
-        id: id
+        id,
     };
 
     return productData;
@@ -267,61 +282,88 @@ const AddProduct =({User}:Props)=>{
 
 
     const addFunction = async () => {
+      
       const serverlink = 'https://lavish-husky-gaura.glitch.me';
 
-      const productData = await addproduct();
-
-
       try {
+        const Data = Info();
         const response = await fetch(`${serverlink}/createProduct`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(productData),
+            body: JSON.stringify(Data),
         });
+    
 
         if (!response.ok) {
             throw new Error("Failed to fetch advance data");
         }
-
-        const newUser = await response.json();
-        console.log(newUser);
-
-//         const formData = new FormData();
-//         const advanceForm = document.getElementById("advanceForm") as HTMLFormElement;
-//         const advanceFormInputs = advanceForm?.querySelectorAll<HTMLInputElement>('input, textarea');
-//         const inputsArray = Array.from(advanceFormInputs);
-        
-//         inputsArray.forEach((item: HTMLInputElement, index: number) => {
-//             if (item.type === "file" && item.files && item.files[0]) {
-//                 formData.append('photo', item.files[0]);
-//             } else {
-//                 formData.append(item.name, item.value);
-//             }
-//         });
+    
+        const newProduct = await response.json();
+        console.log(newProduct);
 
 
-//         console.log(formData)
-
-//  await fetch('./Upload.php', {
-//         method: "POST",
-//         body: formData,
-//     });
+            const formData = new FormData();
+        formData.append('newProduct', newProduct); 
+        formData.append('User', User._id); 
 
 
-        // setInputValues(['', '', '', '']);
+        images.forEach((image, index) => {
+          formData.append(`photo_${index}`, image);
+      });
+
+      try {
+
+
+      
+
+
+        const response =  await fetch('http://localhost/Upload.php', {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+      const filenames = await response.json(); 
+
+      if(filenames){
+
+        const addImage = await fetch(`${serverlink}/addImage/${newProduct}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(filenames),
+      });
+      
+      if (!addImage.ok) {
+          throw new Error("Failed to fetch advance data");
+      }
+      
+      const updatedProduct = await addImage.json();
+      console.log(updatedProduct);
+    
+    }
+
+
+
+      console.log(filenames); 
+      
+      
+  } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+  }
+
     } catch (error) {
         console.error("Error:", error);
-    } finally {
-        // setNewUser(false);
-        // fetchData(); 
-        setTimeout(() => {
-            // advanceForm.reset(); 
-        }, 1000);
+    }
+    
+
+
     }
 
-      console.log(addproduct());
+      console.log(Info());
       
-    }
+    
 
 
     
@@ -330,7 +372,7 @@ const AddProduct =({User}:Props)=>{
         
         <h1>Add New Products</h1>
 
-        <FormElement>
+        <FormElement  action="Upload.php" method="POST">
 
         <ProductInfo>
   <div>
@@ -457,7 +499,7 @@ const AddProduct =({User}:Props)=>{
         </FormElement>
 
         {!addMode ? <div className="advance-info-btn-conteiner" >
-                      <button 
+                      <button  type="submit"
                               className="advance-info-btn"
                               onClick={addFunction}>
                         {"Add New Product"} </button>

@@ -48,6 +48,10 @@ interface Productprops{
     share:number;
     category: string;
     datatime: string;
+    image: any[];
+    userID: string;
+
+
 }
 
 

@@ -53,12 +53,14 @@ const SimilarProductHead = styled.h1`
         setProduct: Function;
         setLoading: Function;
         product:any;
+
     }
     
     
     
     interface Product {
         _id: string;
+
     }
 
       const SimilarProduct = ({ incart, setInCart, favorits, setFavorits, loading, setProduct, setLoading, product }: Props) => {

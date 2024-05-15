@@ -20,6 +20,7 @@ import ArrowRigth from "../../icon/arrow.png";
                   import serverUri from '../../component/serverUrl';
 
 import { Console } from "console";
+import { useNavigate } from "react-router-dom";
 
 
 interface UserContainerProps {
@@ -88,8 +89,12 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
                 const serverlink = serverUri();
 
+             const navigate = useNavigate();
 
-            const addProductF = () => {product ? setProduct(false) : setProduct(true);};
+            const addProductF = () => {
+              navigate('/main/add');
+              // product ? setProduct(false) : setProduct(true);
+            };
 
   // ახდენს მონაცემების რამუშავებას აქტიური ექციის შესაბამისად
   // აბრუნებს მასივს ან მასივსა სა ობიექტის კომბინაციას

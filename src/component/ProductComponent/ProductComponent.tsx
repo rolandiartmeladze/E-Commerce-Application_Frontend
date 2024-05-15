@@ -45,6 +45,9 @@ interface Productprops{
     share:number;
     category: string;
     datatime: string;
+    image: any[];
+    userID: string;
+
 }
 
     const Conteiner = styled.div`
@@ -83,15 +86,20 @@ interface Productprops{
                     }
             `;
 
-        const ImgConteiner = styled.div`
+            const ImgConteiner = styled.div`
             width: 100%;
-            // max-height: 150px;
-                img{
-                max-width: 98%;
+            aspect-ratio: 16 / 9; /* You can adjust the aspect ratio as needed */
+            max-height: 150px; /* Specify the maximum height of the container */
+            overflow: hidden; /* Ensure that the image doesn't overflow its container */
+            
+            img {
+                max-width: 100%;
                 max-height: 100%;
+                object-fit: content; 
                 border-radius: 5px;
-                }
+            }
         `;
+
 
             const ProductInfo = styled.div`
                     width: 100%;
@@ -186,7 +194,7 @@ interface Productprops{
                             {loading && clicked === item._id && <Loaing />}
                 
                                 <ImgConteiner>
-                                    <img src={testimg} alt="product img" />
+                                    <img src={ `./Media/${item.userID}/${item.image[1]}`} alt="product img" />
                                 </ImgConteiner>
                     
                         <ProductInfo>
