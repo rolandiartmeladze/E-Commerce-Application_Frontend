@@ -286,77 +286,59 @@ const AddProduct =({User}:Props)=>{
       const serverlink = 'https://lavish-husky-gaura.glitch.me';
 
       try {
-        const Data = Info();
-        const response = await fetch(`${serverlink}/createProduct`, {
+        // Step 1: Create the product
+        const data = Info();
+        const createProductResponse = await fetch(`${serverlink}/createProduct`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(Data),
+            body: JSON.stringify(data),
         });
     
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch advance data");
+        if (!createProductResponse.ok) {
+            throw new Error("Failed to create product");
         }
     
-        const newProduct = await response.json();
-        console.log(newProduct);
-
-
-            const formData = new FormData();
-        formData.append('newProduct', newProduct); 
-        formData.append('User', User._id); 
-
-
+        const newProduct = await createProductResponse.json();
+        console.log("New product created:", newProduct);
+    
+        // Step 2: Upload images
+        const formData = new FormData();
+        formData.append('newProduct', JSON.stringify(newProduct));
+        formData.append('User', User._id);
+    
         images.forEach((image, index) => {
-          formData.append(`photo_${index}`, image);
-      });
-
-      try {
-
-
-      
-
-
-        const response =  await fetch('./Upload.php', {
+            formData.append(`photo_${index}`, image);
+        });
+    
+        const uploadImagesResponse = await fetch('/Upload.php', {
             method: "POST",
             body: formData,
         });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-      }
-      const filenames = await response.json(); 
-
-      if(filenames){
-
-        const addImage = await fetch(`${serverlink}/addImage/${newProduct}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(filenames),
-      });
-      
-      if (!addImage.ok) {
-          throw new Error("Failed to fetch advance data");
-      }
-      
-      const updatedProduct = await addImage.json();
-      console.log(updatedProduct);
     
-    }
-
-
-
-      console.log(filenames); 
-      
-      
-  } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-  }
-
+        if (!uploadImagesResponse.ok) {
+            throw new Error("Failed to upload images");
+        }
+    
+        const filenames = await uploadImagesResponse.json();
+        console.log("Image filenames:", filenames);
+    
+        // Step 3: Update product with image filenames
+        const addImageResponse = await fetch(`${serverlink}/addImage/${newProduct}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(filenames),
+        });
+    
+        if (!addImageResponse.ok) {
+            throw new Error("Failed to update product with image filenames");
+        }
+    
+        const updatedProduct = await addImageResponse.json();
+        console.log("Product updated with image filenames:", updatedProduct);
     } catch (error) {
         console.error("Error:", error);
     }
-    
+        
 
 
     }
