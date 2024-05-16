@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
 
@@ -11,6 +11,9 @@ import clock from '../../icon/clock.png';
 import loc from '../../icon/loc1.png';
 import mail from '../../icon/mail.png';
 import phone from '../../icon/phone.png';
+
+import arrowL from '../../icon/arrow_left.svg';
+import arrowR from '../../icon/arrow_right.svg';
 
 import testimg from '../../img/slide_9.jpg';
 
@@ -50,65 +53,110 @@ const ProductConteiner = styled.div`
 const ProductHeadInfo = styled.div`
       display:flex;
       @media (max-width: 550px) {
-      flex-direction: column;
-
+        flex-direction: column;
       }
   
 `;
 
+      const ImgCont = styled.div`
+            display: flex;
+            width: 100%;
+            height: 170px;
+            align-items: center;
+            justify-content: center;
+      `;
+
 const ImgConteiner = styled.div`
-    overflow: hidden;
-    max-width: 300px;
-    transition: 0.4s ease-in;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    & img {
+      overflow: hidden;
+      width: 300px;
+      transition: 0.4s ease-in;
       height: auto;
-      width: auto;
-      max-width: 96%;
-      max-height: 170px;
-      margin-top: 4px;
-      border-radius:6px;
-    }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      
+        & img {
+          height: auto;
+          width: auto;
+          max-width: 96%;
+          max-height: 170px;
+          border-radius:6px;
+        }
 
-    @media (max-width: 650px) {
-
-      margin:auto;
-      width: 98%;
-      max-width: none;
-
-            
-      }
+          @media (max-width: 650px) {
+            margin:auto;
+            width: 98%;
+            max-width: none;
+            }
 
 `;
 
+
 const ImgsBox = styled.div`
       width: 100%;
-      height: 55px;
-      padding:3px;
+      height: 40px;
+      padding: 5px;
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      position: relative;
 
-        & samp {
-          width: 55px;
-          height: 92%;
-          box-shadow: 0px 0px 3px 1px black;
-          border-radius: 4px;
+        div{
+          width: 100%;
+          height: 100%;
           display: flex;
+          justify-content: space-evenly;
           align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          
-            & img {
-              border-radius: 2px;
-              margin:0;
-            }
+          overflow-x: auto; 
+          scrollbar-width: none;
+  
+            ::-webkit-scrollbar {
+              display: none;
+              }
+                samp {
+                  margin: 0px 3px;
+                  flex: 0 0 50px; 
+                  height: 85%;
+                  box-shadow: 0px 0px 1px 0.5px black;
+                  border-radius: 3px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  cursor: pointer;
+                  overflow: hidden; 
+
+                    img {
+                      border-radius: 2px;
+                      margin: 0;
+                      max-width: 92%;
+                      max-height: 92%;
+                    }
+                }
         }
 
+`;
+
+
+const ArrowSpan = styled.span`
+      position: absolute;
+      width: 25px;
+      height: 86%;
+      align-items: center;
+      cursor: pointer;
+      background-color: rgb(201,1,1 ,0.3);
+      justify-content: center;
+      transform: translateX(0px);
+      display: flex;
+
+        &:hover {
+          background-color: rgb(201,1,1 ,1);
+        }
+        
+          img {
+            width: 100%;
+            margin-top: 0;
+          }
 `;
 
 const MainInfo = styled.div`
@@ -236,12 +284,11 @@ interface Props{
     members:any[];
     setFavorits:Function;
     setInCart:Function;
-    // setInvoic:any;
 }
 
 
 
-const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities, incartResponse, setBuy, members}: Props) =>{
+const View = ({setFavorits,setInCart, product, incart, favorits, buy, quantities, incartResponse, setBuy, members}: Props) =>{
 
   const closebtn = () => {setBuy(false)}
 
@@ -257,9 +304,42 @@ const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities,
 
       const [elementItem, setElementItem] = useState<number>(1);
 
+      const Media = `https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}`;
 
-    
-    return(
+      const [num, setNum] = useState(0); 
+
+      useEffect(() => {
+        const Cont = document.getElementById('Images');
+          if (Cont) {
+            const itemNumb = Cont.clientWidth / 50;
+            const parsedNum = parseInt(itemNumb.toFixed(0), 10);
+            setNum(parsedNum);
+          }
+      }, [product]);
+
+      const handleScroll = (direction: 'left' | 'right') => {
+        const container = document.getElementById('imgs-container');
+        const rigtharrow = document.getElementById('Arrowrigth');
+        const leftarrow = document.getElementById('Arrowleft');
+
+        if (!container || (!rigtharrow && !leftarrow)) return;
+      
+        const scrollAmount = direction === 'left' ? -50 : 50;
+        const initialScrollLeft = container.scrollLeft;
+        container.scrollLeft += scrollAmount;
+        const finalScrollLeft = container.scrollLeft;
+      
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const isScrollableLeft = finalScrollLeft > 0;
+        const isScrollableRight = finalScrollLeft < maxScroll;
+
+        if (leftarrow) {leftarrow.style.display = isScrollableLeft ? 'flex' : 'none';}
+        if (rigtharrow) {rigtharrow.style.display = isScrollableRight ? 'flex' : 'none';}
+      
+      };
+            
+
+      return(
       <>
             {buy &&  
       <BuyFromCartCont id="conteiner" > 
@@ -288,13 +368,38 @@ const View =({setFavorits,setInCart, product, incart, favorits, buy, quantities,
 
 <ProductHeadInfo>
   <ImgConteiner>
-    <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}/${product.image[elementItem]}`} alt='User Icon' />
-      <ImgsBox>
+  <ImgCont>
+
+    <img src={`${Media}/${product.image[elementItem]}`} alt='User Icon' />
+  </ImgCont>
+   
+      <ImgsBox id="Images">
+     <ArrowSpan style={{
+        right: '0px',
+        display: product.image.length >= (num - 1) ? 'flex' : 'none',
+        borderRadius: '5px 0px 0px 5px'
+     }} id="Arrowrigth" onClick={()=>{handleScroll("right")}}>
+        <img src={arrowL} alt="arrow" />
+      </ArrowSpan> 
+
+             <ArrowSpan  style={{
+          left: '0px',
+          display:'none',
+          borderRadius: '0px 5px 5px 0px'
+        }} id="Arrowleft" onClick={()=>{handleScroll("left")}}>
+        <img src={arrowR} alt="arrow" />
+      </ArrowSpan>
+
+       <div  id="imgs-container">          
           {product.image.map((item:string , index:number)=>(
             <samp onClick={()=>{setElementItem(index)}} key={index}>
-              <img src={`https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}/${product.image[index]}`} alt="prodict imgs" />
+              <img src={`${Media}/${product.image[index]}`} alt="prodict imgs" />
             </samp>
           ))}
+          </div>
+      
+
+
       </ImgsBox>
   </ImgConteiner>
 
