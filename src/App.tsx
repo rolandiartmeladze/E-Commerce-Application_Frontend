@@ -7,7 +7,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
 import Main from './component/MainComponent/Main';
-import Aside from './component/Aside';
+// import Aside from './component/Aside';
 
 import Home from './component/Home/Home';
 
@@ -71,7 +71,7 @@ interface Productprops{
 
 const Section = styled.section`
  padding: 8px; 
- paddingTop: 2px;
+ padding-top: 2px;
 
  @media (max-width: 650px) {
 
@@ -378,15 +378,15 @@ padding: 0px;
   <div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
 
 
-  <Main {...componentsprops} {...ProductsProps} />
+  <Main />
 
-    <Aside {...componentsprops}      
+    {/* <Aside {...componentsprops}      
             activeuser={activeuser}
             setActiveUser={setActiveUser} 
             members={members}
             usermode={usermode}
             myRoom={myRoom} 
-            />
+            /> */}
 
 </div>
 </>

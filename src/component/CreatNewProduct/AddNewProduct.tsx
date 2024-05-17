@@ -91,10 +91,6 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
              const navigate = useNavigate();
 
-            const addProductF = () => {
-              navigate('/main/add');
-              // product ? setProduct(false) : setProduct(true);
-            };
 
   // ახდენს მონაცემების რამუშავებას აქტიური ექციის შესაბამისად
   // აბრუნებს მასივს ან მასივსა სა ობიექტის კომბინაციას
@@ -241,6 +237,19 @@ const AddNewProduct: React.FC<UserContainerProps> = ({
 
 
 
+const addProductF = () => {
+  navigate('/main/add');
+};
+<div onClick={addProductF} className={"update-advanse-head"}>
+<h1>
+  <samp style={{ color: !product ? "black" : "red", padding: "7px" }}>
+    Add Product </samp>
+      <samp style={{ display: "flex" }}>
+        <img className={!product ? "aarowRight" : "aarowRight aarowRight-active"}
+          src={ArrowRigth}
+          alt=""/> </samp>
+</h1>
+</div>
 
 
   return (

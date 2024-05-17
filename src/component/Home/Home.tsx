@@ -12,11 +12,14 @@ interface Props{
 const Conteiner = styled.div`
     width: 100%;
     min-height: 200px;
-    // background-color: green;
+    // max-width: 1250px;
     border-radius: 8px;
     box-shadow: 1px 0px 3px 0.5px;
     margin-top: 16px;        
-
+    // @media (min-width: 1250px) {
+    
+    //     padding: 5px 20px;
+    // }
 
     h1{
         text-align: left;

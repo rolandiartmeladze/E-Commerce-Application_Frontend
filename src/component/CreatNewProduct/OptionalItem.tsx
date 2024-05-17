@@ -68,3 +68,5 @@ const categoryOptions = cattegorys.map((cattegory, index) => (
 };
 
 export default OptionalItem;
+
+

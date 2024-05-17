@@ -11,6 +11,7 @@ import CloseIcon from '../../icon/close.svg';
 
 const MeniuCmponent = styled.div`
   background-color: rgba(100, 1, 47, 0.4);
+  width: 100%;
   height: 40px;
   padding: 2px 0px;
   display: flex;
