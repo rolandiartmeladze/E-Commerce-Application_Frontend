@@ -288,17 +288,31 @@ const AddProduct =({User}:Props)=>{
       try {
         // Step 1: Create the product
         const data = Info();
-        const createProductResponse = await fetch(`${serverlink}/createProduct`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
+
+        const response = await fetch(`${serverlink}/createProduct`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+          throw new Error("Failed to fetch advance data");
+      }
+
+      const newProduct = await response.json();
+
+
+        // const createProductResponse = await fetch(`http://localhost:3001/createProduct`, {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(data),
+        // });
     
-        if (!createProductResponse.ok) {
-            throw new Error("Failed to create product");
-        }
+        // if (!createProductResponse.ok) {
+        //     throw new Error("Failed to create product");
+        // }
     
-        const newProduct = await createProductResponse.json();
+        // const newProduct = await createProductResponse.json();
         console.log("New product created:", newProduct);
     
         // Step 2: Upload images
@@ -310,15 +324,15 @@ const AddProduct =({User}:Props)=>{
             formData.append(`photo_${index}`, image);
         });
     
-        // const uploadImagesResponse = await fetch('https://embarrassing-unifor.000webhostapp.com/Upload.php', {
-        //     method: "POST",
-        //     body: formData,
-        // });
+        const uploadImagesResponse = await fetch('https://embarrassing-unifor.000webhostapp.com/Upload.php', {
+            method: "POST",
+            body: formData,
+        });
     
-        const uploadImagesResponse = await fetch('/Upload.php', {
-          method: "POST",
-          body: formData,
-      });
+      //   const uploadImagesResponse = await fetch('/Upload.php', {
+      //     method: "POST",
+      //     body: formData,
+      // });
 
         if (!uploadImagesResponse.ok) {
             throw new Error("Failed to upload images");
@@ -343,6 +357,8 @@ const AddProduct =({User}:Props)=>{
 
         const Form = document.getElementById('FormElement') as HTMLFormElement;
         Form.reset();
+        setImages([]);
+
 
     } catch (error) {
         console.error("Error:", error);

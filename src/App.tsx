@@ -35,6 +35,7 @@ import ProductsConteiner from './component/ProductConteiner/Products';
 import FindContainer from './component/Find/FindContainer';
 import UploadImage from './component/Upload/Upload';
 import AddProduct from './component/MainComponent/AddProduct/Add';
+import MainNavigate from './component/MainComponent/Navigate/MainNavigate';
 
 
 
@@ -372,34 +373,16 @@ padding: 0px;
                   <Home  setProduct={setProduct} />
                   } />
 
-<Route path="/main" element={                  
-<>
+  {/* <Route path="/main" element={<Main />} />
+  <Route path="/main/add" element={<AddProduct  User={activeuser} />} />
+ */}
 
-  <div style={{ gridTemplateColumns: myRoom? '75% 25%':'100%', marginBottom:'5px'}} className="main">
+      <Route path="/main" element={<MainNavigate />}>
+          <Route path="products" element={<Main />} />
+          <Route path="add" element={<AddProduct User={activeuser} />} />
+          <Route path="jurnal" element={<h2>Jurnal</h2>} />
+      </Route>
 
-
-  <Main />
-
-    {/* <Aside {...componentsprops}      
-            activeuser={activeuser}
-            setActiveUser={setActiveUser} 
-            members={members}
-            usermode={usermode}
-            myRoom={myRoom} 
-            /> */}
-
-</div>
-</>
-
-} />
-
-
-<Route path="/main/add" element={                  
-<>
-<AddProduct  User={activeuser} />
-</>
-
-} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/singup" element={<SignUp />} />

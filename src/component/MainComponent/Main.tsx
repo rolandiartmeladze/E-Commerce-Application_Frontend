@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { useNavigation } from 'react-router-dom';
+// import { useNavigation } from 'react-router-dom';
+
+import styled from 'styled-components';
 
 import './ProductsConteiner.css';
 import '../UsersComponent/SingUp.css';
@@ -18,7 +20,16 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Container from './ProductsConteiner/Conteiner';
 import Aside from './Aside/Aside';
+import MainNavigate from './Navigate/MainNavigate';
 
+
+
+const Box = styled.div`
+        grid-row: 2;
+        grid-column: 1;
+        display: grid;
+        grid-template-columns: 75% 25%;      
+`;
 
 
 interface MainProps {
@@ -56,20 +67,24 @@ function Main({ }: MainProps) {
 
                         const [myProducts, setMyProducts] = useState<Product[] | null>(null)
                         const [selected, setSelected] = useState<Product[] | null>(null)
-
+                        const [loading, setLoading] = useState<boolean>(false);
                 useEffect(()=>{
                         async function FetchData() {
-                                try {                        
+                                try {          
+                                        let serverlink = "https://lavish-husky-gaura.glitch.me";
+
+                                        setLoading(true);              
                                         const token = localStorage.getItem('token');
 
-                                const MainProduct = await fetch(`http://localhost:3001/Main/${token}`, {
+                                const MainProduct = await fetch(`${serverlink}/Main/${token}`, {
                                         method: 'GET',
                                         headers: {'Content-Type': 'application/json'}
                                         });
 
                                         if(!MainProduct.ok){throw new Error('Failed to fetch users data');}
                                         // const Products = await MainProduct.json();
-                                        setMyProducts(await MainProduct.json())
+                                        setMyProducts(await MainProduct.json());
+                                        setLoading(false);
                                                 // console.log(Products);
                                 } catch (error) {
                                         
@@ -80,54 +95,6 @@ function Main({ }: MainProps) {
                 },[])
 
 
-
-        // const addProductFunction = () => {addproduct? setAddProduct(false):setAddProduct(true)};
-
-
-        //         const closefinde = () => {
-        //                     setFindStatus(false)
-        //                     setNotound(false);
-        //                     fetchData();
-        //                     setFindInput('');
-        //                 }
-
-        //                 const myproduct: Product[] = (activeuser as ActiveUser)?.products || [];
-        //                 const favproduct: Favorits[] = (activeuser as ActiveUser)?.favorits || [];
-
-
-        //                 const [ismain ,setIsMain] = useState(true);
-        //                 const [isfav ,setIsFav] = useState(false);
-
-
-        //                 const myroom = () => {
-                                
-        //                         if(myRoom){
-        //                         setMyRoom(false);
-        //                         //  setIsMain(false); 
-        //                         //  setIsFav(false);      
-        //                         } else {
-        //                                 setMyRoom(true);
-        //                                 setIsMain(true);
-        //                         }
-                                  
-                                
-        //                 }
-
-        //                 const setfavoritmode = () =>{
-        //                         if(!isfav && (favproduct.length > 0)){
-        //                                 setIsFav(true); 
-        //                                 setIsMain(false);
-        //                                 setMyRoom(true);
-        //                         }
-                                  
-                                
-        //                   }
-
-        //                   const setmyproductmode = () =>{
-        //                         !ismain && setIsFav(false); setIsMain(true);
-        //                         setMyRoom(true);
-        //                   }
-
                          const navigate = useNavigate()
                           const addProductF = () => {
                                 navigate('/main/add');
@@ -137,10 +104,11 @@ function Main({ }: MainProps) {
 
 return (
 <>
-
-
+{loading && <h1>Loading...</h1>}
+<Box>
 {myProducts && <Container products={myProducts} setSelected={setSelected} />}
 {myProducts && <Aside product={selected} />}
+</Box>
 
 
 </>

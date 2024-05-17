@@ -22,6 +22,7 @@ const MeniuCmponent = styled.div`
   margin-bottom: 0px;
 
   ul {
+    list-style: none;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -42,6 +43,7 @@ const MeniuCmponent = styled.div`
       font-weight: 700;
       box-shadow: 0px 0px 1px 0.5px brown;
       transition: 0.4s ease-in-out;
+      align-items: center;
 
       &:hover {
         backdrop-filter: contrast(0.5);  
@@ -199,7 +201,7 @@ const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct,  menuVi
                               </Link>
                           )}
                           {usermode && itemName === 'myRoom' && (
-                              <Link onClick={() => { setMyRoom(true); toggleMenu()} } to={`/main`} key={key}>
+                              <Link onClick={() => { setMyRoom(true); toggleMenu()} } to={`/main/products`} key={key}>
                                   <li>{'My Room'}</li>
                               </Link>
                           )}
