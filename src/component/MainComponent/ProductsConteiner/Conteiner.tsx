@@ -6,12 +6,19 @@ import vewicon from '../../../icon/view.png';
 import shareicon from '../../../icon/share.png';
 import saleicon from '../../../icon/cost.png';
 
+const Header = styled.h1`
+border-bottom-left-radius: 5px;
+text-align: left;
+background-color: rgb(201, 21, 01, 0.4);
+padding: 3px 8px;
+width: 100%;
+  `;
 
  const ConteinerComponent = styled.div`
         display:flex;
         flex-wrap: wrap;
         gap: 15px;
-        padding: 8px;
+        padding-right: 8px;
         justify-content: space-around;
         align-items: flex-start;
  `;
@@ -134,8 +141,12 @@ import saleicon from '../../../icon/cost.png';
 
             const Media = 'https://embarrassing-unifor.000webhostapp.com/Media';
 
-        return(
+        return(                            
+        <>
+
                 <ConteinerComponent>
+        <Header>My Products: {products && products.length}</Header>
+
                     {products.map((item, index) => (
                     
                         <Product onClick={()=>{setSelected(item)}} key={item._id}>
@@ -174,6 +185,8 @@ import saleicon from '../../../icon/cost.png';
                 
                     }
                 </ConteinerComponent>
+                </>
+
             );
         }
 

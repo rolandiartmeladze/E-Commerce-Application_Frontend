@@ -3,6 +3,15 @@ import styled from "styled-components";
 
 import addImage from '../../../icon/add_photo.svg';
 
+
+  const Header = styled.h1`
+  border-bottom-left-radius: 5px;
+  text-align: left;
+  background-color: rgb(1, 1, 201, 0.4);
+  padding: 3px 8px;
+    `;
+
+
 const FormElement = styled.form`
 display: flex;
     width: 100%;
@@ -47,15 +56,63 @@ display: flex;
     }
 
     select{ flex: 2; }
-    h4{ margin: 0px; }
+    h3{ 
+      margin: 0px;
+      text-align: left;
+      display: inline-block;
+      padding-bottom: 5px;
+      position: relative;
+
+      &:before{
+        position: absolute;
+        content: '';
+        height: 4px;
+        width: 100%;
+        bottom: 0;
+        background: linear-gradient(to right, rgb(1,71,51,0.5) 0%, transparent 100%);
+           }
+
+    }
     h4{
       margin: 0px; 
       margin-right: 5px;
+    }
+
+    select{
+      padding: 4px;
+      border: none;
+      outline: none;
     }
     
     
   `;
 
+  const Button = styled.button`
+  padding: 10px;
+  border-radius: 4px;
+  margin-right: 15px;
+  float: right;
+  background-color: ${({ theme }) => theme.primaryColor || 'rgb(60,113,129)'};
+  color: ${({ theme }) => theme.primaryTextColor || 'white'};
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primaryHoverColor || 'darkblue'};
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus {
+    outline: 2px solid ${({ theme }) => theme.primaryFocusColor || 'darkblue'};
+    outline-offset: 2px;
+  }
+`;
 
   const FileInputWrapper = styled.div`
         position: relative;
@@ -101,7 +158,7 @@ flex-wrap: wrap;
 flex-direction: row;
 justify-content: space-between;
 align-items: center !important;
-margin-top: 12px;
+// margin-top: 12px;
 
 max-width: 300px;
 div{
@@ -316,11 +373,14 @@ const AddProduct =({User}:Props)=>{
     return(
         <>          
         
-        <h1>Add New Products</h1>
+        <Header>Add New Products</Header>
 
         <FormElement id="FormElement">
 
         <ProductInfo>
+          
+          <h3>Product Info:</h3>
+
   <div>
     <label>Name:</label>
     <input
@@ -378,6 +438,7 @@ const AddProduct =({User}:Props)=>{
         </ProductInfo>
 
 <ProductInfo>
+<h3>Contact Info:</h3>
 
   <div>
     <h4>Phone:</h4>
@@ -394,8 +455,9 @@ const AddProduct =({User}:Props)=>{
     <div>{User.address}</div>
   </div>
 
+<ImagesConteiner style={{marginTop: '12px'}}>
+<h3 style={{width: '100%'}}>Upload Media:</h3>
 
-<ImagesConteiner>
   {images.map((item, index) => (
   <div key={index}>
     <img src={URL.createObjectURL(item)} alt={`image ${index}`} />
@@ -418,6 +480,7 @@ const AddProduct =({User}:Props)=>{
 
 
 <ProductInfo>
+<h3> Select Properties </h3>
 
         <div>
           <label><h4>Currency:</h4></label>
@@ -435,7 +498,7 @@ const AddProduct =({User}:Props)=>{
 
         <div>
           <label><h4>Category:</h4></label>
-          <select  onChange={(e) => setCategory(e.target.value)}   className="currency-select" id="CategoryOptions">
+          <select  onChange={(e) => setCategory(e.target.value)} id="CategoryOptions">
           {categoryOptions}
           </select>
         </div>
@@ -444,11 +507,11 @@ const AddProduct =({User}:Props)=>{
 
         </FormElement>
 
-        <div className="advance-info-btn-conteiner" >
-                      <button  type="submit"
-                              className="advance-info-btn"
+        <div>
+                      <Button  type="submit"
                               onClick={addFunction}>
-                        {"Add New Product"} </button>
+                        Add Product
+                        </Button>
                   </div>
 
         </>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react"; 
+import React, { ChangeEvent, useEffect, useState } from "react"; 
 import styled from "styled-components";
 
 import '../../../style/Aside.css';
@@ -55,7 +55,9 @@ const AsideContainer = styled.aside`
                     background: inherit;
                     border: none;
                     outline: none;
-                    box-shadow: 0px 2px 3px 0.3px black;
+                    background-color: rgb(1,1,1,0.1);
+                    box-shadow: 0px 0px 0.4px 0.3px brown inset;
+                    border-radius: 3px;
                     font-weight: 900;
                     width: 90%; 
                     box-sizing: border-box;
@@ -80,13 +82,47 @@ const AsideContainer = styled.aside`
                                 background-color: rgb(31,111, 41,0.4); 
                             }    
                     }
-    `;
+                    `;
+
+                        const Cost = styled.div`
+                        font-size: 20px;
+                        border: none !important;
+                        padding: 4px 0 !important;
+                        width: auto !important;
+                        margin-left: 10px !important;
+                        position: relative;
+                        z-index: 2;
+                        transition: 0.3s ease;
+                        
+                                &:before{
+                                    position: absolute;
+                                    content: '';
+                                    height: 80%;
+                                    width: 6px;
+                                    background-color: red;
+                                    left: -6px;
+                                    border-radius: 3px 0px 0px 3px;
+                                 }
+                                 &:after{
+                                    position: absolute;
+                                    content: '';
+                                    height: 80%;
+                                    width: 110%;
+                                    background-color: rgb(1,201,1, 0.3);
+                                    left: 0px;
+                                    z-index: -1;
+
+                                 }
+                        `;
 
 interface Props{product:any;}
 
 const Aside =({product}:Props)=>{
 
+
     const [soldAmount ,setSoldAmount] = useState(1);
+
+    useEffect(()=>{ setSoldAmount(1); }, [product])
 
     const minus = () => {product && setSoldAmount(Math.max(0, soldAmount - 1)); };
 
@@ -101,7 +137,7 @@ const Aside =({product}:Props)=>{
     return(
                         <AsideContainer>
                     
-                    <h1>info </h1>
+                    <h1 style={{textDecoration: 'underline'}}>Selected Product Info </h1>
                         <ul>
                             <div><b>Name:</b><samp>{product?.name}</samp> </div>
                             <div><b>Address:</b><samp>{product?.address}</samp></div>
@@ -112,8 +148,9 @@ const Aside =({product}:Props)=>{
                                     <input disabled={!product} type="number"
                                             value={soldAmount} onChange={inset} />
                                 <samp onClick={plus}> <img src={Plus} alt="Plus" /> </samp>
-                            </Quantity>                      
-                            <div><b>Total:</b><samp>{product?.price * soldAmount} {product?.currency}</samp></div>
+                            </Quantity>  
+
+                            <Cost><b>Total:</b><samp>{product?.price * soldAmount} {product?.currency}</samp></Cost>
                         </ul>
 
                         <div className='Btn'>
