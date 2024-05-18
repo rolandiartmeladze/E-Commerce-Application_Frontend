@@ -10,10 +10,9 @@ import CloseIcon from '../../icon/close.svg';
 
 
 const MeniuCmponent = styled.div`
-  background-color: rgba(100, 1, 47, 0.4);
   width: 100%;
   height: 40px;
-  padding: 2px 0px;
+  padding: 5px 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,7 +29,7 @@ const MeniuCmponent = styled.div`
     margin: 0;
     align-items: stretch;
     height: 100%;
-    margin-right: 5px;
+    margin-right: 6px;
 
     li {
       flex-grow: 1;
@@ -42,7 +41,7 @@ const MeniuCmponent = styled.div`
       backdrop-filter: contrast(1.5);   
       font-weight: 700;
       box-shadow: 0px 0px 1px 0.5px brown;
-      transition: 0.4s ease-in-out;
+      transition: 0.3s ease-in-out;
       align-items: center;
 
       &:hover {
@@ -173,40 +172,14 @@ const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => 
             </CloseComponent>
 
 
-          <ul key='meniunav'>
-              {items.map((itemName, index) => {
-                  let key = `${itemName}-${index}`; 
-                  return (
-                      <React.Fragment key={key}>
-                          {itemName === 'home' && (
-                              <Link onClick={meniuOFF} to={`/`} key={key}>
-                                  <li>{'Home'}</li>
-                              </Link>
-                          )}
-                          {usermode && itemName === 'myRoom' && (
-                              <Link onClick={() => {toggleMenu()} } to={`/main/products`} key={key}>
-                                  <li>{'My Room'}</li>
-                              </Link>
-                          )}
-                          {itemName === 'products' && (
-                              <Link onClick={() => { setProduct(null); toggleMenu() }} to={`/products`} key={key}>
-                                  <li>{'Products'}</li>
-                              </Link>
-                          )}
-                          {itemName === 'About' && (
-                              <Link onClick={meniuOFF} to={`/about`} key={key}>
-                                  <li>{'About'}</li>
-                              </Link>
-                          )}
-                          {itemName === 'Contact' && (
-                              <Link onClick={meniuOFF} to={`/contact`} key={key}>
-                                  <li>{'Contact'}</li>
-                              </Link>
-                          )}
-                      </React.Fragment>
-                  );
-              })}
+          <ul>
+            <Link onClick={meniuOFF} to={`/`}> <li>{'Home'}</li> </Link>
+            {usermode && ( <Link onClick={() => {toggleMenu()} } to={`/main/products`}> <li>My Room</li> </Link> )}
+            <Link onClick={() => { setProduct(null); toggleMenu() }} to={`/products`}> <li>Products</li> </Link>
+            <Link onClick={meniuOFF} to={`/about`}> <li>About</li> </Link>
+            <Link onClick={meniuOFF} to={`/contact`}> <li>Contact</li> </Link>               
           </ul>
+
       </MeniuCmponent>
   );
 } 
