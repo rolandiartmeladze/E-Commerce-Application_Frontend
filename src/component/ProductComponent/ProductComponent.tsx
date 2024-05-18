@@ -189,7 +189,6 @@ interface Productprops{
                         <Link onClick={() => { clickF(item._id); setClicked(item._id) }}  
                         to={`/products/${item._id}`}
                         key={item._id} >
-                            <>
 
                             {loading && clicked === item._id && <Loaing />}
                 
@@ -203,36 +202,31 @@ interface Productprops{
                                 {(item.name.length > 20) ? item.name.slice(0, 35) + '...' : item.name}
                             </InfoItem>
 
+  
+                                <ItemInfoAdd>
+                                    <samp style={{ display: 'flex', alignItems: 'center' }}>
+                                    <img width="20" src={time} alt='time icon' /> {item.datatime}
+                                    </samp>
+                                </ItemInfoAdd>
 
                                 <ItemInfoAdd>
-                                   <div style={{
-                                    display: 'flex',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap'}}> 
                                     <samp style={{ display: 'flex', alignItems: 'center', marginRight: '6px' }}>
                                         <img width="20" src={user} alt='owner icon' />
                                         {item.owner}
                                     </samp>
-                                    
-                                        <samp style={{ display: 'flex', alignItems: 'center' }}>
-                                        <img width="20" src={time} alt='time icon' /> {item.datatime}
-                                        </samp>
+                                </ItemInfoAdd>                                         
 
-                                    </div>
-                                </ItemInfoAdd>                            
-                                
                 
                             <ItemInfoAdd>
                                 <p>
                                 <samp style={{ display: 'flex', alignItems: 'flex-end' }}>
                                 <img width="20" src={category} alt='category icon' />  {item.category}</samp>
-
                                 </p>
-                                </ItemInfoAdd>
+                            </ItemInfoAdd>
 
                                     <ItemInfoAdd>
-                                        <p style={{alignItems: 'flex-start'}}>
-                                        <samp style={{ display: 'flex', alignItems: 'flex-end' }}>
+                                        <p style={{alignItems: 'flex-start', maxWidth: '85%'}}>
+                                        <samp style={{ display: 'flex', alignItems: item.description.length > 30 ? 'flex-start' :  'flex-end' }}>
                                          <img width="20" src={description} alt='category icon' />
                                             {item.description && (item.description.length > 20) ? item.description.slice(0, 35) + '...' : item.description}</samp>
                                         </p>
@@ -245,14 +239,12 @@ interface Productprops{
                                     <samp><img src={cost} alt="cost icon" />{item.sale}</samp>
                                     <samp><img src={share} alt="share icon" />{item.share}</samp>
                         
-                        
                                             <Fav {...FavProps} itemId={item._id} product={null} />
                                             <Cart {...CartProps} itemId={item._id} product={null} />
-                        
                                 </ItemInfoEnd>
 
                         </ProductInfo>
-                                    </> 
+                                    
                                     </Link>
                         </article>
                

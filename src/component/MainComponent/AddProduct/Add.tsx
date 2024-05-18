@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from "react";
-import styled, { css }  from "styled-components";
-import ArrowRigth from "../../../icon/arrow.png";
+import styled from "styled-components";
 
 import addImage from '../../../icon/add_photo.svg';
-import '../../CreatNewProduct/AddProducte.css';
 
 const FormElement = styled.form`
 display: flex;
@@ -48,12 +46,8 @@ display: flex;
       outline: none; 
     }
 
-    select{
-      flex: 2;
-    }
-    h4{
-      margin: 0px;
-    }
+    select{ flex: 2; }
+    h4{ margin: 0px; }
     h4{
       margin: 0px; 
       margin-right: 5px;
@@ -64,17 +58,12 @@ display: flex;
 
 
   const FileInputWrapper = styled.div`
-    position: relative;
-    display: inline-block !important;
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-margin: 8px;    
-
-
-    // img{
-    //   width: 50px;
-    // }
+        position: relative;
+        display: inline-block !important;
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        margin: 8px;    
 
 `;
 
@@ -84,25 +73,25 @@ const FileInput = styled.input`
 `;
 
 const FileInputLabel = styled.label`
-  display: inline-block;
-  padding: 4px;
-  background-color:#b83e3e6e;
-  color: white;
-  border: none;
-  cursor: pointer;
-  height: 100%;
-  border-radius: 8px;
-box-shadow: 2px 2px 5px 2px black;
-transition: 0.4s ease;
+      display: inline-block;
+      padding: 4px;
+      background-color:#b83e3e6e;
+      color: white;
+      border: none;
+      cursor: pointer;
+      height: 100%;
+      border-radius: 8px;
+    box-shadow: 2px 2px 5px 2px black;
+    transition: 0.4s ease;
 
-&:hover {
-  box-shadow: 0px 0px 1px 0.5px black;
-}
-  &:focus {
-    outline: 1px dotted #000;
-    outline: -webkit-focus-ring-color auto 5px;
-  }
-`;
+    &:hover {
+      box-shadow: 0px 0px 1px 0.5px black;
+    }
+      &:focus {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;
+      }
+    `;
 
 
 const ImagesConteiner = styled.div`
@@ -170,9 +159,6 @@ const AddProduct =({User}:Props)=>{
 
 
 
-    const [addMode, setAddMode] = useState<boolean>(false)
-
-    const addProductF = () => {addMode ? setAddMode(false) : setAddMode(true);};
 
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
@@ -181,8 +167,6 @@ const AddProduct =({User}:Props)=>{
     const [description, setDescription] = useState('');
     const [comment, setComment] = useState('');
 
-    const [email, setEmail] = useState(User.email);
-    const [phone, setPhone] = useState(User.phone);
     // const [location, setLocation] = useState(User.address);
 
     const [currency, setCurrency] = useState('₾');
@@ -215,22 +199,15 @@ const AddProduct =({User}:Props)=>{
       const year = today.getFullYear();
       let hours = today.getHours();
       let minutes = today.getMinutes();
-      let period = 'AM'; // Default period is AM
+      let period = 'AM'; 
       
-      // Adjust hours and period for PM format
-      if (hours >= 12) {
-          period = 'PM';
-          if (hours > 12) {
-              hours -= 12;
-          }
-      }
+      if (hours >= 12) { period = 'PM';
+          if (hours > 12) {  hours -= 12; }
+       }
       
       minutes = typeof minutes === 'string' ? parseInt(minutes, 10) : minutes;
-  
-          
       const datatime = `${day}/${month}/${year} ${hours}:${minutes} ${period}`;
-          
-  
+
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       const numbers = '0123456789';
       let id = '';
@@ -238,8 +215,7 @@ const AddProduct =({User}:Props)=>{
       for (let i = 0; i < 6; i++) {id += numbers.charAt(Math.floor(Math.random() * numbers.length));}
 
 
-                const insertedItems: any = [];    
-
+     const insertedItems: any = [];    
       images.forEach((item: File, index: number) => {
         if (item instanceof File) {
           let name = id;
@@ -253,29 +229,12 @@ const AddProduct =({User}:Props)=>{
 
 
       const productData = {
-        name,
-        address,
-        quantity,
-        price,
-        description,
-        comment,
-        email: User.email,
-        phone: User.phone,
-        location,
-        currency,
-        quantityiunit,
-        category,
-        owner,
-        view: 0,
-        sale: 0,
-        userID: userId,
-        datatime,
-        share: 0,
-        id,
-    };
-
-    return productData;
-      
+            name, address, quantity, price, description, comment,
+            email: User.email, id, datatime, view: 0, sale: 0,
+            phone: User.phone, userID: userId, share: 0,  
+            location, currency, quantityiunit, category, owner,
+          };
+        return productData;
     }
 
 
@@ -288,31 +247,17 @@ const AddProduct =({User}:Props)=>{
       try {
         // Step 1: Create the product
         const data = Info();
-
-        const response = await fetch(`${serverlink}/createProduct`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-          throw new Error("Failed to fetch advance data");
-      }
-
-      const newProduct = await response.json();
-
-
-        // const createProductResponse = await fetch(`http://localhost:3001/createProduct`, {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(data),
-        // });
+        const createProductResponse = await fetch(`${serverlink}/createProduct`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        });
     
-        // if (!createProductResponse.ok) {
-        //     throw new Error("Failed to create product");
-        // }
+        if (!createProductResponse.ok) {
+            throw new Error("Failed to create product");
+        }
     
-        // const newProduct = await createProductResponse.json();
+        const newProduct = await createProductResponse.json();
         console.log("New product created:", newProduct);
     
         // Step 2: Upload images
@@ -367,12 +312,6 @@ const AddProduct =({User}:Props)=>{
 
 
     }
-
-      console.log(Info());
-      
-    
-
-
     
     return(
         <>          
@@ -436,7 +375,7 @@ const AddProduct =({User}:Props)=>{
               />
             </div>
 
-</ProductInfo>
+        </ProductInfo>
 
 <ProductInfo>
 
@@ -505,12 +444,12 @@ const AddProduct =({User}:Props)=>{
 
         </FormElement>
 
-        {!addMode ? <div className="advance-info-btn-conteiner" >
+        <div className="advance-info-btn-conteiner" >
                       <button  type="submit"
                               className="advance-info-btn"
                               onClick={addFunction}>
                         {"Add New Product"} </button>
-                  </div>:null}
+                  </div>
 
         </>
     );

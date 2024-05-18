@@ -1,6 +1,8 @@
 const FindRequest = async (search) => {
     try {
-        const findProduct = await fetch(`http://localhost:3001/Find/${search}`, {
+        let serverlink = "https://lavish-husky-gaura.glitch.me";
+
+        const findProduct = await fetch(`${serverlink}/Find/${search}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         });

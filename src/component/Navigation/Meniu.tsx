@@ -135,10 +135,7 @@ const CloseComponent = styled.div`
 
 
  interface MeniuProps{
-    setUserData:Function;
-    fetchData:Function;
     usermode:boolean;
-    setMyRoom:Function;
     setProduct:Function;
     menuVisible:boolean; 
     toggleMenu:Function;
@@ -146,38 +143,24 @@ const CloseComponent = styled.div`
 
 
 
-const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct,  menuVisible, toggleMenu}:MeniuProps) => {
+const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => {
   
   const menuRef = useRef(null);
-
-
-  const menuStyles = {
-    display: menuVisible ? 'flex' : 'none',
-    // Add more styles as needed
-};
+  const menuStyles = { display: menuVisible ? 'flex' : 'none', };
 
     let items = ['home', 'myRoom', 'products',"About",'Contact'];
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
-      const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-      };
-  
-      window.addEventListener('resize', handleResize);
-  
-      // Clean up the event listener on component unmount
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []); // Empty dependency array to run this effect only once
+      const handleResize = () => { setWindowWidth(window.innerWidth); };
+            window.addEventListener('resize', handleResize);
+      return () => { window.removeEventListener('resize', handleResize); };
+    }, []); 
   
     const isMobile = windowWidth <= 750;
 
-    const meniuOFF = () =>{
-      return toggleMenu();
-    }
+    const meniuOFF = () =>{ return toggleMenu(); }
 
     return (
       <MeniuCmponent ref={menuRef}  style={isMobile ? menuStyles : undefined}>
@@ -201,7 +184,7 @@ const Meniu = ({setUserData, fetchData, usermode, setMyRoom, setProduct,  menuVi
                               </Link>
                           )}
                           {usermode && itemName === 'myRoom' && (
-                              <Link onClick={() => { setMyRoom(true); toggleMenu()} } to={`/main/products`} key={key}>
+                              <Link onClick={() => {toggleMenu()} } to={`/main/products`} key={key}>
                                   <li>{'My Room'}</li>
                               </Link>
                           )}

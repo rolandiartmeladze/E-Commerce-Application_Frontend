@@ -1,28 +1,11 @@
 import React, { useEffect, useState } from 'react';
-
-// import { useNavigation } from 'react-router-dom';
-
 import styled from 'styled-components';
 
 import './ProductsConteiner.css';
 import '../UsersComponent/SingUp.css';
-import arrowIcon from '../../icon/arrow.png';
-
-
-
-import AddNewProduct from '../CreatNewProduct/AddNewProduct';
-import AddProductBtn from './AddProductBtn';
-import AddProduct from './AddProduct/Add';
-import { Link, useNavigate } from 'react-router-dom';
-
-
-
 
 import Container from './ProductsConteiner/Conteiner';
 import Aside from './Aside/Aside';
-import MainNavigate from './Navigate/MainNavigate';
-
-
 
 const Box = styled.div`
         grid-row: 2;
@@ -30,21 +13,6 @@ const Box = styled.div`
         display: grid;
         grid-template-columns: 75% 25%;      
 `;
-
-
-interface MainProps {
-}
-      interface Product { _id: string; }
-      interface ActiveUser { 
-                products: Product[]; 
-                favorits: Favorits[]; 
-                }
-
-      interface Favorits {
-                _id: string;
-                name: string;
-                }
-      
 
       interface Product{
                 _id: string;
@@ -63,55 +31,37 @@ interface MainProps {
                 }
     
       
-function Main({ }: MainProps) {
+function Main() {
 
-                        const [myProducts, setMyProducts] = useState<Product[] | null>(null)
-                        const [selected, setSelected] = useState<Product[] | null>(null)
-                        const [loading, setLoading] = useState<boolean>(false);
+                const [myProducts, setMyProducts] = useState<Product[] | null>(null)
+                const [selected, setSelected] = useState<Product[] | null>(null)
+                const [loading, setLoading] = useState<boolean>(false);
                 useEffect(()=>{
                         async function FetchData() {
-                                try {          
-                                        let serverlink = "https://lavish-husky-gaura.glitch.me";
-
+                                try {                                        
                                         setLoading(true);              
+                                        let serverlink = "https://lavish-husky-gaura.glitch.me";
                                         const token = localStorage.getItem('token');
-
-                                const MainProduct = await fetch(`${serverlink}/Main/${token}`, {
-                                        method: 'GET',
-                                        headers: {'Content-Type': 'application/json'}
-                                        });
+                                        const MainProduct = await fetch(`${serverlink}/Main/${token}`, {
+                                                method: 'GET',
+                                                headers: {'Content-Type': 'application/json'}
+                                                });
 
                                         if(!MainProduct.ok){throw new Error('Failed to fetch users data');}
-                                        // const Products = await MainProduct.json();
-                                        setMyProducts(await MainProduct.json());
-                                        setLoading(false);
-                                                // console.log(Products);
-                                } catch (error) {
-                                        
-                                }
+                                                setMyProducts(await MainProduct.json());
+                                                setLoading(false);
+                                } catch (error) {console.log(error)}
                         }
-                                FetchData()
+                        FetchData()
 
                 },[])
 
-
-                         const navigate = useNavigate()
-                          const addProductF = () => {
-                                navigate('/main/add');
-                              };
-                              
-                                                
-
 return (
-<>
-{loading && <h1>Loading...</h1>}
-<Box>
-{myProducts && <Container products={myProducts} setSelected={setSelected} />}
-{myProducts && <Aside product={selected} />}
-</Box>
-
-
-</>
+        <Box>
+                {loading && <h1>Loading...</h1>}
+                {myProducts && <Container products={myProducts} setSelected={setSelected} />}
+                {myProducts && <Aside product={selected} />}
+        </Box>
         );
 }
 

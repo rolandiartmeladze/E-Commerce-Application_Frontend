@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 
 import "../style/Header.css";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ import userIcin from "../icon/user.png";
 import meniuicon from '../icon/menu.svg';
 
 import FindComponent from './Find/FindComponent';
+import Meniu from './Navigation/Meniu';
 
 const Logo = styled.h1`
   margin: 0;
@@ -81,11 +82,11 @@ const MeniuBtn = styled.div`
 `;
 
   const HeaderComponent = styled.div`
-    /* background:inherit; */
-    padding: 10px;
-
+    padding: 0px 0px;
+    display: flex;
+    flex-direction: column;
     margin: 0;
-    height: 20%;
+    // height: 20%;
     max-height: 250px;
     box-shadow: 2px 2px 6px 0.5px rgb(0, 0, 0 , 0.8);
     backdrop-filter: blur(2px);
@@ -103,20 +104,16 @@ interface HeaderProps {
   login: any;
   setLogIn: any;
   usermode: boolean;
-  chekfavorits: any;
-  toggleMenu: Function;
-
+  setProduct: Function;
 }
 
 
 
 const Header: React.FC<HeaderProps> = ({
-  login,
-  setLogIn,
-  usermode,
-  chekfavorits,
-  toggleMenu 
-
+      login,
+      setLogIn,
+      usermode,
+      setProduct,
 }) => {
 
 
@@ -128,6 +125,14 @@ const Header: React.FC<HeaderProps> = ({
 // }
 
 
+const [menuVisible, setMenuVisible] = useState(false);
+
+const toggleMenu = () => {
+  setMenuVisible(!menuVisible);
+}
+
+
+
   const loginbtn = () => {
     !login ? setLogIn(true) : setLogIn(false);
   };
@@ -136,17 +141,21 @@ const Header: React.FC<HeaderProps> = ({
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("address");
-    chekfavorits();
+
     localStorage.removeItem("favorits");
     window.location.reload();
   };
 
-  const home = () => {
-    window.location.reload();
-  };
+
+  const MeniuProps ={ usermode, setProduct};
+
+
 
   return (
     <HeaderComponent>
+
+      <div style={{height: '80px'}}>
+
       {/* ავტორიზებული მომხმარებლის მონაცემები ან ლოგო */}
       <>
         {usermode ? (
@@ -158,7 +167,7 @@ const Header: React.FC<HeaderProps> = ({
             </Userinfo>
           </div>
         ) : (
-          <Logo onClick={home}>MyShop.App</Logo>
+         <Link to={'/'}> <Logo>MyShop.App</Logo> </Link>
         )}
       </>
 
@@ -193,7 +202,18 @@ const Header: React.FC<HeaderProps> = ({
         <img src={meniuicon} alt="" /> 
         </MeniuBtn>
 
+        </div>
+
+
         <FindComponent />
+
+
+
+
+        <Meniu {...MeniuProps}  menuVisible={menuVisible} toggleMenu={toggleMenu}  />
+
+
+        {/* <Meniu /> */}
 
     </HeaderComponent>
   );

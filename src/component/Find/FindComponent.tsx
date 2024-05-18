@@ -4,12 +4,13 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const SearchContainer = styled.div`
-      position: absolute;
+      position: relative;
       bottom: 5px;
       display: flex;
       width: 98%;
       justify-content: center;
       margin:auto;
+      margin-bottom: 8px;
       @media screen and (max-width: 550px) {width: 92%;}
     `;
 

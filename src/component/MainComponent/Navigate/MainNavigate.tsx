@@ -30,7 +30,7 @@ const Navigate = styled.nav`
         }
         img{
             width: 25px;
-            argin-right: 4px;
+            argin-right: 6px;
 
         }
 `;

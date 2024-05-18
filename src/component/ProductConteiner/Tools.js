@@ -179,6 +179,7 @@ const Productsnavigation = styled.h1`
 
 // Main component
 const SortProduct = ({ setRespons, setLoading }) => {
+    
     const navigate = useNavigate();
     const location = useLocation();
     const [view, setView] = useState("All");

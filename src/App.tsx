@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter as  Routes, Route } from 'react-router-dom';
 
 
-import logo from './logo.svg';
 import './App.css';
 import Header from './component/Header';
 import Main from './component/MainComponent/Main';
@@ -13,11 +12,9 @@ import Home from './component/Home/Home';
 
 import SimilarProduct from './component/ViewProduct/SimilarProduct';
 
-import AllProductsConteiner from './component/MainComponent/AllProductConteiner';
 import serverUri from './component/serverUrl';
 
 
-import Meniu from './component/Navigation/Meniu';
 
 import { Navigation } from './component/ProductConteiner/Tools';
 
@@ -33,7 +30,6 @@ import Product from './component/ProductComponent/ProductComponent';
 
 import ProductsConteiner from './component/ProductConteiner/Products';
 import FindContainer from './component/Find/FindContainer';
-import UploadImage from './component/Upload/Upload';
 import AddProduct from './component/MainComponent/AddProduct/Add';
 import MainNavigate from './component/MainComponent/Navigate/MainNavigate';
 
@@ -98,8 +94,6 @@ padding: 0px;
 
   const App: React.FC = () => {
   
-  // const navigate = useNavigate(); 
-
   const token = localStorage.getItem('token');
 
     const [usermode, setUserMode] = useState<boolean>(() => {
@@ -112,24 +106,12 @@ padding: 0px;
   
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [findstatus, setFindStatus] = useState<boolean>(false);
-  const [notfound, setNotound] = useState<boolean>(false);
-  const [findInput, setFindInput] = useState<string>('');
     const [userData, setUserData] = useState<any[]>([]);
-    const [advanceData, setAdvanceData] = useState<any[]>([]);
-      const [isselected, setIsSelected] = useState(false);
-      const [selectedUser, setSelectedUser] = useState<User | null>(null);
-      const [soldAmount, setSoldAmount] = useState<number>(1);
-        const [inUerMode, setInUserMode] = useState(true);
-        const [addproduct, setAddProduct] = useState<any>(false);
-          const [singup, setSingUp] = useState(false);
           const [login, setLogIn] = useState(false);
     const [activeuser,setActiveUser] = useState<any>({});
     const [members, setMembers] = useState<any>([]);
-    const [myRoom, setMyRoom] = useState(true);
       const [favorits, setFavorits] = useState<any[]>(JSON.parse(localStorage.getItem('favorits') ?? '[]'));
       const [incart, setInCart] = useState<any[]>(JSON.parse(localStorage.getItem('incart') ?? '[]'));
-    const [inproduct, sesInProduct] = useState<boolean>(false);
     const [incartResponse, setInCartResponse] = useState<any[]>([]);
     const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
     const [buy, setBuy] = useState<boolean>(false);
@@ -267,40 +249,8 @@ padding: 0px;
         };
         
 
-        const [menuVisible, setMenuVisible] = useState(false);
-
-        const toggleMenu = () => {
-          setMenuVisible(!menuVisible);
-        }
-      
         
 
-    const componentsprops = {
-          userData,
-          setUserData,
-          loading,
-          setLoading,
-          findstatus,
-          setFindStatus,
-          notfound,
-          setNotound,
-          findInput,
-          setFindInput,
-          isselected,
-          setIsSelected,
-          selectedUser,
-          setSelectedUser,   
-          soldAmount,
-          setSoldAmount
-          };
-
-        const HeaderProps = {
-              login,
-              setLogIn,
-              usermode,
-              chekfavorits,
-              toggleMenu,
-              }
 
           const ViewProductProps = {
                 product, incart, favorits, 
@@ -321,35 +271,10 @@ padding: 0px;
                       setProduct
                       }
 
-                      const ProductsConteinerProps = {
-                            userData, usermode, favorits, 
-                            setFavorits, incart, 
-                            setInCart, chekfavorits, 
-                            activeuser, loading,
-                            setLoading, members,
-                            sesInProduct, product, 
-                            setProduct,
-                            }
-
-                            const ProductsProps = {
-                                  inUerMode, setInUserMode,
-                                  findInput, setFindInput,
-                                  fetchData, advanceData,
-                                  setAdvanceData, singup,
-                                  setSingUp, addproduct, 
-                                  setAddProduct, login,
-                                  setLogIn, activeuser,
-                                  setActiveUser, usermode,
-                                  favorits, myRoom, setMyRoom,
-                                  }
-                                      const MeniuProps ={setUserData, fetchData, usermode, setMyRoom, setProduct};
 
 
-
-                                  const NavigationProps = {setProduct, product};
-
-
-
+    const NavigationProps = {setProduct, product};
+    const HeaderProps = {login, setLogIn, usermode, setProduct};
 
 
           return (
@@ -364,18 +289,11 @@ padding: 0px;
 
 
 <Section>
-
-    <Meniu {...MeniuProps}  menuVisible={menuVisible} toggleMenu={toggleMenu}  />
  
   <Routes>
-  <Route path={'/'}     
-          element={
-                  <Home  setProduct={setProduct} />
-                  } />
 
-  {/* <Route path="/main" element={<Main />} />
-  <Route path="/main/add" element={<AddProduct  User={activeuser} />} />
- */}
+  <Route path={'/'}  element={ <Home  setProduct={setProduct} /> } />
+
 
       <Route path="/main" element={<MainNavigate />}>
           <Route path="products" element={<Main />} />
@@ -389,10 +307,8 @@ padding: 0px;
         <Route path="/about" element={<h2>About</h2>} />
         <Route path="/contact" element={<h2>Contact</h2>} />
 
-
-        <Route path="/FindResult" element={
-                                            <FindContainer setProduct={setProduct} />
-                                          } />
+           {/* hear back Find result respons */}
+        <Route path="/FindResult" element={ <FindContainer setProduct={setProduct} /> } />
 
             <Route path="/products" element={<>{userData && 
 
@@ -432,13 +348,13 @@ padding: 0px;
                             <>
                                  <SimilarProduct                         
                                  incart={incart}
-                        setInCart={setInCart}
-                        favorits={favorits}
-                        setFavorits={setFavorits}
-                        loading={loading}
-                        setProduct={setProduct} 
-                        setLoading={setLoading}
-                        product={product} />
+                                setInCart={setInCart}
+                                favorits={favorits}
+                                setFavorits={setFavorits}
+                                loading={loading}
+                                setProduct={setProduct} 
+                                setLoading={setLoading}
+                                product={product} />
                             </>
                 </div>
               } />

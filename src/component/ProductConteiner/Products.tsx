@@ -33,6 +33,7 @@ interface Props {
 
 const ProductsConteiner = ({ incart, setInCart, favorits, setFavorits, loading, setProduct, setLoading, product }: Props) => {
     
+    // setProduct(null);
     
     setLoading(true);
     const [respons, setRespons] = useState<any | null>(null); 
