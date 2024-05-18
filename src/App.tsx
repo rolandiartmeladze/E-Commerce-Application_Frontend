@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as  Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 
 
 import './App.css';
