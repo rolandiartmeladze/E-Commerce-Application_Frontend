@@ -23,19 +23,15 @@ const FormElement = styled.form`
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-    padding: 10px 0px;
     justify-content: flex-start;
     margin-top: 12px;
+    // max-width: 1024px;
 
     @media (max-width: 750px) {
       margin-top: 4px;
       padding: 5px 0px;
-
       }
-
-
-    ul{display: flex;}
-  `;
+`;
 
 
 
@@ -47,55 +43,18 @@ const FormElement = styled.form`
   
     div {
       display: flex;
-      align-items: flex-start;  
     }
   
-    label {
-      width: auto; 
-      margin-right: 4px; 
-      text-align: left;
-      flex: 1;
-    }
-  
-    input, textarea, select {
-      flex: 1; 
-      box-shadow: none;
-      border: 1px solid #ccc;
-      border-radius: 4px; 
-      padding: 8px; 
-      font-size: 16px; 
-      color: #333; 
-      outline: none; 
-    }
-  
-    select {
-      flex: 2; 
-      padding: 4px;
-      border: none;
-      outline: none;
-    }
   
     h3 {
       margin: 0px;
       text-align: left;
       display: inline-block;
-      padding-bottom: 5px;
+      padding-bottom: 2px;
       position: relative;
-  
-      &:before {
-        position: absolute;
-        content: '';
-        height: 4px;
-        width: 100%;
-        bottom: 0;
-        background: linear-gradient(to right, rgba(1, 71, 51, 0.5) 0%, transparent 100%);
-      }
+      text-decoration: underline;
     }
   
-    h4 {
-      margin: 0px; 
-      margin-right: 5px;
-    }
   
     @media (max-width: 750px) {
       width: 100%;
@@ -113,6 +72,48 @@ const FormElement = styled.form`
         flex-direction: column;
       }
   
+    }
+  `;
+  
+  
+  const StyledProductInfo = styled.div`
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            gap: 5px;
+            padding: 6px;
+            background-color: rgb(120,18,4, 0.1);
+        
+            input, textarea, select {
+              flex: 1; 
+              box-shadow: none;
+              border: 1px solid #ccc;
+              border-radius: 4px; 
+              padding: 8px; 
+              font-size: 16px; 
+              color: #333; 
+              outline: none; 
+            }
+            label {
+              width: auto; 
+              margin-right: 4px; 
+              text-align: left;
+              flex: 1;
+            }
+        
+        
+  &:after {
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 10px;
+    top: -1px;
+    left: -10px;
+    background-color: red;
+    padding: 1px 0px;
+    border-radius: 6px 0px 0px 6px;
+
+    @media (max-width: 500px) {
       input, textarea {
         width: 90%;
         margin-left: 10px;
@@ -124,15 +125,23 @@ const FormElement = styled.form`
         margin: 4px;
       }
     }
-  `;
-  
-  
 
+
+    @media (max-width: 750px) {
+      width: 4px;
+      left: -4px;
+    }
+
+  }
+
+        `;
 
            const StyledContactInfo = styled.div`
                   flex-direction: column;
                   position: relative;
-                    h3{margin: 0; }
+                  padding: 6px;
+                  background-color: rgb(221,51,1,0.1);
+
                     img{
                         width: 25px;
                         margin-top: 3px;
@@ -142,29 +151,22 @@ const FormElement = styled.form`
                           margin: 3px 5px;
                       }
 
-
-                    &:before {
-                      position: absolute;
-                      content: "";
-                      height: 100%;
-                      width: 100%;
-                      top: -4px;
-                      left: -4px;
-                      background: linear-gradient(to right, rgb(221,51,1,0.3) 0%, transparent 100%);
-                      z-index: -1;
-
-                      padding: 4px;
-                    }
-                    &:after {
+                      &:after {
                       position: absolute;
                       content: "";
                       height: 100%;
                       width: 10px;
-                      top: -4px;
-                      left: -14px;
+                      top: 0px;
+                      left: -10px;
                       background-color: blue;
-                      padding: 4px 0px;
+                      padding: 0px 0px;
                       border-radius: 6px 0px 0px 6px;
+
+                      @media (max-width: 750px) {
+                        width: 4px;
+                        left: -4px;
+                      }
+                  
 
                     }
 
@@ -180,6 +182,84 @@ const FormElement = styled.form`
               
 
 `;
+
+
+const MediaInfo = styled.div`
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 6px;
+    background-color: rgb(120,118,4, 0.1);;
+
+        div{justify-content: space-evenly;}
+        &:after {
+          position: absolute;
+          content: "";
+          height: 100%;
+          width: 10px;
+          top: -1px;
+          left: -10px;
+          background-color: green;
+          padding: 1px 0px;
+          border-radius: 6px 0px 0px 6px;
+
+          @media (max-width: 750px) {
+            width: 4px;
+            left: -4px;
+        
+          }
+        
+        }
+`;
+
+const Propertyes = styled.div`
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(90,11,68, 0.1);
+        padding: 6px;
+        position: relative;
+        div{margin: 3px 0px;
+          display: flex;
+    flex-direction: row;
+        }
+        h4{margin: 0px 6px;}
+        select {
+          flex: 1; 
+          padding: 4px;
+          border: none;
+          outline: none;
+          background: none;
+          color:red;
+        }
+    
+&:after {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 10px;
+  top: -1px;
+  left: -10px;
+  background-color: yellow;
+  padding: 1px 0px;
+  border-radius: 6px 0px 0px 6px;
+
+  @media (max-width: 750px) {
+    width: 4px;
+    left: -4px;
+
+  }
+}
+  @media (max-width: 500px) {
+
+    input, textarea {
+      width: 90%;
+      margin-left: 10px;
+
+    }
+
+`;
+
 
   const Button = styled.button`
         padding: 10px;
@@ -482,7 +562,8 @@ const AddProduct =({User}:Props)=>{
         <FormElement id="FormElement">
 
         <ProductInfo>
-          
+          <StyledProductInfo>
+
           <h3>Product Info:</h3>
 
   <div>
@@ -538,6 +619,7 @@ const AddProduct =({User}:Props)=>{
                 onChange={(e) => setComment(e.target.value)}
               />
             </div>
+            </StyledProductInfo>
 
         </ProductInfo>
 
@@ -563,8 +645,11 @@ const AddProduct =({User}:Props)=>{
 
   </StyledContactInfo>
 
+ 
+ <MediaInfo>
 
-<ImagesConteiner style={{marginTop: '12px'}}>
+
+<ImagesConteiner>
 <h3 style={{width: '100%'}}>Upload Media:</h3>
 
   {images.map((item, index) => (
@@ -576,6 +661,7 @@ const AddProduct =({User}:Props)=>{
 </ImagesConteiner>
 
 
+
   <FileInputWrapper >
 
       <FileInput onChange={Select} type="file" id="file" />
@@ -584,10 +670,14 @@ const AddProduct =({User}:Props)=>{
       </FileInputLabel>
     </FileInputWrapper>
 
+ </MediaInfo>
+
 
 </ProductInfo>
 
 <ProductInfo>
+  <Propertyes>
+
 <h3> Select Properties </h3>
 
         <div>
@@ -611,11 +701,19 @@ const AddProduct =({User}:Props)=>{
           </select>
         </div>
 
+  </Propertyes>
+
 </ProductInfo>
 
         </FormElement>
 
-        <div>
+        <div style={{
+          marginTop: '8px',
+          height: '40px',
+          backgroundColor: 'rgb(35, 15, 15, 0.2)',
+          padding: '6px 0px',
+          borderRadius: '5px',
+        }}>
                       <Button  type="submit"
                               onClick={addFunction}>
                         Add Product

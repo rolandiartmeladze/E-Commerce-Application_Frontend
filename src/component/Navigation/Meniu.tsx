@@ -17,6 +17,7 @@ const MeniuCmponent = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  
   box-shadow: 0px -1px 1px 0px black;
   margin-bottom: 0px;
 
