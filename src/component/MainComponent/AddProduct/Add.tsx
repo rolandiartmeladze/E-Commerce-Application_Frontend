@@ -5,28 +5,31 @@ import addImage from '../../../icon/add_photo.svg';
 
 
   const Header = styled.h1`
-  border-bottom-left-radius: 5px;
-  text-align: left;
-  background-color: rgb(1, 1, 201, 0.4);
-  padding: 3px 8px;
-    `;
+        border-bottom-left-radius: 5px;
+        text-align: left;
+        background-color: rgb(1, 1, 201, 0.4);
+        padding: 3px 8px;
+
+        @media (max-width: 500px) {
+        border-radius: 0px;
+        }
+      `;
 
 
 const FormElement = styled.form`
-display: flex;
+    display: flex;
     width: 100%;
     flex-wrap: wrap;
     padding: 10px 0px;
     justify-content: flex-start;
+    margin-top: 12px;
 
-    ul{
-      display: flex;
-    }
-    
-    `;
+    ul{display: flex;}
+  `;
 
 
-    const ProductInfo = styled.div`
+
+  const ProductInfo = styled.div`
     display: flex; 
     flex-direction: column;
     gap: 5px;
@@ -34,7 +37,7 @@ display: flex;
   
     div {
       display: flex;
-      align-items: flex-start;      
+      align-items: flex-start;  
     }
   
     label {
@@ -44,7 +47,7 @@ display: flex;
       flex: 1;
     }
   
-    input, textarea {
+    input, textarea, select {
       flex: 1; 
       box-shadow: none;
       border: 1px solid #ccc;
@@ -54,65 +57,137 @@ display: flex;
       color: #333; 
       outline: none; 
     }
-
-    select{ flex: 2; }
-    h3{ 
+  
+    select {
+      flex: 2; 
+      padding: 4px;
+      border: none;
+      outline: none;
+    }
+  
+    h3 {
       margin: 0px;
       text-align: left;
       display: inline-block;
       padding-bottom: 5px;
       position: relative;
-
-      &:before{
+  
+      &:before {
         position: absolute;
         content: '';
         height: 4px;
         width: 100%;
         bottom: 0;
-        background: linear-gradient(to right, rgb(1,71,51,0.5) 0%, transparent 100%);
-           }
-
+        background: linear-gradient(to right, rgba(1, 71, 51, 0.5) 0%, transparent 100%);
+      }
     }
-    h4{
+  
+    h4 {
       margin: 0px; 
       margin-right: 5px;
     }
-
-    select{
-      padding: 4px;
-      border: none;
-      outline: none;
+  
+    @media (max-width: 750px) {
+      width: 100%;
+      margin: 6px 25px;
+  
+      input, textarea {
+        flex: 3.5 !important;
+      }
     }
-    
-    
+  
+    @media (max-width: 500px) {
+      margin: 6px auto;
+      width: 90%;
+  
+      div {
+        max-width: 90%;
+        flex-direction: column;
+      }
+  
+      input, textarea {
+        width: 100%;
+        margin-left: 10px;
+
+      }
+  
+      label {
+        font-weight: bolder;
+      }
+    }
   `;
+  
+  
+
+
+           const StyledProductInfo = styled.div`
+                  flex-direction: column;
+                  position: relative;
+                    h3, h4 {margin: 0;}
+                      div{
+                          display:flex;
+                          margin: 3px 5px;
+                      }
+
+
+                    &:before {
+                      position: absolute;
+                      content: "";
+                      height: 100%;
+                      width: 100%;
+                      top: -4px;
+                      left: -4px;
+                      background: linear-gradient(to right, rgb(221,51,1,0.3) 0%, transparent 100%);
+                      z-index: -1;
+
+                      padding: 4px;
+                    }
+                    &:after {
+                      position: absolute;
+                      content: "";
+                      height: 100%;
+                      width: 10px;
+                      top: -4px;
+                      left: -14px;
+                      background-color: blue;
+                      padding: 4px 0px;
+                      border-radius: 6px 0px 0px 6px;
+
+                    }
+
+                    @media (max-width: 500px) {
+                      div{
+                        display:flex;
+                        display: flex;
+                        width: 100%;
+                        flex-direction: row;
+
+                      }
+                      }
+              
+
+`;
 
   const Button = styled.button`
-  padding: 10px;
-  border-radius: 4px;
-  margin-right: 15px;
-  float: right;
-  background-color: ${({ theme }) => theme.primaryColor || 'rgb(60,113,129)'};
-  color: ${({ theme }) => theme.primaryTextColor || 'white'};
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+        padding: 10px;
+        border-radius: 4px;
+        margin-right: 15px;
+        float: right;
+        background-color: ${({ theme }) => theme.primaryColor || 'rgb(60,113,129)'};
+        color: ${({ theme }) => theme.primaryTextColor || 'white'};
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
 
-  &:hover {
-    background-color: ${({ theme }) => theme.primaryHoverColor || 'darkblue'};
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme.primaryFocusColor || 'darkblue'};
-    outline-offset: 2px;
-  }
-`;
+        &:hover {background-color: ${({ theme }) => theme.primaryHoverColor || 'darkblue'};}
+        &:active {transform: scale(0.98);}
+        &:focus {
+          outline: 2px solid ${({ theme }) => theme.primaryFocusColor || 'darkblue'};
+          outline-offset: 2px;
+        }
+      `;
 
   const FileInputWrapper = styled.div`
         position: relative;
@@ -122,12 +197,12 @@ display: flex;
         border-radius: 8px;
         margin: 8px;    
 
-`;
+      `;
 
 const FileInput = styled.input`
-  position: absolute;
-  left: -9999px;
-`;
+      position: absolute;
+      left: -9999px;
+    `;
 
 const FileInputLabel = styled.label`
       display: inline-block;
@@ -138,12 +213,10 @@ const FileInputLabel = styled.label`
       cursor: pointer;
       height: 100%;
       border-radius: 8px;
-    box-shadow: 2px 2px 5px 2px black;
-    transition: 0.4s ease;
+      box-shadow: 2px 2px 5px 2px black;
+      transition: 0.4s ease;
 
-    &:hover {
-      box-shadow: 0px 0px 1px 0.5px black;
-    }
+      &:hover { box-shadow: 0px 0px 1px 0.5px black; }
       &:focus {
         outline: 1px dotted #000;
         outline: -webkit-focus-ring-color auto 5px;
@@ -152,42 +225,38 @@ const FileInputLabel = styled.label`
 
 
 const ImagesConteiner = styled.div`
-width: 100%;
-display: flex;
-flex-wrap: wrap;
-flex-direction: row;
-justify-content: space-between;
-align-items: center !important;
-// margin-top: 12px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center !important;
+      max-width: 300px;
 
-max-width: 300px;
-div{
+      div{
+        display: flex;  
+        width: 55px;
+        height: 55px;
+        margin-top: 6px;
+        padding: 3px;
+        box-shadow: 0px 0px 3px 1px black;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 6px;
 
-  display: flex;  
-  width: 60px;
-  max-width: 22%;
-  max-height: 60px;
-  margin-top: 6px;
-  padding: 3px;
-  box-shadow: 0px 0px 3px 1px black;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 6px;
-  
-} 
- img{
-  width: auto;
-  max-width: 90%;
-  height: 90%;
-  max-height: 60px;
-}
+        img{
+          width: auto;
+          max-width: 98%;
+          height: auto;
+          max-height: 98%;
+          border-radius: 3px;
+        }
+      } 
 
-        `;
+    `;
 
-interface Props{
-  User:any;
-}
+interface Props{User:any;}
 
 const AddProduct =({User}:Props)=>{
 
@@ -370,6 +439,7 @@ const AddProduct =({User}:Props)=>{
 
     }
     
+
     return(
         <>          
         
@@ -437,7 +507,8 @@ const AddProduct =({User}:Props)=>{
 
         </ProductInfo>
 
-<ProductInfo>
+        <ProductInfo>
+<StyledProductInfo>
 <h3>Contact Info:</h3>
 
   <div>
@@ -454,6 +525,9 @@ const AddProduct =({User}:Props)=>{
     <h4>Location:</h4>
     <div>{User.address}</div>
   </div>
+
+  </StyledProductInfo>
+
 
 <ImagesConteiner style={{marginTop: '12px'}}>
 <h3 style={{width: '100%'}}>Upload Media:</h3>
@@ -477,7 +551,6 @@ const AddProduct =({User}:Props)=>{
 
 
 </ProductInfo>
-
 
 <ProductInfo>
 <h3> Select Properties </h3>

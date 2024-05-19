@@ -147,7 +147,6 @@ const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => 
   const menuRef = useRef(null);
   const menuStyles = { display: menuVisible ? 'flex' : 'none', };
 
-    let items = ['home', 'myRoom', 'products',"About",'Contact'];
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 

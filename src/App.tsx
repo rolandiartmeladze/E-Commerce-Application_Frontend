@@ -276,6 +276,8 @@ padding: 0px;
     const NavigationProps = {setProduct, product};
     const HeaderProps = {login, setLogIn, usermode, setProduct};
 
+    
+
 
           return (
     
