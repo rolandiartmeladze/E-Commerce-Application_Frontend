@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
 import addImage from '../../../icon/add_photo.svg';
+import call from '../../../icon/call.svg';
+import mail from '../../../icon/mail.svg';
+import loc from '../../../icon/loc.svg';
 
 
   const Header = styled.h1`
@@ -10,7 +13,7 @@ import addImage from '../../../icon/add_photo.svg';
         background-color: rgb(1, 1, 201, 0.4);
         padding: 3px 8px;
 
-        @media (max-width: 500px) {
+        @media (max-width: 750px) {
         border-radius: 0px;
         }
       `;
@@ -23,6 +26,13 @@ const FormElement = styled.form`
     padding: 10px 0px;
     justify-content: flex-start;
     margin-top: 12px;
+
+    @media (max-width: 750px) {
+      margin-top: 4px;
+      padding: 5px 0px;
+
+      }
+
 
     ul{display: flex;}
   `;
@@ -91,28 +101,27 @@ const FormElement = styled.form`
       width: 100%;
       margin: 6px 25px;
   
-      input, textarea {
-        flex: 3.5 !important;
-      }
     }
   
     @media (max-width: 500px) {
-      margin: 6px auto;
+      margin: 10px auto;
       width: 90%;
   
       div {
-        max-width: 90%;
+        max-width: 98%;
+        margin-left: 2%;
         flex-direction: column;
       }
   
       input, textarea {
-        width: 100%;
+        width: 90%;
         margin-left: 10px;
 
       }
   
       label {
         font-weight: bolder;
+        margin: 4px;
       }
     }
   `;
@@ -120,10 +129,14 @@ const FormElement = styled.form`
   
 
 
-           const StyledProductInfo = styled.div`
+           const StyledContactInfo = styled.div`
                   flex-direction: column;
                   position: relative;
-                    h3, h4 {margin: 0;}
+                    h3{margin: 0; }
+                    img{
+                        width: 25px;
+                        margin-top: 3px;
+                      }
                       div{
                           display:flex;
                           margin: 3px 5px;
@@ -155,11 +168,11 @@ const FormElement = styled.form`
 
                     }
 
-                    @media (max-width: 500px) {
+                    @media (max-width: 750px) {
                       div{
                         display:flex;
                         display: flex;
-                        width: 100%;
+                        width: 90%;
                         flex-direction: row;
 
                       }
@@ -253,6 +266,16 @@ const ImagesConteiner = styled.div`
           border-radius: 3px;
         }
       } 
+
+
+                    @media (max-width: 750px) {
+                        display: flex;
+                        max-width: 90%;
+
+                        flex-direction:  row !important;
+
+                      }
+
 
     `;
 
@@ -440,6 +463,17 @@ const AddProduct =({User}:Props)=>{
     }
     
 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const handleResize = () => { setWindowWidth(window.innerWidth); };
+            window.addEventListener('resize', handleResize);
+      return () => { window.removeEventListener('resize', handleResize); };
+    }, []); 
+  
+    const isMobile = windowWidth <= 750;
+    const ContactOrder = { order:  '-1' };
+
     return(
         <>          
         
@@ -507,26 +541,27 @@ const AddProduct =({User}:Props)=>{
 
         </ProductInfo>
 
-        <ProductInfo>
-<StyledProductInfo>
+        <ProductInfo style={isMobile? ContactOrder : undefined}>
+
+<StyledContactInfo>
 <h3>Contact Info:</h3>
 
   <div>
-    <h4>Phone:</h4>
+    <img src={call} alt="Phone" />
     <div>{User.phone}</div>
   </div>
 
   <div>
-    <h4>Email:</h4>
+  <img src={mail} alt="Mail" />
     <div>{User.email}</div>
   </div>
 
   <div>
-    <h4>Location:</h4>
+  <img src={loc} alt="Location" />
     <div>{User.address}</div>
   </div>
 
-  </StyledProductInfo>
+  </StyledContactInfo>
 
 
 <ImagesConteiner style={{marginTop: '12px'}}>

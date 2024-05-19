@@ -38,14 +38,12 @@ const Navigate = styled.nav`
         @media (max-width: 500px) {
 
 
-        display: flex;
-    height: auto;
-    width: 100%;
-    background-color: rgb(1, 1, 1, 0.3);
-    flex-wrap: nowrap;
-    flex-direction: column;
-    padding: 8px 0px;
-
+            display: flex;
+            height: auto;
+            width: 100%;
+            background-color: rgb(1, 1, 1, 0.3);
+            flex-wrap: wrap;
+            padding: 8px 0px;
     a{
         margin: 4px 8px;
 
