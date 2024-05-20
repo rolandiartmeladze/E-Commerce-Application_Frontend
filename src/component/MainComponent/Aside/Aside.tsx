@@ -137,7 +137,7 @@ const Aside =({product}:Props)=>{
     return(
                         <AsideContainer>
                     
-                    <h1 style={{textDecoration: 'underline'}}>Selected Product Info </h1>
+                    <h1 style={{textDecoration: 'underline'}}>Product Info </h1>
                         <ul>
                             <div><b>Name:</b><samp>{product?.name}</samp> </div>
                             <div><b>Address:</b><samp>{product?.address}</samp></div>

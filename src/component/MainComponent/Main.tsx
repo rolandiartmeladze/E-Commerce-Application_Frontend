@@ -11,7 +11,12 @@ const Box = styled.div`
         grid-row: 2;
         grid-column: 1;
         display: grid;
-        grid-template-columns: 75% 25%;      
+        grid-template-columns: 75% 25%;     
+        
+        @media (max-width: 750px) {
+        display: flex;
+        flex-direction: column-reverse;
+        }
 `;
 
       interface Product{

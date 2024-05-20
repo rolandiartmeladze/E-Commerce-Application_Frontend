@@ -21,6 +21,11 @@ width: 100%;
         padding-right: 8px;
         justify-content: space-around;
         align-items: flex-start;
+
+        @media (max-width: 750px) {
+            padding-right: 0px;
+        }
+    
  `;
 
     const Product = styled.article`
@@ -39,6 +44,14 @@ width: 100%;
                 &: hover{
                     border: 2px rgb(37, 6, 211) solid;
                 }
+
+
+                @media (max-width: 400px) {
+                    width: 90%;
+                    max-width: none;
+                }
+        
+
         `;
 
         const Points = styled.div`
