@@ -364,6 +364,8 @@ interface Props{User:any;}
 const AddProduct =({User}:Props)=>{
 
 
+    const [loading, setLoadin] = useState<boolean>(false);
+
   const currencies = ["₾", "$", "€", "£", "₺"];
   const currencyOptions = currencies.map((currency, index) => (
     <option key={index} value={currency}>
@@ -474,6 +476,7 @@ const AddProduct =({User}:Props)=>{
       const serverlink = 'https://lavish-husky-gaura.glitch.me';
 
       try {
+        setLoadin(true);
         // Step 1: Create the product
         const data = Info();
         const createProductResponse = await fetch(`${serverlink}/createProduct`, {
@@ -532,7 +535,7 @@ const AddProduct =({User}:Props)=>{
         const Form = document.getElementById('FormElement') as HTMLFormElement;
         Form.reset();
         setImages([]);
-
+        setLoadin(false);
 
     } catch (error) {
         console.error("Error:", error);
@@ -556,10 +559,16 @@ const AddProduct =({User}:Props)=>{
 
     return(
         <>          
-        
         <Header>Add New Products</Header>
 
         <FormElement id="FormElement">
+
+        {loading && <h1 style={{position: 'absolute', width: '99%', height: '100%', backgroundColor: 'rgb(1,1,1, 0.3)', zIndex: '3',
+          display: 'flex',
+          alignItems: 'center', 
+          justifyContent: 'center'
+        }}>Loading...</h1>}
+
 
         <ProductInfo>
           <StyledProductInfo>

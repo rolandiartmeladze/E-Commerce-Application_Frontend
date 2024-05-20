@@ -6,12 +6,17 @@ import '../../../style/Aside.css';
 import Plus from '../../../icon/plius.svg';
 import Minus from '../../../icon/minus.svg';
 
+
+import SaleNow from "./SaleNow";
+
+
 const AsideContainer = styled.aside`
     height: auto;
     float: right;
     margin-top: 5px;
     box-shadow: -1px 0px 2px 0.3px black;
     padding-bottom: 8px;
+    position:relative;
         
         ul{                
             display: flex;
@@ -115,9 +120,42 @@ const AsideContainer = styled.aside`
                                  }
                         `;
 
+                        const AsideMessage = styled.div`
+                                
+                                position: absolute;
+                                 width: 100%;
+                                 height: 100%;
+                                 background-color: green;
+                                 z-index: 5;
+                                 samp{
+                                    padding: 6px;
+                                    display: flex;
+                                    justify-content: flex-end;
+                                  button{
+                                    border-radius: 5px;
+                                    padding: 5px 8px;
+                                    cursor: pointer;
+                                 }
+}
+                                
+                                    `;
+
+                                    const MessageBody = styled.div`
+                                    display:flex;
+                                    width: 100%;
+                                    height: 100px;
+                                    padding: 3px;
+                                    // background-color: red;
+                                    padding: 0;
+                                    flex-direction: column;
+                                    align-items: flex-start;
+                                    `;
+
 interface Props{product:any;}
 
 const Aside =({product}:Props)=>{
+
+    const token = localStorage.getItem('token');
 
 
     const [soldAmount ,setSoldAmount] = useState(1);
@@ -133,10 +171,72 @@ const Aside =({product}:Props)=>{
         if ( product && (!isNaN(value) && value >= 0 && value <= product.quantity)) { setSoldAmount(value); }
         };
 
+          
+      const today = new Date();
+      const day = today.getDate();
+      const month = today.getMonth() + 1;
+      const year = today.getFullYear();
+      let hours = today.getHours();
+      let minutes = today.getMinutes();
+      let period = 'AM'; 
+      
+      if (hours >= 12) { period = 'PM';
+          if (hours > 12) {  hours -= 12; }
+       }
+      
+      minutes = typeof minutes === 'string' ? parseInt(minutes, 10) : minutes;
+      const datatime = `${day}/${month}/${year} ${hours}:${minutes} ${period}`;
+
+
+        const Info =()=> {
+           const data = {
+            user: token,
+            product: product._id,
+            name: product.name,
+            price: product.price,
+            amount: soldAmount,
+            cost: product.price * soldAmount,
+            time: datatime,
+            currency: product.currency,
+            unit:product.quantityUnit,
+           }
+            return data;
+        }
+
+        const [showMessage, setShowMessage] = useState(false);
+
+        useEffect(()=>{showMessage && setShowMessage(false)},[product])
+        const saleRequest =()=>{setShowMessage(true)}
+
+        const Message  = ()=> {
+            const info = Info();
+            return(
+            <AsideMessage>
+                <samp>
+
+                <button onClick={()=>{setShowMessage(false)}}> Close </button>               
+                 </samp>
+
+                <MessageBody>                
+                    <div>time: {info.time}</div>
+
+                <div>name: {info.name}</div>
+                <div>price: {info.price} {info.currency}</div>
+                <div>amount: {info.amount} {info.unit} </div>
+                <div>cost: {info.cost} {info.currency}</div>
+                </MessageBody>
+                <button onClick={()=>{
+                    SaleNow(info);
+                }}> Sale Now </button>               
+
+            </AsideMessage>
+        );
+        }
     
     return(
                         <AsideContainer>
-                    
+                                            {showMessage && <Message />}
+
                     <h1 style={{textDecoration: 'underline'}}>Product Info </h1>
                         <ul>
                             <div><b>Name:</b><samp>{product?.name}</samp> </div>
@@ -155,10 +255,9 @@ const Aside =({product}:Props)=>{
 
                         <div className='Btn'>
                             <button  style={{minWidth: '70px'}}
-                            // onClick={sale}
-                            >sale</button>
+                            onClick={()=>{saleRequest()}}>
+                            sale</button>
                         </div>                     
-
                 </AsideContainer>
 
     );

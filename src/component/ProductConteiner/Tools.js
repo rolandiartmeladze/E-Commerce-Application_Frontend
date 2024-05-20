@@ -190,6 +190,7 @@ const SortProduct = ({ setRespons, setLoading }) => {
     const UpdateSort  =  (category, view, time) =>{
         const updatedSort = { category, view, time };
             localStorage.setItem('Sort', JSON.stringify(updatedSort));
+
     }
 
     const GenerateUrl =(category, view, time)=> {
@@ -305,6 +306,7 @@ const SortProduct = ({ setRespons, setLoading }) => {
         UpdateSort("All", "All", "All");
         GenerateUrl("All", "All", "All");
         fetchData(); 
+    
     };
 
     const CategoryItem = ["All", "Clothing", "Technique", "Food", "Accessories"];

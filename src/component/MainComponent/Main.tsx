@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import './ProductsConteiner.css';
-import '../UsersComponent/SingUp.css';
-
 import Container from './ProductsConteiner/Conteiner';
 import Aside from './Aside/Aside';
 
@@ -17,7 +14,7 @@ const Box = styled.div`
         display: flex;
         flex-direction: column-reverse;
         }
-`;
+        `;
 
       interface Product{
                 _id: string;
