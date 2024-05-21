@@ -256,7 +256,7 @@ const SortProduct = ({ setRespons, setLoading }) => {
         setRespons(null);
         setLoading(true);
         try {
-            const response = await fetch(`${server}/sortedcategory/${window.location.search}`, {
+            const response = await fetch(`http://localhost:3001/api/sortedcategory/${window.location.search}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });

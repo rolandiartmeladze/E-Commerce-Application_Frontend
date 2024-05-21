@@ -32,9 +32,9 @@ import ProductsConteiner from './component/ProductConteiner/Products';
 import FindContainer from './component/Find/FindContainer';
 import AddProduct from './component/MainComponent/AddProduct/Add';
 import MainNavigate from './component/MainComponent/Navigate/MainNavigate';
+import SaleJurnal from './component/MainComponent/Jurnal/SaleJurnal';
 
-
-
+// const server = process.env.SERVER_LINK;
 
 interface User {
   Name: string;
@@ -225,7 +225,7 @@ padding: 0px;
                       if(usermode){
                         try {  
                           const userID = token;
-                          const checkCartItem = await fetch(`${serverlink}/addCarItem/${userID}`, {
+                          const checkCartItem = await fetch(`http://localhost:3001/api/addCarItem/${userID}`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({itemId}),
@@ -270,8 +270,8 @@ padding: 0px;
                       quantities, setQuantities,
                       setProduct
                       }
-
-
+                      
+                      // console.log(server)
 
     const NavigationProps = {setProduct, product};
     const HeaderProps = {login, setLogIn, usermode, setProduct};
@@ -300,7 +300,7 @@ padding: 0px;
       <Route path="/main" element={<MainNavigate />}>
           <Route path="products" element={<Main />} />
           <Route path="add" element={<AddProduct User={activeuser} />} />
-          <Route path="jurnal" element={<h2>Jurnal</h2>} />
+          <Route path="jurnal" element={<SaleJurnal />} />
       </Route>
 
 

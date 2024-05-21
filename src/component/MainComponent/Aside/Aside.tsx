@@ -7,8 +7,7 @@ import Plus from '../../../icon/plius.svg';
 import Minus from '../../../icon/minus.svg';
 
 
-import SaleNow from "./SaleNow";
-
+// import SaleNow from "./SaleNow";
 
 const AsideContainer = styled.aside`
     height: auto;
@@ -151,9 +150,14 @@ const AsideContainer = styled.aside`
                                     align-items: flex-start;
                                     `;
 
-interface Props{product:any;}
+interface Props{
+    product:any;
+    setMyProducts:Function;
+    setProduct:Function;
+    setLoading:Function;
+}
 
-const Aside =({product}:Props)=>{
+const Aside =({product, setMyProducts, setProduct, setLoading}:Props)=>{
 
     const token = localStorage.getItem('token');
 
@@ -207,6 +211,36 @@ const Aside =({product}:Props)=>{
 
         useEffect(()=>{showMessage && setShowMessage(false)},[product])
         const saleRequest =()=>{setShowMessage(true)}
+        
+        const SaleNow = async (Info:any)=>{
+            console.log(Info);
+        
+                try {
+                    setLoading(true);
+                   const saleProduct = await fetch(`https://quasar-wind-trader.glitch.me/api/sale/${Info.user}`, {
+                    method: 'POST',
+                    headers:{ 'Content-Type': 'application/json' },
+                    body: JSON.stringify(Info),
+                   })
+        
+                   if(!saleProduct.ok) {throw  new Error('Failed to fetch users data');}
+        
+                    const saleRespons = await saleProduct.json();
+
+                    // setMyProducts(null);
+                    setProduct(null);
+                    setLoading(false);
+                    setShowMessage(false);
+
+                    console.log(saleRespons);
+                } catch (error) {
+                    
+                }
+        
+        
+        
+        }
+
 
         const Message  = ()=> {
             const info = Info();

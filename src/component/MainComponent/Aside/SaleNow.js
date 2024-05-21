@@ -13,9 +13,7 @@ const SaleNow = async (Info)=>{
            if(!saleProduct.ok) {throw  new Error('Failed to fetch users data');}
 
             const saleRespons = await saleProduct.json();
-
             console.log(saleRespons);
-             
         } catch (error) {
             
         }

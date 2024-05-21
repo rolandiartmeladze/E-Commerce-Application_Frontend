@@ -3,12 +3,16 @@ import styled from 'styled-components';
 
 import Container from './ProductsConteiner/Conteiner';
 import Aside from './Aside/Aside';
+import FetchData from './mainRequest';
+import Loading from '../Loading';
+
 
 const Box = styled.div`
         grid-row: 2;
         grid-column: 1;
         display: grid;
         grid-template-columns: 75% 25%;     
+        position: relative;
         
         @media (max-width: 750px) {
         display: flex;
@@ -38,31 +42,14 @@ function Main() {
                 const [myProducts, setMyProducts] = useState<Product[] | null>(null)
                 const [selected, setSelected] = useState<Product[] | null>(null)
                 const [loading, setLoading] = useState<boolean>(false);
-                useEffect(()=>{
-                        async function FetchData() {
-                                try {                                        
-                                        setLoading(true);              
-                                        let serverlink = "https://lavish-husky-gaura.glitch.me";
-                                        const token = localStorage.getItem('token');
-                                        const MainProduct = await fetch(`${serverlink}/Main/${token}`, {
-                                                method: 'GET',
-                                                headers: {'Content-Type': 'application/json'}
-                                                });
-
-                                        if(!MainProduct.ok){throw new Error('Failed to fetch users data');}
-                                                setMyProducts(await MainProduct.json());
-                                                setLoading(false);
-                                } catch (error) {console.log(error)}
-                        }
-                        FetchData()
-
-                },[])
+                FetchData(setMyProducts);
+                // useEffect(()=>{ FetchData(setMyProducts); },[myProducts])
 
 return (
         <Box>
-                {loading && <h1>Loading...</h1>}
+                {loading && <Loading />}
                 {myProducts && <Container products={myProducts} setSelected={setSelected} />}
-                {myProducts && <Aside product={selected} />}
+                {myProducts && <Aside product={selected} setLoading={setLoading} setProduct={setSelected} setMyProducts={setMyProducts} />}
         </Box>
         );
 }

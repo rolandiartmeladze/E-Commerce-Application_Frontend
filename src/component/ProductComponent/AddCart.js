@@ -45,7 +45,7 @@ const Cart = ({ itemId, incart, setInCart, product}) => {
     if (usermode) {
       try {
         const userID = token;
-        const checkCartItem = await fetch(`${serverlink}/addCarItem/${userID}`, {
+        const checkCartItem = await fetch(`http://localhost:3001/api/addCarItem/${userID}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ itemId }),
