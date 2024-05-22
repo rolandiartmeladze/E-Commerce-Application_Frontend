@@ -42,7 +42,9 @@ function Main() {
                 const [myProducts, setMyProducts] = useState<Product[] | null>(null)
                 const [selected, setSelected] = useState<Product[] | null>(null)
                 const [loading, setLoading] = useState<boolean>(false);
+                useEffect(()=>{
                 FetchData(setMyProducts);
+                }, []);
                 // useEffect(()=>{ FetchData(setMyProducts); },[myProducts])
 
 return (

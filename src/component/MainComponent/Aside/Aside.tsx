@@ -12,10 +12,11 @@ import Minus from '../../../icon/minus.svg';
 const AsideContainer = styled.aside`
     height: auto;
     float: right;
-    margin-top: 5px;
+    margin-top: 0px;
     box-shadow: -1px 0px 2px 0.3px black;
     padding-bottom: 8px;
     position:relative;
+    box-shadow: 0px 0px 300px 1px inset rgb(1,201,1, 0.2);
         
         ul{                
             display: flex;
@@ -36,10 +37,10 @@ const AsideContainer = styled.aside`
                     content: '';
                     height: 100%;
                     width: 4px;
-                    left: -6px;
+                    left: -4px;
                     bottom: -1px;
                     background-color: red;
-                    padding: 1px;
+                    padding: 0px;
                     border-radius: 4px 4px 0px 0px;
                 }
 
@@ -151,18 +152,50 @@ const AsideContainer = styled.aside`
                                     padding: 5px 8px;
                                     cursor: pointer;
                                  }
+                                 
+
 }
+                            .sale{
+                                margin: 10px 10px 0px 0px;
+                                float: right;
+                                padding: 6px 10px;
+                                font-weight: bolder;
+                                font-size: 18px;
+                                border-radius: 6px;
+                                cursor: pointer;
+                            }
                                 
                                     `;
 
                                     const MessageBody = styled.div`
                                     display:flex;
                                     width: 100%;
-                                    height: 100px;
                                     padding: 3px;
-                                    padding: 0;
+                                    padding: 0px;
                                     flex-direction: column;
-                                    align-items: flex-start;
+                                    align-items: center;
+                                    
+                                    div{
+                                        margin: 2px 0px;
+                                        padding: 4px 0px;
+                                        box-shadow: 0px 1px 3px -0.5px;
+                                        padding-left: 4px;
+                                        width: 94%;
+                                        display:flex;
+                                        flex-wrap: wrap;
+                                        b{
+                                            margin-right: 4px;
+                                        }
+                                    }
+                                    .cost{
+                                        box-shadow: none;
+                                        font-size: 20px;
+                                        color: white;
+                                        font-weight: 900;
+                                        b{
+                                            color: black;
+                                        }
+                                    }
                                     `;
 
 interface Props{
@@ -229,14 +262,16 @@ const Aside =({product, setMyProducts, setProduct, setLoading}:Props)=>{
         useEffect(()=>{showMessage && setShowMessage(false)},[product])
         const saleRequest =()=>{setShowMessage(true)}
         
-        const SaleNow = async (Info:any)=>{
+        const SaleNow = async ()=>{
+            const info = Info();
+
             setClick(true);
             setLoading(true);
                 try {
-                   const saleProduct = await fetch(`https://quasar-wind-trader.glitch.me/api/sale/${Info.user}`, {
+                   const saleProduct = await fetch(`https://quasar-wind-trader.glitch.me/api/sale/${info.user}`, {
                         method: 'POST',
                         headers:{ 'Content-Type': 'application/json' },
-                        body: JSON.stringify(Info),
+                        body: JSON.stringify(info),
                     });
                         if(!saleProduct.ok) {throw  new Error('Failed to fetch users data');}
                     const saleRespons = await saleProduct.json();
@@ -253,36 +288,28 @@ const Aside =({product, setMyProducts, setProduct, setLoading}:Props)=>{
         
         }
 
-        
-        const Message  = ()=> {
-            const info = Info();
-
-            return(
-            <AsideMessage>
-                <samp>
-
-                <button onClick={()=>{setShowMessage(false)}}> Close </button>               
-                 </samp>
-
-                <MessageBody>                
-                    <div>time: {info.time}</div>
-
-                <div>name: {info.name}</div>
-                <div>price: {info.price} {info.currency}</div>
-                <div>amount: {info.amount} {info.unit} </div>
-                <div>cost: {(info.cost).toFixed(2)} {info.currency}</div>
-                </MessageBody>
-                <button disabled={click} onClick={()=>{
-                    SaleNow(info);
-                }}> Sale Now </button>               
-
-            </AsideMessage>
-        );
-        }
     
     return(
                         <AsideContainer>
-                                            {showMessage && <Message />}
+                                            {showMessage && <>
+                                                <AsideMessage>
+                <samp> <button onClick={()=>{setShowMessage(false)}}> Close </button> </samp>
+
+                <MessageBody>                
+                <div><b>time:</b> {datatime}</div>
+                <div><b>name:</b> {product.name}</div>
+                <div><b>price:</b> {product.price} {product.currency}</div>
+                <div><b>quantity:</b> {soldAmount} {product.quantityUnit} </div>
+                <div className="cost"><b>cost:</b> {(product.price * soldAmount).toFixed(2)} {product.currency}</div>
+                </MessageBody>
+                <button className="sale" disabled={click} 
+                        onClick={()=>{
+                            SaleNow();
+                            }}> Sale Now </button>               
+
+            </AsideMessage>
+
+                                            </>}
 
                     <h1 style={{textDecoration: 'underline'}}>Product Info </h1>
                         <ul>

@@ -9,7 +9,34 @@ const Header = styled.h1`
         text-align: left;
         background-color: rgb(51, 181, 81, 0.4);
         padding: 3px 8px;
+        display: flex;
+        justify-content: space-between;
 
+        div{
+            display: flex;
+    align-items: center;
+
+            samp{
+                display: flex;
+                cursor: pointer;
+                background-color: rgb(51, 181, 181, 0.4);
+                box-shadow: 0px 0px 1px 1px red;
+                height: 100%;
+                align-items: center;
+                padding: 0px 5px;
+                margin: 0px 3px;
+                transition: 0.4s ease;
+                border-radius: 4px;
+
+&:hover{
+    background-color: rgb(51, 81, 181, 0.6);
+    box-shadow: 0px 0px 1px 1px yellow;
+    color: yellow;
+
+}
+                        }
+        }
+        
         @media (max-width: 750px) {
         border-radius: 0px;
         }
@@ -60,23 +87,36 @@ const Header = styled.h1`
 const SaleJurnal =()=>{
     const [resspons, setRespons] = useState<any | null>(null);
     const token = localStorage.getItem('token');
+    // const [sort, setSort] = useState("All");
+
+    async function FetchData(sort:string) {
+        try {
+
+            const jurnalrespons = await fetch(`http://localhost:3001/salejurnal/${token}/?sort=${sort}`, {
+                method: 'GET', 
+                headers:{ 'Content-Type': 'application/json' },
+            });
+            if(!jurnalrespons.ok){throw new Error('Failed to fetch users data');}
+            const result = await jurnalrespons.json();
+                    setRespons(result);
+        } catch (error) {}
+    }
+
         useEffect(()=>{
-            async function FetchData() {
-                try {
-                    const jurnalrespons = await fetch(`https://quasar-wind-trader.glitch.me/salejurnal/${token}`, {
-                        method: 'GET', headers:{ 'Content-Type': 'application/json' }, });
-                    if(!jurnalrespons.ok){throw new Error('Failed to fetch users data');}
-                    const result = await jurnalrespons.json();
-                            setRespons(result);
-                } catch (error) {}
-            }
-            FetchData();
+            FetchData("All");
         }, [])
+
         const Media = `https://embarrassing-unifor.000webhostapp.com/Media/${token}`;
 
     return(
         <>
-                <Header>Sale Jurnal</Header>
+                <Header>Sale Jurnal  
+                    <div>
+                        <samp onClick={()=>{FetchData("day")}}>Today</samp>
+                        <samp onClick={()=>{FetchData("Week")}}>This Week</samp>
+                        <samp onClick={()=>{FetchData("month")}}>This Month</samp>
+                        </div> 
+                    </Header>
 
                 <div style={{display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', position: 'relative'}}>
                 {!resspons && <Loading /> }
