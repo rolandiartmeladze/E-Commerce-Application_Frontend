@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import {Cart} from './AddCart';
 import {Fav} from './AddFav';
 import Loaing from "../Loading";
+import formatDate from "../FormatDataTime";
 
 import user from '../../icon/user.png';
 import view from '../../icon/view.png';
@@ -180,6 +181,8 @@ interface Productprops{
     //     console.log('SortLocal is null'); 
     // }
     
+
+
     return(
             <Conteiner>
 
@@ -205,7 +208,11 @@ interface Productprops{
   
                                 <ItemInfoAdd>
                                     <samp style={{ display: 'flex', alignItems: 'center' }}>
-                                    <img width="20" src={time} alt='time icon' /> {item.datatime}
+                                    {/* <img width="20" src={time} alt='time icon' /> {item.datatime} */}
+                                    <img width="20" src={time} alt='time icon' /> {formatDate(item.datatime)}
+
+
+                                    
                                     </samp>
                                 </ItemInfoAdd>
 

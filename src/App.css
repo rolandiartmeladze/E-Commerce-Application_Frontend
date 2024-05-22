@@ -124,7 +124,7 @@ a{
   overflow: auto; 
   display: flex;
   flex-wrap: wrap ;
-  justify-content: space-around;
+  justify-content: space-around ;
   margin-top: 0px;
   margin-right: 8px;
   align-items: flex-start;

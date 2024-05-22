@@ -390,7 +390,6 @@ const AddProduct =({User}:Props)=>{
 
 
 
-
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -424,21 +423,7 @@ const AddProduct =({User}:Props)=>{
 
     const Info = () =>{
   
-      const today = new Date();
-      const day = today.getDate();
-      const month = today.getMonth() + 1;
-      const year = today.getFullYear();
-      let hours = today.getHours();
-      let minutes = today.getMinutes();
-      let period = 'AM'; 
       
-      if (hours >= 12) { period = 'PM';
-          if (hours > 12) {  hours -= 12; }
-       }
-      
-      minutes = typeof minutes === 'string' ? parseInt(minutes, 10) : minutes;
-      const datatime = `${day}/${month}/${year} ${hours}:${minutes} ${period}`;
-
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       const numbers = '0123456789';
       let id = '';
@@ -461,7 +446,7 @@ const AddProduct =({User}:Props)=>{
 
       const productData = {
             name, address, quantity, price, description, comment,
-            email: User.email, id, datatime, view: 0, sale: 0,
+            email: User.email, id, view: 0, sale: 0,
             phone: User.phone, userID: userId, share: 0,  
             location, currency, quantityiunit, category, owner,
           };
@@ -479,7 +464,7 @@ const AddProduct =({User}:Props)=>{
         setLoadin(true);
         // Step 1: Create the product
         const data = Info();
-        const createProductResponse = await fetch(`${serverlink}/createProduct`, {
+        const createProductResponse = await fetch(`http://localhost:3001/createProduct`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),

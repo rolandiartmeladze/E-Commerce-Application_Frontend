@@ -256,7 +256,7 @@ const SortProduct = ({ setRespons, setLoading }) => {
         setRespons(null);
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:3001/api/sortedcategory/${window.location.search}`, {
+            const response = await fetch(`https://quasar-wind-trader.glitch.me/api/sortedcategory/${window.location.search}`, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -279,9 +279,9 @@ const SortProduct = ({ setRespons, setLoading }) => {
     const SortData = async (event) => {
         const Time = event.target.value;
         UpdateSort(category, view, Time);
-        GenerateUrl(category, view, Time);
-
-        setTime(Time);
+            GenerateUrl(category, view, Time);
+                setTime(Time);
+                    fetchData();
     };
 
     const SortView = async (event) => {

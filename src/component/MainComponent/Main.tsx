@@ -47,7 +47,7 @@ function Main() {
 
 return (
         <Box>
-                {loading && <Loading />}
+                {(!myProducts || loading) && <Loading />}
                 {myProducts && <Container products={myProducts} setSelected={setSelected} />}
                 {myProducts && <Aside product={selected} setLoading={setLoading} setProduct={setSelected} setMyProducts={setMyProducts} />}
         </Box>

@@ -20,6 +20,7 @@ import testimg from '../../img/slide_9.jpg';
 import { Fav } from "../ProductComponent/AddFav";
 import {Cart} from '../ProductComponent/AddCart';
 
+import formatDate from "../FormatDataTime";
 
 
 import Invoic from "../BuyProduct/Invoic";
@@ -428,7 +429,7 @@ const View = ({setFavorits,setInCart, product, incart, favorits, buy, quantities
 
                                     <LineItem>
                                       <img src={clock} alt="time icon" /> 
-                                        <samp>{product.datatime}</samp>
+                                        <samp>{formatDate(product.datatime)}</samp>
                                     </LineItem>
           </InfoLine>
 

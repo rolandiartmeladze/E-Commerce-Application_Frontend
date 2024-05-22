@@ -23,14 +23,26 @@ const AsideContainer = styled.aside`
             align-items: flex-start;
 
             div{                
-                margin: 3px;
                 display: flex;
-                margin: 3px;
+                margin: 8px 3px;
                 align-items: center;
                 width: 100%;
                 flex-wrap: wrap;
                 border-bottom: 1px solid;
                 padding-bottom: 2px;
+                position: relative;
+                &: before{
+                    position:absolute;
+                    content: '';
+                    height: 100%;
+                    width: 4px;
+                    left: -6px;
+                    bottom: -1px;
+                    background-color: red;
+                    padding: 1px;
+                    border-radius: 4px 4px 0px 0px;
+                }
+
                 b{
                     margin-right: 5px;
                     margin-left: 2px;
@@ -49,7 +61,9 @@ const AsideContainer = styled.aside`
                 align-items: stretch !important;
                 padding:  5px 0px !important;
                 border-bottom: none !important;
-
+                &: before{
+                display: none;
+                }
                 input{
                     display: inline-block;
                     text-align: center;
@@ -101,11 +115,13 @@ const AsideContainer = styled.aside`
                                 &:before{
                                     position: absolute;
                                     content: '';
-                                    height: 80%;
+                                    height: 80% !important;
                                     width: 6px;
                                     background-color: red;
                                     left: -6px;
-                                    border-radius: 3px 0px 0px 3px;
+                                    bottom: 3px !important;
+                                    padding: 0px 1px !important;
+                                    border-radius: 3px 0px 0px 3px !important;
                                  }
                                  &:after{
                                     position: absolute;
@@ -144,7 +160,6 @@ const AsideContainer = styled.aside`
                                     width: 100%;
                                     height: 100px;
                                     padding: 3px;
-                                    // background-color: red;
                                     padding: 0;
                                     flex-direction: column;
                                     align-items: flex-start;
@@ -203,35 +218,32 @@ const Aside =({product, setMyProducts, setProduct, setLoading}:Props)=>{
             time: datatime,
             currency: product.currency,
             unit:product.quantityUnit,
+            img: product.image[0],
            }
             return data;
         }
 
         const [showMessage, setShowMessage] = useState(false);
+        const [click, setClick] = useState<boolean>(false);
 
         useEffect(()=>{showMessage && setShowMessage(false)},[product])
         const saleRequest =()=>{setShowMessage(true)}
         
         const SaleNow = async (Info:any)=>{
-            console.log(Info);
-        
+            setClick(true);
+            setLoading(true);
                 try {
-                    setLoading(true);
                    const saleProduct = await fetch(`https://quasar-wind-trader.glitch.me/api/sale/${Info.user}`, {
-                    method: 'POST',
-                    headers:{ 'Content-Type': 'application/json' },
-                    body: JSON.stringify(Info),
-                   })
-        
-                   if(!saleProduct.ok) {throw  new Error('Failed to fetch users data');}
-        
+                        method: 'POST',
+                        headers:{ 'Content-Type': 'application/json' },
+                        body: JSON.stringify(Info),
+                    });
+                        if(!saleProduct.ok) {throw  new Error('Failed to fetch users data');}
                     const saleRespons = await saleProduct.json();
-
-                    // setMyProducts(null);
-                    setProduct(null);
-                    setLoading(false);
-                    setShowMessage(false);
-
+                        setProduct(null);
+                        setLoading(false);
+                        setShowMessage(false);
+                        setClick(false);
                     console.log(saleRespons);
                 } catch (error) {
                     
@@ -241,9 +253,10 @@ const Aside =({product, setMyProducts, setProduct, setLoading}:Props)=>{
         
         }
 
-
+        
         const Message  = ()=> {
             const info = Info();
+
             return(
             <AsideMessage>
                 <samp>
@@ -257,9 +270,9 @@ const Aside =({product, setMyProducts, setProduct, setLoading}:Props)=>{
                 <div>name: {info.name}</div>
                 <div>price: {info.price} {info.currency}</div>
                 <div>amount: {info.amount} {info.unit} </div>
-                <div>cost: {info.cost} {info.currency}</div>
+                <div>cost: {(info.cost).toFixed(2)} {info.currency}</div>
                 </MessageBody>
-                <button onClick={()=>{
+                <button disabled={click} onClick={()=>{
                     SaleNow(info);
                 }}> Sale Now </button>               
 
@@ -284,11 +297,11 @@ const Aside =({product, setMyProducts, setProduct, setLoading}:Props)=>{
                                 <samp onClick={plus}> <img src={Plus} alt="Plus" /> </samp>
                             </Quantity>  
 
-                            <Cost><b>Total:</b><samp>{product?.price * soldAmount} {product?.currency}</samp></Cost>
+                            <Cost><b>Total:</b><samp>{((product?.price * soldAmount) || 0).toFixed(2)} {product?.currency}</samp></Cost>
                         </ul>
 
-                        <div className='Btn'>
-                            <button  style={{minWidth: '70px'}}
+                        <div  className='Btn'>
+                            <button disabled={!product} style={{minWidth: '70px'}}
                             onClick={()=>{saleRequest()}}>
                             sale</button>
                         </div>                     
