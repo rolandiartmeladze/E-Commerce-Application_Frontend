@@ -464,7 +464,7 @@ const AddProduct =({User}:Props)=>{
         setLoadin(true);
         // Step 1: Create the product
         const data = Info();
-        const createProductResponse = await fetch(`http://localhost:3001/createProduct`, {
+        const createProductResponse = await fetch(`https://quasar-wind-trader.glitch.me/createProduct`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),

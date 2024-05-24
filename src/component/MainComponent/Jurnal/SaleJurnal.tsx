@@ -87,12 +87,12 @@ const Header = styled.h1`
 const SaleJurnal =()=>{
     const [resspons, setRespons] = useState<any | null>(null);
     const token = localStorage.getItem('token');
-    // const [sort, setSort] = useState("All");
-
+    const [mode, setMode] = useState<string>('Today')
     async function FetchData(sort:string) {
+        setRespons(null);
         try {
 
-            const jurnalrespons = await fetch(`http://localhost:3001/salejurnal/${token}/?sort=${sort}`, {
+            const jurnalrespons = await fetch(`https://quasar-wind-trader.glitch.me/api/salejurnal/${token}/?sort=${sort}`, {
                 method: 'GET', 
                 headers:{ 'Content-Type': 'application/json' },
             });
@@ -103,25 +103,73 @@ const SaleJurnal =()=>{
     }
 
         useEffect(()=>{
-            FetchData("All");
+            FetchData("day");
         }, [])
 
         const Media = `https://embarrassing-unifor.000webhostapp.com/Media/${token}`;
 
+        const Title =()=>{
+            const style = {
+                margin: ' 0px 10px',
+                alignItems: 'center',
+                borderRadius: ' 5px',
+                color: 'red',
+                display: 'flex',
+                border: '0.2px solid yellow',
+                padding: '0px 12px',
+                background: 'linear-gradient(to bottom, rgba(10, 35, 67, 0.2), rgba(10, 35, 67, 0.7), rgba(10, 35, 67, 0.2))'
+              };
+            return(
+                <span style={style}>
+                {mode}
+              </span>
+            );
+        
+        }
+
+        const sortJurnal =( sort:string, title:string )=>{
+            FetchData(sort);
+            setMode(title);
+        };
+
+        const DataInterval =()=>{
+            
+            const data1 =  formatDate(resspons[0].time);
+            const data2 =  formatDate(resspons[resspons.length -1].time);
+
+            return(
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    fontSize: '50%',
+                    alignItems: 'flex-start',
+    
+                }}>
+                <b>From: {data1}</b>
+                <b>To: {data2}</b>
+                </div>
+            );
+        };
+
     return(
         <>
-                <Header>Sale Jurnal  
+                <Header><div>Sale Jurnal  <Title />  
+                    
+                        {resspons && <DataInterval />}
+                    
+                    </div>
                     <div>
-                        <samp onClick={()=>{FetchData("day")}}>Today</samp>
-                        <samp onClick={()=>{FetchData("Week")}}>This Week</samp>
-                        <samp onClick={()=>{FetchData("month")}}>This Month</samp>
+                    <samp onClick={()=>{sortJurnal("All",'All')}}>All</samp>
+                    <samp onClick={()=>{sortJurnal("day",'Today')}}>Today</samp>
+                        <samp onClick={()=>{sortJurnal("week", 'This Week')}}>This Week</samp>
+                        <samp onClick={()=>{sortJurnal("month", 'This Month')}}>This Month</samp>
                         </div> 
                     </Header>
 
                 <div style={{display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', position: 'relative'}}>
                 {!resspons && <Loading /> }
                 {resspons?.map((item:any, index:number) => (
-                    <Conteiner>
+                    <Conteiner key={index}>
                         <Image> <img src={`${Media}/${item.img}`} alt=''/></Image>
                             <Info>
                             <samp><b>Name:</b> {item.name} </samp>

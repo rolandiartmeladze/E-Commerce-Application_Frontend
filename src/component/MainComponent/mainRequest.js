@@ -4,7 +4,7 @@ async function FetchData(setMyProducts) {
     try {                                        
             let serverlink = "https://lavish-husky-gaura.glitch.me";
             const token = localStorage.getItem('token');
-            const MainProduct = await fetch(`https://quasar-wind-trader.glitch.me/api/Main/${token}`, {
+            const MainProduct = await fetch(`https://quasar-wind-trader.glitch.me//api/Main/${token}`, {
                     method: 'GET',
                     headers: {'Content-Type': 'application/json'}
                     });
