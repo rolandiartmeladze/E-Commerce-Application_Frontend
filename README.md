@@ -13,12 +13,6 @@ So during authorization, you must repeat the data specified during registration.
 
 ##### <span style="color:red;">You can enter the system with your registered email and password => </span>
  
-<ul>
-  <li><h4>Email: <samp>User@gmail.com</samp></h4></li>
-  <li><h4>Pass: <samp>rolandi123</samp></h4></li>
-</ul>
-
-
 
 
 ## Features
