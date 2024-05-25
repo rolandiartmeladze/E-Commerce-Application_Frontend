@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import userIcin from "../icon/user.png";
 import meniuicon from '../icon/menu.svg';
+import arrow from '../icon/arrow.png';
 
 import FindComponent from './Find/FindComponent';
 import Meniu from './Navigation/Meniu';
@@ -73,6 +74,7 @@ const MeniuBtn = styled.div`
 
       position: absolute; 
       right: 10px;
+      top: 5px;
       cursor:pointer;
       &:hover{
         box-shadow:0px 0px 1px 0px;
@@ -100,6 +102,58 @@ const MeniuBtn = styled.div`
 
   `;
 
+  const UserInfo = styled.div`
+  display: flex;
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  transition: 0.4s ease-in-out;
+  border-radius: 6px;
+  // min-width: 100px;
+  // width: auto;
+  cursor: pointer;
+  font-weight: 800;
+  flex-direction: column;
+  z-index: 5;
+  div{
+    padding: 5px 0px;
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+    samp{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+        }
+    img{
+      margin: 0;
+      max-width: 40px;
+    }
+  }
+  .item{
+    width: 85%;
+    margin-left: 8%;
+
+    samp{
+      color: white;
+      text-decoration: underline;
+
+      &:hover{
+        color: yellow;
+
+      }
+  }
+    }
+  
+
+  @media only screen and (max-width: 750px) {
+
+    right: 60px;
+
+  
+  }
+  
+  `;
 interface HeaderProps {
   login: any;
   setLogIn: any;
@@ -126,6 +180,7 @@ const Header: React.FC<HeaderProps> = ({
 
 
 const [menuVisible, setMenuVisible] = useState(false);
+const [active, setActive] = useState(false);
 
 const toggleMenu = () => {
   setMenuVisible(!menuVisible);
@@ -149,29 +204,76 @@ const toggleMenu = () => {
 
   const MeniuProps ={ usermode, setProduct};
 
+  const OpenInfo = ()=>{
+    active? setActive(false):setActive(true);
+  }
 
 
   return (
     <HeaderComponent>
+         <Link to={'/'}> <Logo>MyShop.App</Logo> </Link>
 
+{usermode && 
+<UserInfo style={{
+    backgroundColor: active? 'rgb(66, 44, 55)': 'rgb(66, 44, 55, 0.0)',
+  }} >
+  <div onClick={()=>{
+  OpenInfo();
+}}  style={{
+  boxShadow: !active? '0px 2px 2px -1px rgb(1,1,1)': undefined,
+  borderRadius: !active? '8px' : undefined,
+  
+}} >
+  <img className="user-icon" src={userIcin} alt="User Icon" />
+  <samp><span>{localStorage.getItem("user")}
+    </span>
+    <span>
+     {localStorage.getItem("address")?.substring(0,15)} 
+    </span>
+  </samp>
+  
+  <img style={{
+    width: '20px',
+    margin: '0 6px',
+    transform: active? 'rotate(90deg)': 'rotate(0)',
+  }} src={arrow} alt="" />
+  </div>
+
+{ active &&<>
+  <div className='item'>
+  <Link to="/main/products">
+  <samp>My Products</samp>
+  </Link>
+  </div>
+
+  <div className='item'>
+  <Link to="/main/add">
+
+  <samp>Add Product</samp>
+  </Link>
+  </div>
+  <div className='item'>
+  <Link to="/main/jurnal">
+
+  <samp>Sale Jurnale</samp>
+  </Link>
+  </div>
+
+
+  <div className='item'>
+  <Link to="/">
+          <samp onClick={logout}>Log Out</samp></Link>
+        
+  </div>
+  </> 
+
+}
+
+</UserInfo>
+}
       <div style={{height: '80px'}}>
 
-      {/* ავტორიზებული მომხმარებლის მონაცემები ან ლოგო */}
-      <>
-        {usermode ? (
-          <div className="userinhear">
-            <img className="user-icon" src={userIcin} alt="User Icon" />
-            <Userinfo>
-              <h2>{localStorage.getItem("user")}</h2>
-              <h4>{localStorage.getItem("address")}</h4>
-            </Userinfo>
-          </div>
-        ) : (
-         <Link to={'/'}> <Logo>MyShop.App</Logo> </Link>
-        )}
-      </>
 
-      {/* სისტემაში შესვლა */}
       {!usermode &&
         <LoginBtn onClick={loginbtn}>
           <samp>
@@ -181,23 +283,6 @@ const toggleMenu = () => {
           
         </LoginBtn>
       }
-
-      {/* სისტემიდან გამოსვლა */}
-      {usermode && (
-        <>
-        <div
-          style={{ padding: "3px 8px ", right: "12px" }}
-          onClick={logout}
-          className="userBtn"
-        >
-                
-                <Link to="/">
-          <samp>Log Out</samp></Link>
-        </div>
-
-        </>
-
-      )}
         <MeniuBtn onClick={()=>{toggleMenu()}}>
         <img src={meniuicon} alt="" /> 
         </MeniuBtn>

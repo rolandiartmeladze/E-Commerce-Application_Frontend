@@ -5,6 +5,8 @@ import viewProduct from "../ProductComponent/VievUpdate";
 import { Link, useLocation } from "react-router-dom";
 import Loaing from "../Loading";
 
+import { Member } from "../../Tools";
+
 interface Props{
     setProduct:Function;
 }
@@ -19,7 +21,7 @@ const Conteiner = styled.div`
     position:relative; 
     
     padding-bottom: 5px;
-
+    // z-index: -1;
    
     h1{
         text-align: left;
@@ -103,24 +105,46 @@ const InfoBoard = styled.div`
 width: 100%;
 background-color: rgba(70, 45, 27, 0.2);
 position: relative;
-padding-bottom: 10px;
+padding: 10px 0px;
+border-radius: 0px 0px 10px 10px;
+overflow: hidden;
+z-index: -1;
 
 &:before{
     content: '';
     position: absolute;
-    background-color: rgba(250, 25, 17);             
+    background: rgb(85, 25, 55, 0.3);
     width: 100%;
     left: 0px;
     bottom: 0;
-    height: 3px;
-    z-index: 0;
+    height: 100%;
+    box-shadow: 2px 2px 8px 1px black;
+
+    z-index: -1;
+
 }
+&:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    background-color: red;
+    left: 0px;
+    height: 6px;
+    z-index: 0;
+    bottom: 0;
+    z-index: -1;
+
+}
+
 
 ul{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 0px;
+    z-index: -1;
+
+
     li{
         width: 30%;
         min-width: 200px;
@@ -128,22 +152,35 @@ ul{
         background: none;
         display: flex;
         justify-content: flex-start;
-        border-radius: 15px;
-        z-index: 2;
-        &:before{
+        border-radius: 0px;
+        z-index: -1;
+        backdrop-filter: blur(0px);
+        &:after{
             content: '';
             position: absolute;
-            background-image: linear-gradient(to right, rgba(70, 45, 27, 0.5), transparent);             
-            width: 50%;
-            left: 0px;
-            top: 0;
-            height: 100%;
-            border-radius: 3px;
-            z-index: 0;
+            width: 4px;
+            background-color: yellow;
+            left: -1px;
+            top: 15%;
+            height: 70%;
+            border-radius: 0px;
+
         }
+
+
 
     }
 }
+
+@media (max-width: 500px) {
+    li{
+        width: auto !important;
+        min-width: 100px !important;
+    
+    }
+}
+
+
 `;
 
 
@@ -154,12 +191,16 @@ const Home = ({setProduct}:Props) => {
     const [incart, setInCart] = useState<any[]>(JSON.parse(localStorage.getItem('incart') ?? '[]'));
     const [loading, setLoading] = useState<boolean>(false);
 
+    
         const width = window.innerWidth;
         let numb = width / 280;
         let item: number = parseInt((numb - 1).toFixed(0));
 
         let TotalView = 0;
         respons.forEach((product:any) => { TotalView += product.view; });
+
+        let TotalSale = 0;
+        respons.forEach((product:any) => { TotalSale += product.sale; });
 
         const Actually: any[] = [...respons].sort((a, b) => b.view - a.view);
             let category: string | undefined;
@@ -217,6 +258,17 @@ const Home = ({setProduct}:Props) => {
         </>);
     }
 
+    const [memberLength, setMemberLength] = useState<number | null>(null);
+
+    useEffect(() => {
+        const fetchMembers = async () => {
+            const members = await Member();
+            if (members) { setMemberLength(members); } 
+            else { setMemberLength(0); }
+        };
+
+        fetchMembers();
+    }, []);
 
     return (
         <>
@@ -226,12 +278,12 @@ const Home = ({setProduct}:Props) => {
 
             <ul>
             <li>Products: {respons.length}</li>
-            <li>Members: {'2'}</li>
+            <li >Members: {memberLength}</li>
             <li>Categorys: {'5'}</li>
 
             <li>View: {TotalView}</li>
             <li>Guests: {'0'}</li>
-            <li>Sales: {'0'}</li>
+            <li>Sales: {TotalSale}</li>
             </ul>
 
         </InfoBoard>

@@ -134,8 +134,8 @@ const SaleJurnal =()=>{
 
         const DataInterval =()=>{
             
-            const data1 =  formatDate(resspons[0].time);
-            const data2 =  formatDate(resspons[resspons.length -1].time);
+            const data1 =  formatDate(resspons[0]?.time);
+            const data2 =  formatDate(resspons[resspons.length -1]?.time);
 
             return(
                 <div style={{
@@ -145,8 +145,9 @@ const SaleJurnal =()=>{
                     alignItems: 'flex-start',
     
                 }}>
-                <b>From: {data1}</b>
-                <b>To: {data2}</b>
+
+                <b>From: {data1 || null}</b>
+                <b>To: {data2 || null}</b>
                 </div>
             );
         };

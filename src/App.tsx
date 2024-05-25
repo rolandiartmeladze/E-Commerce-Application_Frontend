@@ -277,13 +277,12 @@ padding: 0px;
     const HeaderProps = {login, setLogIn, usermode, setProduct};
 
     
-    console.log(Date.now())
+    // console.log(Date.now())
     const timestamp = 1716502055353;
     const date = new Date(timestamp);
     
     console.log("Original date:", date.toISOString());
     
-    // Subtract one day
     date.setDate(date.getDate() - 1);
     
     console.log("Date minus one day:", date.toISOString());
@@ -291,7 +290,6 @@ padding: 0px;
           return (
     
     <>
- {/* <UploadImage />     */}
 
 <div className="app">
 

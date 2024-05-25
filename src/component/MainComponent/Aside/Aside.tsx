@@ -17,6 +17,7 @@ const AsideContainer = styled.aside`
     padding-bottom: 8px;
     position:relative;
     box-shadow: 0px 0px 300px 1px inset rgb(1,201,1, 0.2);
+    // z-index: -1;
         
         ul{                
             display: flex;

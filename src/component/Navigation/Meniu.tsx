@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
 import CloseIcon from '../../icon/close.svg';
+import { zIndex } from "html2canvas/dist/types/css/property-descriptors/z-index";
 
 
 
@@ -71,11 +72,11 @@ const MeniuCmponent = styled.div`
     height: auto;
     position: absolute;
     top: 0px;
-    width: 98%;  
+    width: 100%;  
     flex-direction: column;  
     z-index: 2;    
     margin: auto;
-    border-radius: 0px 0px 15px 15px;
+    border-radius: 0px 0px 8px 8px;
     ul {
       width: 90%;
       flex-direction: column;   
@@ -146,8 +147,12 @@ const CloseComponent = styled.div`
 const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => {
   
   const menuRef = useRef(null);
-  const menuStyles = { display: menuVisible ? 'flex' : 'none', };
-
+  const menuStyles: React.CSSProperties = {
+    display: menuVisible ? 'flex' : 'none',
+    position: menuVisible ? 'fixed' : 'absolute',
+    zIndex: menuVisible ? 10 : 0,
+    top: 0,
+  };
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
