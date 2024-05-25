@@ -15,6 +15,7 @@ background: gainsboro;
     backdrop-filter: blur(5px);
     box-shadow: 0px 1px 5px 0px #000000;
     padding: 0 12px;
+    position: relative;
     `;
 
 

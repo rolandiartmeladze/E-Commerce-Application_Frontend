@@ -7,6 +7,16 @@ import Loaing from "../Loading";
 
 import { Member } from "../../Tools";
 
+import View from '../../icon/view.svg';
+import Sale from '../../icon/cost.png';
+import Category from '../../icon/category.png';
+import Person from '../../icon/person.svg';
+import Product from '../../icon/products.svg';
+import Guset from '../../icon/guest.svg';
+
+
+
+
 interface Props{
     setProduct:Function;
 }
@@ -155,18 +165,10 @@ ul{
         border-radius: 0px;
         z-index: -1;
         backdrop-filter: blur(0px);
-        &:after{
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: yellow;
-            left: -1px;
-            top: 15%;
-            height: 70%;
-            border-radius: 0px;
-
+        img{
+            width: 22px;
+            margin: 0px 2px;
         }
-
 
 
     }
@@ -277,13 +279,13 @@ const Home = ({setProduct}:Props) => {
         <InfoBoard>
 
             <ul>
-            <li>Products: {respons.length}</li>
-            <li >Members: {memberLength}</li>
-            <li>Categorys: {'5'}</li>
+            <li>{<img src={Product} alt="" />}Products: {respons.length}</li>
+            <li>{<img src={Person} alt="" />}Members: {memberLength}</li>
+            <li>{<img src={Category} alt="" />}Categorys: {'5'}</li>
 
-            <li>View: {TotalView}</li>
-            <li>Guests: {'0'}</li>
-            <li>Sales: {TotalSale}</li>
+            <li>{<img src={View} alt="" />}View: {TotalView}</li>
+            <li>{<img src={Guset} alt="" />}Guests: {'0'}</li>
+            <li>{<img src={Sale} alt="" />}Sales: {TotalSale}</li>
             </ul>
 
         </InfoBoard>

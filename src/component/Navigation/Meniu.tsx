@@ -10,78 +10,80 @@ import { zIndex } from "html2canvas/dist/types/css/property-descriptors/z-index"
 
 
 
-const MeniuCmponent = styled.div`
-  width: 100%;
-  height: 40px;
-  padding: 5px 0px;
+const MeniuComponent = styled.div`
+width: 100%;
+height: 40px;
+padding: 5px 0px;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: flex-end;
+
+box-shadow: 0px -1px 1px 0px black;
+margin-bottom: 0px;
+z-index: 1000;
+
+ul {
+  list-style: none;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  
-  box-shadow: 0px -1px 1px 0px black;
-  margin-bottom: 0px;
+  padding: 0;
+  margin: 0;
+  align-items: stretch;
+  height: 100%;
+  margin-right: 6px;
 
-  ul {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
+  li {
+    flex-grow: 1;
+    height: 100%; 
+    margin: 0px;
+    margin-left: 3px;
+    padding: 0px 10px;
+    text-decoration: none;
+    backdrop-filter: contrast(1.5);   
+    font-weight: 700;
+    box-shadow: 0px 0px 1px 0.5px brown;
+    transition: 0.3s ease-in-out;
     align-items: center;
-    padding: 0;
-    margin: 0;
-    align-items: stretch;
-    height: 100%;
-    margin-right: 6px;
 
-    li {
-      flex-grow: 1;
-      height: 100%; 
-      margin: 0px;
-      margin-left: 3px;
-      padding: 0px 10px;
-      text-decoration: none;
-      backdrop-filter: contrast(1.5);   
-      font-weight: 700;
-      box-shadow: 0px 0px 1px 0.5px brown;
-      transition: 0.3s ease-in-out;
-      align-items: center;
+    &:hover {
+      backdrop-filter: contrast(0.5);  
+      box-shadow: 0px 0px 1px 0.5px yellow;
+      color: yellow;
+    }
 
-      &:hover {
-        backdrop-filter: contrast(0.5);  
-        box-shadow: 0px 0px 1px 0.5px yellow;
-        color: yellow;
-      }
-
-      &:hover:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, rgba(0, 50, 100, 0.2), rgba(0, 66, 0, 0.25) 40%, rgba(100, 250, 0, 0.3) 70%);
-        z-index: -1;
-      }
+    &:hover:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 50, 100, 0.2), rgba(0, 66, 0, 0.25) 40%, rgba(100, 250, 0, 0.3) 70%);
+      z-index: -1;
     }
   }
-
+}
   @media only screen and (max-width: 750px) {
     background-color: rgb(50, 40, 20);
     display: none;
     align-items: flex-start;   
     height: auto;
-    position: absolute;
+    position: fixed; /* Fixed position to stay at top */
     top: 0px;
     width: 100%;  
     flex-direction: column;  
-    z-index: 2;    
+    z-index: 1000; 
     margin: auto;
     border-radius: 0px 0px 8px 8px;
+
     ul {
       width: 90%;
       flex-direction: column;   
       margin: auto;
       padding: 8px 0px;
+
       li {
         padding: 6px;
         margin: 5px 4px;
@@ -106,6 +108,7 @@ const MeniuCmponent = styled.div`
         }
       }
     }
+
     a {
       width: 100%;
       padding: 0;
@@ -113,6 +116,7 @@ const MeniuCmponent = styled.div`
     }
   }
 `;
+
 
 const CloseComponent = styled.div`
       width: 100%;
@@ -167,7 +171,7 @@ const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => 
     const meniuOFF = () =>{ return toggleMenu(); }
 
     return (
-      <MeniuCmponent ref={menuRef}  style={isMobile ? menuStyles : undefined}>
+      <MeniuComponent ref={menuRef}  style={isMobile ? menuStyles : undefined}>
 
 
         <CloseComponent>
@@ -185,7 +189,7 @@ const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => 
             <Link onClick={meniuOFF} to={`/contact`}> <li>Contact</li> </Link>               
           </ul>
 
-      </MeniuCmponent>
+      </MeniuComponent>
   );
 } 
   

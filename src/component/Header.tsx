@@ -98,62 +98,96 @@ const MeniuBtn = styled.div`
     grid-column: 1;
     background-color: rgb(51, 51, 51, 0.2);
     margin-bottom: 4px;
+    z-index: 1000;
 
 
   `;
 
-  const UserInfo = styled.div`
+  const UserInfo = styled.div<{ active: boolean }>`
   display: flex;
   position: absolute;
   top: 5px;
   right: 8px;
   transition: 0.4s ease-in-out;
   border-radius: 6px;
-  // min-width: 100px;
-  // width: auto;
   cursor: pointer;
   font-weight: 800;
   flex-direction: column;
   z-index: 5;
-  div{
-    padding: 5px 0px;
+  
+
+  &:before {
+    transition: 0.5s eae-in-out;
+    position: absolute;
+    content: "";
+    display: block;
+    width: 0px;
+    height: 100%; /* Example height */
+    background-color: rgb(51, 51, 51); /* Example color */
+    transition: width 0.3s ease; /* Smooth transition */
+
+    z-index: -1;
+    padding-bottom: 10px;
+  }
+
+
+  div {
+    padding: 5px 0;
     height: auto;
     display: flex;
     align-items: flex-end;
-    samp{
+
+    samp {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-        }
-    img{
+    }
+
+    img {
       margin: 0;
       max-width: 40px;
     }
   }
-  .item{
+
+  .item {
     width: 85%;
-    margin-left: 8%;
+    margin: auto;
+    color: white;
+    box-shadow: 0px 2px 2px 0.5px white;
+    margin-top: 7px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px 0px 10px 10px;
 
-    samp{
-      color: white;
-      text-decoration: underline;
-
-      &:hover{
-        color: yellow;
-
-      }
-  }
+    &:hover {
+      color: yellow;
+      box-shadow: 0px 2px 2px 0.5px yellow;
     }
-  
+  }
 
   @media only screen and (max-width: 750px) {
-
     right: 60px;
-
-  
   }
-  
-  `;
+
+  ${({ active }) =>
+    active &&
+    `
+    &:before {
+      position: absolute;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%; 
+      background-color: rgb(51, 51, 51); 
+      transition: width 0.3s ease; 
+      z-index: -1;
+      padding-bottom: 10px;
+      border-radius: 10px 10px 10px 10px;
+    }
+  `}
+`;
+
+
 interface HeaderProps {
   login: any;
   setLogIn: any;
@@ -207,21 +241,21 @@ const toggleMenu = () => {
   const OpenInfo = ()=>{
     active? setActive(false):setActive(true);
   }
-
+const style ={
+  backgroundColor:'rgb(51, 51, 51)'
+}
 
   return (
     <HeaderComponent>
          <Link to={'/'}> <Logo>MyShop.App</Logo> </Link>
 
 {usermode && 
-<UserInfo style={{
-    backgroundColor: active? 'rgb(66, 44, 55)': 'rgb(66, 44, 55, 0.0)',
-  }} >
-  <div onClick={()=>{
-  OpenInfo();
-}}  style={{
-  boxShadow: !active? '0px 2px 2px -1px rgb(1,1,1)': undefined,
+  <UserInfo active={active}>
+  <div onClick={OpenInfo}  style={{
+  boxShadow: !active? '0px 2px 2px -1px rgb(1,1,1)': '0px 2px 2px -1px rgb(255,255,255)',
   borderRadius: !active? '8px' : undefined,
+  color: active? 'yellow' : 'black',
+  
   
 }} >
   <img className="user-icon" src={userIcin} alt="User Icon" />
@@ -239,32 +273,23 @@ const toggleMenu = () => {
   }} src={arrow} alt="" />
   </div>
 
-{ active &&<>
-  <div className='item'>
-  <Link to="/main/products">
-  <samp>My Products</samp>
+{ active &&<>  
+
+  <Link to="/main/products" onClick={OpenInfo}>
+    <div className='item'> My Products </div>
   </Link>
-  </div>
 
-  <div className='item'>
-  <Link to="/main/add">
-
-  <samp>Add Product</samp>
+  <Link to="/main/add"  onClick={OpenInfo}>
+    <div className='item'>Add Product</div>
   </Link>
-  </div>
-  <div className='item'>
-  <Link to="/main/jurnal">
+  
+    <Link to="/main/jurnal"  onClick={OpenInfo}>
+      <div className='item'>Sale Jurnale</div>
+    </Link>
 
-  <samp>Sale Jurnale</samp>
-  </Link>
-  </div>
-
-
-  <div className='item'>
   <Link to="/">
-          <samp onClick={logout}>Log Out</samp></Link>
-        
-  </div>
+    <div onClick={()=>{logout(); OpenInfo()}} className='item'> Log Out </div>
+  </Link>
   </> 
 
 }
