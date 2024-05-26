@@ -4,42 +4,149 @@ import Loading from '../../Loading';
 
 import formatDate from '../../FormatDataTime';
 
-const Header = styled.h1`
-        border-bottom-left-radius: 5px;
+const Header = styled.nav`
+        border-radius: 0px 0px 10px 10px;
         text-align: left;
         background-color: rgb(51, 181, 81, 0.4);
         padding: 3px 8px;
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
 
         div{
             display: flex;
-    align-items: center;
+            align-items: flex-start;
+            }
+        
+        @media (max-width: 750px) {border-radius: 0px;}
 
-            samp{
+        .navigate {
+            max-width: 250px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            samp {
+                padding: 5px 0;
+                height: auto;
+                width: 40%;
+                margin: 4px;
+                align-items: center;
+                align-content: center;
+                justify-content: center;
+                row-gap: 5px;
                 display: flex;
                 cursor: pointer;
-                background-color: rgb(51, 181, 181, 0.4);
-                box-shadow: 0px 0px 1px 1px red;
+                background-color: rgba(51, 181, 181, 0.4);
+                box-shadow: -1px 0px 1px 1px red;
                 height: 100%;
                 align-items: center;
-                padding: 0px 5px;
-                margin: 0px 3px;
-                transition: 0.4s ease;
-                border-radius: 4px;
+                margin: 3px;
+                transition: 0.4s ease-in-out;
+                border-radius: 4px 0px 0px 4px;
+                position: relative;
+                font-weight: 900;
 
-&:hover{
-    background-color: rgb(51, 81, 181, 0.6);
-    box-shadow: 0px 0px 1px 1px yellow;
-    color: yellow;
+                &:hover{
+                    transform: scale(1.05);
+                    border-radius: 4px;}
 
-}
+                    &:before {
+                            content: '';
+                            position: absolute;
+                            top: 1%;
+                            left: 0;
+                            width: 0;
+                            height: 98%;
+                            background-color: yellow;
+                            transition: width 0.5s ease-in-out;
+                            border-radius: 4px;
+                            z-index: -1;
                         }
+                        &:hover {
+                                background-color: rgba(51, 81, 81, 0);
+                                box-shadow: 0px 0px 1px 0px green;
+                                color: red;
+
+                                 &:before {width: 100%;}
+                                }
+                     }
+            }      
+
+
+
+        .datatime{
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+
+            .title {
+                font-weight: 900;
+                padding: 8px 0px;
+                margin: 0px 10px;
+                align-items: center;
+                border-radius: 5px;
+                color: red;
+                display: flex;
+                background-color:  rgba(10, 35, 67, 0.5);
+                border-radius: 5px 0px 0px 5px;
+                width: 120px;
+                justify-content: center;
+            
+                }
+
+                .time{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    position: relative;
+    font-weight: 900;
+    font-size: 100%;
+    padding-left: 3px;
+    &:before{
+            content: '';
+            position: absolute;
+            top: 1%;
+            left: -5px;
+            width: 6px;
+            height: 98%;
+            background-color: red;
+            transition: width 0.5s ease-in-out;
+            border-radius: 4px 0px 0px 4px;
+
+    }
+                }
+
+            }
+
+        .head{
+            display: flex;
+            width: 100%;
+            box-shadow: 0px 3px 2px -2px;
+            padding: 3px 0px;
+            margin-bottom: 4px;
+            align-items: center;
+            
+            h4{
+                margin: 0;
+                padding: 3px;
+                }
+    
+                div{
+                    position:relative;
+                    margin: 0px 18px;
+                   
+                    }
+                }
+            }
+        .conteiner{
+            display: flex;
+            justify-content: space-between;
         }
-        
-        @media (max-width: 750px) {
-        border-radius: 0px;
-        }
+
 `;
 
     const Conteiner = styled.article`
@@ -108,64 +215,65 @@ const SaleJurnal =()=>{
 
         const Media = `https://embarrassing-unifor.000webhostapp.com/Media/${token}`;
 
-        const Title =()=>{
-            const style = {
-                margin: ' 0px 10px',
-                alignItems: 'center',
-                borderRadius: ' 5px',
-                color: 'red',
-                display: 'flex',
-                border: '0.2px solid yellow',
-                padding: '0px 12px',
-                background: 'linear-gradient(to bottom, rgba(10, 35, 67, 0.2), rgba(10, 35, 67, 0.7), rgba(10, 35, 67, 0.2))'
-              };
-            return(
-                <span style={style}>
-                {mode}
-              </span>
-            );
-        
-        }
-
-        const sortJurnal =( sort:string, title:string )=>{
+        const sortJurnal =( sort:string, title:string ):void =>{
             FetchData(sort);
             setMode(title);
         };
 
-        const DataInterval =()=>{
-            
-            const data1 =  formatDate(resspons[0]?.time);
-            const data2 =  formatDate(resspons[resspons.length -1]?.time);
-
-            return(
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    fontSize: '50%',
-                    alignItems: 'flex-start',
+        const [products, setProduct] = useState<number>(0);
+        const [cost, setCost] = useState<number>(0);
+        const [data1, setData1] = useState<string>('');
+        const [data2, setData2] = useState<string>('');
     
-                }}>
+        useEffect(() => {
+            const update = async () => {
+                    const total = resspons?.reduce((acc:any, product:any) => acc + product.amount, 0);
+                    const totalCost = resspons?.reduce((acc:any, product:any) => acc + (product.amount * product.price), 0);
 
-                <b>From: {data1 || null}</b>
-                <b>To: {data2 || null}</b>
-                </div>
-            );
-        };
+                if (resspons && resspons.length > 0) {
+                    setCost(totalCost);
+                    setProduct(total);
+
+                    setData1(formatDate(resspons[0]?.time));
+                    setData2(formatDate(resspons[resspons.length - 1]?.time));
+                }
+            };
+            update();
+        }, [resspons]);
+
 
     return(
         <>
-                <Header><div>Sale Jurnal  <Title />  
+                <Header>     
                     
-                        {resspons && <DataInterval />}
-                    
+                    <div className='head'> 
+                        <h4>Sale Jurnal </h4>
+                            <div>Units Sold: {products}</div> 
+                            <div>Total Cost: {cost.toFixed(2)} ₾.</div> 
                     </div>
-                    <div>
-                    <samp onClick={()=>{sortJurnal("All",'All')}}>All</samp>
-                    <samp onClick={()=>{sortJurnal("day",'Today')}}>Today</samp>
-                        <samp onClick={()=>{sortJurnal("week", 'This Week')}}>This Week</samp>
-                        <samp onClick={()=>{sortJurnal("month", 'This Month')}}>This Month</samp>
+
+                    <div className='conteiner'>
+                        <div className='datatime'>
+                            <span className='title'> {mode} </span> 
+                        
+                            {resspons &&
+                                <div className='time'>
+                                    <samp>From: {data1}</samp>
+                                    <samp>To: {data2}</samp>                        
+                                </div> 
+                            }
+                        
+                        </div>
+
+                        <div className='navigate'>
+                            <samp onClick={()=>{sortJurnal("All",'All')}}>All</samp>
+                            <samp onClick={()=>{sortJurnal("day",'Today')}}>Today</samp>
+                            <samp onClick={()=>{sortJurnal("week", 'This Week')}}>This Week</samp>
+                            <samp onClick={()=>{sortJurnal("month", 'This Month')}}>This Month</samp>
                         </div> 
-                    </Header>
+                    </div>
+
+                </Header>
 
                 <div style={{display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', position: 'relative'}}>
                 {!resspons && <Loading /> }

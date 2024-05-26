@@ -273,7 +273,12 @@ const style ={
   }} src={arrow} alt="" />
   </div>
 
-{ active &&<>  
+{ active &&<> 
+
+  <Link to="/main/message" onClick={OpenInfo}>
+    <div className='item'> Message </div>
+  </Link>
+
 
   <Link to="/main/products" onClick={OpenInfo}>
     <div className='item'> My Products </div>

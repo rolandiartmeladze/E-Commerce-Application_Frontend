@@ -21,7 +21,6 @@ justify-content: flex-end;
 
 box-shadow: 0px -1px 1px 0px black;
 margin-bottom: 0px;
-z-index: 1000;
 
 ul {
   list-style: none;
@@ -74,7 +73,6 @@ ul {
     top: 0px;
     width: 100%;  
     flex-direction: column;  
-    z-index: 1000; 
     margin: auto;
     border-radius: 0px 0px 8px 8px;
 
