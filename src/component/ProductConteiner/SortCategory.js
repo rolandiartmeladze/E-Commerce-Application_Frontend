@@ -9,7 +9,7 @@ const sortedcategory = async (SelectedCategory) => {
 
     try {
         const serverlink = serverUri();
-        const response = await fetch(`${serverlink}/sortedcategory?category=${encodeURIComponent(SelectedCategory)}`, {                
+        const response = await fetch(`${serverlink}/api/sortedcategory?category=${encodeURIComponent(SelectedCategory)}`, {                
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         });

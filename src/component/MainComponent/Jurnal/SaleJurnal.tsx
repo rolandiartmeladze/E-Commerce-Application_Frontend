@@ -15,7 +15,7 @@ const Header = styled.nav`
 
         div{
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             }
         
         @media (max-width: 750px) {border-radius: 0px;}
