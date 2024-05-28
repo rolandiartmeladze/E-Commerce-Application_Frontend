@@ -164,9 +164,11 @@ const Header = styled.nav`
             const Image = styled.div`
                     width:70px;
                     min-height: 100%;
+                    max-height: 70px;;
                     display: flex;
                     align-items: center;
                     padding: 0px 3px; 
+                    justify-content: center;
                     
                     img{
                         max-width: 100%;
@@ -191,107 +193,247 @@ const Header = styled.nav`
                             }
                             `;
 
-const SaleJurnal =()=>{
-    const [resspons, setRespons] = useState<any | null>(null);
-    const token = localStorage.getItem('token');
-    const [mode, setMode] = useState<string>('Today')
-    async function FetchData(sort:string) {
-        setRespons(null);
-        try {
 
-            const jurnalrespons = await fetch(`https://quasar-wind-trader.glitch.me/api/salejurnal/${token}/?sort=${sort}`, {
-                method: 'GET', 
-                headers:{ 'Content-Type': 'application/json' },
-            });
-            if(!jurnalrespons.ok){throw new Error('Failed to fetch users data');}
-            const result = await jurnalrespons.json();
-                    setRespons(result);
-        } catch (error) {}
-    }
+                            const ConteinerItem =styled.div`
+                                display: flex; 
+                                justify-content: space-around; 
+                                flex-wrap: wrap; 
+                                position: relative; 
+                                width: 100%; 
+                                margin: 5px 0px;
 
-        useEffect(()=>{
-            FetchData("day");
-        }, [])
+                                h2, h3, h4{
+                                    margin: 0px 0px 0px 0px;
+                                    text-align: left;
+                                    padding: 3px;
+                                    padding-left: 8px;
+                                    position: relative;
+                                    cursor: pointer;
+                                    &:after{
+                                        height: 1px;
+                                        bottom: 0px;                                        
+                                        left: 0px;
+                                        position: absolute;
+                                        content: '';
+                                        width: 100%;
+                                    }
 
-        const Media = `https://embarrassing-unifor.000webhostapp.com/Media/${token}`;
-
-        const sortJurnal =( sort:string, title:string ):void =>{
-            FetchData(sort);
-            setMode(title);
-        };
-
-        const [products, setProduct] = useState<number>(0);
-        const [cost, setCost] = useState<number>(0);
-        const [data1, setData1] = useState<string>('');
-        const [data2, setData2] = useState<string>('');
-    
-        useEffect(() => {
-            const update = async () => {
-                    const total = resspons?.reduce((acc:any, product:any) => acc + product.amount, 0);
-                    const totalCost = resspons?.reduce((acc:any, product:any) => acc + (product.amount * product.price), 0);
-
-                if (resspons && resspons.length > 0) {
-                    setCost(totalCost);
-                    setProduct(total);
-
-                    setData1(formatDate(resspons[0]?.time));
-                    setData2(formatDate(resspons[resspons.length - 1]?.time));
-                }
-            };
-            update();
-        }, [resspons]);
+                                    &:before{
+                                        height: 96%;
+                                        top: 2%;
+                                        left: 0px;
+                                        position: absolute;
+                                        content: '';
+                                        width: 2px;
+                                    }
 
 
-    return(
-        <>
-                <Header>     
-                    
-                    <div className='head'> 
-                        <h4>Sale Jurnal </h4>
-                            <div>Units Sold: {products}</div> 
-                            <div>Total Cost: {cost.toFixed(2)} ₾.</div> 
-                    </div>
+                                }
 
-                    <div className='conteiner'>
-                        <div className='datatime'>
-                            <span className='title'> {mode} </span> 
-                        
-                            {resspons &&
-                                <div className='time'>
-                                    <samp>From: {data1}</samp>
-                                    <samp>To: {data2}</samp>                        
-                                </div> 
+
+                            .year-section{
+                                width: 100%;
+                                padding: 3px;                                    
+                                background-color: rgb(120, 0, 0, 0.1);
+                                h2{ &:after , &:before{ background-color: rgb(120, 0,0); } }
                             }
-                        
-                        </div>
 
-                        <div className='navigate'>
-                            <samp onClick={()=>{sortJurnal("All",'All')}}>All</samp>
-                            <samp onClick={()=>{sortJurnal("day",'Today')}}>Today</samp>
-                            <samp onClick={()=>{sortJurnal("week", 'This Week')}}>This Week</samp>
-                            <samp onClick={()=>{sortJurnal("month", 'This Month')}}>This Month</samp>
-                        </div> 
-                    </div>
 
-                </Header>
 
-                <div style={{display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', position: 'relative'}}>
-                {!resspons && <Loading /> }
-                {resspons?.map((item:any, index:number) => (
-                    <Conteiner key={index}>
-                        <Image> <img src={`${Media}/${item.img}`} alt=''/></Image>
-                            <Info>
-                            <samp><b>Name:</b> {item.name} </samp>
-                            <samp><b>Price:</b> {item.price} {item.currency} </samp>
-                            <samp><b>Amount:</b> {item.amount} {item.unit} </samp>
-                            <samp><b>Cost:</b> {(item.price * item.amount).toFixed(2)} {item.currency} </samp>
-                            <samp><b>Time:</b> {formatDate(item.time)} </samp>
-                                    
-                            </Info>
-                    </Conteiner>
-                ))}
-                </div>
-        </>
-    );
-};
-export default SaleJurnal;
+                           .month-div{
+                                padding: 3px;
+                                background-color: rgb(0,220, 0, 0.1);
+                                    h3{ &:after, &:before{ background-color: rgb(0, 220,0); } }
+                           }
+
+                            .day-div{
+                                display: flex;
+                                flex-wrap: wrap; 
+                                justify-content: center;
+                                padding: 3px;
+                                background-color: rgb(0, 0, 250, 0.1);
+                                    h4{ &:after, &:before{ background-color: rgb(0, 0, 250); } }
+                            }
+                           
+                           
+                            `;
+
+
+
+                            interface Product {
+                                time: string;
+                                name: string;
+                                price: number;
+                                currency: string;
+                                amount: number;
+                                unit: string;
+                                img: string;
+                            }
+                            
+                            interface FormattedDate {
+                                formatted: string;
+                                year: string;
+                                month: string;
+                                day: string;
+                            }
+                            
+                            interface GroupedProducts {
+                                [year: string]: {
+                                    [month: string]: {
+                                        [day: string]: (Product & { formattedTime: string })[];
+                                    };
+                                };
+                            }
+
+                            
+                            
+
+                            const SaleJurnal: React.FC = () => {
+                                
+
+                                function formatDate(dateString: string): FormattedDate {
+                                    const date = new Date(dateString);
+                                    const day = date.getUTCDate().toString().padStart(2, '0');
+                                    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+                                    const year = date.getUTCFullYear().toString();
+                                
+                                    let hours = date.getUTCHours() + 4;
+                                    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+                                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                                    hours = hours % 12 || 12;
+                                
+                                    return {
+                                        formatted: `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`,
+                                        year,
+                                        month,
+                                        day,
+                                    };
+                                }
+                                
+
+
+                                const [resspons, setRespons] = useState<Product[] | null>(null);
+                                const [mode, setMode] = useState<string>('Today');
+                                const [products, setProducts] = useState<number>(0);
+                                const [cost, setCost] = useState<number>(0);
+                                const [data1, setData1] = useState<string>('');
+                                const [data2, setData2] = useState<string>('');
+                                const token = localStorage.getItem('token');
+                            
+                                async function fetchData(sort: string): Promise<void> {
+                                    setRespons(null);
+                                    try {
+                                        const response = await fetch(`https://quasar-wind-trader.glitch.me/api/salejurnal/${token}/?sort=${sort}`, {
+                                            method: 'GET',
+                                            headers: { 'Content-Type': 'application/json' },
+                                        });
+                                        if (!response.ok) throw new Error('Failed to fetch data');
+                                        const result: Product[] = await response.json();
+                                        setRespons(result);
+                                    } catch (error) {
+                                        console.error(error);
+                                    }
+                                }
+                            
+                                useEffect(() => {
+                                    fetchData('day');
+                                }, []);
+                            
+                                useEffect(() => {
+                                    if (resspons && resspons.length > 0) {
+                                        const total = resspons.reduce((acc, product) => acc + product.amount, 0);
+                                        const totalCost = resspons.reduce((acc, product) => acc + product.amount * product.price, 0);
+                                        setProducts(total);
+                                        setCost(totalCost);
+                                        setData1(formatDate(resspons[0].time).formatted);
+                                        setData2(formatDate(resspons[resspons.length - 1].time).formatted);
+                                    }
+                                }, [resspons]);
+                            
+                                const sortJurnal = (sort: string, title: string): void => {
+                                    fetchData(sort);
+                                    setMode(title);
+                                };
+                            
+                                const groupRessponsByYearMonthDay = (resspons: Product[]): GroupedProducts => {
+                                    return resspons.reduce((acc: GroupedProducts, product: Product) => {
+                                        const { year, month, day, formatted } = formatDate(product.time);
+                                        if (!acc[year]) acc[year] = {};
+                                        if (!acc[year][month]) acc[year][month] = {};
+                                        if (!acc[year][month][day]) acc[year][month][day] = [];
+                                        acc[year][month][day].push({ ...product, formattedTime: formatted });
+                                        return acc;
+                                    }, {});
+                                };
+                            
+                                const groupedResspons = resspons ? groupRessponsByYearMonthDay(resspons) : {};
+                            
+                                return (
+                                    <>
+                                        <Header>
+                                            <div className='head'>
+                                                <h4>Sale Jurnal</h4>
+                                                <div>Units Sold: {products}</div>
+                                                <div>Total Cost: {cost.toFixed(2)} ₾</div>
+                                            </div>
+                                            <div className='conteiner'>
+                                                <div className='datatime'>
+                                                    <span className='title'>{mode}</span>
+                                                    {resspons && (
+                                                        <div className='time'>
+                                                            <samp>From: {data1}</samp>
+                                                            <samp>To: {data2}</samp>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className='navigate'>
+                                                    <samp onClick={() => sortJurnal('All', 'All')}>All</samp>
+                                                    <samp onClick={() => sortJurnal('day', 'Today')}>Today</samp>
+                                                    <samp onClick={() => sortJurnal('week', 'This Week')}>This Week</samp>
+                                                    <samp onClick={() => sortJurnal('month', 'This Month')}>This Month</samp>
+                                                </div>
+                                            </div>
+                                        </Header>
+                            
+                                        <ConteinerItem>
+                                            {!resspons && <Loading />}
+                                            {Object.entries(groupedResspons).map(([year, months]) => (
+                                                <section key={year} className='year-section'>
+                                                    <h2>Year: {year}</h2>
+                                                    {Object.entries(months).map(([month, days]) => (
+                                                        <div key={month} className='month-div'>
+                                                            <h3>Month: {month}</h3>
+                                                            {Object.entries(days).map(([day, products]) => (
+                                                                <div key={day} className='day-div'>
+                                                                    <h4 style={
+                                                                        {width: '100%'}
+                                                                    }>Day: {day}</h4>
+                                                                    {products.map((product, index) => (
+                                                                        <Conteiner key={index}>
+                                                                            <Image>
+                                                                                <img
+                                                                                    src={`https://embarrassing-unifor.000webhostapp.com/Media/${token}/${product.img}`}
+                                                                                    alt=''
+                                                                                />
+                                                                            </Image>
+                                                                            <Info>
+                                                                                <samp><b>Name:</b> {product.name}</samp>
+                                                                                <samp><b>Price:</b> {product.price} {product.currency}</samp>
+                                                                                <samp><b>Amount:</b> {product.amount} {product.unit}</samp>
+                                                                                <samp><b>Cost:</b> {(product.price * product.amount).toFixed(2)} {product.currency}</samp>
+                                                                                <samp><b>Time:</b> {product.formattedTime}</samp>
+                                                                            </Info>
+                                                                        </Conteiner>
+                                                                    ))}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ))}
+                                                </section>
+                                            ))}
+                                        </ConteinerItem>
+                                    </>
+                                );
+                            };
+                            
+                            export default SaleJurnal;
