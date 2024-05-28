@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Loading from '../../Loading';
 
 import formatDate from '../../FormatDataTime';
+import { totalmem } from 'os';
 
 const Header = styled.nav`
         border-radius: 0px 0px 10px 10px;
@@ -194,7 +195,7 @@ const Header = styled.nav`
                             `;
 
 
-                            const ConteinerItem =styled.div`
+                            const ContainerItem =styled.div`
                                 display: flex; 
                                 justify-content: space-around; 
                                 flex-wrap: wrap; 
@@ -219,8 +220,8 @@ const Header = styled.nav`
                                     }
 
                                     &:before{
-                                        height: 96%;
-                                        top: 2%;
+                                        height: 100%;
+                                        top: 0;
                                         left: 0px;
                                         position: absolute;
                                         content: '';
@@ -243,7 +244,7 @@ const Header = styled.nav`
                            .month-div{
                                 padding: 3px;
                                 background-color: rgb(0,220, 0, 0.1);
-                                    h3{ &:after, &:before{ background-color: rgb(0, 220,0); } }
+                                    h3{   box-shadow: 0px 1px 3px 0.5px; &:before{ background-color: rgb(0, 220,0); } }
                            }
 
                             .day-div{
@@ -251,8 +252,9 @@ const Header = styled.nav`
                                 flex-wrap: wrap; 
                                 justify-content: center;
                                 padding: 3px;
+                                margin-top: 4px;
                                 background-color: rgb(0, 0, 250, 0.1);
-                                    h4{ &:after, &:before{ background-color: rgb(0, 0, 250); } }
+                                    h4{ width: 100%;  box-shadow: 0px 1px 3px 0.5px; &:before{ background-color: rgb(0, 0, 250); } }
                             }
                            
                            
@@ -289,7 +291,6 @@ const Header = styled.nav`
                             
 
                             const SaleJurnal: React.FC = () => {
-                                
 
                                 function formatDate(dateString: string): FormattedDate {
                                     const date = new Date(dateString);
@@ -319,7 +320,17 @@ const Header = styled.nav`
                                 const [data1, setData1] = useState<string>('');
                                 const [data2, setData2] = useState<string>('');
                                 const token = localStorage.getItem('token');
-                            
+                                const [hiddenMonth, setHiddenMonth] = useState<Record<string, boolean>>({});
+                                const [hiddenDay, setHiddenDay] = useState<Record<string, boolean>>({});
+
+                                const today = new Date();
+                                const todayDay = today.getUTCDate().toString().padStart(2, '0');
+                                const thisMonth = (today.getUTCMonth() + 1).toString().padStart(2, '0');
+                                const thisYear = today.getUTCFullYear().toString();
+                                const [thisDay, setThisDay] = useState<string | null>(todayDay);
+
+
+
                                 async function fetchData(sort: string): Promise<void> {
                                     setRespons(null);
                                     try {
@@ -335,9 +346,7 @@ const Header = styled.nav`
                                     }
                                 }
                             
-                                useEffect(() => {
-                                    fetchData('day');
-                                }, []);
+                                useEffect(() => { fetchData('day'); }, []);
                             
                                 useEffect(() => {
                                     if (resspons && resspons.length > 0) {
@@ -350,10 +359,7 @@ const Header = styled.nav`
                                     }
                                 }, [resspons]);
                             
-                                const sortJurnal = (sort: string, title: string): void => {
-                                    fetchData(sort);
-                                    setMode(title);
-                                };
+            const sortJurnal = (sort: string, title: string): void => { fetchData(sort); setMode(title);};
                             
                                 const groupRessponsByYearMonthDay = (resspons: Product[]): GroupedProducts => {
                                     return resspons.reduce((acc: GroupedProducts, product: Product) => {
@@ -367,7 +373,42 @@ const Header = styled.nav`
                                 };
                             
                                 const groupedResspons = resspons ? groupRessponsByYearMonthDay(resspons) : {};
-                            
+
+                                const toggleMonth = (year: string, month: string): void => {
+                                    const keyMonth = `${year}-${month}`;
+                                    setHiddenMonth((prevVisibility) => ({
+                                        ...prevVisibility,
+                                        [keyMonth]: !prevVisibility[keyMonth],
+                                    }));
+                                };
+
+                                const toggleDay = (year: string, month: string, day: string): void => {
+                                    const key = `${year}-${month}-${day}`;
+                                    setHiddenDay((prevVisibility) => ({
+                                        ...prevVisibility,
+                                        [key]: !prevVisibility[key],
+                                    }));
+                                };
+
+
+                                const total = (result:any)=>{
+                                    let saleProduct = 0; let totalCost = 0;
+                                    result.forEach((product:any) => { saleProduct += product.amount });
+                                    result.forEach((product:any) => { totalCost += (product.amount * product.price)});
+                                    return( <>
+                                        <samp> Units Sold: {saleProduct}</samp>
+                                        <samp> Total Cost: {totalCost.toFixed(2)}</samp>
+                                        </> );
+                                    }
+
+    const sortKeysDesc = (obj: { [key: string]: any }) => { return Object.keys(obj).sort((a, b) => Number(b) - Number(a)); };
+
+
+
+                                useEffect(() => { setThisDay(todayDay); }, []);
+
+                                const clickToday = () => { setThisDay(null);};
+                                
                                 return (
                                     <>
                                         <Header>
@@ -395,44 +436,61 @@ const Header = styled.nav`
                                             </div>
                                         </Header>
                             
-                                        <ConteinerItem>
-                                            {!resspons && <Loading />}
-                                            {Object.entries(groupedResspons).map(([year, months]) => (
-                                                <section key={year} className='year-section'>
-                                                    <h2>Year: {year}</h2>
-                                                    {Object.entries(months).map(([month, days]) => (
-                                                        <div key={month} className='month-div'>
-                                                            <h3>Month: {month}</h3>
-                                                            {Object.entries(days).map(([day, products]) => (
-                                                                <div key={day} className='day-div'>
-                                                                    <h4 style={
-                                                                        {width: '100%'}
-                                                                    }>Day: {day}</h4>
-                                                                    {products.map((product, index) => (
-                                                                        <Conteiner key={index}>
-                                                                            <Image>
-                                                                                <img
-                                                                                    src={`https://embarrassing-unifor.000webhostapp.com/Media/${token}/${product.img}`}
-                                                                                    alt=''
-                                                                                />
-                                                                            </Image>
-                                                                            <Info>
-                                                                                <samp><b>Name:</b> {product.name}</samp>
-                                                                                <samp><b>Price:</b> {product.price} {product.currency}</samp>
-                                                                                <samp><b>Amount:</b> {product.amount} {product.unit}</samp>
-                                                                                <samp><b>Cost:</b> {(product.price * product.amount).toFixed(2)} {product.currency}</samp>
-                                                                                <samp><b>Time:</b> {product.formattedTime}</samp>
-                                                                            </Info>
-                                                                        </Conteiner>
-                                                                    ))}
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    ))}
-                                                </section>
+                                        <ContainerItem>
+                {!resspons && <Loading />}
+                {sortKeysDesc(groupedResspons).map((year) => (
+                    <section key={year} className='year-section'>
+                        <h2>Year: {year}</h2>
+                        {sortKeysDesc(groupedResspons[year]).map((month) => {
+                            const keyMonth = `${year}-${month}`;
+                            // const products = groupedResspons[year][month];
+
+                            return(
+                            <div key={month} className='month-div'>
+                                <h3 onClick={() => toggleMonth(year, month)}>Month: {month} </h3>
+
+                                {(hiddenMonth[keyMonth] || month === thisMonth) && sortKeysDesc(groupedResspons[year][month]).map((day)  => {
+                                    const key = `${year}-${month}-${day}`;
+                                    const products = groupedResspons[year][month][day];
+                                    
+                                    return (
+                                        
+                                        <div key={day} className='day-div'>
+                                            
+                                            <h4 onClick={() => {                                                
+                                                if (day === todayDay) {clickToday()}
+                                                toggleDay(year, month, day);
+                                            }}>
+                                                Day: {day}  /= {total(products)}
+                                            </h4>
+                                            {(hiddenDay[key] || day === thisDay)  && products.map((product, index) => (
+                                                <Conteiner key={index}>
+                                                    <Image>
+                                                        <img
+                                                            src={`https://embarrassing-unifor.000webhostapp.com/Media/${token}/${product.img}`}
+                                                            alt=''
+                                                        />
+                                                    </Image>
+                                                    <Info>
+                                                        <samp><b>Name:</b> {product.name}</samp>
+                                                        <samp><b>Price:</b> {product.price} {product.currency}</samp>
+                                                        <samp><b>Amount:</b> {product.amount} {product.unit}</samp>
+                                                        <samp><b>Cost:</b> {(product.price * product.amount).toFixed(2)} {product.currency}</samp>
+                                                        <samp><b>Time:</b> {product.formattedTime}</samp>
+                                                    </Info>
+                                                </Conteiner>
                                             ))}
-                                        </ConteinerItem>
-                                    </>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            );
+
+                        
+                            })}
+                    </section>
+                ))}
+            </ContainerItem>                                    </>
                                 );
                             };
                             
