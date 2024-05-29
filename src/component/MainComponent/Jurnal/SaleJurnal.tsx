@@ -2,8 +2,10 @@ import react, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import Loading from '../../Loading';
 
-import formatDate from '../../FormatDataTime';
-import { totalmem } from 'os';
+import Arrow from '../../../icon/arrow.png';
+import productIcon from '../../../icon/product.png';
+import costIcon from '../../../icon/cost.png';
+
 
 const Header = styled.nav`
         border-radius: 0px 0px 10px 10px;
@@ -203,21 +205,33 @@ const Header = styled.nav`
                                 width: 100%; 
                                 margin: 5px 0px;
 
+
+                                .result{
+                                    padding: 3px;
+                                    display: flex;
+                                    align-items: center;
+                                    samp{
+                                        img{width: 18px !important;}
+                                        display: flex;
+                                        align-items: center;
+                                        margin: 0px 10px;
+                                        min-width: 50px;
+                                    }
+                                    
+                                }
+
                                 h2, h3, h4{
                                     margin: 0px 0px 0px 0px;
                                     text-align: left;
-                                    padding: 3px;
-                                    padding-left: 8px;
                                     position: relative;
                                     cursor: pointer;
-                                    &:after{
-                                        height: 1px;
-                                        bottom: 0px;                                        
-                                        left: 0px;
-                                        position: absolute;
-                                        content: '';
-                                        width: 100%;
-                                    }
+                                    box-shadow: 0px 1px 3px 0.5px; 
+                                    transition: 0.4s ease-in-out;
+
+                                    display: flex;
+                                    align-items: center; 
+                                    width: 100%;
+                                    img{margin: 0px 6px;}
 
                                     &:before{
                                         height: 100%;
@@ -236,7 +250,10 @@ const Header = styled.nav`
                                 width: 100%;
                                 padding: 3px;                                    
                                 background-color: rgb(120, 0, 0, 0.1);
-                                h2{ &:after , &:before{ background-color: rgb(120, 0,0); } }
+                                h2{
+                                    img{width: 28px;} 
+                                    &:before{ background-color: rgb(120, 0,0); } 
+                                }
                             }
 
 
@@ -244,7 +261,10 @@ const Header = styled.nav`
                            .month-div{
                                 padding: 3px;
                                 background-color: rgb(0,220, 0, 0.1);
-                                    h3{   box-shadow: 0px 1px 3px 0.5px; &:before{ background-color: rgb(0, 220,0); } }
+                                    h3{
+                                        img{width: 25px;}
+                                        &:before{ background-color: rgb(0, 220,0); } 
+                                    }
                            }
 
                             .day-div{
@@ -254,7 +274,12 @@ const Header = styled.nav`
                                 padding: 3px;
                                 margin-top: 4px;
                                 background-color: rgb(0, 0, 250, 0.1);
-                                    h4{ width: 100%;  box-shadow: 0px 1px 3px 0.5px; &:before{ background-color: rgb(0, 0, 250); } }
+
+                                
+                                    h4{
+                                        img{width: 22px;} 
+                                        &:before{ background-color: rgb(0, 0, 250); } 
+                                    }
                             }
                            
                            
@@ -320,14 +345,18 @@ const Header = styled.nav`
                                 const [data1, setData1] = useState<string>('');
                                 const [data2, setData2] = useState<string>('');
                                 const token = localStorage.getItem('token');
+                                const [hiddenYear, setHiddenYear] = useState<Record<string, boolean>>({});
                                 const [hiddenMonth, setHiddenMonth] = useState<Record<string, boolean>>({});
                                 const [hiddenDay, setHiddenDay] = useState<Record<string, boolean>>({});
 
                                 const today = new Date();
                                 const todayDay = today.getUTCDate().toString().padStart(2, '0');
-                                const thisMonth = (today.getUTCMonth() + 1).toString().padStart(2, '0');
-                                const thisYear = today.getUTCFullYear().toString();
+                                const activMonth = (today.getUTCMonth() + 1).toString().padStart(2, '0');
+                                const activYear = today.getUTCFullYear().toString();
+
                                 const [thisDay, setThisDay] = useState<string | null>(todayDay);
+                                const [thisMonth, setThisMonth] = useState<string | null>(activMonth);
+                                const [thisYear, setThisYear] = useState<string | null>(activYear);
 
 
 
@@ -374,6 +403,14 @@ const Header = styled.nav`
                             
                                 const groupedResspons = resspons ? groupRessponsByYearMonthDay(resspons) : {};
 
+                                const toggleYear = (year: string): void => {
+                                    const keyMonth = `${year}`;
+                                    setHiddenYear((prevVisibility) => ({
+                                        ...prevVisibility,
+                                        [keyMonth]: !prevVisibility[keyMonth],
+                                    }));
+                                };
+
                                 const toggleMonth = (year: string, month: string): void => {
                                     const keyMonth = `${year}-${month}`;
                                     setHiddenMonth((prevVisibility) => ({
@@ -395,10 +432,10 @@ const Header = styled.nav`
                                     let saleProduct = 0; let totalCost = 0;
                                     result.forEach((product:any) => { saleProduct += product.amount });
                                     result.forEach((product:any) => { totalCost += (product.amount * product.price)});
-                                    return( <>
-                                        <samp> Units Sold: {saleProduct}</samp>
-                                        <samp> Total Cost: {totalCost.toFixed(2)}</samp>
-                                        </> );
+                                    return( <div className='result'>
+                                        <samp> <img src={productIcon} alt='' /> {saleProduct}</samp>
+                                        <samp> <img src={costIcon} alt='' />  {totalCost.toFixed(2)}</samp>
+                                        </div> );
                                     }
 
     const sortKeysDesc = (obj: { [key: string]: any }) => { return Object.keys(obj).sort((a, b) => Number(b) - Number(a)); };
@@ -408,7 +445,33 @@ const Header = styled.nav`
                                 useEffect(() => { setThisDay(todayDay); }, []);
 
                                 const clickToday = () => { setThisDay(null);};
-                                
+                                const clickMonth = () => { setThisMonth(null);};
+                                const clickYear = () => { setThisYear(null);};
+                                const iconstyle ={transform: 'rotate(90deg)'};
+
+
+                                      const monthis =(monthitem:string)=> {
+                                            const item =parseInt(monthitem, 0);
+                                      const month =  [
+                                                "January",
+                                                "February",
+                                                "March",
+                                                "April",
+                                                "May",
+                                                "June",
+                                                "July",
+                                                "August",
+                                                "September",
+                                                "October",
+                                                "November",
+                                                "December"
+                                            ]
+                                        
+                                        return month[item];
+                                        
+                                                                    };
+
+
                                 return (
                                     <>
                                         <Header>
@@ -438,30 +501,39 @@ const Header = styled.nav`
                             
                                         <ContainerItem>
                 {!resspons && <Loading />}
-                {sortKeysDesc(groupedResspons).map((year) => (
+                {sortKeysDesc(groupedResspons).map((year) => {
+                    const keyYear = `${year}`;
+                    return(
                     <section key={year} className='year-section'>
-                        <h2>Year: {year}</h2>
-                        {sortKeysDesc(groupedResspons[year]).map((month) => {
-                            const keyMonth = `${year}-${month}`;
-                            // const products = groupedResspons[year][month];
+                        <h2  onClick={() => {toggleYear(year);
+                                            if (year === activYear) {clickYear()} 
+                                            }} >&nbsp; {year}
+                        {<img style={hiddenYear[keyYear]  || year === thisYear? iconstyle:undefined}  src={Arrow} alt='' />}  
 
+                        </h2>
+                        {(hiddenYear[keyYear] || year === thisYear) && sortKeysDesc(groupedResspons[year]).map((month) => {
+                            const keyMonth = `${year}-${month}`;
                             return(
                             <div key={month} className='month-div'>
-                                <h3 onClick={() => toggleMonth(year, month)}>Month: {month} </h3>
+                                <h3 onClick={() => {
+                                    toggleMonth(year, month);
+                                    if (month === activMonth) {clickMonth()}
+                                }}>&ensp; {monthis(month)} 
+                                    {<img style={hiddenMonth[keyMonth]  || month === thisMonth? iconstyle:undefined} src={Arrow} alt='' />}  
+                                </h3>
 
                                 {(hiddenMonth[keyMonth] || month === thisMonth) && sortKeysDesc(groupedResspons[year][month]).map((day)  => {
                                     const key = `${year}-${month}-${day}`;
                                     const products = groupedResspons[year][month][day];
-                                    
                                     return (
-                                        
                                         <div key={day} className='day-div'>
-                                            
-                                            <h4 onClick={() => {                                                
-                                                if (day === todayDay) {clickToday()}
-                                                toggleDay(year, month, day);
-                                            }}>
-                                                Day: {day}  /= {total(products)}
+                                            <h4 onClick={() => { toggleDay(year, month, day);
+                                                                if (day === todayDay) {clickToday()}
+                                                                }}
+                                            style={{marginBottom: hiddenDay[key]  || day === thisDay? '8px': '0'}}>
+                                                &ensp;   {day} 
+                                                {<img style={hiddenDay[key]  || day === thisDay? iconstyle:undefined} src={Arrow} alt='' />}  
+                                                {total(products)}
                                             </h4>
                                             {(hiddenDay[key] || day === thisDay)  && products.map((product, index) => (
                                                 <Conteiner key={index}>
@@ -489,7 +561,8 @@ const Header = styled.nav`
                         
                             })}
                     </section>
-                ))}
+                    );
+                })}
             </ContainerItem>                                    </>
                                 );
                             };
