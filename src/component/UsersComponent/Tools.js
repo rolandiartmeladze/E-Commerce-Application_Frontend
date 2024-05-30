@@ -55,6 +55,27 @@ const Form = styled.form`
     background-color: rgb(192, 192, 192, 0.4);
     transition: 0.8s ease-in-out;
 
+ .pass{
+    display: flex;
+
+
+            img{
+                margin: 0px 3px;
+            }
+
+            label{
+                display:inline-block; 
+                height: 100%;
+            }
+
+            .example{
+                margin: 0px 3px;
+                color: rgb(255, 0, 0 , 0.4);
+                display: flex;
+                align-items: center;
+            }
+ }
+
     .item-cont{
         padding: 2px;
         font-weight: 900;

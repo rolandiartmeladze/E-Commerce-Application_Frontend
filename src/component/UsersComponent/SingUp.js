@@ -141,11 +141,11 @@ if(singapform){
 
 
                                                 <div style={{flexDirection: 'column', alignItems: 'flex-start'}} className="item-cont">
-                                                <div>
+                                                <div className="pass">
                                                 
                                                 <img src={Pass} alt="" />
 
-                                                    <label style={{display:'inline-block', height: '100%'}} >Password:</label>
+                                                    <label>Password:</label><samp className="example">ASDasd123!</samp>
                                                  </div>       
                                                         <input style={{marginLeft: '20%'}} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" required />
                                                         <input style={{marginLeft: '20%'}} type="password" value={reppassword} onChange={(e) => setRepPassword(e.target.value)} placeholder="Repeat Password" required />
