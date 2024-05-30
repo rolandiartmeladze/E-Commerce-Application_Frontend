@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './SingUp.css';
 
-import { Link } from 'react-router-dom'; 
+import { Link , useNavigate} from 'react-router-dom'; 
+import Mail from '../../icon/mail.svg';
+import Pass from '../../icon/pass.svg';
+import Phone from '../../icon/phone.svg';
+import user from '../../icon/person.svg';
+import txt from '../../icon/userN.svg';
+
 
 import serverUri from '../../component/serverUrl';
+import styled from "styled-components";
+
+import { Form, Header, Footer } from "./Tools";
 
 
 const SignUp = () => {
@@ -51,54 +60,99 @@ const SignUp = () => {
         e.preventDefault(); 
         await registerUser();
     };
+        const navigate = useNavigate(); 
+
+
+        useEffect(()=>{
+            const singapform = document.getElementById('SingUpForm');
+    
+        if(singapform){
+            setTimeout(() => {
+                singapform.style.translate = '0';
+                setTimeout(() => {
+                    singapform.style.transform = 'scale(1)';
+                }, 700);
+    
+            }, 100);
+        }
+    
+        }, [])
+    
 
     const closebtn = () =>{
-        // setSingUp(false)
-    }
+
+        const singapform = document.getElementById('SingUpForm');
+
+if(singapform){
+        setTimeout(() => {
+            singapform.style.transform = 'scale(0.5)';
+            setTimeout(() => {
+                singapform.style.translate = '-200%';
+                setTimeout(() => {
+                        navigate('/');
+                }, 700);
+            }, 400);
+        }, 300);
+
+        }    
+}
+
 
     return (
 <>
-            <h1 className="sing-up-header" >Sign Up Form</h1>
-            <form className="sing-up-form">
-                       <Link to={'/'}>
+            <Header><samp>Sign Up Form</samp> 
  <div 
-    style={{top:'-35px', right:'10px'}} 
     onClick={closebtn} 
-    className="closeloginform">
+    className="close">
                 {'Close'}
             </div>
-</Link>
+{/* </Link> */}
 
+            </Header>
+            <Form  style={{ translate: '200%',  transform: 'scale(0.5)' }} id="SingUpForm">
 
-                <div className="sing-up-input-conteiner">
-                    <div className="sing-up-input-label" >User Name:</div>
+            <div className="item-cont">
+            <img src={user} alt="" />
+
+                    <label>Name:</label>
                         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter Name" required />
                 </div>
                         
-                        <div className="sing-up-input-conteiner">
-                            <div className="sing-up-input-label" >Last Name:</div>
-                                <input type="text" value={lastname} onChange={(e) => setLastName(e.target.value)} placeholder="Enter Last Name" required />
+                <div className="item-cont">
+                <img src={txt} alt="" />
+
+                            <label>Surname:</label>
+                                <input type="text" value={lastname} onChange={(e) => setLastName(e.target.value)} placeholder="Enter Surname" required />
                         </div>
 
-                                <div className="sing-up-input-conteiner">
-                                    <div className="sing-up-input-label" >User Emile:</div>
+                        <div className="item-cont">
+                        <img src={Mail} alt="" />
+
+                                    <label>Emile:</label>
                                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" required />
                                 </div>
 
-                                        <div className="sing-up-input-conteiner">
-                                            <div className="sing-up-input-label" >User Phone:</div>
+                                <div className="item-cont">
+                                <img src={Phone} alt="" />
+
+                                            <label>Phone:</label>
                                                 <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter Phone" required />
                                         </div>
 
 
-                                                <div style={{flexDirection: 'column', alignItems: 'flex-start'}} className="sing-up-input-conteiner">
-                                                    <div style={{display:'inline-block', height: '100%'}} className="sing-up-input-label" >Create Password:</div>
+                                                <div style={{flexDirection: 'column', alignItems: 'flex-start'}} className="item-cont">
+                                                <div>
+                                                
+                                                <img src={Pass} alt="" />
+
+                                                    <label style={{display:'inline-block', height: '100%'}} >Password:</label>
+                                                 </div>       
                                                         <input style={{marginLeft: '20%'}} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" required />
                                                         <input style={{marginLeft: '20%'}} type="password" value={reppassword} onChange={(e) => setRepPassword(e.target.value)} placeholder="Repeat Password" required />
                                                 </div>
 
-                                                        <div className="sing-up-input-conteiner">
-                                                            <div className="sing-up-input-label" >User Address:</div>
+                                                <div className="item-cont">
+                                                            <label>Address:</label>
                                                                 <input type="tel" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter Address" required />
                                                         </div>
 
@@ -106,7 +160,11 @@ const SignUp = () => {
                                                                     <button className="sing-up-btn" onClick={handleSubmit}>Register</button>            
                                                                 </div>
 
-            </form>
+            </Form>
+            <Footer>
+                     <h3>If you have a problem or find a bug, please contact the administrator  <samp>Contact</samp></h3>
+       
+            </Footer>
 
         </>
     );
