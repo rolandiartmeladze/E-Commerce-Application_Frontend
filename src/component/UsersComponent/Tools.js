@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Mail from '../../icon/mail.svg';
 import Pass from '../../icon/pass.svg';
 import Phone from '../../icon/phone.svg';
 import user from '../../icon/person.svg';
 import txt from '../../icon/userN.svg';
+import pass2 from '../../icon/pass2.svg';
+import repe from '../../icon/repeat.svg';
+import View from '../../icon/view.svg';
+import hide from '../../icon/passlock.svg';
+
+
 
 
 import styled from "styled-components";
@@ -44,8 +50,8 @@ const Form = styled.form`
     max-width: 550px;
     width: 50%;
     margin: 20px auto;
-    // translate: -200%;
-    // transform: scale(0.5);
+    translate: -200%;
+    transform: scale(0.5);
     box-shadow: 1px 1px 4px 2px;
     padding: 8px;
     display: flex;
@@ -55,6 +61,13 @@ const Form = styled.form`
     background-color: rgb(192, 192, 192, 0.4);
     transition: 0.8s ease-in-out;
 
+    #result{
+    color: green;
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+    text-decoration: underline;
+    }
  .pass{
     display: flex;
 
@@ -70,9 +83,11 @@ const Form = styled.form`
 
             .example{
                 margin: 0px 3px;
-                color: rgb(255, 0, 0 , 0.4);
+                color: black;
+
                 display: flex;
                 align-items: center;
+                span{ color: rgb(255, 0, 0 , 0.4); }
             }
  }
 
@@ -134,6 +149,7 @@ const Form = styled.form`
     }
 
         h2{margin: 8px 8px;}
+
 `;
     const Footer = styled.footer`
     background-color: gainsboro;
@@ -155,5 +171,130 @@ const Form = styled.form`
     }
     `;
 
+
+    const HeaderComp = ({navigate, title, props}) =>{
+        return(
+            <Header><samp>{title}</samp> 
+                <div onClick={()=>{close(navigate, props)}} className="close"> {'Close'}</div>
+            </Header>
+        );
+    }
+
+    const FooterComp = ()=>{
+        return(            
+        <Footer>
+            <h3>If you have a problem or find a bug, please contact the administrator  <samp>Contact</samp></h3>
+        </Footer>
+        )
+    };
+
+    const checkPassword = (password) => {
+        const lower = password.toLowerCase();
+        const upper = password.toUpperCase();
+        const hasNumber = /\d/.test(password); 
+        const hasSpecialChar = /[!@#$%^&*()]/.test(password); 
+        const hasMinLength = password.length >= 8;
     
-    export { Form, Footer, Header};
+        const isWeak = (password === lower) || (password === upper) || /^[a-zA-Z]+$/.test(password);
+    
+        const App = document.getElementById('App');
+        const Low = document.getElementById('Low');
+        const Num = document.getElementById('Num');
+        const Sim = document.getElementById('Sim');
+        const Len = document.getElementById('length');
+    
+        const result = document.getElementById('result');
+    
+            if (password !== lower) {App.style.color = 'green'} 
+                else {App.style.color = 'rgb(255, 0, 0 , 0.4)'}
+    
+                if (password !== upper) {Low.style.color = 'green'} 
+                    else {Low.style.color = 'rgb(255, 0, 0 , 0.4)'}
+    
+                    if (hasNumber) {Num.style.color = 'green'} 
+                        else {Num.style.color = 'rgb(255, 0, 0 , 0.4)'}
+    
+                        if (hasSpecialChar) {Sim.style.color = 'green'} 
+                            else {Sim.style.color = 'rgb(255, 0, 0 , 0.4)'}
+    
+                            if (hasMinLength) {Len.style.color = 'green'} 
+                                else {Len.style.color = 'rgb(255, 0, 0 , 0.4)'}
+    
+                                if (isWeak && password.length >4) {
+                                    result.style.color = "brown"
+                                    result.textContent = "weak"} 
+                                    else if(!isWeak && password.length >7) {
+                                        result.style.color = "green"
+                                        result.textContent = "strong"}
+                                        else {result.textContent = ""}
+        };
+    
+const checkRepPassword = (reppassword, password) => {
+    const repPass = document.getElementById('RepPass');
+         if(reppassword === password && reppassword.length >= 0){repPass.style.borderBottomColor = 'green'}
+         else {repPass.style.borderBottomColor = 'red'}
+ }
+ 
+const showpass =(showPass, setShowPass)=>{ 
+    const pass = document.getElementById('pass');
+    const reppass = document.getElementById('RepPass');
+    if(pass && reppass){
+        if(showPass){
+            setShowPass(false); 
+            pass.type = 'password'; 
+            reppass.type = 'password'; 
+        } else{
+            setShowPass(true);
+            pass.type = 'text'; 
+            reppass.type = 'text'; 
+        }     
+    }
+
+    const item = document.getElementById('password');
+    if(item) {
+        if(showPass){
+            setShowPass(false); 
+            item.type = 'password'; 
+        } else{
+            setShowPass(true);
+            item.type = 'text'; 
+        } 
+    }   
+}
+
+const close = (navigate, props) =>{
+
+    const singapform = document.getElementById('SingUpForm');
+    if(singapform){
+            setTimeout(() => {
+                singapform.style.transform = 'scale(0.5)';
+                setTimeout(() => {
+                    singapform.style.translate = '-200%';
+                    setTimeout(() => {
+                        
+                            navigate('/');
+                    }, 700);
+                }, 400);
+            }, 300);
+        }   
+
+        const loginform = document.getElementById('LoginForm');
+        if(loginform){
+                setTimeout(() => {
+                    loginform.style.transform = 'scale(0.5)';
+                    setTimeout(() => {
+                        loginform.style.translate = '-200%';
+                        setTimeout(() => {
+                            if(props==='singup'){navigate('/singup')}
+                                else{navigate('/')}
+                        }, 700);
+                    }, 400);
+                }, 300);
+                }    
+}
+
+export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp};
+
+    export {Mail, Pass, Phone, user, txt, pass2, repe, View, hide};
+
+        export { Form };

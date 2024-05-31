@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import serverUri from '../../component/serverUrl';
-import { Link, useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
-import styled from "styled-components";
-
-import Mail from '../../icon/mail.svg';
-import Pass from '../../icon/pass.svg';
-import View from '../../icon/view.svg';
-import hide from '../../icon/passlock.svg';
-
-import { Form, Header, Footer } from "./Tools";
-
+import { Form, FooterComp, HeaderComp, close, showpass,
+         Mail, Pass, View, hide
+    } from "./Tools";
 
 
 const Login = () => {
-    
     const serverlink = serverUri();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,60 +16,16 @@ const Login = () => {
 
     useEffect(()=>{
         const loginform = document.getElementById('LoginForm');
-
-    if(loginform){
-        setTimeout(() => {
-            loginform.style.translate = '0';
+        if(loginform){
             setTimeout(() => {
-                loginform.style.transform = 'scale(1)';
-            }, 700);
-
-        }, 100);
-    }
-
-    }, [])
-
-
-
-    
-
-
-    const CloseLogin =( props ) =>{
-
-        const loginform = document.getElementById('LoginForm');
-
-if(loginform){
-        setTimeout(() => {
-            loginform.style.transform = 'scale(0.5)';
-            setTimeout(() => {
-                loginform.style.translate = '-200%';
+                loginform.style.translate = '0';
                 setTimeout(() => {
-                    if(props==='close'){
-                        navigate('/');
-                    }else if(props==='singup'){
-                        navigate('/singup');
-                    }
-                    
+                    loginform.style.transform = 'scale(1)';
                 }, 700);
-            }, 400);
-        }, 300);
 
-        }    
-}
-
-
-
-    const showpass =()=>{ 
-            const item = document.getElementById('password');
-            
-            if(showPass){
-            setShowPass(false); 
-            item.type = 'password'; 
-            } else{
-                setShowPass(true);
-                item.type = 'text'; 
-            } 
+            }, 100);
         }
+    }, [])
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -97,35 +46,19 @@ if(loginform){
             localStorage.setItem('token', user._id);
             localStorage.setItem('user', `${user.name} ${user.lastname}`);
             localStorage.setItem('address', user.address);
-            localStorage.removeItem('favorits');
-                    
-                        
+            localStorage.removeItem('favorits');     
                 navigate('/');
-
                 window.location.reload();
-
-
-            
-            
-            
         } catch (error) {
             console.error('Error during login:', error);
             alert('An error occurred during login');
         }
     };
-
     return (
         <>
-            <Header>
-                    <samp>Login Form</samp>   
-                {/* <Link to={'/'}> */}
-                    <div onClick={()=>{CloseLogin('close')}} className="close"> Close </div>
-                {/* </Link> */}
-            </Header>
+        <HeaderComp navigate={navigate} title={'Login Form'} />
 
-
-
-            <Form style={{ translate: '-200%',  transform: 'scale(0.5)' }} id='LoginForm'>
+            <Form id='LoginForm'>
                 <h2> You are welcome </h2>
                 <div className="item-cont">
                     <img src={Mail} alt="" />
@@ -146,7 +79,9 @@ if(loginform){
                         onChange={(e) => setPassword(e.target.value)} 
                         placeholder="Enter Password" 
                         required />
-                    <img className="view" onClick={showpass} src={showPass? hide:View} alt="" />
+                    <img className="view" onClick={()=>{
+                                                        showpass(showPass, setShowPass)
+                                                    }  } src={showPass? hide:View} alt="" />
                 
                 </div>
 
@@ -161,20 +96,15 @@ if(loginform){
 
                 <div style={{justifyContent: 'center'}} className="item-cont add">
                     <div className="singup" 
-                        onClick={()=>{CloseLogin('singup')}} 
+                        onClick={()=>{close(navigate,'singup')}} 
                         style={{padding: '10px 30px' }}>
                         Sign Up</div>
                 </div>
 
             </Form>
             
-            <Footer>
-                     <h3>If you have a problem or find a bug, please contact the administrator  <samp>Contact</samp></h3>
-       
-            </Footer>
-
+        <FooterComp />
         </>
     );
 };
-
 export default Login;

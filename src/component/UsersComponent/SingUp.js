@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
-import './SingUp.css';
-
-import { Link , useNavigate} from 'react-router-dom'; 
-import Mail from '../../icon/mail.svg';
-import Pass from '../../icon/pass.svg';
-import Phone from '../../icon/phone.svg';
-import user from '../../icon/person.svg';
-import txt from '../../icon/userN.svg';
-
-
+import { useNavigate} from 'react-router-dom'; 
 import serverUri from '../../component/serverUrl';
-import styled from "styled-components";
-
-import { Form, Header, Footer } from "./Tools";
-
+import { 
+        Form, FooterComp, HeaderComp,
+        Mail, Pass, Phone, user, txt, pass2, repe, View, hide, 
+        checkPassword, showpass, checkRepPassword
+        } from "./Tools";
 
 const SignUp = () => {
-
-
+    
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -26,10 +17,7 @@ const SignUp = () => {
     const [reppassword, setRepPassword] = useState('');
     const [address, setAddress] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
-
     const serverlink = serverUri();
-
 
     const registerUser = async () => {
         try {
@@ -62,54 +50,26 @@ const SignUp = () => {
     };
         const navigate = useNavigate(); 
 
-
         useEffect(()=>{
-            const singapform = document.getElementById('SingUpForm');
-    
-        if(singapform){
-            setTimeout(() => {
-                singapform.style.translate = '0';
+                const singapform = document.getElementById('SingUpForm');
+            if(singapform){
                 setTimeout(() => {
-                    singapform.style.transform = 'scale(1)';
-                }, 700);
-    
-            }, 100);
-        }
-    
+                    singapform.style.translate = '0';
+                    setTimeout(() => {
+                        singapform.style.transform = 'scale(1)';
+                    }, 700);
+                }, 100);
+            }
         }, [])
-    
 
-    const closebtn = () =>{
+    const inputstyle = { display: 'flex', width: '80%', marginLeft: '20%' }
+    const [showPass, setShowPass] = useState(false);
 
-        const singapform = document.getElementById('SingUpForm');
+    return (<>
+        <HeaderComp navigate={navigate} title={'Sing Up Form'} />
 
-if(singapform){
-        setTimeout(() => {
-            singapform.style.transform = 'scale(0.5)';
-            setTimeout(() => {
-                singapform.style.translate = '-200%';
-                setTimeout(() => {
-                        navigate('/');
-                }, 700);
-            }, 400);
-        }, 300);
-
-        }    
-}
-
-
-    return (
-<>
-            <Header><samp>Sign Up Form</samp> 
- <div 
-    onClick={closebtn} 
-    className="close">
-                {'Close'}
-            </div>
-{/* </Link> */}
-
-            </Header>
-            <Form  style={{ translate: '200%',  transform: 'scale(0.5)' }} id="SingUpForm">
+            <Form id="SingUpForm">
+            <h2> You are welcome </h2>
 
             <div className="item-cont">
             <img src={user} alt="" />
@@ -145,10 +105,41 @@ if(singapform){
                                                 
                                                 <img src={Pass} alt="" />
 
-                                                    <label>Password:</label><samp className="example">ASDasd123!</samp>
-                                                 </div>       
-                                                        <input style={{marginLeft: '20%'}} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" required />
-                                                        <input style={{marginLeft: '20%'}} type="password" value={reppassword} onChange={(e) => setRepPassword(e.target.value)} placeholder="Repeat Password" required />
+                                                    <label>Password:</label>
+                                                    <samp className="example">
+                                                        <span id="App">A</span>-
+                                                        <span id="Low">a</span>-
+                                                        <span  id="Num">1</span>-
+                                                        <span id="Sim">!</span>-
+                                                        <span id="length">{'>=8'}</span>
+                                                        </samp>
+                                                        <samp id="result"></samp>
+                                                 </div>  
+                                                 <div style={inputstyle}>
+                                                     <img src={pass2} alt="" /> 
+                                                 <input id="pass"
+                                                        type="password"
+                                                        value={password}
+                                                        onChange={(e) => {
+                                                            setPassword(e.target.value);
+                                                            checkPassword(e.target.value);
+                                                            checkRepPassword(e.target.value, password);
+                                                        }}
+                                                        placeholder="Enter Password"
+                                                        required
+                                                    />
+                                                    <img style={{margin: '0px 6px', cursor: 'pointer'}} 
+                                                    onClick={()=>{ showpass(showPass, setShowPass) }} 
+                                                    src={showPass? hide:View} alt="" />
+
+                                                    </div> 
+                                                    <div style={inputstyle}>
+                                                        <img src={repe} alt="" />
+                                            <input id="RepPass" style={{borderBottom: 'red solid 0.5px'}} type="password" value={reppassword} onChange={(e) => {
+                                                setRepPassword(e.target.value);
+                                                checkRepPassword(e.target.value, password);
+                                            }} placeholder="Repeat Password" required />
+                                            </div>
                                                 </div>
 
                                                 <div className="item-cont">
@@ -156,18 +147,14 @@ if(singapform){
                                                                 <input type="tel" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter Address" required />
                                                         </div>
 
-                                                                <div className="sing-up-btn-conteiner">
-                                                                    <button className="sing-up-btn" onClick={handleSubmit}>Register</button>            
+                                                                <div className="item-cont add">
+                                                                    <button className="singup" onClick={handleSubmit}>Register</button>            
                                                                 </div>
 
             </Form>
-            <Footer>
-                     <h3>If you have a problem or find a bug, please contact the administrator  <samp>Contact</samp></h3>
-       
-            </Footer>
 
-        </>
-    );
+        <FooterComp />
+        </>);
 };
 
 export default SignUp;
