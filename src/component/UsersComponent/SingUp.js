@@ -1,40 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import { useNavigate} from 'react-router-dom'; 
 
 import serverUri from '../../component/serverUrl';
 import { 
         Form, FooterComp, HeaderComp,
         Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send, 
-        checkPassword, showpass, checkRepPassword
+        checkPassword, showpass, checkRepPassword, TryAgainButton
         } from "./Tools";
 import styled from "styled-components";
 
-
-const VerifiCont = styled.div`
-        .close-container{
-
-            display: flex; 
-            justify-content: flex-end;
-            padding: 5px 0;
-            .inputcode{
-                color:red;
-            }
-            .btn{
-                cursor: pointer;
-                margin-right: 10px;
-                padding: 3px 6px;
-                box-shadow: 0px 1px 0px 1px beige;
-                border-radius: 0px 0px 4px 4px;
-                color: yellow;
-                transition: 0.4s ease-in-out;
-                    &:hover{
-                        box-shadow: 0px 1px 0px 0.4px beige;
-                    }
-            }
-        }
-
-
-`;
+import VerifiMeil from "./VerifiMeil";
 
 
 
@@ -93,64 +68,34 @@ const SignUp = () => {
             }
         }, [])
 
-    const inputstyle = { display: 'flex', width: '80%', marginLeft: '20%' }
+    const inputstyle = { display: 'flex', width: '80%', marginLeft: '20%' };
+    const verifstyle = {color: 'green', pointerEvents: 'none', opacity: '0.5'}
     const [showPass, setShowPass] = useState(false);
+
     const [verif, setVerif] = useState(false);
-
-
+    const [verified, setVerified] = useState(false);
 
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
-    };
+      };
+    
 
     const verifi = () => {
         if (validateEmail(email)) {
-            setVerif(!verif);
+          setVerif(!verif);
         } else {
-            alert("Please enter a valid email address.");
+          alert("Please enter a valid email address.");
         }
-    };
-
-
-    const VerifiMeil =() =>{ 
-
-        return(
-            <>
-            <VerifiCont className="verificationmessage">
-                <div>
-            <div className="close-container">
-            <div onClick={verifi} className="btn"> {'Close'}</div>
-
-            </div>
-                <div>
-                    <h4>
-                        თქვენ მიიღებთ კოდს მეილზე :<samp> {email} </samp>
-                    </h4>
-                
-                </div>
-                <div>
-    <input className="inputcode" type="text" placeholder="enter code" />
-</div>
-
-<div>
-    <button> verifi Now </button>
-</div>                
-
-</div>
-
-            </VerifiCont>
-            </>
-        );
-    }
-
+      };
+    
 
 
     return (<>
         <HeaderComp navigate={navigate} title={'Sing Up Form'} />
 
             <Form id="SingUpForm">
-                {verif &&  <VerifiMeil />}
+                {verif &&  <VerifiMeil email={email} setVerif={setVerif} setVerified={setVerified} />}
             <h2> You are welcome </h2>
 
             <div className="item-cont">
@@ -173,7 +118,7 @@ const SignUp = () => {
                                     <label>Emile:</label>
                                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" required />
                                 
-                                       <samp onClick={verifi} className="meilverifi"> <img src={send} alt="" /></samp>
+                                       <samp style={verified? verifstyle: undefined} onClick={verifi} className="meilverifi"> <img src={send} alt="" /></samp>
                                 </div>
 
                                 <div className="item-cont">

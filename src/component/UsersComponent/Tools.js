@@ -10,6 +10,7 @@ import repe from '../../icon/repeat.svg';
 import View from '../../icon/view.svg';
 import hide from '../../icon/passlock.svg';
 import send from '../../icon/send.svg'
+import gmail from '../../icon/mail.png';
 
 
 
@@ -180,6 +181,131 @@ const Form = styled.form`
                         }
 
 `;
+
+
+const VerifiCont = styled.div`
+        .close-container{
+
+            display: flex; 
+            justify-content: flex-end;
+            padding: 5px 0;
+            .btn{
+                cursor: pointer;
+                margin-right: 10px;
+                padding: 3px 6px;
+                box-shadow: 0px 1px 0px 1px beige;
+                border-radius: 0px 0px 4px 4px;
+                color: yellow;
+                transition: 0.4s ease-in-out;
+                    &:hover{
+                        box-shadow: 0px 1px 0px 0.4px beige;
+                    }
+            }
+        }
+        .inputcode{
+            margin: 6px 0px;
+            input{
+                color:white;
+                padding: 6px;
+                background: none;
+                width: 70%;
+                border:none;
+                outline: none;
+                box-shadow: 0px 0.5px 1px 0.3px white;
+                font-size: 18px;
+                text-align: center;
+                border-radius: 6px;
+                &::placeholder{
+                    color: yellow;
+                }
+            }
+
+        }
+
+        .note{
+            font-weight: bolder;
+            color: brown;
+            background-color: rgb(255, 255, 255, 0.6);
+            box-shadow: 0px 0px 0px 0.3px red;
+            width: 96%;
+            margin: 3px auto;
+            text-align: left;
+            padding: 5px;
+            border-radius: 0px 0px 6px 6px;
+            font-size: 14px;
+            span{
+                font-size: 20px;
+                margin: 0px 4px;
+            }
+        
+        }
+
+        .email{
+            display: flex;
+            font-weight: bolder;
+            text-align: left;
+            padding: 3px;
+            margin: 4px;
+            align-items: center;
+            text-decoration: underline;
+            color: white;
+            img{
+                width: 30px;
+            }
+        }
+
+        .again{ 
+            display: flex;
+            padding: 3px;
+            margin: 10px 0px;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+
+            // .timer{
+            //     background-color: green;
+            //     position: absolute;
+            //     padding: 0px 25px;
+            //     height: 100%;
+            //     top: 0;
+            //     display: flex;
+            //     align-items: center;
+            //     justify-content: center;
+            //     font-weight: bolder;
+            //     border
+            // }
+
+            .disabled {
+                pointer-events: none; 
+                opacity: 0.5;        
+              }
+
+            .btntray{
+                display: inline;
+                background-color: wheat;
+                padding: 6px 8px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                samp{
+                    img{
+                        widtg: 20px;
+                    }
+  
+                }
+
+
+                        }
+
+        }
+
+`;
+
+
     const Footer = styled.footer`
     background-color: gainsboro;
     margin-bottom: -8px;
@@ -199,6 +325,18 @@ const Form = styled.form`
         }
     }
     `;
+
+
+    const TryAgainButton = ({ timer, wait, trayagain }) => {
+        return (
+          <div className="again">
+            <div onClick={trayagain} className={`btntray ${wait ? 'disabled' : ''}`}>
+              <samp>{wait ? `${timer} S` : 'Try again'}</samp>
+              {wait && <samp style={{ height: '100%', display: 'flex', justifyContent: 'center' }}><img src={repe} alt='' /></samp>}
+            </div>
+          </div>
+        );
+      };
 
 
     const HeaderComp = ({navigate, title, props}) =>{
@@ -322,8 +460,8 @@ const close = (navigate, props) =>{
                 }    
 }
 
-export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp};
+export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp, TryAgainButton};
 
-    export {Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send};
+    export {Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send, gmail};
 
-        export { Form };
+        export { Form, VerifiCont};
