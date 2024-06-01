@@ -9,6 +9,7 @@ import pass2 from '../../icon/pass2.svg';
 import repe from '../../icon/repeat.svg';
 import View from '../../icon/view.svg';
 import hide from '../../icon/passlock.svg';
+import send from '../../icon/send.svg'
 
 
 
@@ -68,6 +69,7 @@ const Form = styled.form`
     margin: 0 8px;
     text-decoration: underline;
     }
+
  .pass{
     display: flex;
 
@@ -150,6 +152,33 @@ const Form = styled.form`
 
         h2{margin: 8px 8px;}
 
+
+        .meilverifi{
+            cursor: pointer;
+            padding: 4px;
+            color: red;
+            box-shadow: 0px 0px 0px 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;  
+            transition: 0.4s ease-in-out;     
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+
+
+        .verificationmessage{
+            width: 90%;
+            position: absolute;
+            background-color: rgb(5, 60, 90);
+            height: auto;
+            top: 3%;
+            min-height: 94%;
+            border-radius: 8px;
+            z-index: 3;
+                        }
+
 `;
     const Footer = styled.footer`
     background-color: gainsboro;
@@ -231,7 +260,7 @@ const Form = styled.form`
     
 const checkRepPassword = (reppassword, password) => {
     const repPass = document.getElementById('RepPass');
-         if(reppassword === password && reppassword.length >= 0){repPass.style.borderBottomColor = 'green'}
+         if(reppassword === password && reppassword.length > 0){repPass.style.borderBottomColor = 'green'}
          else {repPass.style.borderBottomColor = 'red'}
  }
  
@@ -295,6 +324,6 @@ const close = (navigate, props) =>{
 
 export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp};
 
-    export {Mail, Pass, Phone, user, txt, pass2, repe, View, hide};
+    export {Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send};
 
         export { Form };

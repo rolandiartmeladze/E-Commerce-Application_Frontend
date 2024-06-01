@@ -1,14 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate} from 'react-router-dom'; 
+
 import serverUri from '../../component/serverUrl';
 import { 
         Form, FooterComp, HeaderComp,
-        Mail, Pass, Phone, user, txt, pass2, repe, View, hide, 
+        Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send, 
         checkPassword, showpass, checkRepPassword
         } from "./Tools";
+import styled from "styled-components";
+
+
+const VerifiCont = styled.div`
+        .close-container{
+
+            display: flex; 
+            justify-content: flex-end;
+            padding: 5px 0;
+            .inputcode{
+                color:red;
+            }
+            .btn{
+                cursor: pointer;
+                margin-right: 10px;
+                padding: 3px 6px;
+                box-shadow: 0px 1px 0px 1px beige;
+                border-radius: 0px 0px 4px 4px;
+                color: yellow;
+                transition: 0.4s ease-in-out;
+                    &:hover{
+                        box-shadow: 0px 1px 0px 0.4px beige;
+                    }
+            }
+        }
+
+
+`;
+
+
 
 const SignUp = () => {
-    
+
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -64,11 +95,62 @@ const SignUp = () => {
 
     const inputstyle = { display: 'flex', width: '80%', marginLeft: '20%' }
     const [showPass, setShowPass] = useState(false);
+    const [verif, setVerif] = useState(false);
+
+
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const verifi = () => {
+        if (validateEmail(email)) {
+            setVerif(!verif);
+        } else {
+            alert("Please enter a valid email address.");
+        }
+    };
+
+
+    const VerifiMeil =() =>{ 
+
+        return(
+            <>
+            <VerifiCont className="verificationmessage">
+                <div>
+            <div className="close-container">
+            <div onClick={verifi} className="btn"> {'Close'}</div>
+
+            </div>
+                <div>
+                    <h4>
+                        თქვენ მიიღებთ კოდს მეილზე :<samp> {email} </samp>
+                    </h4>
+                
+                </div>
+                <div>
+    <input className="inputcode" type="text" placeholder="enter code" />
+</div>
+
+<div>
+    <button> verifi Now </button>
+</div>                
+
+</div>
+
+            </VerifiCont>
+            </>
+        );
+    }
+
+
 
     return (<>
         <HeaderComp navigate={navigate} title={'Sing Up Form'} />
 
             <Form id="SingUpForm">
+                {verif &&  <VerifiMeil />}
             <h2> You are welcome </h2>
 
             <div className="item-cont">
@@ -90,6 +172,8 @@ const SignUp = () => {
 
                                     <label>Emile:</label>
                                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Email" required />
+                                
+                                       <samp onClick={verifi} className="meilverifi"> <img src={send} alt="" /></samp>
                                 </div>
 
                                 <div className="item-cont">
@@ -135,7 +219,7 @@ const SignUp = () => {
                                                     </div> 
                                                     <div style={inputstyle}>
                                                         <img src={repe} alt="" />
-                                            <input id="RepPass" style={{borderBottom: 'red solid 0.5px'}} type="password" value={reppassword} onChange={(e) => {
+                                            <input id="RepPass" style={{borderBottom: 'red solid 2px'}} type="password" value={reppassword} onChange={(e) => {
                                                 setRepPassword(e.target.value);
                                                 checkRepPassword(e.target.value, password);
                                             }} placeholder="Repeat Password" required />
