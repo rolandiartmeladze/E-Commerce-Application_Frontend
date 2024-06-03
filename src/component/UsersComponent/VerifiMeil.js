@@ -44,6 +44,31 @@ const VerifiMeil = ({email, setVerif, setVerified}) => {
     trayagain();
   },[])
 
+
+  const sendVerificationEmail = async () => {
+    console.log(email);
+
+    try {
+      const verifimeil = await fetch('http://localhost:3001/verifi', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
+
+      if (!verifimeil.ok) {
+        throw new Error('Failed to send verification email');
+      }
+
+      const response = await verifimeil.json();
+      console.log('Response from backend:', response);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
   return (
     <>
       <VerifiCont className="verificationmessage">
@@ -70,7 +95,7 @@ const VerifiMeil = ({email, setVerif, setVerified}) => {
           </div>
           <TryAgainButton timer={timer} wait={wait} trayagain={trayagain} />
           <div>
-            <button onClick={()=>{setVerified(true); setVerif(false)}}> verifi Now </button>
+            <button onClick={()=>{setVerified(true); setVerif(false); sendVerificationEmail()}}> verifi Now </button>
           </div>
         </div>
       </VerifiCont>
