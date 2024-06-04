@@ -114,7 +114,11 @@ const MeniuBtn = styled.div`
   font-weight: 800;
   flex-direction: column;
   z-index: 5;
-  
+
+
+  &:hover {
+    background-color: ${props => !props.active ? 'rgb(1, 1, 1, 0.1)' : 'none'};
+  }
 
   &:before {
     transition: 0.5s eae-in-out;
@@ -122,9 +126,9 @@ const MeniuBtn = styled.div`
     content: "";
     display: block;
     width: 0px;
-    height: 100%; /* Example height */
-    background-color: rgb(51, 51, 51); /* Example color */
-    transition: width 0.3s ease; /* Smooth transition */
+    height: 100%; 
+    // background-color: rgb(51, 51, 51); 
+    transition: width 0.3s ease;
 
     z-index: -1;
     padding-bottom: 10px;
@@ -158,6 +162,9 @@ const MeniuBtn = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 0px 0px 10px 10px;
+      transform: scale(0);
+      transition: 0.3s ease-in-out;
+  
 
     &:hover {
       color: yellow;
@@ -240,10 +247,40 @@ const toggleMenu = () => {
 
   const OpenInfo = ()=>{
     active? setActive(false):setActive(true);
+    setTimeout(() => {
+          anime();
+    }, 200);
   }
 const style ={
   backgroundColor:'rgb(51, 51, 51)'
 }
+
+
+// const anime =()=>{
+//   const item:any[] = document.getElementsByClassName('item') as HTMLDivElement;
+
+//   item.forEach((element:HTMLDivElement, index:number) => {
+//     setTimeout(() => {
+      
+//       element.style.transform = 'scale(1)';
+
+//     }, index * 200);
+//   });
+
+// }
+
+
+const anime = () => {
+  const items = Array.from(document.getElementsByClassName('item')) as HTMLDivElement[];
+
+  items.forEach((element, index) => {
+    setTimeout(() => {
+      element.style.transform = 'scale(1)';
+    }, index * 200);
+  });
+};
+
+
 
   return (
     <HeaderComponent>

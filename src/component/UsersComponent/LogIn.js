@@ -8,13 +8,14 @@ import { Form, FooterComp, HeaderComp, close, showpass,
     } from "./Tools";
 
 
-const Login = () => {
+const Login = () => {    
+    const [loading, setLoading] = useState(false);
+
     const serverlink = serverUri();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(false);
 
-    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate(); 
 
@@ -52,6 +53,7 @@ const Login = () => {
             localStorage.setItem('address', user.address);
             localStorage.removeItem('favorits');     
                 navigate('/');
+                setLoading(false);
                 window.location.reload();
         } catch (error) {
             console.error('Error during login:', error);

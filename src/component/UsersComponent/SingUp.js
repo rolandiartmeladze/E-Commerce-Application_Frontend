@@ -10,7 +10,6 @@ import {
 
 import VerifiMeil from "./VerifiMeil";
 
-// import Loaing from "../Loading";
 
 
 const SignUp = () => {

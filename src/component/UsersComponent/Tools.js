@@ -300,15 +300,13 @@ const VerifiCont = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(5.5px);
-    bottom: 0;
+    backdrop-filter: blur(2.5px);
     top: 0px;
-    font-size: 200%;
-    font-weight: 700;
+    font-weight: 900;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     flex-direction: column;
+    font-size: 200%;
     z-index: 5;
     color: red;  
     justify-content: center;
@@ -469,12 +467,7 @@ const close = (navigate, props) =>{
 }
 
 
-const LoaingComponent = ()=>{
-
-    return(
-        <Loading><samp>Please wait</samp><samp><img src={load} alt='' /></samp></Loading>
-    );
-}
+const LoaingComponent = ()=>{return(<Loading><samp>Please wait</samp><samp><img src={load} alt='' /></samp></Loading>);}
 
 
 export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp, TryAgainButton, LoaingComponent};
