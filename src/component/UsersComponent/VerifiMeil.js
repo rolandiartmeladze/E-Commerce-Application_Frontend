@@ -95,9 +95,11 @@ const VerifiMeil = ({email, setVerif, setVerified}) => {
           </div>
           <TryAgainButton timer={timer} wait={wait} trayagain={trayagain} />
           <div>
-            <button onClick={()=>{setVerified(true); setVerif(false); sendVerificationEmail()}}> verifi Now </button>
+            <button onClick={()=>{setVerified(true); setVerif(false); }}> verifi Now </button>
           </div>
         </div>
+
+        <h1 style={{textAlign: 'left', color: 'red'}}>This feature is under development</h1>
       </VerifiCont>
     </>
   );

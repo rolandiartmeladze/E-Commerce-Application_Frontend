@@ -11,6 +11,7 @@ import View from '../../icon/view.svg';
 import hide from '../../icon/passlock.svg';
 import send from '../../icon/send.svg'
 import gmail from '../../icon/mail.png';
+import load from '../../icon/loading.gif';
 
 
 
@@ -62,6 +63,7 @@ const Form = styled.form`
     border-radius: 8px;
     background-color: rgb(192, 192, 192, 0.4);
     transition: 0.8s ease-in-out;
+    position:relative;
 
     #result{
     color: green;
@@ -262,18 +264,6 @@ const VerifiCont = styled.div`
             align-items: center;
             justify-content: center;
 
-            // .timer{
-            //     background-color: green;
-            //     position: absolute;
-            //     padding: 0px 25px;
-            //     height: 100%;
-            //     top: 0;
-            //     display: flex;
-            //     align-items: center;
-            //     justify-content: center;
-            //     font-weight: bolder;
-            //     border
-            // }
 
             .disabled {
                 pointer-events: none; 
@@ -305,6 +295,24 @@ const VerifiCont = styled.div`
 
 `;
 
+
+ const Loading = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5.5px);
+    bottom: 0;
+    top: 0px;
+    font-size: 200%;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    z-index: 5;
+    color: red;  
+    justify-content: center;
+ `;
 
     const Footer = styled.footer`
     background-color: gainsboro;
@@ -460,7 +468,16 @@ const close = (navigate, props) =>{
                 }    
 }
 
-export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp, TryAgainButton};
+
+const LoaingComponent = ()=>{
+
+    return(
+        <Loading><samp>Please wait</samp><samp><img src={load} alt='' /></samp></Loading>
+    );
+}
+
+
+export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp, TryAgainButton, LoaingComponent};
 
     export {Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send, gmail};
 

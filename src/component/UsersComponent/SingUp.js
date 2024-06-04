@@ -5,15 +5,17 @@ import serverUri from '../../component/serverUrl';
 import { 
         Form, FooterComp, HeaderComp,
         Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send, 
-        checkPassword, showpass, checkRepPassword, TryAgainButton
+        checkPassword, showpass, checkRepPassword, LoaingComponent 
         } from "./Tools";
-import styled from "styled-components";
 
 import VerifiMeil from "./VerifiMeil";
 
+// import Loaing from "../Loading";
 
 
 const SignUp = () => {
+
+    const [loading, setLoading] = useState(false);
 
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
@@ -24,8 +26,12 @@ const SignUp = () => {
     const [address, setAddress] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const serverlink = serverUri();
+    const navigate = useNavigate(); 
 
     const registerUser = async () => {
+
+        setLoading(true);
+
         try {
             const formData = {
                 name: name,
@@ -42,9 +48,10 @@ const SignUp = () => {
                     body: JSON.stringify(formData)
                 });
 
-            if (response.ok) { setTimeout(() => { window.location.reload(); }, 2000); } 
+            if (response.ok) {navigate('/login'); setLoading(false)} 
             else { const errorData = await response.json();
                     setErrorMessage(errorData.message); 
+                    setLoading(false);
                     console.log(errorMessage)
                  }
         } catch (error) { console.error('Error registering user:', error); }
@@ -54,7 +61,6 @@ const SignUp = () => {
         e.preventDefault(); 
         await registerUser();
     };
-        const navigate = useNavigate(); 
 
         useEffect(()=>{
                 const singapform = document.getElementById('SingUpForm');
@@ -92,9 +98,12 @@ const SignUp = () => {
 
 
     return (<>
+
         <HeaderComp navigate={navigate} title={'Sing Up Form'} />
 
             <Form id="SingUpForm">
+            {loading && <LoaingComponent />}
+
                 {verif &&  <VerifiMeil email={email} setVerif={setVerif} setVerified={setVerified} />}
             <h2> You are welcome </h2>
 

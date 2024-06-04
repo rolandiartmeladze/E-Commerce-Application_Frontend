@@ -3,7 +3,8 @@ import serverUri from '../../component/serverUrl';
 import { useNavigate } from 'react-router-dom'; 
 
 import { Form, FooterComp, HeaderComp, close, showpass,
-         Mail, Pass, View, hide
+         Mail, Pass, View, hide,
+         LoaingComponent 
     } from "./Tools";
 
 
@@ -12,6 +13,9 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(false);
+
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate(); 
 
     useEffect(()=>{
@@ -29,7 +33,7 @@ const Login = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-
+        setLoading(true);
         try {
             const response = await fetch(`${serverlink}/login`, {
                 method: 'POST',
@@ -59,6 +63,8 @@ const Login = () => {
         <HeaderComp navigate={navigate} title={'Login Form'} />
 
             <Form id='LoginForm'>
+            {loading && <LoaingComponent />}
+
                 <h2> You are welcome </h2>
                 <div className="item-cont">
                     <img src={Mail} alt="" />
