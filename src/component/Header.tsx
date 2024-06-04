@@ -23,11 +23,6 @@ const Logo = styled.h1`
   left: 25px;
 `;
 
-const Userinfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
 const LoginBtn = styled.div`
   display: flex;
   position: absolute;
@@ -104,16 +99,17 @@ const MeniuBtn = styled.div`
   `;
 
   const UserInfo = styled.div<{ active: boolean }>`
-  display: flex;
-  position: absolute;
-  top: 5px;
-  right: 8px;
-  transition: 0.4s ease-in-out;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 800;
-  flex-direction: column;
-  z-index: 5;
+        display: flex;
+        position: absolute;
+        top: 5px;
+        right: 28px;
+        transition: 0.4s ease-in-out;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 800;
+        flex-direction: column;
+        z-index: 5;
+        transition: 0.3s eae-in-out;
 
 
   &:hover {
@@ -121,15 +117,12 @@ const MeniuBtn = styled.div`
   }
 
   &:before {
-    transition: 0.5s eae-in-out;
     position: absolute;
     content: "";
     display: block;
-    width: 0px;
-    height: 100%; 
-    // background-color: rgb(51, 51, 51); 
-    transition: width 0.3s ease;
-
+    width: 100%;
+    height: 40px; 
+    background: none;
     z-index: -1;
     padding-bottom: 10px;
   }
@@ -169,6 +162,7 @@ const MeniuBtn = styled.div`
     &:hover {
       color: yellow;
       box-shadow: 0px 2px 2px 0.5px yellow;
+      transform: scale(1.05) !important;
     }
   }
 
@@ -180,16 +174,10 @@ const MeniuBtn = styled.div`
     active &&
     `
     &:before {
-      position: absolute;
-      content: "";
-      display: block;
-      width: 100%;
       height: 100%; 
       background-color: rgb(51, 51, 51); 
-      transition: width 0.3s ease; 
-      z-index: -1;
-      padding-bottom: 10px;
-      border-radius: 10px 10px 10px 10px;
+      transition: width 0.3s ease-in-out, height 1.1s ease-in-out; 
+      border-radius: 10px;
     }
   `}
 `;
@@ -211,13 +199,6 @@ const Header: React.FC<HeaderProps> = ({
       setProduct,
 }) => {
 
-
-  // const [menuVisible, setMenuVisible] = useState(false);
-// const menuRef = useRef(null);
-
-// function toggleMenu() {
-//   setMenuVisible(!menuVisible);
-// }
 
 
 const [menuVisible, setMenuVisible] = useState(false);
@@ -251,23 +232,6 @@ const toggleMenu = () => {
           anime();
     }, 200);
   }
-const style ={
-  backgroundColor:'rgb(51, 51, 51)'
-}
-
-
-// const anime =()=>{
-//   const item:any[] = document.getElementsByClassName('item') as HTMLDivElement;
-
-//   item.forEach((element:HTMLDivElement, index:number) => {
-//     setTimeout(() => {
-      
-//       element.style.transform = 'scale(1)';
-
-//     }, index * 200);
-//   });
-
-// }
 
 
 const anime = () => {
@@ -280,7 +244,14 @@ const anime = () => {
   });
 };
 
-
+ const styleInfoCont = {
+  boxShadow: !active? '0px 2px 2px -1px rgb(1,1,1)': '0px 2px 2px -1px rgb(255,255,255)',
+  borderRadius: !active? '8px' : undefined,
+  color: active? 'yellow' : 'black',
+  transition: '0.5s ease-in-out',
+  
+  
+}
 
   return (
     <HeaderComponent>
@@ -288,13 +259,7 @@ const anime = () => {
 
 {usermode && 
   <UserInfo active={active}>
-  <div onClick={OpenInfo}  style={{
-  boxShadow: !active? '0px 2px 2px -1px rgb(1,1,1)': '0px 2px 2px -1px rgb(255,255,255)',
-  borderRadius: !active? '8px' : undefined,
-  color: active? 'yellow' : 'black',
-  
-  
-}} >
+  <div onClick={OpenInfo}  style={styleInfoCont} >
   <img className="user-icon" src={userIcin} alt="User Icon" />
   <samp><span>{localStorage.getItem("user")}
     </span>
