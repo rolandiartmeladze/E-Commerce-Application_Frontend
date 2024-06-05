@@ -16,8 +16,20 @@ background: gainsboro;
     box-shadow: 0px 1px 5px 0px #000000;
     padding: 0 12px;
     position: relative;
+ 
     `;
 
+    const Container = styled.div`
+    .cont{
+
+    article{
+        transform: scale(0);
+        transition: 0.6s ease-in-out;
+        overflow: hidden;                    
+
+    }    }
+
+    `;
 
 interface Props {
     incart: string[];
@@ -77,14 +89,40 @@ const location = useLocation();
     const NavigationProps = {setProduct, product};
      const ProductProps = {clickF, incart, setInCart, favorits, setFavorits, loading}
 
+
+
+
+      const AnimeII = () =>{
+
+        const article = Array.from(document.querySelectorAll('article')) as HTMLElement[];
+
+            article.forEach((element, index) => {
+                setTimeout(() => {
+                  element.style.transform = 'scale(1)';
+                }, index * 300);
+              });
+
+              console.log(article)
+        }    
+
+
+      useEffect(()=>{AnimeII();}, [respons])
+
+
+
+
     return (
         <>
-        <ProductTools>
+        <Container>
+
+        <ProductTools className="container">
         <Navigation items={['home', 'products']} {...NavigationProps} />
         <SortProduct setRespons={setRespons} setLoading={setLoading}  />
         </ProductTools>
         {loading && <h2>Loading ...</h2>}
-            {respons && <ProductComponent products={respons}  {...ProductProps} />}
+            {respons && <ProductComponent products={respons}  {...ProductProps} />}        
+            </Container>
+
         </>
     );
 };

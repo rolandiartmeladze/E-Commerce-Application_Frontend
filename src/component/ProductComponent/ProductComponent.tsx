@@ -80,7 +80,7 @@ interface Productprops{
                         box-shadow: 1px 2px 6px 0.3px black;
                         padding-bottom: 5px;
                         margin: 15px  0px;
-
+                    
                         @media only screen and (max-width: 650px) {
                             width: 92%;
                         }
@@ -184,7 +184,7 @@ interface Productprops{
 
 
     return(
-            <Conteiner>
+            <Conteiner className="cont">
 
                 {products.map((item, index) => (
 

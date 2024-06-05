@@ -106,7 +106,7 @@ const Home = ({setProduct}:Props) => {
         }    
 
 
-      useEffect(()=>{AnimeII()}, [respons])
+      useEffect(()=>{AnimeII();}, [respons])
 
 
      useEffect(() => {

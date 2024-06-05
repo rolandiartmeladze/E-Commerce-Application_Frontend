@@ -16,7 +16,7 @@ import load from '../../icon/loading.gif';
 
 const Conteiner = styled.div`
     width: 100%;
-    min-height: 200px;
+    min-height: 350px;
     border-radius: 8px;
     box-shadow: 1px 0px 3px 0.5px;
     margin-top: 16px;  
@@ -181,19 +181,19 @@ ul{
 `;
 
 const Loading = styled.div`
-position: absolute;
-width: 100%;
-height: 100%;
-backdrop-filter: blur(2.5px);
-top: 0px;
-font-weight: 900;
-display: flex;
-align-items: center;
-flex-direction: column;
-font-size: 200%;
-z-index: 5;
-color: red;  
-justify-content: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(2.5px);
+        top: 0px;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        font-size: 200%;
+        z-index: 5;
+        color: red;  
+        justify-content: center;
 `;
 
 
