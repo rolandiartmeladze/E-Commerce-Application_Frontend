@@ -10,6 +10,7 @@ import Person from '../../icon/person.svg';
 import Product from '../../icon/products.svg';
 import Guset from '../../icon/guest.svg';
 
+import load from '../../icon/loading.gif';
 
 
 
@@ -21,7 +22,15 @@ const Conteiner = styled.div`
     margin-top: 16px;  
     position:relative; 
     padding-bottom: 5px;
+
+    transition: 0.8s ease-in-out;
+    transform: scale(0);
    
+    article{
+        transition: 0.3s ease-in-out;
+        transform: scale(0);
+    
+    }
     h1{
         text-align: left;
         padding: 5px;        
@@ -171,6 +180,27 @@ ul{
 
 `;
 
+const Loading = styled.div`
+position: absolute;
+width: 100%;
+height: 100%;
+backdrop-filter: blur(2.5px);
+top: 0px;
+font-weight: 900;
+display: flex;
+align-items: center;
+flex-direction: column;
+font-size: 200%;
+z-index: 5;
+color: red;  
+justify-content: center;
+`;
+
+
+const LoaingComponent = ()=>{return(<Loading><samp>Please wait</samp><samp><img src={load} alt='' /></samp></Loading>);}
+
+
+
 
 const fetchData = async (setLoading,setRespons) => {
     try {            
@@ -193,4 +223,4 @@ const fetchData = async (setLoading,setRespons) => {
 
 export {Conteiner, MoreBtn, InfoBoard }
 export {View, Sale, Category, Person, Product, Guset };
-export {fetchData};
+export {fetchData, LoaingComponent};

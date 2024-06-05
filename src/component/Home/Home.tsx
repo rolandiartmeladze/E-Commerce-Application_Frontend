@@ -10,7 +10,7 @@ import { Member } from "../../Tools";
 import { 
     Conteiner, MoreBtn, InfoBoard,
     View, Sale, Category, Person, Product, Guset,
-    fetchData
+    fetchData, LoaingComponent
  } from './Tools';
 
 
@@ -64,7 +64,7 @@ const Home = ({setProduct}:Props) => {
 
     const ProductProps = {clickF, incart, setInCart, favorits, setFavorits, loading};
 
-    const Load = (loading && <Loaing />);
+    // const Load = (loading && <Loaing />);
 
 
     const MoreButton: React.FC<BtnProps> = ({ link }) => {
@@ -85,7 +85,31 @@ const Home = ({setProduct}:Props) => {
 
     const [memberLength, setMemberLength] = useState<number | null>(null);
 
-    useEffect(() => {
+    const anime = () => {
+        const items = Array.from(document.getElementsByClassName('cont')) as HTMLDivElement[];
+
+        items.forEach((element, index) => {
+          setTimeout(() => {
+            element.style.transform = 'scale(1)';
+          }, 800);
+        });
+      };
+      
+      const AnimeII = () =>{
+        const article = Array.from(document.querySelectorAll('article')) as HTMLElement[];
+
+            article.forEach((element, index) => {
+                setTimeout(() => {
+                  element.style.transform = 'scale(1)';
+                }, index * 300);
+              });
+        }    
+
+
+      useEffect(()=>{AnimeII()}, [respons])
+
+
+     useEffect(() => {
         const fetchMembers = async () => {
             const members = await Member();
             if (members) { setMemberLength(members); } 
@@ -93,7 +117,13 @@ const Home = ({setProduct}:Props) => {
         };
 
         fetchMembers();
+        anime();
     }, []);
+
+
+
+
+
 
     return (
         <>
@@ -116,23 +146,26 @@ const Home = ({setProduct}:Props) => {
 
 
 
-        <Conteiner>
+        <Conteiner className="cont">
             <h1>Actually Products</h1>
-             {Load ||  
-                <ProductComponent products={Actually.slice(0, item)}  {...ProductProps} />}
+            {loading && <LoaingComponent />}
+             { !loading && <ProductComponent products={Actually.slice(0, item)}  {...ProductProps} />}
                    <MoreButton link="/products?&view=Most%20View" />
         </Conteiner>
 
-        <Conteiner>
+        <Conteiner className="cont">
             <h1>Newest Products</h1>
-             {Load ||  
+            {loading && <LoaingComponent />}
+             { !loading && 
                 <ProductComponent products={respons.slice(0, item)}  {...ProductProps} />}
                 {/* <MoreButton link={`/..`} /> */}
         </Conteiner>
 
-        <Conteiner>
+        <Conteiner className="cont">
             <h1>Actually-Category/{category}</h1>
-             {Load || 
+            {loading && <LoaingComponent />}
+
+             {!loading && 
                 <ProductComponent products={ActuallyCategory.slice(0, (item))}  {...ProductProps} />}
                    <MoreButton link={`/products?category=${category}`} />
         </Conteiner>
