@@ -9,7 +9,8 @@ import cartIcon from '../../icon/cart.png';
 
 import UserInfo from "./UserInfo";
 import ProductInfo from "./ProductInfo";
-import InCartConteiner from "./InCartConteiner";
+import { useNavigate } from "react-router-dom";
+// import InCartConteiner from "./InCartConteiner";
 
 
 
@@ -139,31 +140,14 @@ const InfoConteiner = styled.div`
             setProduct
           }:Props) => {
 
-        const [cart, setCart] = useState(false);
-        const [fav, setFav] = useState(false);
-
-        const bgcolor =`linear-gradient(to top, rgba(25, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0) 40%)`;
-
-        const cartbtn  = async ()  =>{
-              cart? setCart(false) : setCart(true);
-              fav && setFav(false);
-              };
+            const navigate = useNavigate();
 
 
-            const favbtn  = async ()  =>{
-                  fav? setFav(false): setFav(true);
-                  cart && setCart(false);
-                  };
-
-                const closebtn  = ()  =>{
-                      fav && setFav(false);
-                      cart && setCart(false);
-                      };
 
 
     const InCartBtn = () => {
       return(
-        <CartBtn style={{background: cart? bgcolor : 'none'}} onClick={cartbtn} >
+        <CartBtn onClick={()=>{navigate('/cart')}} >
           <img width={25} src={cartIcon} alt="cart icon" />
           <CartNum>{incart.length}</CartNum>
         </CartBtn>
@@ -172,7 +156,7 @@ const InfoConteiner = styled.div`
 
           const InFavBtn = () => {
             return(
-              <CartBtn style={{background: fav? bgcolor : 'none'}}  onClick={favbtn}>
+              <CartBtn onClick={()=>{navigate('/favorite')}}>
                 <img width={25} src={favicon1} alt="cart icon" />
                 <CartNum>{favorits.length}</CartNum>
               </CartBtn>
@@ -181,22 +165,6 @@ const InfoConteiner = styled.div`
 
 
 
-            const CloseBtn = () => {
-              return(
-                <Btncon>
-               <Closebtn onClick={closebtn}>
-                  Close
-                </Closebtn>                
-                </Btncon>
-
-              );
-              }
-
-
-              // if(incartResponse.length < 0){
-              //   cartbtn();
-              // }
-            
 
 
     return(
@@ -208,42 +176,14 @@ const InfoConteiner = styled.div`
                 </AsideHead>
 
                     <InfoConteiner>
-                      {fav || cart? 
-                      <>
-                      <CloseBtn />
-
-                      {cart&& <InCartConteiner incart={incart} 
-                                    handleClickCart={handleClickCart} 
-                                    loading={loading} setLoading={setLoading}   
-                                    cartbtn={cartbtn} setFav={setFav}  
-                                    usermode={usermode} members={members}
-                                    incartResponse={incartResponse}
-                                    setInCartResponse={setInCartResponse}
-                                    quantities={quantities} setBuy={setBuy} 
-                                    setQuantities={setQuantities} 
-                                    setProduct={setProduct} />
-                      }
-
-                      {fav&& <div>cart</div>}
-                      </> :null}
                        
 
-
-                        {!fav && !cart && (
-                          <>
-                          <UserInfo members={members} 
-                                    usermode={usermode} />
+                          <UserInfo members={members} usermode={usermode} />
                           <ProductInfo product={product} />
 
                           <div style={{width: '100%', display:'flex', justifyContent:'flex-end', position: 'relative', marginTop: '12px'}}>
                             <button>Buy Now</button>
                           </div>
-                          </>
-                        )}
-
-                        {/* {!cart || !fav && (
-                          
-                        )} */}
                     </InfoConteiner>
 
             </ProductAside>

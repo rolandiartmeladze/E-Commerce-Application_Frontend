@@ -34,6 +34,7 @@ import AddProduct from './component/MainComponent/AddProduct/Add';
 import MainNavigate from './component/MainComponent/Navigate/MainNavigate';
 import SaleJurnal from './component/MainComponent/Jurnal/SaleJurnal';
 
+import Cart from './component/CartComponent/ProductsInCart';
 // const server = process.env.SERVER_LINK;
 
 interface User {
@@ -316,6 +317,14 @@ padding: 0px;
         <Route path="/about" element={<h2>About</h2>} />
         <Route path="/contact" element={<h2>Contact</h2>} />
 
+
+
+        <Route path="/cart" element={
+        <Cart setProduct={setProduct} />} 
+        />
+
+
+        
            {/* hear back Find result respons */}
         <Route path="/FindResult" element={ <FindContainer setProduct={setProduct} /> } />
 

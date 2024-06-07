@@ -1,10 +1,11 @@
 
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 
 import favicon0 from '../../icon/fav.png';
 import favicon1 from '../../icon/favcheck.png';
+import loadicon from '../../icon/loading.gif';
 
 
 const AddfavIcon = styled.samp`
@@ -23,22 +24,24 @@ const AddfavIcon = styled.samp`
 `;
 
 const Fav = ({ itemId, favorits, setFavorits, product}) => {
+  const [load, setLoad] = useState(false);
 
   return (
       <AddfavIcon 
       onClick={(e) => { 
         e.stopPropagation(); 
         e.preventDefault();
-        AddFav(itemId, setFavorits); 
+        AddFav(itemId, setFavorits, setLoad); 
         }}
         product={product}>
-        <img src={favorits.includes(itemId) ? favicon1 : favicon0} alt="fav icon" />
+        <img src={load ? loadicon : favorits.includes(itemId) ? favicon1 : favicon0} alt="fav icon" />
       </AddfavIcon>
     );
   };
  export {Fav};
 
- const AddFav = async (itemId, setFavorits) => {
+ const AddFav = async (itemId, setFavorits, setLoad) => {
+      setLoad(true);
     let newItem = itemId;
     
     let storedFavorites = localStorage.getItem('favorits');
@@ -51,6 +54,7 @@ const Fav = ({ itemId, favorits, setFavorits, product}) => {
         else {updatedFavorites.splice(index, 1);}
     localStorage.setItem('favorits', JSON.stringify(updatedFavorites));
         setFavorits(updatedFavorites);
+        setLoad(false);
 };
 export {AddFav};
 

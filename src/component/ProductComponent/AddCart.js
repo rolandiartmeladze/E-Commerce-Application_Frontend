@@ -1,9 +1,10 @@
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import addcart from '../../icon/addcart.png';
 import cart from '../../icon/cart.png';
+import loadicon from '../../icon/loading.gif';
 
 
 const AddCartIcon = styled.samp`
@@ -22,30 +23,35 @@ const AddCartIcon = styled.samp`
 
 
 const Cart = ({ itemId, incart, setInCart, product}) => {
+
+  const [load, setLoad] = useState(false);
+  
+
     return (
       <AddCartIcon 
       onClick={(e) => { 
                 e.stopPropagation();
                 e.preventDefault(); 
-                AddCart(itemId, setInCart) 
+               !load && AddCart(itemId, setInCart, setLoad) 
                  }}
               product={product}
               >
-        <img src={incart.includes(itemId) ? cart : addcart} alt="cart icon" />
+        <img src={load? loadicon : incart.includes(itemId) ? cart : addcart} alt="cart icon" />
       </AddCartIcon>
     );
   };
   export {Cart};
 
-  const AddCart = async (itemId, setInCart) => {
+  const AddCart = async (itemId, setInCart, setLoad) => {
+    setLoad(true);
     const token = localStorage.getItem('token');
     let usermode = token ? true : false;
-    let serverlink = "https://lavish-husky-gaura.glitch.me";
+    let server = "https://quasar-wind-trader.glitch.me";
 
     if (usermode) {
       try {
         const userID = token;
-        const checkCartItem = await fetch(`http://localhost:3001/api/addCarItem/${userID}`, {
+        const checkCartItem = await fetch(`${server}/api/addCarItem/${userID}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ itemId }),
@@ -54,6 +60,7 @@ const Cart = ({ itemId, incart, setInCart, product}) => {
         if (!checkCartItem.ok) { throw new Error('not working'); }
         const cartResponse = await checkCartItem.json();
         setInCart(cartResponse);
+        setLoad(false);
       } catch (error) {
         console.log(error, "not Found");
       }
@@ -71,6 +78,7 @@ const Cart = ({ itemId, incart, setInCart, product}) => {
     }
     localStorage.setItem('incart', JSON.stringify(updatedCarts));
     setInCart(updatedCarts);
+    setLoad(false);
   };
   
   export { AddCart };
