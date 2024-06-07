@@ -128,34 +128,34 @@ padding: 0px;
 
 
 
-      const chekfavorits  = async () => {
+//       const chekfavorits  = async () => {
 
-        try {
+//         try {
             
-            const option = {
-                userId: token,
-                favorits:favorits
-            }
-            const favorit = await fetch(`${serverlink}/FavoritProduct`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(option),
-            })
-            if (!favorit.ok) {
-                throw new Error('Failed to fetch users data');
-            }
+//             const option = {
+//                 userId: token,
+//                 favorits:favorits
+//             }
+//             const favorit = await fetch(`${serverlink}/FavoritProduct`, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify(option),
+//             })
+//             if (!favorit.ok) {
+//                 throw new Error('Failed to fetch users data');
+//             }
 
-               const favoritResponse = await favorit.json();
-               localStorage.setItem('favorits', JSON.stringify(favoritResponse));
-                    setFavorits(favoritResponse);
-        } catch (error) { console.error('Error fetching data:', error);}
+//                const favoritResponse = await favorit.json();
+//                localStorage.setItem('favorits', JSON.stringify(favoritResponse));
+//                     setFavorits(favoritResponse);
+//         } catch (error) { console.error('Error fetching data:', error);}
 
     
 
 
-};
+// };
 
 
  
@@ -170,7 +170,6 @@ padding: 0px;
                             const userData = await userResponse.json();
                             setActiveUser(userData)
                         } else { throw new Error('Failed to fetch user data'); }
-                        chekfavorits();
                     }
           
                     const productsResponse = await fetch(`${serverlink}/checkProducts`, {

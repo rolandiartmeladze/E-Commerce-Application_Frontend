@@ -453,6 +453,7 @@ const Header = styled.nav`
                                       const monthis =(monthitem:string)=> {
                                             const item =parseInt(monthitem, 0);
                                       const month =  [
+                                                "'/0/'",
                                                 "January",
                                                 "February",
                                                 "March",

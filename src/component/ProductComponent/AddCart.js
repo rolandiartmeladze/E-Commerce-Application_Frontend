@@ -25,7 +25,7 @@ const AddCartIcon = styled.samp`
 const Cart = ({ itemId, incart, setInCart, product}) => {
 
   const [load, setLoad] = useState(false);
-  
+
 
     return (
       <AddCartIcon 
@@ -45,10 +45,10 @@ const Cart = ({ itemId, incart, setInCart, product}) => {
   const AddCart = async (itemId, setInCart, setLoad) => {
     setLoad(true);
     const token = localStorage.getItem('token');
-    let usermode = token ? true : false;
+    // let usermode = token ? true : false;
     let server = "https://quasar-wind-trader.glitch.me";
 
-    if (usermode) {
+    if (token) {
       try {
         const userID = token;
         const checkCartItem = await fetch(`${server}/api/addCarItem/${userID}`, {
@@ -61,9 +61,7 @@ const Cart = ({ itemId, incart, setInCart, product}) => {
         const cartResponse = await checkCartItem.json();
         setInCart(cartResponse);
         setLoad(false);
-      } catch (error) {
-        console.log(error, "not Found");
-      }
+      } catch (error) {console.log(error, "not Found");}
     }
   
     let storedCarts = localStorage.getItem('incart');
@@ -71,14 +69,11 @@ const Cart = ({ itemId, incart, setInCart, product}) => {
     let updatedCarts = [...incart];
   
     const index = updatedCarts.indexOf(itemId);
-    if (index === -1) {
-      updatedCarts.push(itemId);
-    } else {
-      updatedCarts.splice(index, 1);
-    }
+    if (index === -1) {updatedCarts.push(itemId)} 
+    else {updatedCarts.splice(index, 1)}
     localStorage.setItem('incart', JSON.stringify(updatedCarts));
     setInCart(updatedCarts);
-    setLoad(false);
+    setTimeout(() => {setLoad(false)}, 500);
   };
   
   export { AddCart };

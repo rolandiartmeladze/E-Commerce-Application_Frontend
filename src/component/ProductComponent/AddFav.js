@@ -42,7 +42,31 @@ const Fav = ({ itemId, favorits, setFavorits, product}) => {
 
  const AddFav = async (itemId, setFavorits, setLoad) => {
       setLoad(true);
-    let newItem = itemId;
+    const token = localStorage.getItem('token');
+
+    
+  const newItem = itemId;
+  if (token) {
+    try {
+        const addFavorites = await fetch(`http://localhost:3001/favoriteItem/${token}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ itemId }),
+        });
+
+        if (!addFavorites.ok) {
+            throw new Error('Request failed');
+        }
+
+        const result = await addFavorites.json();
+        console.log(result);
+    } catch (error) {
+        console.error(error);
+    }
+} else {
+    console.error('No token found');
+}   
+
     
     let storedFavorites = localStorage.getItem('favorits');
     let favorites = storedFavorites ? JSON.parse(storedFavorites) : [];
