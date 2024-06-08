@@ -119,6 +119,10 @@ ul {
 const CloseComponent = styled.div`
       width: 100%;
       height: 40px;
+      img{
+        width: 45px;
+      }
+  
       samp{
         transition: 0.4s ease-in-out;
         position: absolute;

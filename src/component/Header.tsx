@@ -4,15 +4,19 @@ import React, {useState} from 'react';
 import "../style/Header.css";
 import styled from "styled-components";
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 import userIcin from "../icon/user.png";
 import meniuicon from '../icon/menu.svg';
 import arrow from '../icon/arrow.png';
+import favIcon from '../icon/favIcon.svg';
+import cartIcon from '../icon/cartIcon.svg';
+import smsIcon from '../icon/smsIcon.svg'
 
 import FindComponent from './Find/FindComponent';
 import Meniu from './Navigation/Meniu';
+import { relative } from 'path';
 
 const Logo = styled.h1`
   margin: 0;
@@ -62,6 +66,9 @@ samp {
 
 const MeniuBtn = styled.div`
     display: none;
+    img{
+      width: 40px;
+    }
     @media only screen and (max-width: 750px) {
 
       display:flex;
@@ -100,9 +107,10 @@ const MeniuBtn = styled.div`
 
   const UserInfo = styled.div<{ active: boolean }>`
         display: flex;
-        position: absolute;
-        top: 5px;
-        right: 28px;
+        // position: absolute;
+        position: relative;
+        margin-top: 5px;
+        margin-right: 28px;
         transition: 0.4s ease-in-out;
         border-radius: 6px;
         cursor: pointer;
@@ -168,6 +176,8 @@ const MeniuBtn = styled.div`
 
   @media only screen and (max-width: 750px) {
     right: 60px;
+    margin-right: 0px;
+
   }
 
   ${({ active }) =>
@@ -183,6 +193,80 @@ const MeniuBtn = styled.div`
 `;
 
 
+const HeadNavigate = styled.nav`
+display: inline-block;
+
+ul{
+  display: flex;
+}
+
+@media only screen and (max-width: 750px) {
+  margin-right: 60px;
+  ul{
+    margin-top: 0px !important
+  }
+}
+
+`;
+
+
+const ListItem = styled.li`
+  position: relative;
+  cursor: pointer;
+  background-color: rgb(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  display: flex;
+    margin: 5px;
+    padding: 5px;
+    font-weight: 700;
+    box-shadow: -1px 0px 3px 0px black;
+    align-items: center;
+    border-radius: 6px 6px 0px 0px;
+    transition: 0.4s ease-in-out;
+
+  &:before {
+    left: -1px;
+    bottom: -5px;
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 6px;
+    background-color: ${props => props.color};
+    padding: 1px;
+    border-radius: 0px 0px 5px 5px;
+    transition: 0.4s ease-in-out;
+
+  } 
+
+  &:hover{
+    box-shadow: 0px 0px 1px 0px yellow;
+    border-radius: 6px;
+
+      transform: scale(1.05);
+
+    &:before {
+      height: 100%;
+      bottom: -3px;
+      left: -3px;
+      z-index: -1;
+      opacity: 0.1;
+      padding: 3px;
+      border-radius: 6px;
+
+    }
+  }
+ };
+
+ @media only screen and (max-width: 750px) {
+  img{
+    width: 20px;
+  }
+
+};
+
+
+`;
+
 interface HeaderProps {
   login: any;
   setLogIn: any;
@@ -190,7 +274,9 @@ interface HeaderProps {
   setProduct: Function;
 }
 
-
+interface navProps{
+  link:string;
+}
 
 const Header: React.FC<HeaderProps> = ({
       login,
@@ -252,10 +338,52 @@ const anime = () => {
   
   
 }
+  const navigate = useNavigate();
 
+  const goHome =()=>{
+    navigate('/');
+    window.location.reload();
+  };
+
+  const goTo = ({link}:navProps) => {
+    navigate(link);
+  };
+  
   return (
     <HeaderComponent>
-         <Link to={'/'}> <Logo>MyShop.App</Logo> </Link>
+          <Logo onClick={goHome}>MyShop.App</Logo> 
+
+<div style={{ display: 'flex' , justifyContent: 'flex-end'}}>
+
+<HeadNavigate>
+  <ul>
+    <ListItem  
+      onClick={() => goTo({ link: '/main/message' })} 
+      color='blue'> 
+        <img 
+        src={smsIcon} 
+        alt='' />  
+      </ListItem>
+
+        <ListItem  
+          onClick={() => goTo({ link: '/cart' })} 
+          color='red'> 
+            <img 
+            src={cartIcon} 
+            alt='' /> 
+          </ListItem>
+
+            <ListItem  
+              onClick={() => goTo({ link: '/favorite' })} 
+              color='#d301cd'> 
+              <img 
+              src={favIcon} 
+              alt='' /> 
+            </ListItem>
+    </ul>
+</HeadNavigate>
+
+<div  style={{height: '80px', display: 'inline-block'}}>
 
 {usermode && 
   <UserInfo active={active}>
@@ -303,7 +431,6 @@ const anime = () => {
 
 </UserInfo>
 }
-      <div style={{height: '80px'}}>
 
 
       {!usermode &&
@@ -321,6 +448,8 @@ const anime = () => {
 
         </div>
 
+
+        </div>
 
         <FindComponent />
 
