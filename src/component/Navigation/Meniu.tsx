@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
 import CloseIcon from '../../icon/close.svg';
-import { zIndex } from "html2canvas/dist/types/css/property-descriptors/z-index";
+import meniuicon from '../../icon/menu.svg';
 
 
 
@@ -141,6 +141,28 @@ const CloseComponent = styled.div`
 `;
 
 
+const MeniuBtn = styled.div`
+    display: none;
+    img{
+      width: 40px;
+    }
+    @media only screen and (max-width: 750px) {
+
+      display:flex;
+      rigth: 10px;
+
+      position: absolute; 
+      right: 10px;
+      top: 5px;
+      cursor:pointer;
+      &:hover{
+        box-shadow:0px 0px 1px 0px;
+      }
+    }
+    
+`;
+
+
  interface MeniuProps{
     usermode:boolean;
     setProduct:Function;
@@ -148,6 +170,9 @@ const CloseComponent = styled.div`
     toggleMenu:Function;
  }
 
+ interface BtnProps{
+  toggleMenu:Function;
+ }
 
 
 const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => {
@@ -195,6 +220,15 @@ const Meniu = ({ usermode, setProduct,  menuVisible, toggleMenu}:MeniuProps) => 
   );
 } 
   
+const ButtonComp =({toggleMenu}:BtnProps)=>{
+   
+  return(        
+  <MeniuBtn onClick={()=>{toggleMenu()}}>
+  <img src={meniuicon} alt="" /> 
+  </MeniuBtn>
+)
+}
 
+  export {ButtonComp};
 
   export default Meniu;
