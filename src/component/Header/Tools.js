@@ -3,6 +3,9 @@ import favIcon from '../../icon/favIcon.svg';
 import cartIcon from '../../icon/cartIcon.svg';
 import smsIcon from '../../icon/smsIcon.svg'
 
+import userIcin from "../../icon/user.png";
+import arrow from '../../icon/arrow.png';
+
 
 const Logo = styled.h1`
   margin: 0;
@@ -234,6 +237,6 @@ const ListItem = styled.li`
 
 `;
 
-export {favIcon, cartIcon, smsIcon};
+export {favIcon, cartIcon, smsIcon, userIcin, arrow};
 
 export {ListItem, HeaderNavigateStyle, UserInfo, HeaderComponent, LoginBtn, Logo};
