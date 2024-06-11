@@ -6,6 +6,15 @@ import smsIcon from '../../icon/smsIcon.svg'
 import userIcin from "../../icon/user.png";
 import arrow from '../../icon/arrow.png';
 
+import jurnal from '../../icon/jurnal.png';
+import add from '../../icon/add.png';
+import productIcon from '../../icon/product.png';
+import logoutIcon from '../../icon/logout.svg';
+import smsBlack from '../../icon/sms_black.svg';
+
+
+
+
 
 const Logo = styled.h1`
   margin: 0;
@@ -237,6 +246,6 @@ const ListItem = styled.li`
 
 `;
 
-export {favIcon, cartIcon, smsIcon, userIcin, arrow};
+export {favIcon, cartIcon, smsIcon, userIcin, arrow, jurnal, add, productIcon, logoutIcon, smsBlack};
 
 export {ListItem, HeaderNavigateStyle, UserInfo, HeaderComponent, LoginBtn, Logo};

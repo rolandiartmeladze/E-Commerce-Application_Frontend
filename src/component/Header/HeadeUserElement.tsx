@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { userIcin, arrow } from "./Tools";
+import { userIcin, arrow, jurnal, add, productIcon, logoutIcon, smsBlack } from "./Tools";
 
 
 const UserInfo = styled.div<{ active: boolean }>`
@@ -64,20 +64,50 @@ max-width: 40px;
 .item {
 width: 85%;
 margin: auto;
+padding: 3px 0;
 color: white;
-box-shadow: 0px 2px 2px 0.5px white;
+box-shadow: 0px 1px 0.2px -0.5px white;
 margin-top: 7px;
 align-items: center;
 justify-content: center;
-border-radius: 0px 0px 10px 10px;
+border-radius: 0px;
 transform: scale(0);
 transition: 0.3s ease-in-out;
+justify-content: flex-start;
+position: relative;
+img{
+  margin: 0px 5px;
+  width: 25px;
+}
 
+
+&:before{
+  position: absolute;
+  content: "";
+  display: block;
+  width: 6px;
+  height: 100%;
+  left: -2px;
+  bottom: -1px;
+    z-index: -1;
+  background-color: red;
+  transition: 0.4s ease-in-out;
+  border-radius: 4px 0px 0px 4px;
+  
+}
 
 &:hover {
 color: yellow;
-box-shadow: 0px 2px 2px 0.5px yellow;
+// box-shadow: 0px 2px 2px 0.5px yellow;
 transform: scale(1.05) !important;
+
+&:before{
+  width: 100%;
+  left: 0px;
+  background-color: rgb(255, 0,0, 0.4);
+
+}
+
 }
 }
 
@@ -108,6 +138,7 @@ interface OpenProps{link: string;}
 interface InfoItem {
     title: string;
     link: string;
+    img: string;
   }
 
 
@@ -154,11 +185,11 @@ const imgstyle ={
   };
 
 const info:InfoItem[] = [
-    {title: "Message", link: '/main/message'},
-    {title: "My Products", link: '/main/products'},
-    {title: "Add Product", link: '/main/add'},
-    {title: "Sale Jurnale", link: '/main/jurnal'},
-    {title: "Log Out", link: '/'},
+    {title: "Message", link: '/main/message', img: smsBlack},
+    {title: "My Products", link: '/main/products', img: productIcon},
+    {title: "Add Product", link: '/main/add', img: add},
+    {title: "Sale Jurnale", link: '/main/jurnal', img: jurnal},
+    {title: "Log Out", link: '/', img: logoutIcon},
 ]
 
 
@@ -184,7 +215,7 @@ const info:InfoItem[] = [
                         OpenInfo({link: item.link})
                     }} 
                     className="item">
-                        {item.title}
+                       <img src={item.img} alt="" /> {item.title}
                 </div>
             ))
             } </> 
