@@ -16,8 +16,9 @@ cursor: pointer;
 font-weight: 800;
 flex-direction: column;
 z-index: 5;
-transition: 0.3s eae-in-out;
+transition: 0.3s ease-in-out, width 0.5s ease-in-out;
 
+min-width: ${props => props.active ? '200px' : '150px'};
 
 &:before {
 position: absolute;
