@@ -5,6 +5,8 @@ import styled from "styled-components";
 import ProductComponent from "../ProductComponent/ProductComponent";
 import viewProduct from "../ProductComponent/VievUpdate";
 
+import CartIcon from '../../icon/cart.png';
+
 import { useLocation } from "react-router-dom";
 import Loading from "../Loading";
 
@@ -59,7 +61,6 @@ const fetchData = async () => {
       
       const cartResponse = await checkCartItem.json();
       setResponse(cartResponse);
-      console.log(cartResponse)
       setLoading(false);
       }
 
@@ -75,7 +76,7 @@ const fetchData = async () => {
 
   return(
    <CartContainer> 
-    <h1>Cart Component</h1>
+     <h1 style={{color: 'red', display: 'flex', alignItems: 'center', justifyContent: 'flex-start'}}><img width={35} src={CartIcon} alt="" /> Products In Cart</h1>
         <div>
     {loading && <Loading />}
     {response.length <=0 && <h2>Products not found</h2>}
