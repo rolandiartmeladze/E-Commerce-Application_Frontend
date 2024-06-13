@@ -1,4 +1,4 @@
-# My Full Stack E-Commerce Application
+# Full Stack E-Commerce Application
 
 Welcome to my full stack e-commerce application! This project is built using React, TypeScript, Node.js, Express, MongoDB, and Mongoose Atlas. It provides a platform for users to create accounts, add products, sell items online, manage inventory, search for products, and more.
 
