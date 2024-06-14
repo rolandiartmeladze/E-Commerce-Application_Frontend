@@ -12,11 +12,17 @@ This project is a full-stack e-commerce web application developed to showcase my
 ## Technologies Used
 
 ### Frontend
+<ul>
+  <li>
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML5" width="40" height="40"/>  HTML
+  </li>
+  <li>
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" alt="CSS3" width="40" height="40"/> CSS
+  </li>
+</ul>
 - React.js
 - TypeScript
 - JavaScript
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML5" width="40" height="40"/>  HTML
-- CSS
 
 ### Backend
 - Node.js
