@@ -32,28 +32,34 @@ This project is a full-stack e-commerce web application developed to showcase my
 ## Features
 
 ### General
-- User registration and authentication
-- Data persistence in the database
-- Specific functions available only to authorized users
+<ul>
+  <li>📝 User registration and authentication</li>
+  <li>💾 Data persistence in the database</li>
+  <li>🔒 Specific functions available only to authorized users</li>
+</ul>
 
 ### Unauthorized Users
-- View available products
-- Learn about product details and view media files
-- Find contact information about the owner
-- Leave comments and write assessments about the product
-- Receive a payment invoice and purchase the product
-- Add products to favorites or shopping cart (data stored in local memory)
-- Filter products by category, views, and date added
-- Share filtered product links with others
+<ul>
+  <li>👁️ View available products</li>
+  <li>📄 Learn about product details and view media files</li>
+  <li>📞 Find contact information about the owner</li>
+  <li>💬 Leave comments and write assessments about the product</li>
+  <li>🧾 Receive a payment invoice and purchase the product</li>
+  <li>⭐ Add products to favorites or shopping cart (data stored in local memory)</li>
+  <li>🔍 Filter products by category, views, and date added</li>
+  <li>🔗 Share filtered product links with others</li>
+</ul>
 
 ### Authorized Users
-- Add new products
-- Monitor health products
-- Sell products and track sales
-- Monitor stock levels
-- Edit products
-- Move products to archive
-- Cancel or renew products
+<ul>
+  <li>➕ Add new products</li>
+  <li>📊 Monitor health products</li>
+  <li>💵 Sell products and track sales</li>
+  <li>📦 Monitor stock levels</li>
+  <li>✏️ Edit products</li>
+  <li>📥 Move products to archive</li>
+  <li>❌ Cancel or renew products</li>
+</ul>
 
 ### User Dashboard
 Authorized users can view their added products, select desired quantities, and manage sales. Sold quantities are subtracted from the main stock, and sales data is stored for monitoring purposes. This helps users control stock levels and keep an eye on the current balance.
