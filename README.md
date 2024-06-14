@@ -63,7 +63,7 @@ The project is open for updates and new ideas. An updated version will be presen
 
 ## Contact
 - Roland Artmeladze
-- Mariam Buzaladze
+
 
 ## License
 This project is licensed under the MIT License.
