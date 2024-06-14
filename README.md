@@ -22,10 +22,12 @@ This project is a full-stack e-commerce web application developed to showcase my
 </ul>
 
 ### Backend
-- Node.js
-- Express
-- MongoDB
-- Mongoose Atlas
+<ul style="list-style: none">
+  <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" alt="Node.js" width="20" height="20"/> Node.js </li>
+  <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg" alt="Express" width="20" height="20"/> Express </li>
+  <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" alt="MongoDB" width="20" height="20"/> MongoDB </li>
+  <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="Mongoose" width="20" height="20"/> Mongoose Atlas </li>
+</ul>
 
 ## Features
 
