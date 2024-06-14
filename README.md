@@ -4,11 +4,11 @@
 This project is a full-stack e-commerce web application developed to showcase my skills and capabilities in the development and implementation of web applications. It features seamless integration, sophisticated design, and well-organized functionality to provide users with an attractive and practical solution for searching and purchasing products.
 
 ## Live Demo
-[Click here to view the live application]([#](https://embarrassing-unifor.000webhostapp.com/))
+[Click here to view the live application]([https://embarrassing-unifor.000webhostapp.com/])
 
 ## Repositories
-- [Frontend Source Code]([#](https://github.com/rolandiartmeladze/E-Commerce-Application_Frontend))
-- [Backend Source Code]([#](https://github.com/rolandiartmeladze/E-Commerce-Application_Backend))
+- [Frontend Source Code]([https://github.com/rolandiartmeladze/E-Commerce-Application_Frontend])
+- [Backend Source Code]([https://github.com/rolandiartmeladze/E-Commerce-Application_Backend])
 
 ## Technologies Used
 
