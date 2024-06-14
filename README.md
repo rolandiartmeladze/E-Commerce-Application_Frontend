@@ -14,7 +14,7 @@ This project is a full-stack e-commerce web application developed to showcase my
 ### Frontend
 <ul>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="React" width="20" height="20"/>  React.js </li>
-  <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScript"  TypeScript </li>
+  <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScript"  width="20" height="20" />  TypeScript </li>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="JavaScript" width="20" height="20"/>  JavaScript </li>
   
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML5" width="20" height="20"/>  HTML </li>
