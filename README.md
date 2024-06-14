@@ -1,55 +1,69 @@
-# Full Stack E-Commerce Application
+# E-Commerce Application
 
-Welcome to my full stack e-commerce application! This project is built using React, TypeScript, Node.js, Express, MongoDB, and Mongoose Atlas. It provides a platform for users to create accounts, add products, sell items online, manage inventory, search for products, and more.
+## Description
+This project is a full-stack e-commerce web application developed to showcase my skills and capabilities in the development and implementation of web applications. It features seamless integration, sophisticated design, and well-organized functionality to provide users with an attractive and practical solution for searching and purchasing products.
 
+## Live Demo
+[Click here to view the live application]([#](https://embarrassing-unifor.000webhostapp.com/))
 
- ### <h2 style="color: red;">An important note !!!</h2>
-
-Because the main visual and functional details of the project are independently developed and implemented by me, which takes quite a lot of time and resources, so I try. Phased implementation of functional components Currently, the project does not include the possibility to buy or sell React Router, the product, sales log and order monitoring components. I am actively working on the implementation of these details in the project and the existing functional development
-The ability to add a photo when creating a new product has not yet been defined.
-The email validity function during registration is also not fully developed,
-Comparison of upper and lower case characters during input
-So during authorization, you must repeat the data specified during registration.
-
-##### <span style="color:red;">You can enter the system with your registered email and password => </span>
- 
-
-
-## Features
-
-- **User Authentication:** Users can create accounts with personal data, and their passwords are securely hashed before being stored in the database.
-- **Authorization:** Only authorized users can access certain features and functionalities.
-- **Product Management:** Users can add products to the website, providing details such as product name, description, and contact information.
-- **Online Sales:** Users can sell products online, deducting the sold items from the available inventory.
-- **Inventory Management:** The application keeps track of inventory levels and updates them accordingly.
-- **Sales Funnel (Planned):** A feature to control sales and analyze profit/cost balance of stocks is planned for future implementation.
-- **Search Functionality:** Users can search for products by name using the search field.
-- **Favorites and Purchase Orders:** Users can add products to favorites and place purchase orders.
-- **Analytics (Planned):** Tracking of sales and sharing rate of product views is planned for future implementation.
+## Repositories
+- [Frontend Source Code]([#](https://github.com/rolandiartmeladze/E-Commerce-Application_Frontend))
+- [Backend Source Code]([#](https://github.com/rolandiartmeladze/E-Commerce-Application_Backend))
 
 ## Technologies Used
 
-- **Frontend:** HTML, CSS, JavaScript, React, TypeScript
-- **Backend:** Node.js, Express
-- **Database:** MongoDB, Mongoose Atlas
+### Frontend
+- React.js
+- TypeScript
+- JavaScript
+- HTML
+- CSS
 
-## Getting Started
+### Backend
+- Node.js
+- Express
+- MongoDB
+- Mongoose Atlas
 
-To run this project locally, follow these steps:
+## Features
 
-1. Clone this repository.
-2. Navigate to the project directory.
-3. Install dependencies using `npm install` or `yarn install`.
-4. Set up your MongoDB database and obtain connection credentials.
-5. Configure your environment variables for database connection.
-6. Run the frontend and backend servers using `npm start` or `yarn start`.
-7. Access the application in your browser.
+### General
+- User registration and authentication
+- Data persistence in the database
+- Specific functions available only to authorized users
 
-## Contributing
+### Unauthorized Users
+- View available products
+- Learn about product details and view media files
+- Find contact information about the owner
+- Leave comments and write assessments about the product
+- Receive a payment invoice and purchase the product
+- Add products to favorites or shopping cart (data stored in local memory)
+- Filter products by category, views, and date added
+- Share filtered product links with others
 
-Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request with your changes.
+### Authorized Users
+- Add new products
+- Monitor health products
+- Sell products and track sales
+- Monitor stock levels
+- Edit products
+- Move products to archive
+- Cancel or renew products
 
+### User Dashboard
+Authorized users can view their added products, select desired quantities, and manage sales. Sold quantities are subtracted from the main stock, and sales data is stored for monitoring purposes. This helps users control stock levels and keep an eye on the current balance.
 
-## Acknowledgements
+## Future Plans
+The project is open for updates and new ideas. An updated version will be presented as the main README.md file.
 
-Special thanks to the developers of React, Node.js, MongoDB, and all the other open-source technologies that made this project possible.
+## Contact
+- Roland Artmeladze
+- Mariam Buzaladze
+
+## License
+This project is licensed under the MIT License.
+
+---
+
+Feel free to explore the application and reach out if you have any questions or feedback!
