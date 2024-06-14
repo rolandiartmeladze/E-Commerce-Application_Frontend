@@ -7,8 +7,8 @@ This project is a full-stack e-commerce web application developed to showcase my
 <a href="https://embarrassing-unifor.000webhostapp.com/">click hear</a>
 
 ## Repositories
-- [Frontend Source Code] <a href="https://github.com/rolandiartmeladze/E-Commerce-Application_Frontend">click hear</a>
-- [Backend Source Code] <a href="https://github.com/rolandiartmeladze/E-Commerce-Application_Backend">click hear</a>
+- Frontend Source Code => <a href="https://github.com/rolandiartmeladze/E-Commerce-Application_Frontend">click hear</a>
+- Backend Source Code => <a href="https://github.com/rolandiartmeladze/E-Commerce-Application_Backend">click hear</a>
 ## Technologies Used
 
 ### Frontend
