@@ -12,7 +12,7 @@ This project is a full-stack e-commerce web application developed to showcase my
 ## Technologies Used
 
 ### Frontend
-<ul  style="list-style: none">
+<ul>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" alt="React" width="20" height="20"/>  React.js </li>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScript"  width="20" height="20" />  TypeScript </li>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="JavaScript" width="20" height="20"/>  JavaScript </li>
@@ -22,7 +22,7 @@ This project is a full-stack e-commerce web application developed to showcase my
 </ul>
 
 ### Backend
-<ul style="list-style: none">
+<ul>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" alt="Node.js" width="20" height="20"/> Node.js </li>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg" alt="Express" width="20" height="20"/> Express </li>
   <li> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" alt="MongoDB" width="20" height="20"/> MongoDB </li>
