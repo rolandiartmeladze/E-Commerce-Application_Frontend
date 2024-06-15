@@ -10,7 +10,6 @@ import cartIcon from '../../icon/cart.png';
 import UserInfo from "./UserInfo";
 import ProductInfo from "./ProductInfo";
 import { useNavigate } from "react-router-dom";
-// import InCartConteiner from "./InCartConteiner";
 
 
 
@@ -70,16 +69,61 @@ const InfoConteiner = styled.div`
       padding: 4px 0px;
       flex:1;
 
-      button{
-        position:absolute; 
-        right: 15px; 
-        padding: 3px 5px; 
-        cursor: pointer;
+      .Btns{
+          width: 90%;
+          display: flex; 
+          justify-content: space-around;
+          position: relative;
+          margin:auto;
+          margin-top: 12px;
+
+              button{
+                background-color: rgb(10, 10, 80, 0.3);
+                padding: 8px 15px; 
+                cursor: pointer;
+                border-radius: 6px;
+                transition: 0.4s ease-in-out;
+                border: none;
+                font-weight: 800;
+                box-shadow: 2px 0.5px 3px 0.2px green;
+                position:relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                    &:before{
+                        transition: 0.4s ease-in-out;
+                        position: absolute;
+                        content: '';
+                        width: 0%;
+                        height: 0%;
+                        background: red; 
+                        border-radius: 100%;
+                        z-index: -1;
+                        }
+
+                            &:hover{
+                            background: none;
+                            box-shadow: 0.5px 0px 1px 0.2px red;
+                            transform: scale(1.08);
+                            
+                                &:before{
+                                  border-radius: 6px;
+                                  position: absolute;
+                                  content: '';
+                                  width: 100%;
+                                  height: 100%;
+                                  background: red;        
+                                      }
+                    }
+
         @media (max-width: 900px) {
           position:relative; 
         }
 
       }
+      }
+
       `;
 
       const CartBtn = styled.samp`
@@ -181,8 +225,9 @@ const InfoConteiner = styled.div`
                           <UserInfo members={members} usermode={usermode} />
                           <ProductInfo product={product} />
 
-                          <div style={{width: '100%', display:'flex', justifyContent:'flex-end', position: 'relative', marginTop: '12px'}}>
-                            <button>Buy Now</button>
+                          <div className="Btns">
+                          <button>Tacke invois</button>
+                          <button>Buy Now</button>
                           </div>
                     </InfoConteiner>
 
