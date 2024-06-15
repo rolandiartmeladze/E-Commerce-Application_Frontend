@@ -277,7 +277,6 @@ padding: 0px;
     const HeaderProps = {login, setLogIn, usermode, setProduct};
 
     
-    // console.log(Date.now())
     const timestamp = 1716502055353;
     const date = new Date(timestamp);
     
@@ -377,6 +376,9 @@ padding: 0px;
               } />
 
         
+<Route path={`/products/:productId/pay`} element={ <h2>Pay now</h2>} />
+<Route path={`/products/:productId/invois`} element={ <h2>Tacke Invois</h2>} />
+
 
         
       </Routes>

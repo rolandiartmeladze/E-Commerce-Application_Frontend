@@ -94,7 +94,7 @@ const BtnsConteiner = styled.div`
 
 const Invoic = ({quantities , incartResponse, setInvoic}) => {
 
-  const [generatingPDF, setGeneratingPDF] = useState(true);
+  const [generatingPDF, setGeneratingPDF] = useState(false);
 
   const Download = () => {
     setGeneratingPDF(true);

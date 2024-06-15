@@ -187,6 +187,15 @@ const InfoConteiner = styled.div`
             const navigate = useNavigate();
 
 
+            const PayNow =()=>{
+              navigate(`/products/${product._id}/pay`);
+            }
+
+
+            const TackeInvois =()=>{
+              navigate(`/products/${product._id}/invois`);
+            }
+
 
 
     const InCartBtn = () => {
@@ -226,8 +235,8 @@ const InfoConteiner = styled.div`
                           <ProductInfo product={product} />
 
                           <div className="Btns">
-                          <button>Tacke invois</button>
-                          <button>Buy Now</button>
+                          <button onClick={TackeInvois}>Tacke invois</button>
+                          <button onClick={PayNow}>Buy Now</button>
                           </div>
                     </InfoConteiner>
 
