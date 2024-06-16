@@ -92,7 +92,7 @@ const BtnsConteiner = styled.div`
 
 `;
 
-const Invoic = ({quantities , incartResponse, setInvoic}) => {
+const Invoic = ({product}) => {
 
   const [generatingPDF, setGeneratingPDF] = useState(false);
 
@@ -119,7 +119,7 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
         let item = document.getElementById('invoic');
         if(item){
           item.style.display = 'none';
-          setInvoic(false);
+          // setInvoic(false);
         } 
       }
 
@@ -136,22 +136,11 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
     let userphone = document.getElementById('UserPhone');
     let useraddress = document.getElementById('UserAddress');
 
-    const ActivProducts = [];
       let cost = 0;
-      incartResponse.forEach((product, index) => {
 
-      const productCost = product.price * quantities[index].quantity;
+      const productCost = product?.price * 1;
       cost += productCost;
 
-      ActivProducts.push({
-        'name': product.name, 
-        'price': product.price, 
-        'quantities':quantities[index], 
-        'cost': (product.price * quantities[index].quantity),
-        'quantityUnit': product.quantityUnit,
-        'currency': product.currency
-      })
-  })
 
     const invoice ={
       "user info":{
@@ -160,7 +149,7 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
       'phone': userphone.value,
       'address': useraddress.value
     }, 
-      "product info": ActivProducts
+      // "product info": ActivProducts
       
     }
 
@@ -189,10 +178,10 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
   <div style={{display:'flex', flexWrap:'wrap'}}>
         <ul>
           <h5>User:</h5>
-            <li><h5>Name:</h5> <samp>{invoice["user info"].name}</samp></li>
-            <li><h5>Email:</h5> <samp>{invoice["user info"].email}</samp></li>
-            <li><h5>Phone:</h5> <samp>{invoice["user info"].phone}</samp></li>
-            <li><h5>Address:</h5> <samp>{invoice["user info"].address}</samp></li>
+            <li><h5>Name:</h5> <samp>{product.name}</samp></li>
+            <li><h5>Email:</h5> <samp>{product.email}</samp></li>
+            <li><h5>Phone:</h5> <samp>{product.phone}</samp></li>
+            <li><h5>Address:</h5> <samp>{product.location}</samp></li>
         </ul>
 
           <ul>
@@ -210,22 +199,20 @@ const Invoic = ({quantities , incartResponse, setInvoic}) => {
           <tbody>
           <tr style={{backgroundColor:'rgb(0, 0, 0, 0.3)'}}>
             <td>Name</td><td>quantity</td><td>Price</td><td>Cost</td></tr>
-          {invoice["product info"].map((item, index) => (
-            <tr key={item._id}>
+            <tr key={product._id}>
               <td>
-              {item.name}
+              {product.name}
               </td>
               <td>
-                {quantities[index].quantity} {item.quantityUnit}
+                {"1"} {product.quantityUnit}
                 </td>
                 <td>
-                  {item.price} {item.currency}
+                  {product.price} {product.currency}
                   </td>
                   <td>
-                    {quantities[index].quantity * item.price} {item.currency}
+                    {1 * product.price} {product.currency}
                     </td>
                     </tr>
-          ))}
           </tbody>              
         </table>
       <h3> Total: {cost} ₾.</h3>

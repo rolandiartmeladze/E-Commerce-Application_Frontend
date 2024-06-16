@@ -60,6 +60,12 @@ interface Props{
       const [userphone, setUserPhone] = useState<string>('');
       const [useraddress, setUserAddress] = useState<string>('');
 
+      // let username = document.getElementById('UserName');
+      // let useremail = document.getElementById('UserEmail');
+      // let userphone = document.getElementById('UserPhone');
+      // let useraddress = document.getElementById('UserAddress');
+  
+
         const isMember = members.find(user => user._id === token);
 
     return(
@@ -74,7 +80,9 @@ interface Props{
                                     type="text" 
                                     disabled={usermode} 
                                     value={usermode ? `${isMember?.name} ${isMember?.lastname}`  : username} 
-                                    placeholder="Full Name" />
+                                    placeholder="Full Name" 
+                                    id="UserName"
+                                    />
                 </ConteinerItem>
 
                     <ConteinerItem>
@@ -85,7 +93,9 @@ interface Props{
                                         type="emile" 
                                         disabled={usermode} 
                                         value={usermode ? (isMember.email) : useremail} 
-                                        placeholder="Email" />
+                                        placeholder="Email" 
+                                        id="UserEmail"
+                                        />
                     </ConteinerItem>
 
                         <ConteinerItem>
@@ -96,7 +106,9 @@ interface Props{
                                             type="tel" 
                                             disabled={usermode} 
                                             value={usermode ? (isMember?.phone) : userphone} 
-                                            placeholder="Phone" />
+                                            placeholder="Phone" 
+                                            id="UserPhone"
+                                            />
                         </ConteinerItem>
 
                             <ConteinerItem>
@@ -107,7 +119,9 @@ interface Props{
                                                 type="text" 
                                                 disabled={usermode} 
                                                 value={usermode ? (isMember?.address) : useraddress} 
-                                                placeholder="Address" />
+                                                placeholder="Address" 
+                                                id="UserAddress"
+                                                />
                             </ConteinerItem>
             </>
           );

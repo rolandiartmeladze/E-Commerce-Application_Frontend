@@ -34,6 +34,8 @@ import AddProduct from './component/MainComponent/AddProduct/Add';
 import MainNavigate from './component/MainComponent/Navigate/MainNavigate';
 import SaleJurnal from './component/MainComponent/Jurnal/SaleJurnal';
 
+import Invoic from './component/BuyProduct/Invoic';
+
 import Cart from './component/CartComponent/ProductsInCart';
 // const server = process.env.SERVER_LINK;
 
@@ -377,7 +379,7 @@ padding: 0px;
 
         
 <Route path={`/products/:productId/pay`} element={ <h2>Pay now</h2>} />
-<Route path={`/products/:productId/invois`} element={ <h2>Tacke Invois</h2>} />
+<Route path={`/products/:productId/invois`} element={<Invoic product={product} />} />
 
 
         

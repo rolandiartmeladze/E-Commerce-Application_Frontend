@@ -344,7 +344,7 @@ const View = ({setFavorits,setInCart, product, incart, favorits, buy, quantities
       <>
             {buy &&  
       <BuyFromCartCont id="conteiner" > 
-            {invoic && <Invoic quantities={quantities} incartResponse={incartResponse} setInvoic={setInvoic} />}
+            {/* {invoic && <Invoic quantities={quantities} incartResponse={incartResponse} setInvoic={setInvoic} />} */}
    
         <BuyModeCloseBtn onClick={closebtn} >Close</BuyModeCloseBtn>
 
