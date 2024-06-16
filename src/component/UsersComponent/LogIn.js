@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Form, FooterComp, HeaderComp, close, showpass,
          Mail, Pass, View, hide,
-         LoaingComponent 
+         LoadingComponent 
     } from "./Tools";
 
 
@@ -65,7 +65,7 @@ const Login = () => {
         <HeaderComp navigate={navigate} title={'Login Form'} />
 
             <Form id='LoginForm'>
-            {loading && <LoaingComponent />}
+            {loading && <LoadingComponent />}
 
                 <h2> You are welcome </h2>
                 <div className="item-cont">

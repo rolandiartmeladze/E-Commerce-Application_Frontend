@@ -3,6 +3,7 @@ import styled from "styled-components";
 import './View.css';
 
 
+
 import favicon1 from '../../icon/favcheck.png';
 import cartIcon from '../../icon/cart.png';
 
@@ -175,13 +176,8 @@ const InfoConteiner = styled.div`
 
       const ViewProductAside = ({
             members, usermode,  
-            favorits, product, 
-            handleClickCart, incart,
-            loading, setLoading ,
-            userData, setQuantities,
-            setBuy, incartResponse, 
-            setInCartResponse, quantities,
-            setProduct
+            favorits, product, incart,
+            
           }:Props) => {
 
             const navigate = useNavigate();

@@ -467,10 +467,10 @@ const close = (navigate, props) =>{
 }
 
 
-const LoaingComponent = ()=>{return(<Loading><samp>Please wait</samp><samp><img src={load} alt='' /></samp></Loading>);}
+const LoadingComponent = ()=>{return(<Loading><samp>Please wait</samp><samp><img src={load} alt='' /></samp></Loading>);}
 
 
-export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp, TryAgainButton, LoaingComponent};
+export {checkPassword, checkRepPassword, showpass, close, FooterComp, HeaderComp, TryAgainButton, LoadingComponent};
 
     export {Mail, Pass, Phone, user, txt, pass2, repe, View, hide, send, gmail};
 

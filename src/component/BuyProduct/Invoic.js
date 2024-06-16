@@ -6,6 +6,8 @@ import html2canvas from 'html2canvas';
 
 import styled from "styled-components";
 
+import { useNavigate } from "react-router-dom";
+
 
 const Invoicuserconteiner = styled.div`
       position: absolute; 
@@ -98,7 +100,7 @@ const Invoic = ({product}) => {
 
   const Download = () => {
     setGeneratingPDF(true);
-    const element = document.getElementById('invoic'); // Get the container element
+    const element = document.getElementById('invoic'); 
 
     setTimeout(() => {
           html2canvas(element).then(canvas => {
@@ -114,13 +116,11 @@ const Invoic = ({product}) => {
     }, 1000);
 }    
 
+const navigate = useNavigate();
+
 
     const closeinvoic = () =>{
-        let item = document.getElementById('invoic');
-        if(item){
-          item.style.display = 'none';
-          // setInvoic(false);
-        } 
+          navigate(`/products/${product._id}`);
       }
 
       const data = {
@@ -131,10 +131,10 @@ const Invoic = ({product}) => {
 
 
 
-    let username = document.getElementById('UserName');
-    let useremail = document.getElementById('UserEmail');
-    let userphone = document.getElementById('UserPhone');
-    let useraddress = document.getElementById('UserAddress');
+    // let username = document.getElementById('UserName');
+    // let useremail = document.getElementById('UserEmail');
+    // let userphone = document.getElementById('UserPhone');
+    // let useraddress = document.getElementById('UserAddress');
 
       let cost = 0;
 
@@ -142,16 +142,6 @@ const Invoic = ({product}) => {
       cost += productCost;
 
 
-    const invoice ={
-      "user info":{
-      'name': username.value,
-      'email': useremail.value,
-      'phone': userphone.value,
-      'address': useraddress.value
-    }, 
-      // "product info": ActivProducts
-      
-    }
 
 
     
