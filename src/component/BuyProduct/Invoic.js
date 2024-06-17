@@ -8,14 +8,73 @@ import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
 
+import invoiceIcon from '../../icon/invoice.png';
 
 const Invoicuserconteiner = styled.div`
-      position: absolute; 
-      z-index:  6;
+
+      // position: absolute; 
+      // z-index:  6;
       width:100%; 
       height:  100%; 
       background-color: white;
-      border-radius: 10px;
+      
+
+
+
+
+      .header{
+width: 98%;
+    margin: auto;
+    height: auto;
+    min-height: 150px;
+    background-color: blue;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+
+    
+          ul{
+              h2{
+                color: darkgray;
+                text-decoration: underline;
+                margin-bottom: 6px;
+                margin: 0px;
+                }
+          flex-grow: 0;
+          align-items: flex-start;
+          display: flex; 
+          float: right; 
+
+          li{
+
+          span{
+          margin-left: 3px;
+          }
+          h4{
+          margin:0;
+          color: black;
+          background: none;
+          }
+          background: none;
+          font-size: 90%; 
+          width: auto;
+          margin: 0px;
+display: flex;
+    // flex-direction: column;
+    // align-items: flex-start;
+          }
+          }
+
+
+          .logo {
+          display: flex; 
+          align-items: flex-start; 
+          flex-direction: column; 
+          margin: 20px; 
+          }
+}
+
+
         h5{
           text-align: left;
           margin: 4px 3px;
@@ -149,68 +208,46 @@ const navigate = useNavigate();
 
     return (
       <>
-      <Invoicuserconteiner id="invoic">
-        <InvoicHead>
-          <h5>Invoic ID: </h5><samp>N36154</samp>  {'<>'}
-          <h5>Data Time: </h5> <samp>{data.Now()}</samp>
 
-                  {!generatingPDF&& (
-              <BtnsConteiner>
-                    <button onClick={Download}>Download</button>
-                    <button>Share Now</button>
-                    <button onClick={closeinvoic}>Close</button>
-              </BtnsConteiner>
-)}
+        <Invoicuserconteiner>
+          <header className='header'>
+            <div className='logo' style={{ }}>
+              <samp><img width={50} src={invoiceIcon} alt='' /></samp>
+              <h1 style={{ fontWeight: '900' }}>Invoice</h1>
+            </div>
 
-        </InvoicHead>
+            <ul style={{}}>
+              <h2 style={{}}>
+                Your Company Name
+              </h2>
+              <li>
+                <h4>Address:</h4> 
+                <span>{product.location}</span>
+              </li>
+              <li>
+                <h4>Postal Code:</h4> 
+                <span>53000</span>
+                </li>
 
- 
-  <div style={{display:'flex', flexWrap:'wrap'}}>
-        <ul>
-          <h5>User:</h5>
-            <li><h5>Name:</h5> <samp>{product.name}</samp></li>
-            <li><h5>Email:</h5> <samp>{product.email}</samp></li>
-            <li><h5>Phone:</h5> <samp>{product.phone}</samp></li>
-            <li><h5>Address:</h5> <samp>{product.location}</samp></li>
-        </ul>
+                <li>
+                  <h4>Bank Name:</h4>
+                  <span>Bank Of Georgia</span>
+                  </li>
 
-          <ul>
-            <h5>Bank:</h5>
-              <li><h5>Bank Name:</h5> <samp>{'Bank Of Georgia'}</samp></li>
-              <li><h5>Accounc Number:</h5>  <samp>{'22 GE 65 BG 00 00 00 20 01 19 97'}</samp></li>
-              <li><h5>Owner:</h5>  <samp>{'Roland Artmeladze'}</samp></li>
-              <li><h5>Destination:</h5>  <samp>{'Invoic N245638'}</samp></li>
-          </ul>
-  </div>
+                  <li>
+                  <h4>Account Number:</h4>
+                  <span>86 GE BG 25 000 000 037 498</span>
+                  </li>
+            </ul>
+          </header>
 
-   <h4 style={{marginLeft: '20px'}}>Products:</h4>
+          <section>
+            body
+          </section>
 
-        <table>
-          <tbody>
-          <tr style={{backgroundColor:'rgb(0, 0, 0, 0.3)'}}>
-            <td>Name</td><td>quantity</td><td>Price</td><td>Cost</td></tr>
-            <tr key={product._id}>
-              <td>
-              {product.name}
-              </td>
-              <td>
-                {"1"} {product.quantityUnit}
-                </td>
-                <td>
-                  {product.price} {product.currency}
-                  </td>
-                  <td>
-                    {1 * product.price} {product.currency}
-                    </td>
-                    </tr>
-          </tbody>              
-        </table>
-      <h3> Total: {cost} ₾.</h3>
-
-
-
-
-
+          {/* <footer>
+  Footer
+</footer> */}
         </Invoicuserconteiner>
 
 
@@ -220,3 +257,67 @@ const navigate = useNavigate();
 
    export default Invoic;
 
+
+//    <Invoicuserconteiner id="invoic">
+//    <InvoicHead>
+//      <h5>Invoic ID: </h5><samp>N36154</samp>  {'<>'}
+//      <h5>Data Time: </h5> <samp>{data.Now()}</samp>
+
+//              {!generatingPDF&& (
+//          <BtnsConteiner>
+//                <button onClick={Download}>Download</button>
+//                <button>Share Now</button>
+//                <button onClick={closeinvoic}>Close</button>
+//          </BtnsConteiner>
+// )}
+
+//    </InvoicHead>
+
+
+// <div style={{display:'flex', flexWrap:'wrap'}}>
+//    <ul>
+//      <h5>User:</h5>
+//        <li><h5>Name:</h5> <samp>{product.name}</samp></li>
+//        <li><h5>Email:</h5> <samp>{product.email}</samp></li>
+//        <li><h5>Phone:</h5> <samp>{product.phone}</samp></li>
+//        <li><h5>Address:</h5> <samp>{product.location}</samp></li>
+//    </ul>
+
+//      <ul>
+//        <h5>Bank:</h5>
+//          <li><h5>Bank Name:</h5> <samp>{'Bank Of Georgia'}</samp></li>
+//          <li><h5>Accounc Number:</h5>  <samp>{'22 GE 65 BG 00 00 00 20 01 19 97'}</samp></li>
+//          <li><h5>Owner:</h5>  <samp>{'Roland Artmeladze'}</samp></li>
+//          <li><h5>Destination:</h5>  <samp>{'Invoic N245638'}</samp></li>
+//      </ul>
+// </div>
+
+// <h4 style={{marginLeft: '20px'}}>Products:</h4>
+
+//    <table>
+//      <tbody>
+//      <tr style={{backgroundColor:'rgb(0, 0, 0, 0.3)'}}>
+//        <td>Name</td><td>quantity</td><td>Price</td><td>Cost</td></tr>
+//        <tr key={product._id}>
+//          <td>
+//          {product.name}
+//          </td>
+//          <td>
+//            {"1"} {product.quantityUnit}
+//            </td>
+//            <td>
+//              {product.price} {product.currency}
+//              </td>
+//              <td>
+//                {1 * product.price} {product.currency}
+//                </td>
+//                </tr>
+//      </tbody>              
+//    </table>
+//  <h3> Total: {cost} ₾.</h3>
+
+
+
+
+
+//    </Invoicuserconteiner>
