@@ -18,8 +18,46 @@ const Invoicuserconteiner = styled.div`
       height:  100%; 
       background-color: white;
       
+  section{
+  h1{
+  text-align: left;}
+  display: flex;
+    justify-content: space-between;
+border-bottom: 1px solid;
 
+    // background: none;
+    font-size: 90%;
+    width: auto;
+    margin: 0px;
+    display: flex;
 
+    .left{
+    flex-grow: 0;
+li{
+display: flex;
+    justify-content: flex-start;
+        h4{
+    margin: 0px;}
+
+    }
+    }
+    .rigth{
+    flex-grow: 0;
+    li{
+    margin:0px;
+    h4{
+    margin: 0px;}
+    display:flex;
+justify-content: flex-start;
+    width: auto;
+    span{
+    color: red;
+    }
+    }
+
+    }
+
+  }
 
 
       .header{
@@ -130,7 +168,6 @@ const InvoicHead = styled.div`
 `;
 
 const BtnsConteiner = styled.div`
-      position: absolute;
       right: 10px;
       top: 0px;
       padding: 2px;
@@ -209,7 +246,17 @@ const navigate = useNavigate();
     return (
       <>
 
-        <Invoicuserconteiner>
+<div>             
+  {/* {!generatingPDF&& ( */}
+         <BtnsConteiner>
+               <button onClick={Download}>Download</button>
+               <button>Share Now</button>
+               <button onClick={closeinvoic}>Close</button>
+         </BtnsConteiner>
+{/* )} */}
+</div>
+
+        <Invoicuserconteiner  id="invoic">
           <header className='header'>
             <div className='logo' style={{ }}>
               <samp><img width={50} src={invoiceIcon} alt='' /></samp>
@@ -222,7 +269,7 @@ const navigate = useNavigate();
               </h2>
               <li>
                 <h4>Address:</h4> 
-                <span>{product.location}</span>
+                <span>{product?.location}</span>
               </li>
               <li>
                 <h4>Postal Code:</h4> 
@@ -242,8 +289,56 @@ const navigate = useNavigate();
           </header>
 
           <section>
-            body
+                        <ul className='left' style={{}}>
+              <li>
+                <h4>Owner:</h4> 
+                <span>{product?.owner}</span>
+              </li>
+              <li>
+                <h4>Cost:</h4> 
+                <span>{product?.price *1}{product?.currency}</span>
+                </li>
+
+                {/* <li>
+                  <h4>Bank Name:</h4>
+                  <span>Bank Of Georgia</span>
+                  </li>
+
+                  <li>
+                  <h4>Account Number:</h4>
+                  <span>86 GE BG 25 000 000 037 498</span>
+                  </li> */}
+            </ul>
+
+            <ul className='rigth' style={{}}>
+            
+              <li>
+                <h4>Invoice ID: </h4> 
+                <span>{'N36154'}</span>
+              </li>
+              <li>
+                <h4>Invoice data:</h4> 
+                <span>{data.Now()}</span>
+                </li>
+
+                <li>
+                  <h4>Last Data:</h4>
+                  <span>{data.Now()}</span>
+                  </li>
+
+                  <li>
+                  <h4>Product ID:</h4>
+                  <span>{product?.id}</span>
+                  </li>
+            </ul>
+
+
           </section>
+          <div>
+
+<h1>Product:</h1>
+
+          </div>
 
           {/* <footer>
   Footer
