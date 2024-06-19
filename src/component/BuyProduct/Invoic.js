@@ -10,154 +10,111 @@ import { useNavigate } from "react-router-dom";
 
 import invoiceIcon from '../../icon/invoice.png';
 
-const Invoicuserconteiner = styled.div`
+const InvoiceUserContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: white;
 
-      // position: absolute; 
-      // z-index:  6;
-      width:100%; 
-      height:  100%; 
-      background-color: white;
-      
-  section{
-  h1{
-  text-align: left;}
-  display: flex;
-    justify-content: space-between;
-border-bottom: 1px solid;
-
-    // background: none;
-    font-size: 90%;
-    width: auto;
-    margin: 0px;
-    display: flex;
-
-    .left{
-    flex-grow: 0;
-li{
-display: flex;
-    justify-content: flex-start;
-        h4{
-    margin: 0px;}
-
-    }
-    }
-    .rigth{
-    flex-grow: 0;
+  ul{
     li{
-    margin:0px;
-    h4{
-    margin: 0px;}
-    display:flex;
-justify-content: flex-start;
+    background: none;
+    box-shadow: none;
+    padding: 3px;
+    margin:1px;
+    display: flex;
     width: auto;
-    span{
-    color: red;
-    }
-    }
 
+      h4{
+        margin-right: 5px !important;
+      }
     }
-
   }
 
+  section {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid;
 
-      .header{
-width: 98%;
+    h1 {
+      text-align: left;
+    }
+
+    .left,
+    .right {
+      flex-grow: 0;
+    }
+
+    .left {
+      li {
+        justify-content: flex-start;
+        h4 {
+          margin: 0;
+        }
+
+        span {
+          color: blue;
+        }
+      }
+    }
+
+    .right {
+      li {
+        justify-content: flex-start;
+        h4 {
+          margin: 0;
+          margin-right: 4px;
+        }
+
+        span {
+          color: red;
+        }
+      }
+    }
+  }
+
+  .header {
+    width: 98%;
     margin: auto;
     height: auto;
-    min-height: 150px;
     background-color: blue;
     padding: 8px;
     display: flex;
     justify-content: space-between;
 
-    
-          ul{
-              h2{
-                color: darkgray;
-                text-decoration: underline;
-                margin-bottom: 6px;
-                margin: 0px;
-                }
-          flex-grow: 0;
-          align-items: flex-start;
-          display: flex; 
-          float: right; 
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
 
-          li{
+      h2 {
+        color: darkgray;
+        text-decoration: underline;
+        margin: 0 0 6px 0;
+      }
 
-          span{
-          margin-left: 3px;
-          }
-          h4{
-          margin:0;
+      li {
+        align-items: flex-start;
+        margin: 1px 0;
+        padding: 3px 0 3px 0px;
+
+        h4 {
+          margin: 0;
           color: black;
-          background: none;
-          }
-          background: none;
-          font-size: 90%; 
-          width: auto;
-          margin: 0px;
-display: flex;
-    // flex-direction: column;
-    // align-items: flex-start;
-          }
-          }
-
-
-          .logo {
-          display: flex; 
-          align-items: flex-start; 
-          flex-direction: column; 
-          margin: 20px; 
-          }
-}
-
-
-        h5{
-          text-align: left;
-          margin: 4px 3px;
-          display: inline;
-        }
-        h4{
-          margin: 5px;
-          text-align:left;
-        }
-        h3{
-              margin: 5px;
-              text-align: left; 
-              color:red; 
-              background-color: rgb(0, 0, 200, 0.3); 
-              padding: 4px;
         }
 
-          ul{
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            li{
-              width: 90%;
-              box-shadow: none;
-              display: inline;
-              margin: 1px; 
-              padding: 3px;
-              margin-left: 12px;
-              padding-left: 0px;
-                h5{
-                  border-bottom: 0.1px solid black;
-                }
-  
-  
+        span {
+          margin-left: 3px;
+        }
+      }
+    }
 
-            }
-          }
-
-            table{
-              width: 100%;
-              margin: auto;
-              background-color: rgb(0, 0, 0, 0.2);
-              
-            }
-
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 20px;
+    }
+  }
 `;
 
 const InvoicHead = styled.div`
@@ -256,95 +213,70 @@ const navigate = useNavigate();
 {/* )} */}
 </div>
 
-        <Invoicuserconteiner  id="invoic">
-          <header className='header'>
-            <div className='logo' style={{ }}>
-              <samp><img width={50} src={invoiceIcon} alt='' /></samp>
-              <h1 style={{ fontWeight: '900' }}>Invoice</h1>
-            </div>
+<InvoiceUserContainer id="invoice">
+    <header className='header'>
+      <div className='logo'>
+        <img width={50} src={invoiceIcon} alt='Invoice Icon' />
+        <h1 style={{ fontWeight: '900' }}>Invoice</h1>
+      </div>
 
-            <ul style={{}}>
-              <h2 style={{}}>
-                Your Company Name
-              </h2>
-              <li>
-                <h4>Address:</h4> 
-                <span>{product?.location}</span>
-              </li>
-              <li>
-                <h4>Postal Code:</h4> 
-                <span>53000</span>
-                </li>
+      <ul>
+        <h2>Your Company Name</h2>
+        <li>
+          <h4>Address:</h4>
+          <span>{product?.location}</span>
+        </li>
+        <li>
+          <h4>Postal Code:</h4>
+          <span>53000</span>
+        </li>
+        <li>
+          <h4>Bank Name:</h4>
+          <span>Bank Of Georgia</span>
+        </li>
+        <li>
+          <h4>Account Number:</h4>
+          <span>86 GE BG 25 000 000 037 498</span>
+        </li>
+      </ul>
+    </header>
 
-                <li>
-                  <h4>Bank Name:</h4>
-                  <span>Bank Of Georgia</span>
-                  </li>
+    <section>
+      <ul className='left'>
+        <li>
+          <h4>Owner:</h4>
+          <span>{product?.owner}</span>
+        </li>
+        <li>
+          <h4>Cost:</h4>
+          <span>{product?.price}{product?.currency}</span>
+        </li>
+      </ul>
 
-                  <li>
-                  <h4>Account Number:</h4>
-                  <span>86 GE BG 25 000 000 037 498</span>
-                  </li>
-            </ul>
-          </header>
+      <ul className='right'>
+        <li>
+          <h4>Invoice ID:</h4>
+          <span>{'N36154'}</span>
+        </li>
+        <li>
+          <h4>Invoice Date:</h4>
+          <span>{data.Now()}</span>
+        </li>
+        <li>
+          <h4>Last Date:</h4>
+          <span>{data.Now()}</span>
+        </li>
+        <li>
+          <h4>Product ID:</h4>
+          <span>{product?.id}</span>
+        </li>
+      </ul>
+    </section>
 
-          <section>
-                        <ul className='left' style={{}}>
-              <li>
-                <h4>Owner:</h4> 
-                <span>{product?.owner}</span>
-              </li>
-              <li>
-                <h4>Cost:</h4> 
-                <span>{product?.price *1}{product?.currency}</span>
-                </li>
-
-                {/* <li>
-                  <h4>Bank Name:</h4>
-                  <span>Bank Of Georgia</span>
-                  </li>
-
-                  <li>
-                  <h4>Account Number:</h4>
-                  <span>86 GE BG 25 000 000 037 498</span>
-                  </li> */}
-            </ul>
-
-            <ul className='rigth' style={{}}>
-            
-              <li>
-                <h4>Invoice ID: </h4> 
-                <span>{'N36154'}</span>
-              </li>
-              <li>
-                <h4>Invoice data:</h4> 
-                <span>{data.Now()}</span>
-                </li>
-
-                <li>
-                  <h4>Last Data:</h4>
-                  <span>{data.Now()}</span>
-                  </li>
-
-                  <li>
-                  <h4>Product ID:</h4>
-                  <span>{product?.id}</span>
-                  </li>
-            </ul>
-
-
-          </section>
-          <div>
-
-<h1>Product:</h1>
-
-          </div>
-
-          {/* <footer>
-  Footer
-</footer> */}
-        </Invoicuserconteiner>
-
+    <div>
+      <h1>Product:</h1>
+    </div>
+  </InvoiceUserContainer>
 
       </>
     );
