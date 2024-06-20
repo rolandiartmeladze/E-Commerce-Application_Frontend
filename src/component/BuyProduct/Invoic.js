@@ -8,55 +8,78 @@ import styled from "styled-components";
 
 import { useNavigate } from "react-router-dom";
 
+import stamp from '../../img/stamp-test.png';
+import signature from '../../img/signature-test.png';
+
 import invoiceIcon from '../../icon/invoice.png';
-
 const InvoiceUserContainer = styled.div`
-          width: 100%;
-          height: auto;
-          background-color: white;
-          display: flex;
-          flex-direction: column;
+  width: 100%;
+  height: auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid;
+  padding-bottom: 10px;
 
-        ul{
-          li{
-          background: none;
-          box-shadow: none;
-          padding: 3px;
-          margin:1px;
-          display: flex;
-          width: auto;
+  ul {
+    li {
+      background: none;
+      box-shadow: none;
+      padding: 3px;
+      margin: 1px;
+      display: flex;
+      width: auto;
 
-            h4{ margin-right: 5px !important; }
-          }
-        }
+      h4 {
+        margin-right: 5px !important;
+      }
+    }
+  }
 
   section {
-  width: 98%;
-  margin: auto;
+    width: 98%;
+    margin: auto;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid;
 
-        h1 { text-align: left; }
-          .left,
-          .right { flex-grow: 0; }
+    h1 {
+      text-align: left;
+    }
 
-      .left {
-          li { justify-content: flex-start;
-            h4 { margin: 0; }
-            span { color: blue; }
-          }
-      }
+    .left,
+    .right {
+      flex-grow: 0;
+    }
 
-      .right {
-        li { justify-content: flex-start;
-          h4 {
-            margin: 0;
-            margin-right: 4px;
-          }
-          span { color: red; }
+    .left {
+      li {
+        justify-content: flex-start;
+
+        h4 {
+          margin: 0;
+        }
+
+        span {
+          color: blue;
         }
       }
+    }
+
+    .right {
+      li {
+        justify-content: flex-start;
+
+        h4 {
+          margin: 0;
+          margin-right: 4px;
+        }
+
+        span {
+          color: red;
+        }
+      }
+    }
   }
 
   header {
@@ -64,7 +87,6 @@ const InvoiceUserContainer = styled.div`
     margin: auto;
     height: auto;
     background-color: blue;
-    // padding: 8px;
     display: flex;
     justify-content: space-between;
 
@@ -73,26 +95,26 @@ const InvoiceUserContainer = styled.div`
       flex-direction: column;
       align-items: flex-start;
 
-        h2 {
-          color: darkgray;
-          text-decoration: underline;
-          margin: 0 0 6px 0;
+      h2 {
+        color: darkgray;
+        text-decoration: underline;
+        margin: 0 0 6px 0;
+      }
+
+      li {
+        align-items: flex-start;
+        margin: 1px 0;
+        padding: 3px 0 3px 0px;
+
+        h4 {
+          margin: 0;
+          color: black;
         }
 
-          li {
-            align-items: flex-start;
-            margin: 1px 0;
-            padding: 3px 0 3px 0px;
-
-              h4 {
-                margin: 0;
-                color: black;
-              }
-
-                span {
-                  margin-left: 3px;
-                  color: white;
-                }
+        span {
+          margin-left: 3px;
+          color: white;
+        }
       }
     }
 
@@ -105,66 +127,108 @@ const InvoiceUserContainer = styled.div`
     }
   }
 
+  .product-info {
+    width: 98%;
+    margin: auto;
 
-    .product-info{
-      width: 98%;
-  margin: auto;
-
-          h1{
-            text-align: left;
-            border-left: 3px solid;
-            padding-left: 4px;
-            margin-top: 3px;
-          }
-
-          table{
-            margin-top: 12px;
-            width: 100%;
-              .head{
-              font-weight: 900;
-              background-color: rgb(65, 113,80 , 0.2);
-              }
-          }
+    h1 {
+      text-align: left;
+      border-left: 3px solid;
+      padding-left: 4px;
+      margin-top: 3px;
     }
 
-    article{
+    table {
+      margin-top: 12px;
+      width: 100%;
+      background-color: rgba(65, 203, 80, 0.1);
+
+      .head {
+        font-weight: 900;
+        background-color: rgba(65, 113, 80, 0.2);
+      }
+    }
+  }
+
+  article {
     display: flex;
     margin-top: 25px;
+  }
+
+  .note {
+    width: 60%;
+    background-color: rgba(0, 0, 255, 0.2);
+    padding: 20px;
+
+    h3 {
+      margin: 3px;
+      text-align: left;
     }
 
-          .note{
-                width: 60%;
-                background-color: rgb(0, 0, 255, 0.2);
-                padding: 20px;
+    p {
+      margin: 5px;
+      padding: 5px;
+      text-align: left;
 
-                h3{
-                margin: 3px;
-                text-align: left;
-                }
-                    p{
-                        margin: 5px;
-                        padding: 5px;
-                        text-align: left;
+      span {
+        color: red;
+      }
+    }
+  }
 
-                        span{ color:red; }
-                    }
-          }
-
-          .total{
-display: flex;
+  .total {
+    display: flex;
     padding: 20px;
-    background-color: rgb(0, 0, 255, 0.6);
+    background-color: rgba(0, 0, 255, 0.6);
     width: 40%;
     align-items: flex-end;
     flex-direction: column;
     justify-content: center;
-    div{ font-weight: 900; }
-    h1{
-    color: white;
-    border: none;
-    
+
+    div {
+      font-weight: 900;
     }
+
+    h1 {
+      color: white;
+      border: none;
     }
+  }
+
+  .signature-cont {
+    width: 98%;
+    margin: auto;
+    position: relative;
+    height: 180px;
+
+    .signature {
+      right: 60px;
+      position: absolute;
+      top: 40px;
+
+      img {
+        width: 150px;
+      }
+    }
+
+    .stamp {
+      opacity: 0.1;
+      right: 80px;
+      position: absolute;
+      top: 20px;
+
+      img {
+        width: 100px;
+      }
+    }
+  }
+
+  .contact {
+    padding-left: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 
@@ -265,7 +329,6 @@ const Invoic = ({product, productnumb}) => {
 
 const navigate = useNavigate();
     const closeinvoic = () =>{navigate(`/products/${product._id}`)}
-
 
       const Cost = product?.price * productnumb;
 
@@ -397,6 +460,26 @@ const navigate = useNavigate();
         </div>
       </article>
     </div>
+
+    <div className='signature-cont'>
+
+    <div className='signature'>
+      <img src={signature} alt='' />
+    </div>
+
+    <div className='stamp'>
+      <img src={stamp} alt='' />
+    </div>
+
+    </div>
+
+    <div className='contact'>
+    <b>CONTACT</b> 
+    <samp>{'Email:'}{product?.email} </samp>  
+    <samp>{'Phone:'}{product?.phone} </samp>
+    <samp>{'Address:'}{product?.location} </samp>
+
+    </div>
   </InvoiceUserContainer>
 
       </>
@@ -404,68 +487,3 @@ const navigate = useNavigate();
    }
 
    export default Invoic;
-
-
-//    <Invoicuserconteiner id="invoic">
-//    <InvoicHead>
-//      <h5>Invoic ID: </h5><samp>N36154</samp>  {'<>'}
-//      <h5>Data Time: </h5> <samp>{data.Now()}</samp>
-
-//              {!generatingPDF&& (
-//          <BtnsConteiner>
-//                <button onClick={Download}>Download</button>
-//                <button>Share Now</button>
-//                <button onClick={closeinvoic}>Close</button>
-//          </BtnsConteiner>
-// )}
-
-//    </InvoicHead>
-
-
-// <div style={{display:'flex', flexWrap:'wrap'}}>
-//    <ul>
-//      <h5>User:</h5>
-//        <li><h5>Name:</h5> <samp>{product.name}</samp></li>
-//        <li><h5>Email:</h5> <samp>{product.email}</samp></li>
-//        <li><h5>Phone:</h5> <samp>{product.phone}</samp></li>
-//        <li><h5>Address:</h5> <samp>{product.location}</samp></li>
-//    </ul>
-
-//      <ul>
-//        <h5>Bank:</h5>
-//          <li><h5>Bank Name:</h5> <samp>{'Bank Of Georgia'}</samp></li>
-//          <li><h5>Accounc Number:</h5>  <samp>{'22 GE 65 BG 00 00 00 20 01 19 97'}</samp></li>
-//          <li><h5>Owner:</h5>  <samp>{'Roland Artmeladze'}</samp></li>
-//          <li><h5>Destination:</h5>  <samp>{'Invoic N245638'}</samp></li>
-//      </ul>
-// </div>
-
-// <h4 style={{marginLeft: '20px'}}>Products:</h4>
-
-//    <table>
-//      <tbody>
-//      <tr style={{backgroundColor:'rgb(0, 0, 0, 0.3)'}}>
-//        <td>Name</td><td>quantity</td><td>Price</td><td>Cost</td></tr>
-//        <tr key={product._id}>
-//          <td>
-//          {product.name}
-//          </td>
-//          <td>
-//            {"1"} {product.quantityUnit}
-//            </td>
-//            <td>
-//              {product.price} {product.currency}
-//              </td>
-//              <td>
-//                {1 * product.price} {product.currency}
-//                </td>
-//                </tr>
-//      </tbody>              
-//    </table>
-//  <h3> Total: {cost} ₾.</h3>
-
-
-
-
-
-//    </Invoicuserconteiner>
