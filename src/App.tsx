@@ -117,6 +117,8 @@ padding: 0px;
       const [incart, setInCart] = useState<any[]>(JSON.parse(localStorage.getItem('incart') ?? '[]'));
     const [incartResponse, setInCartResponse] = useState<any[]>([]);
     const [quantities, setQuantities] = useState<{ id: string; quantity: number }[]>([]);
+    const [productNum, setProductNum] = useState<number>(1);
+
     const [buy, setBuy] = useState<boolean>(false);
     const [product, setProduct] = useState<Productprops | null>(null);
 
@@ -258,7 +260,8 @@ padding: 0px;
                 product, incart, favorits, 
                 handleItemClick, buy,
                 handleClickCart, setBuy,
-                incartResponse, quantities,
+                incartResponse, 
+                quantities,
                 members, setFavorits, setInCart
                 }
 
@@ -270,6 +273,7 @@ padding: 0px;
                       userData, setLoading,
                       setInCartResponse, 
                       quantities, setQuantities,
+                      productNum, setProductNum,
                       setProduct
                       }
                       
@@ -379,7 +383,7 @@ padding: 0px;
 
         
 <Route path={`/products/:productId/pay`} element={ <h2>Pay now</h2>} />
-<Route path={`/products/:productId/invois`} element={<Invoic product={product} />} />
+<Route path={`/products/:productId/invois`} element={<Invoic product={product} productnumb={productNum} />} />
 
 
         

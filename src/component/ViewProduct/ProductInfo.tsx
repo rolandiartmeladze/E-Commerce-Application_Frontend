@@ -43,11 +43,13 @@ const ItemInput = styled.input`
 
     interface productProps{
         product:any;
+        productNum:number; 
+        setProductNum:Function;
     }
 
-const ProductInfo = ({ product }:productProps) => {
+const ProductInfo = ({ product, productNum, setProductNum }:productProps) => {
 
-    const [productNum, setProductNum] = useState<number>(1);
+    // const [productNum, setProductNum] = useState<number>(1);
     const [prosuctCost, setProductCost] = useState<number>(product.price * productNum);
 
         const Amount  = async (e: React.ChangeEvent<HTMLInputElement>) => {

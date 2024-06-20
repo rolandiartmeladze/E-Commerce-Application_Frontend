@@ -31,6 +31,10 @@ interface Props{
           quantities:any[]; 
           setQuantities:Function;
           setProduct:Function;
+
+
+          productNum:number; 
+          setProductNum:Function;
                 }
 
 
@@ -177,6 +181,7 @@ const InfoConteiner = styled.div`
       const ViewProductAside = ({
             members, usermode,  
             favorits, product, incart,
+            productNum, setProductNum,
             
           }:Props) => {
 
@@ -212,7 +217,7 @@ const InfoConteiner = styled.div`
             );
             };
 
-
+const Props ={productNum, setProductNum, product};
 
 
 
@@ -228,7 +233,7 @@ const InfoConteiner = styled.div`
                        
 
                           <UserInfo members={members} usermode={usermode} />
-                          <ProductInfo product={product} />
+                          <ProductInfo {...Props} />
 
                           <div className="Btns">
                           <button onClick={TackeInvois}>Tacke invois</button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 import jsPDF from 'jspdf';
@@ -11,73 +11,60 @@ import { useNavigate } from "react-router-dom";
 import invoiceIcon from '../../icon/invoice.png';
 
 const InvoiceUserContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: white;
+          width: 100%;
+          height: auto;
+          background-color: white;
+          display: flex;
+          flex-direction: column;
 
-  ul{
-    li{
-    background: none;
-    box-shadow: none;
-    padding: 3px;
-    margin:1px;
-    display: flex;
-    width: auto;
+        ul{
+          li{
+          background: none;
+          box-shadow: none;
+          padding: 3px;
+          margin:1px;
+          display: flex;
+          width: auto;
 
-      h4{
-        margin-right: 5px !important;
-      }
-    }
-  }
+            h4{ margin-right: 5px !important; }
+          }
+        }
 
   section {
+  width: 98%;
+  margin: auto;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid;
 
-    h1 {
-      text-align: left;
-    }
+        h1 { text-align: left; }
+          .left,
+          .right { flex-grow: 0; }
 
-    .left,
-    .right {
-      flex-grow: 0;
-    }
+      .left {
+          li { justify-content: flex-start;
+            h4 { margin: 0; }
+            span { color: blue; }
+          }
+      }
 
-    .left {
-      li {
-        justify-content: flex-start;
-        h4 {
-          margin: 0;
-        }
-
-        span {
-          color: blue;
+      .right {
+        li { justify-content: flex-start;
+          h4 {
+            margin: 0;
+            margin-right: 4px;
+          }
+          span { color: red; }
         }
       }
-    }
-
-    .right {
-      li {
-        justify-content: flex-start;
-        h4 {
-          margin: 0;
-          margin-right: 4px;
-        }
-
-        span {
-          color: red;
-        }
-      }
-    }
   }
 
-  .header {
-    width: 98%;
+  header {
+    width: 100%;
     margin: auto;
     height: auto;
     background-color: blue;
-    padding: 8px;
+    // padding: 8px;
     display: flex;
     justify-content: space-between;
 
@@ -86,25 +73,26 @@ const InvoiceUserContainer = styled.div`
       flex-direction: column;
       align-items: flex-start;
 
-      h2 {
-        color: darkgray;
-        text-decoration: underline;
-        margin: 0 0 6px 0;
-      }
-
-      li {
-        align-items: flex-start;
-        margin: 1px 0;
-        padding: 3px 0 3px 0px;
-
-        h4 {
-          margin: 0;
-          color: black;
+        h2 {
+          color: darkgray;
+          text-decoration: underline;
+          margin: 0 0 6px 0;
         }
 
-        span {
-          margin-left: 3px;
-        }
+          li {
+            align-items: flex-start;
+            margin: 1px 0;
+            padding: 3px 0 3px 0px;
+
+              h4 {
+                margin: 0;
+                color: black;
+              }
+
+                span {
+                  margin-left: 3px;
+                  color: white;
+                }
       }
     }
 
@@ -113,16 +101,72 @@ const InvoiceUserContainer = styled.div`
       flex-direction: column;
       align-items: flex-start;
       margin: 20px;
+      color: white;
     }
   }
+
+
+    .product-info{
+      width: 98%;
+  margin: auto;
+
+          h1{
+            text-align: left;
+            border-left: 3px solid;
+            padding-left: 4px;
+            margin-top: 3px;
+          }
+
+          table{
+            margin-top: 12px;
+            width: 100%;
+              .head{
+              font-weight: 900;
+              background-color: rgb(65, 113,80 , 0.2);
+              }
+          }
+    }
+
+    article{
+    display: flex;
+    margin-top: 25px;
+    }
+
+          .note{
+                width: 60%;
+                background-color: rgb(0, 0, 255, 0.2);
+                padding: 20px;
+
+                h3{
+                margin: 3px;
+                text-align: left;
+                }
+                    p{
+                        margin: 5px;
+                        padding: 5px;
+                        text-align: left;
+
+                        span{ color:red; }
+                    }
+          }
+
+          .total{
+display: flex;
+    padding: 20px;
+    background-color: rgb(0, 0, 255, 0.6);
+    width: 40%;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    div{ font-weight: 900; }
+    h1{
+    color: white;
+    border: none;
+    
+    }
+    }
 `;
 
-const InvoicHead = styled.div`
-      text-align: left; 
-      background-color: rgb(0, 50, 0, 0.2); 
-      padding: 6px;
-       
-`;
 
 const BtnsConteiner = styled.div`
       right: 10px;
@@ -147,74 +191,116 @@ const BtnsConteiner = styled.div`
 
 `;
 
-const Invoic = ({product}) => {
 
-  const [generatingPDF, setGeneratingPDF] = useState(false);
+const HeadItem = styled.div`
+padding: 6px;
+    display: flex;
+    right: 10px;
+    top: 0px;
+    /* padding: 2px; */
+    justify-content: flex-end;
+`;
+const Invoic = ({product, productnumb}) => {
+
+  // generate invoice ID => 
+  const [invoiceid, setInvoiceId] = useState('');
+
+  useEffect(()=>{
+
+    const generateInvoiceID =()=>{
+
+      var leter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const numb = "1234567890";
+
+      // let char = '';
+      // let num = '';
+      // const randomchar =()=> Math.floor(Math.random() * leter.length);
+      // for(let i=0; i<=1; i++){
+      //   const select = randomchar();
+      //   char += leter[select];
+
+      // };
+      // for(let i=0; i<=5; i++){
+      //   const randomnumber =()=> Math.floor(Math.random() * numb.length);
+      //   const select = randomnumber();
+      //   num += numb[select];
+
+      // }
+
+
+      // setInvoiceId(`${char}${num}`);
+
+
+
+      //UPDATE 
+      const getRandom = (str, length) =>
+        Array.from({ length }, () => str[Math.floor(Math.random() * str.length)]).join('');
+
+          const charPart = getRandom(leter, 2);
+          const numPart = getRandom(numb, 6);
+
+      setInvoiceId(`${charPart}${numPart}`);
+
+
+
+    }
+    generateInvoiceID();
+  },[])
 
   const Download = () => {
-    setGeneratingPDF(true);
-    const element = document.getElementById('invoic'); 
+    const element = document.getElementById('invoice');
 
     setTimeout(() => {
-          html2canvas(element).then(canvas => {
+      html2canvas(element).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
 
         const pdf = new jsPDF();
         const imgHeight = canvas.height * 208 / canvas.width;
         pdf.addImage(imgData, 'PNG', 0, 0, 208, imgHeight);
-        pdf.save('invoice.pdf');
-        setGeneratingPDF(false);
-    });
+        pdf.save(`${invoiceid}.pdf`);
+      });
 
     }, 1000);
-}    
+  }    
 
 const navigate = useNavigate();
+    const closeinvoic = () =>{navigate(`/products/${product._id}`)}
 
 
-    const closeinvoic = () =>{
-          navigate(`/products/${product._id}`);
-      }
+      const Cost = product?.price * productnumb;
 
-      const data = {
-        Now: () => {
-          return new Date().toLocaleString(); 
-        }
-      };
+// format date Function with invois generate data and las data ..
 
+      const InvoiceData = new Date();
 
+          const addDay = (date, days) => {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+          }
 
-    // let username = document.getElementById('UserName');
-    // let useremail = document.getElementById('UserEmail');
-    // let userphone = document.getElementById('UserPhone');
-    // let useraddress = document.getElementById('UserAddress');
+      const lastDay = addDay(InvoiceData, 5);
 
-      let cost = 0;
+          const formatData = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}/${month}/${day}`;
+          }
 
-      const productCost = product?.price * 1;
-      cost += productCost;
-
-
-
-
-    
-
-
-    return (
+  return (
       <>
 
-<div>             
-  {/* {!generatingPDF&& ( */}
+<HeadItem >             
          <BtnsConteiner>
                <button onClick={Download}>Download</button>
                <button>Share Now</button>
                <button onClick={closeinvoic}>Close</button>
          </BtnsConteiner>
-{/* )} */}
-</div>
+         </HeadItem>
 
 <InvoiceUserContainer id="invoice">
-    <header className='header'>
+    <header>
       <div className='logo'>
         <img width={50} src={invoiceIcon} alt='Invoice Icon' />
         <h1 style={{ fontWeight: '900' }}>Invoice</h1>
@@ -248,33 +334,68 @@ const navigate = useNavigate();
           <span>{product?.owner}</span>
         </li>
         <li>
+          <h4>Time:</h4>
+          <span>{formatData(InvoiceData)}</span>
+        </li>
+
+        <li>
           <h4>Cost:</h4>
-          <span>{product?.price}{product?.currency}</span>
+          <span>{Cost} {product?.currency}.</span>
         </li>
       </ul>
 
       <ul className='right'>
         <li>
           <h4>Invoice ID:</h4>
-          <span>{'N36154'}</span>
-        </li>
-        <li>
-          <h4>Invoice Date:</h4>
-          <span>{data.Now()}</span>
-        </li>
-        <li>
-          <h4>Last Date:</h4>
-          <span>{data.Now()}</span>
+          <span>{invoiceid}</span>
         </li>
         <li>
           <h4>Product ID:</h4>
           <span>{product?.id}</span>
         </li>
+
+        <li>
+          <h4>Last Date:</h4>
+          <span>{formatData(lastDay)}</span>
+        </li>
       </ul>
     </section>
 
-    <div>
+    <div className='product-info'>
       <h1>Product:</h1>
+      <table>
+        <tbody>
+          <tr className='head'>
+            <td>Name</td> <tb>Price</tb>
+            <td>Quantitiy</td> <td>Cost</td>
+          </tr>
+          <tr>
+            <td>{product?.name}</td>
+            <tb>{product?.price.toFixed(2)} {product?.currency}</tb>
+            <td>{productnumb} {product?.quantityUnit}</td>
+            <td>{Cost.toFixed(2)} {product?.currency}</td>
+          </tr>
+
+        </tbody>
+      </table>
+      <article>
+        <div className='note'>
+          <h3>!NOTES:</h3>
+          <p>
+          To complete the payment, please include the following in the destination.
+          </p>
+          <p>
+          <b>Destination:</b> 
+          <span > {`${product?.id}/ (Name of the payer)`}</span>
+          </p>
+          
+        </div>
+        <div className='total'>
+
+         <div>Total:</div>
+    <h1>{product?.currency} {Cost.toFixed(2)}</h1>
+        </div>
+      </article>
     </div>
   </InvoiceUserContainer>
 
