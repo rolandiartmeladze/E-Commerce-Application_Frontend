@@ -10,6 +10,8 @@ import Main from './component/MainComponent/Main';
 
 import Home from './component/Home/Home';
 
+import Profil from './component/Profil/Profil';
+
 import SimilarProduct from './component/ViewProduct/SimilarProduct';
 
 import serverUri from './component/serverUrl';
@@ -308,6 +310,8 @@ padding: 0px;
 
   <Route path={'/'}  element={ <Home  setProduct={setProduct} /> } />
 
+
+  <Route path="main/profil" element={ <Profil />} />
 
       <Route path="/main" element={<MainNavigate />}>
           <Route path="products" element={<Main />} />

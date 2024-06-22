@@ -186,6 +186,9 @@ const imgstyle ={
   };
 
 const info:InfoItem[] = [
+
+  
+    {title: "Profil", link: '/main/profil', img: userIcin},
     {title: "Message", link: '/main/message', img: smsBlack},
     {title: "My Products", link: '/main/products', img: productIcon},
     {title: "Add Product", link: '/main/add', img: add},
