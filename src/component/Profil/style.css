@@ -1,7 +1,7 @@
 
 
 
-.cont {
+.container {
     background-color: rgb(255, 0, 0 , 0.3);
     margin: 3px;
     display: flex;
@@ -18,7 +18,7 @@
         margin: 5px;
     }
 
-.cont .item label {
+.container .item label {
     min-width: 100px; /* Ensure all labels take up the full width of the container */
     box-sizing: border-box; 
     color: red;

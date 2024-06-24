@@ -1,19 +1,21 @@
-import { error } from "console";
 import React, {useState, useEffect} from "react";
-
-import styled from "styled-components";
-
-
 import './style.css';
 
-const Profil = ()=>{
-    
+import Currency from "./Currency";
 
-    const [info, setInfo] = useState<object | any>({})
-    const token = localStorage.getItem('token');
 
+const Profil = () => {
+
+
+  Currency();
+
+
+  const [info, setInfo] = useState<object | any>({});
+  const token = localStorage.getItem('token');
+
+
+  
     
-            
     useEffect(()=>{ fetchInfo(); },[])
 
     const [name, setName] = useState('');
@@ -49,6 +51,7 @@ const Profil = ()=>{
         }
     }
 
+
     return (
       <form id="SingUpForm">
         {/* უზრუნველყოფს ლოდინის რეჟიმს შესაბამისი ქმედების დროს */}
@@ -57,7 +60,12 @@ const Profil = ()=>{
         {/* ძირითადი მონაცემების შეყვანის ველები */}
 
 
-<section className="cont">
+        <div>
+      <h1>Currency Rates</h1>
+    </div>    
+
+<section className="container">
+
 
 <h3>
     Personal Information:
@@ -129,7 +137,7 @@ const Profil = ()=>{
 
         </section>
 
-        <section className="cont">
+        <section className="container">
 
 <h3>
     Payment Information:
@@ -161,7 +169,7 @@ const Profil = ()=>{
 </section>
 
 
-<section className="cont">
+<section className="container">
 
 <h3>
     Private Information:

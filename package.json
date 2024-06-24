@@ -11,8 +11,8 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.86",
-    "@types/react": "^18.2.63",
-    "@types/react-dom": "^18.2.20",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "axios": "^1.6.8",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
@@ -39,6 +39,8 @@
     "jest-watch-typeahead": "^1.0.0",
     "jspdf": "^2.5.1",
     "mini-css-extract-plugin": "^2.4.5",
+    "nbg-currency-rates-api": "^0.0.2",
+    "node-polyfill-webpack-plugin": "^4.0.0",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -62,7 +64,6 @@
     "terser-webpack-plugin": "^5.2.5",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
-    "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1"
@@ -96,7 +97,9 @@
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",
     "dotenv": "^16.4.5",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.1.1",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
   },
   "jest": {
     "roots": [
