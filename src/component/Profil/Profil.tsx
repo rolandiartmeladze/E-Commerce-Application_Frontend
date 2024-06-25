@@ -7,7 +7,7 @@ import Currency from "./Currency";
 const Profil = () => {
 
 
-  Currency();
+  // Currency();
 
 
   const [info, setInfo] = useState<object | any>({});
@@ -59,10 +59,6 @@ const Profil = () => {
 
         {/* ძირითადი მონაცემების შეყვანის ველები */}
 
-
-        <div>
-      <h1>Currency Rates</h1>
-    </div>    
 
 <section className="container">
 
@@ -164,6 +160,38 @@ const Profil = () => {
             placeholder="Account Number"
             required
           />
+        </div>
+
+              <div className="item">
+          <label>Payment:</label> 
+          <select>
+          <option>Not selected</option>
+          <option>partial payment</option>
+          <option>Full payment</option>
+            <option>Payment in installments</option>
+          </select>
+        </div>
+
+
+        <div className="item">
+          <label>Cyrrency:</label> 
+          <select>
+          <option>Not selected</option>
+          <option>USD</option>
+          <option>EUR</option>
+            <option>GEL</option>
+          </select>
+        </div>
+
+        <div className="item">
+          <label>Unit:</label> 
+          <select>
+          <option>Not selected</option>
+          <option>PIC</option>
+          <option>L</option>
+          <option>M</option>
+          <option>KG</option>
+          </select>
         </div>
 
 </section>
