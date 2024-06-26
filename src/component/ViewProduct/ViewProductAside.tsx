@@ -111,7 +111,7 @@ const InfoConteiner = styled.div`
                             background: none;
                             box-shadow: 0.5px 0px 1px 0.2px red;
                             transform: scale(1.08);
-                            
+                            color: black;
                                 &:before{
                                   border-radius: 6px;
                                   position: absolute;

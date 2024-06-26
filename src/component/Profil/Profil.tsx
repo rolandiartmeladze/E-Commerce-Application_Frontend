@@ -28,6 +28,8 @@ const Profil = () => {
     const [account, setAccount] = useState('');
     const [bankName, setBankName] = useState('');
 
+    const [secretWord, setSecretWord] = useState('');
+
     async function fetchInfo() {
         try {
             const response = await fetch(`http://localhost:3001/MyInfo/${token}`);
@@ -203,9 +205,28 @@ const Profil = () => {
     Private Information:
 </h3>
 
-        <div>Change Password</div>
+
+ <div>Secret Word:</div>
+      <div className="item">      
+        <label>Word</label>
+          <input
+            id="word"
+            type="text"
+            value={secretWord}
+            onChange={(e) => {
+              setSecretWord(e.target.value);
+            }}
+            placeholder="Enter word"
+            required
+          />
+        </div>
+
+
+
+
+        <div>Change Password:</div>
         <div className="item">
-          {/* <img src={pass2} alt="" /> */}
+        <label>New</label>
           <input
             id="pass"
             type="password"
@@ -215,7 +236,7 @@ const Profil = () => {
               // checkPassword(e.target.value);
               // checkRepPassword(e.target.value, password);
             }}
-            placeholder="Enter Password"
+            placeholder="Enter New Password"
             required
           />
           {/* <img style={{ margin: '0px 6px', cursor: 'pointer' }}
@@ -223,6 +244,8 @@ const Profil = () => {
                             src={showPass ? hide : View} alt="" /> */}
         </div>
         <div className="item">
+        <label>Repeat</label>
+
           <input
             id="RepPass"
             style={{ borderBottom: "red solid 2px" }}
