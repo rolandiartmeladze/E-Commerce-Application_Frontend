@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import stamp from '../../img/stamp-test.png';
 import signature from '../../img/signature-test.png';
@@ -231,50 +230,43 @@ const InvoiceUserContainer = styled.div`
   }
 `;
 
-
 const BtnsConteiner = styled.div`
-      right: 10px;
-      top: 0px;
-      padding: 2px;
-      button{
-        cursor: pointer;
-        padding: 4px 5px; 
-        margin: 0px 2px;
-        border-radius: 5px;
-      }
-
-@media (max-width: 750px) {
-  display:flex;
-  flex-direction: column;
-  z-index: 3;
-  button{
-    margin: 1px;
+  right: 10px;
+  top: 0px;
+  padding: 2px;
+  button {
+    cursor: pointer;
+    padding: 4px 5px;
+    margin: 0px 2px;
+    border-radius: 5px;
   }
 
-}
-
+  @media (max-width: 750px) {
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    button {
+      margin: 1px;
+    }
+  }
 `;
-
 
 const HeadItem = styled.div`
-padding: 6px;
-    display: flex;
-    right: 10px;
-    top: 0px;
-    /* padding: 2px; */
-    justify-content: flex-end;
+  padding: 6px;
+  display: flex;
+  right: 10px;
+  top: 0px;
+  /* padding: 2px; */
+  justify-content: flex-end;
 `;
-const Invoic = ({product, productnumb}) => {
-
-  // generate invoice ID => 
+const Invoic = ({ product, productnumb }) => {
+  // generate invoice ID =>
   const [invoiceid, setInvoiceId] = useState('');
 
-  useEffect(()=>{
-
-    const generateInvoiceID =()=>{
-
-      var leter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      const numb = "1234567890";
+  useEffect(() => {
+    const generateInvoiceID = () => {
+      var leter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const numb = '1234567890';
 
       // let char = '';
       // let num = '';
@@ -291,199 +283,209 @@ const Invoic = ({product, productnumb}) => {
 
       // }
 
-
       // setInvoiceId(`${char}${num}`);
 
-
-
-      //UPDATE 
+      //UPDATE
       const getRandom = (str, length) =>
-        Array.from({ length }, () => str[Math.floor(Math.random() * str.length)]).join('');
+        Array.from(
+          { length },
+          () => str[Math.floor(Math.random() * str.length)]
+        ).join('');
 
-          const charPart = getRandom(leter, 2);
-          const numPart = getRandom(numb, 6);
+      const charPart = getRandom(leter, 2);
+      const numPart = getRandom(numb, 6);
 
       setInvoiceId(`${charPart}${numPart}`);
-
-
-
-    }
+    };
     generateInvoiceID();
-  },[])
+  }, []);
 
   const Download = () => {
     const element = document.getElementById('invoice');
 
     setTimeout(() => {
-      html2canvas(element).then(canvas => {
+      html2canvas(element).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
 
         const pdf = new jsPDF();
-        const imgHeight = canvas.height * 208 / canvas.width;
+        const imgHeight = (canvas.height * 208) / canvas.width;
         pdf.addImage(imgData, 'PNG', 0, 0, 208, imgHeight);
         pdf.save(`${invoiceid}.pdf`);
       });
-
     }, 1000);
-  }    
+  };
 
-const navigate = useNavigate();
-    const closeinvoic = () =>{navigate(`/products/${product._id}`)}
+  const navigate = useNavigate();
+  const closeinvoic = () => {
+    navigate(`/products/${product._id}`);
+  };
 
-      const Cost = product?.price * productnumb;
+  const Cost = product?.price * productnumb;
 
-// format date Function with invois generate data and las data ..
+  // format date Function with invois generate data and las data ..
 
-      const InvoiceData = new Date();
+  const InvoiceData = new Date();
 
-          const addDay = (date, days) => {
-            const result = new Date(date);
-            result.setDate(result.getDate() + days);
-            return result;
-          }
+  const addDay = (date, days) => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  };
 
-      const lastDay = addDay(InvoiceData, 5);
+  const lastDay = addDay(InvoiceData, 5);
 
-          const formatData = (date) => {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}/${month}/${day}`;
-          }
+  const formatData = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}/${month}/${day}`;
+  };
 
   return (
-      <>
+    <>
+      <HeadItem>
+        <BtnsConteiner>
+          <button onClick={Download}>Download</button>
+          <button>Share Now</button>
+          <button onClick={closeinvoic}>Close</button>
+        </BtnsConteiner>
+      </HeadItem>
 
-<HeadItem >             
-         <BtnsConteiner>
-               <button onClick={Download}>Download</button>
-               <button>Share Now</button>
-               <button onClick={closeinvoic}>Close</button>
-         </BtnsConteiner>
-         </HeadItem>
+      <InvoiceUserContainer id="invoice">
+        <header>
+          <div className="logo">
+            <img width={50} src={invoiceIcon} alt="Invoice Icon" />
+            <h1 style={{ fontWeight: '900' }}>Invoice</h1>
+          </div>
 
-<InvoiceUserContainer id="invoice">
-    <header>
-      <div className='logo'>
-        <img width={50} src={invoiceIcon} alt='Invoice Icon' />
-        <h1 style={{ fontWeight: '900' }}>Invoice</h1>
-      </div>
+          <ul>
+            <h2>Your Company Name</h2>
+            <li>
+              <h4>Address:</h4>
+              <span>{product?.location}</span>
+            </li>
+            <li>
+              <h4>Postal Code:</h4>
+              <span>53000</span>
+            </li>
+            <li>
+              <h4>Bank Name:</h4>
+              <span>Bank Of Georgia</span>
+            </li>
+            <li>
+              <h4>Account Number:</h4>
+              <span>86 GE BG 25 000 000 037 498</span>
+            </li>
+          </ul>
+        </header>
 
-      <ul>
-        <h2>Your Company Name</h2>
-        <li>
-          <h4>Address:</h4>
-          <span>{product?.location}</span>
-        </li>
-        <li>
-          <h4>Postal Code:</h4>
-          <span>53000</span>
-        </li>
-        <li>
-          <h4>Bank Name:</h4>
-          <span>Bank Of Georgia</span>
-        </li>
-        <li>
-          <h4>Account Number:</h4>
-          <span>86 GE BG 25 000 000 037 498</span>
-        </li>
-      </ul>
-    </header>
+        <section>
+          <ul className="left">
+            <li>
+              <h4>Owner:</h4>
+              <span>{product?.owner}</span>
+            </li>
+            <li>
+              <h4>Time:</h4>
+              <span>{formatData(InvoiceData)}</span>
+            </li>
 
-    <section>
-      <ul className='left'>
-        <li>
-          <h4>Owner:</h4>
-          <span>{product?.owner}</span>
-        </li>
-        <li>
-          <h4>Time:</h4>
-          <span>{formatData(InvoiceData)}</span>
-        </li>
+            <li>
+              <h4>Cost:</h4>
+              <span>
+                {Cost} {product?.currency}.
+              </span>
+            </li>
+          </ul>
 
-        <li>
-          <h4>Cost:</h4>
-          <span>{Cost} {product?.currency}.</span>
-        </li>
-      </ul>
+          <ul className="right">
+            <li>
+              <h4>Invoice ID:</h4>
+              <span>{invoiceid}</span>
+            </li>
+            <li>
+              <h4>Product ID:</h4>
+              <span>{product?.id}</span>
+            </li>
 
-      <ul className='right'>
-        <li>
-          <h4>Invoice ID:</h4>
-          <span>{invoiceid}</span>
-        </li>
-        <li>
-          <h4>Product ID:</h4>
-          <span>{product?.id}</span>
-        </li>
+            <li>
+              <h4>Last Date:</h4>
+              <span>{formatData(lastDay)}</span>
+            </li>
+          </ul>
+        </section>
 
-        <li>
-          <h4>Last Date:</h4>
-          <span>{formatData(lastDay)}</span>
-        </li>
-      </ul>
-    </section>
-
-    <div className='product-info'>
-      <h1>Product:</h1>
-      <table>
-        <tbody>
-          <tr className='head'>
-            <td>Name</td> <tb>Price</tb>
-            <td>Quantitiy</td> <td>Cost</td>
-          </tr>
-          <tr>
-            <td>{product?.name}</td>
-            <tb>{product?.price.toFixed(2)} {product?.currency}</tb>
-            <td>{productnumb} {product?.quantityUnit}</td>
-            <td>{Cost.toFixed(2)} {product?.currency}</td>
-          </tr>
-
-        </tbody>
-      </table>
-      <article>
-        <div className='note'>
-          <h3>!NOTES:</h3>
-          <p>
-          To complete the payment, please include the following in the destination.
-          </p>
-          <p>
-          <b>Destination:</b> 
-          <span > {`${product?.id}/ (Name of the payer)`}</span>
-          </p>
-          
+        <div className="product-info">
+          <h1>Product:</h1>
+          <table>
+            <tbody>
+              <tr className="head">
+                <td>Name</td> <tb>Price</tb>
+                <td>Quantitiy</td> <td>Cost</td>
+              </tr>
+              <tr>
+                <td>{product?.name}</td>
+                <tb>
+                  {product?.price.toFixed(2)} {product?.currency}
+                </tb>
+                <td>
+                  {productnumb} {product?.quantityUnit}
+                </td>
+                <td>
+                  {Cost.toFixed(2)} {product?.currency}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <article>
+            <div className="note">
+              <h3>!NOTES:</h3>
+              <p>
+                To complete the payment, please include the following in the
+                destination.
+              </p>
+              <p>
+                <b>Destination:</b>
+                <span> {`${product?.id}/ (Name of the payer)`}</span>
+              </p>
+            </div>
+            <div className="total">
+              <div>Total:</div>
+              <h1>
+                {product?.currency} {Cost.toFixed(2)}
+              </h1>
+            </div>
+          </article>
         </div>
-        <div className='total'>
 
-         <div>Total:</div>
-    <h1>{product?.currency} {Cost.toFixed(2)}</h1>
+        <div className="signature-cont">
+          <div className="signature">
+            <img src={signature} alt="" />
+          </div>
+
+          <div className="stamp">
+            <img src={stamp} alt="" />
+          </div>
         </div>
-      </article>
-    </div>
 
-    <div className='signature-cont'>
+        <div className="contact">
+          <b>CONTACT</b>
+          <samp>
+            {'Email:'}
+            {product?.email}{' '}
+          </samp>
+          <samp>
+            {'Phone:'}
+            {product?.phone}{' '}
+          </samp>
+          <samp>
+            {'Address:'}
+            {product?.location}{' '}
+          </samp>
+        </div>
+      </InvoiceUserContainer>
+    </>
+  );
+};
 
-    <div className='signature'>
-      <img src={signature} alt='' />
-    </div>
-
-    <div className='stamp'>
-      <img src={stamp} alt='' />
-    </div>
-
-    </div>
-
-    <div className='contact'>
-    <b>CONTACT</b> 
-    <samp>{'Email:'}{product?.email} </samp>  
-    <samp>{'Phone:'}{product?.phone} </samp>
-    <samp>{'Address:'}{product?.location} </samp>
-
-    </div>
-  </InvoiceUserContainer>
-
-      </>
-    );
-   }
-
-   export default Invoic;
+export default Invoic;

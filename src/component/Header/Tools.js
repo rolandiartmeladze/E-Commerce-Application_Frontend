@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import favIcon from '../../icon/favIcon.svg';
 import cartIcon from '../../icon/cartIcon.svg';
-import smsIcon from '../../icon/smsIcon.svg'
+import smsIcon from '../../icon/smsIcon.svg';
 
-import userIcin from "../../icon/user.png";
+import userIcin from '../../icon/user.png';
 import arrow from '../../icon/arrow.png';
 
 import jurnal from '../../icon/jurnal.png';
@@ -11,10 +11,6 @@ import add from '../../icon/add.png';
 import productIcon from '../../icon/product.png';
 import logoutIcon from '../../icon/logout.svg';
 import smsBlack from '../../icon/sms_black.svg';
-
-
-
-
 
 const Logo = styled.h1`
   margin: 0;
@@ -42,78 +38,71 @@ const LoginBtn = styled.div`
   transition: 0.8s ease-in-out;
   background-color: rgb(10, 15, 30, 0.3);
 
-        &:hover{
-  box-shadow: 0.3px 0.3px 2px 0.1px black inset;
-  background-color: rgb(210, 105, 30, 0.1);
-}
+  &:hover {
+    box-shadow: 0.3px 0.3px 2px 0.1px black inset;
+    background-color: rgb(210, 105, 30, 0.1);
+  }
 
-samp {
-  margin: 2px;
-  font-weight: 800;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-}
+  samp {
+    margin: 2px;
+    font-weight: 800;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
 
-@media only screen and (max-width: 750px) {
-
-  right: 60px;
-
-}
-
+  @media only screen and (max-width: 750px) {
+    right: 60px;
+  }
 `;
 
+const HeaderComponent = styled.div`
+  padding: 0px 0px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  // height: 20%;
+  max-height: 250px;
+  box-shadow: 2px 2px 6px 0.5px rgb(0, 0, 0, 0.8);
+  backdrop-filter: blur(2px);
+  position: relative;
+  min-height: 100px;
+  grid-row: 1;
+  grid-column: 1;
+  background-color: rgb(51, 51, 51, 0.2);
+  margin-bottom: 4px;
+  z-index: 1000;
+`;
 
-  const HeaderComponent = styled.div`
-    padding: 0px 0px;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    // height: 20%;
-    max-height: 250px;
-    box-shadow: 2px 2px 6px 0.5px rgb(0, 0, 0 , 0.8);
-    backdrop-filter: blur(2px);
-    position: relative;
-    min-height: 100px;
-    grid-row: 1;
-    grid-column: 1;
-    background-color: rgb(51, 51, 51, 0.2);
-    margin-bottom: 4px;
-    z-index: 1000;
-
-
-  `;
-
-  const UserInfo = styled.div`
-        display: flex;
-        // position: absolute;
-        position: relative;
-        margin-top: 5px;
-        margin-right: 28px;
-        transition: 0.4s ease-in-out;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 800;
-        flex-direction: column;
-        z-index: 5;
-        transition: 0.3s eae-in-out;
-
+const UserInfo = styled.div`
+  display: flex;
+  // position: absolute;
+  position: relative;
+  margin-top: 5px;
+  margin-right: 28px;
+  transition: 0.4s ease-in-out;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 800;
+  flex-direction: column;
+  z-index: 5;
+  transition: 0.3s eae-in-out;
 
   &:hover {
-    background-color: ${props => !props.active ? 'rgb(1, 1, 1, 0.1)' : 'none'};
+    background-color: ${(props) =>
+      !props.active ? 'rgb(1, 1, 1, 0.1)' : 'none'};
   }
 
   &:before {
     position: absolute;
-    content: "";
+    content: '';
     display: block;
     width: 100%;
-    height: 40px; 
+    height: 40px;
     background: none;
     z-index: -1;
     padding-bottom: 10px;
   }
-
 
   div {
     padding: 5px 0;
@@ -142,9 +131,8 @@ samp {
     align-items: center;
     justify-content: center;
     border-radius: 0px 0px 10px 10px;
-      transform: scale(0);
-      transition: 0.3s ease-in-out;
-  
+    transform: scale(0);
+    transition: 0.3s ease-in-out;
 
     &:hover {
       color: yellow;
@@ -156,7 +144,6 @@ samp {
   @media only screen and (max-width: 750px) {
     right: 60px;
     margin-right: 0px;
-
   }
 
   ${({ active }) =>
@@ -171,23 +158,20 @@ samp {
   `}
 `;
 
-
 const HeaderNavigateStyle = styled.nav`
-display: inline-block;
+  display: inline-block;
 
-ul{
-  display: flex;
-}
-
-@media only screen and (max-width: 750px) {
-  margin-right: 60px;
-  ul{
-    margin-top: 0px !important
+  ul {
+    display: flex;
   }
-}
 
+  @media only screen and (max-width: 750px) {
+    margin-right: 60px;
+    ul {
+      margin-top: 0px !important;
+    }
+  }
 `;
-
 
 const ListItem = styled.li`
   position: relative;
@@ -210,7 +194,7 @@ const ListItem = styled.li`
     content: '';
     width: 100%;
     height: 6px;
-    background-color: ${props => props.color};
+    background-color: ${(props) => props.color};
     padding: 1px;
     border-radius: 0px 0px 5px 5px;
     transition: 0.4s ease-in-out;
@@ -246,6 +230,24 @@ const ListItem = styled.li`
 
 `;
 
-export {favIcon, cartIcon, smsIcon, userIcin, arrow, jurnal, add, productIcon, logoutIcon, smsBlack};
+export {
+  favIcon,
+  cartIcon,
+  smsIcon,
+  userIcin,
+  arrow,
+  jurnal,
+  add,
+  productIcon,
+  logoutIcon,
+  smsBlack,
+};
 
-export {ListItem, HeaderNavigateStyle, UserInfo, HeaderComponent, LoginBtn, Logo};
+export {
+  ListItem,
+  HeaderNavigateStyle,
+  UserInfo,
+  HeaderComponent,
+  LoginBtn,
+  Logo,
+};

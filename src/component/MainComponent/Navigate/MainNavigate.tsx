@@ -1,13 +1,11 @@
-import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 
-
-import styled from "styled-components";
+import styled from 'styled-components';
 import producticon from '../../../icon/products.svg';
 import addproducticon from '../../../icon/addproduct.svg';
 import jurnaliicon from '../../../icon/jurnal.png';
-
 
 const Navigate = styled.nav`
     display: flex;
@@ -50,35 +48,45 @@ const Navigate = styled.nav`
         }
 `;
 
+const MainNavigate = () => {
+  const [clicked, setClicked] = useState(1);
 
+  const getLinkStyle = (key: number) => ({
+    color: clicked === key ? 'red' : 'black',
+    textDecoration: clicked === key ? 'underline' : 'none',
+  });
 
-const MainNavigate =()=>{
+  return (
+    <>
+      <Navigate>
+        <Link
+          to="/main/products"
+          style={getLinkStyle(1)}
+          onClick={() => setClicked(1)}
+        >
+          <img src={producticon} alt="Productd" /> Product
+        </Link>
 
-    const [clicked, setClicked] = useState(1);
+        <Link
+          to="/main/add"
+          style={getLinkStyle(2)}
+          onClick={() => setClicked(2)}
+        >
+          <img src={addproducticon} alt="Add" /> New Product
+        </Link>
 
-    const getLinkStyle = (key:number) => ({
-      color: clicked === key ? 'red' : 'black',
-      textDecoration:clicked === key ?  'underline' : 'none',
-    });
+        <Link
+          to="/main/jurnal"
+          style={getLinkStyle(3)}
+          onClick={() => setClicked(3)}
+        >
+          <img src={jurnaliicon} alt="Jurnal" /> sale Jurnal
+        </Link>
+      </Navigate>
 
-    return(
-        <>
-<Navigate>
-    <Link to="/main/products" style={getLinkStyle(1)} onClick={() => setClicked(1)}>
-        <img src={producticon} alt="Productd" /> Product</Link>
-
-    <Link to="/main/add" style={getLinkStyle(2)} onClick={() => setClicked(2)}>
-        <img src={addproducticon} alt="Add" /> New Product</Link>
-
-    <Link to="/main/jurnal" style={getLinkStyle(3)} onClick={() => setClicked(3)}>
-        <img src={jurnaliicon} alt="Jurnal" /> sale Jurnal</Link>
-    </Navigate>
-
-
-    <Outlet />
-        </>
-
-        );
+      <Outlet />
+    </>
+  );
 };
 
 export default MainNavigate;

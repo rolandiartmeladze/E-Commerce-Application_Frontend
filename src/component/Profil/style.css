@@ -63,12 +63,14 @@ h2::after{
     box-shadow: 0 0 2px 0.5px red;
 }
 
+
     .item{
         display: flex;
         align-items: flex-start;
         margin: 5px;
         width: 100%;
     }
+
 
 .container .item label {
     min-width: 100px; /* Ensure all labels take up the full width of the container */
@@ -87,6 +89,16 @@ h2::after{
     width: auto;
     flex-grow: 1;
     
+}
+
+.user{
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.user input{
+box-shadow: none !important;
 }
 
 .container .item select {

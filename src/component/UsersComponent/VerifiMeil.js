@@ -5,18 +5,27 @@ const TryAgainButton = ({ timer, wait, trayagain }) => {
     <div className="again">
       <div onClick={trayagain} className={`btntray ${wait ? 'disabled' : ''}`}>
         <samp>{wait ? `${timer} S` : 'Try again'}</samp>
-        {wait && <samp style={{ height: '100%', display: 'flex', justifyContent: 'center' }}><img src={repe} alt='' /></samp>}
+        {wait && (
+          <samp
+            style={{
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <img src={repe} alt="" />
+          </samp>
+        )}
       </div>
     </div>
   );
 };
 
-const VerifiMeil = ({email, setVerif, setVerified}) => {
+const VerifiMeil = ({ email, setVerif, setVerified }) => {
   const [wait, setWait] = useState(false);
   const [timer, setTimer] = useState(90);
   const inputRef = useRef('');
   const intervalRef = useRef(null);
-
 
   const startTimer = () => {
     if (intervalRef.current) return;
@@ -40,10 +49,9 @@ const VerifiMeil = ({email, setVerif, setVerified}) => {
     startTimer();
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     trayagain();
-  },[])
-
+  }, []);
 
   const sendVerificationEmail = async () => {
     console.log(email);
@@ -52,9 +60,9 @@ const VerifiMeil = ({email, setVerif, setVerified}) => {
       const verifimeil = await fetch('http://localhost:3001/verifi', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email }),
       });
 
       if (!verifimeil.ok) {
@@ -67,23 +75,30 @@ const VerifiMeil = ({email, setVerif, setVerified}) => {
       console.error('Error:', error);
     }
   };
-  
 
   return (
     <>
       <VerifiCont className="verificationmessage">
         <div>
           <div className="close-container">
-            <div onClick={()=>{setVerif(false)}} className="btn"> {'Close'}</div>
+            <div
+              onClick={() => {
+                setVerif(false);
+              }}
+              className="btn"
+            >
+              {' '}
+              {'Close'}
+            </div>
           </div>
           <div>
             <div className="note">
-              <span style={{color: 'red'}}>Note!</span>
-              Registration requires email verification, 
-              please enter the one-time code sent to your email address
+              <span style={{ color: 'red' }}>Note!</span>
+              Registration requires email verification, please enter the
+              one-time code sent to your email address
             </div>
             <div className="email">
-              <img src={gmail} alt='' />  {email}
+              <img src={gmail} alt="" /> {email}
             </div>
           </div>
           <div className="inputcode">
@@ -95,11 +110,21 @@ const VerifiMeil = ({email, setVerif, setVerified}) => {
           </div>
           <TryAgainButton timer={timer} wait={wait} trayagain={trayagain} />
           <div>
-            <button onClick={()=>{setVerified(true); setVerif(false); }}> verifi Now </button>
+            <button
+              onClick={() => {
+                setVerified(true);
+                setVerif(false);
+              }}
+            >
+              {' '}
+              verifi Now{' '}
+            </button>
           </div>
         </div>
 
-        <h1 style={{textAlign: 'left', color: 'red'}}>This feature is under development</h1>
+        <h1 style={{ textAlign: 'left', color: 'red' }}>
+          This feature is under development
+        </h1>
       </VerifiCont>
     </>
   );

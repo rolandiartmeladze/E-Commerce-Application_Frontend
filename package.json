@@ -74,7 +74,9 @@
     "clean": "rm -rf node_modules/.cache gh-pages",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "eslintConfig": {
     "extends": [
@@ -98,6 +100,7 @@
     "@types/lodash.debounce": "^4.0.9",
     "dotenv": "^16.4.5",
     "gh-pages": "^6.1.1",
+    "prettier": "^3.3.2",
     "webpack": "^5.92.1",
     "webpack-cli": "^5.1.4"
   },
