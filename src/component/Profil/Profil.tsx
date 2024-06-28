@@ -48,6 +48,17 @@ const Profil = () => {
       console.error('Error fetching data:', error);
     }
   }
+  const [images, setImages] = useState<File[]>([]);
+
+  const Select = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedImages = Array.from(e.target.files);
+      setImages((prevImages) => [...prevImages, ...selectedImages]);
+      console.log(selectedImages);
+    }
+  };
+
+
 
   return (
     <form id="SingUpForm">
@@ -63,12 +74,12 @@ const Profil = () => {
           <img width={60} src={user} alt="" />
 
           <input
-            type="file"
-            // value={name}
-            onChange={(e) => setName(e.target.value)}
-            // placeholder="Enter Name"
-            required
+             onChange={Select} 
+             type="file" 
+             id="file"
+             required
           />
+          <label  htmlFor="file"> Upload Profile Image</label>
         </div>
 
 
