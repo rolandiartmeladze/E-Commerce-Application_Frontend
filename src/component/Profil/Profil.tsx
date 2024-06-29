@@ -2,11 +2,65 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 
 import user from '../../icon/user.png';
-import { url } from 'inspector';
+
+import AvatarMale1 from '../../img/Avarats/Avatar01.png';
+import AvatarMale2 from '../../img/Avarats/Avatar02.png';
+
+import AvatarFemale1 from '../../img/Avarats/Avatar001.png';
+import AvatarFemale2 from '../../img/Avarats/Avatar002.png';
+
+
+
+const SelectAvatar =()=>{
+
+  const AvatarsFemale = [
+    AvatarFemale1,
+    AvatarFemale2
+  ]
+
+  const AvatarsMale = [
+    AvatarMale1,
+    AvatarMale2
+  ]
+
+  return(
+    <div className='avatrats-conteinet'>
+      <div className='selected-cont'>
+        {AvatarsMale.map((avatar,index) =>(
+                  <img   className='selected-cont-img' src={AvatarsMale[index]} alt='' />
+
+         ) )
+        }
+      </div>
+      <div className='selected-cont'>
+        {AvatarsFemale.map((avatar,index) =>(
+                  <img  className='selected-contimg' src={AvatarsFemale[index]} alt='' />
+
+         ) )
+        }
+      </div>
+
+    </div>
+  )
+}
 
 const Profil = () => {
   // Currency();
 
+
+   const [selectAvatar, setSelectAvatart] = useState<boolean> (false);
+
+const select =()=>{
+
+      selectAvatar? setSelectAvatart(false) : setSelectAvatart(true);
+
+}
+
+  const [Avatra, setAvatar] = useState<string>(AvatarMale1);
+
+  useEffect(()=>{
+  // setAvatar(AvatarsMale[0]);
+  },[Avatra])
   const [info, setInfo] = useState<object | any>({});
   const token = localStorage.getItem('token');
 
@@ -75,7 +129,7 @@ const Profil = () => {
 
           <div className='img-cont'>
             
-         <img  src={image ? URL.createObjectURL(image): user} alt="" />
+         <img  src={image ? URL.createObjectURL(image): Avatra} alt="" />
           </div>
 
           <input
@@ -84,14 +138,17 @@ const Profil = () => {
              id="file"
              required
           />
-          <label className='label' htmlFor="file">{image? 'Change Image' : 'Upload Image'}</label>
-        </div>
+          
+          { selectAvatar && <SelectAvatar />}
+          <div className='label-cont'>
+          <label onClick={select} className='label'>{image? 'Select Avatar' : 'Change Avatar'}</label>
+          <label  onClick={()=>{selectAvatar && select()}}  className='label' htmlFor="file">{image? 'Change Image' : 'Upload Image'}</label>
+          </div>
+ </div>
 
 
 
         <div className="item">
-          {/* <img src={user} alt="" /> */}
-
           <label>Name:</label>
           <input
             type="text"

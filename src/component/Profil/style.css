@@ -161,11 +161,17 @@ color: red;
     cursor: pointer;
     height: 100%;
     transition: 0.4s ease-in-out;
-    margin-left: 8px;
-    border-radius: 0px 0px 8px 8px;
     margin-bottom: 4px;
     border-bottom: 1px solid rgb(255, 0, 0);
 }
+.label-cont{
+    padding: 12px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .label:hover {
     background-color: rgba(184, 62, 62, 0.831);
     color: black !important;
@@ -176,4 +182,39 @@ color: red;
     }
   
 
+
+
+
+
+
+    .avatrats-conteinet{
+
+        max-height: 100%;
+
+    }
+
+
+    .selected-cont{
+margin: 3px;        
+        cursor: pointer;
+    }
+    .selected-cont img {
+        padding: 3px;
+        box-shadow: 0px 0px 1px 0.5px black;
+        margin: 3px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .selected-cont  img:hover{
+        box-shadow: 0px 0px 3px 0.5px rgb(82, 5, 5);
+        cursor: pointer;
+
+    }
+
+
+    .avatrats-conteinet img{
+        max-width: 40px;
+        max-width: 60;
+    }
 
