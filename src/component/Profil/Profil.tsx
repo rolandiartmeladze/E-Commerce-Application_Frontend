@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 
 import user from '../../icon/user.png';
+import { url } from 'inspector';
 
 const Profil = () => {
   // Currency();
@@ -48,12 +49,12 @@ const Profil = () => {
       console.error('Error fetching data:', error);
     }
   }
-  const [images, setImages] = useState<File[]>([]);
+  const [image, setImage] = useState<File | null>(null);
 
   const Select = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      const selectedImages = Array.from(e.target.files);
-      setImages((prevImages) => [...prevImages, ...selectedImages]);
+      const selectedImages = e.target.files[0];
+      setImage(selectedImages);
       console.log(selectedImages);
     }
   };
@@ -71,7 +72,11 @@ const Profil = () => {
         <h3>Personal Information:</h3>
 
         <div className="item user">
-          <img width={60} src={user} alt="" />
+
+          <div className='img-cont'>
+            
+         <img  src={image ? URL.createObjectURL(image): user} alt="" />
+          </div>
 
           <input
              onChange={Select} 
@@ -79,7 +84,7 @@ const Profil = () => {
              id="file"
              required
           />
-          <label  htmlFor="file"> Upload Profile Image</label>
+          <label className='label' htmlFor="file">{image? 'Change Image' : 'Upload Image'}</label>
         </div>
 
 

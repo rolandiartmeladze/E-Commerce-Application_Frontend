@@ -3,7 +3,7 @@ section{
     background-color: rgb(240, 255, 255, 0.2);
 }
 form{
-    width: 80%;
+    width: 100%;
     margin: auto;
     box-shadow: 0px 0px 5px 0.5px inset;
     margin: 4px auto;
@@ -97,6 +97,26 @@ h2::after{
     margin-bottom: 10px;
 }
 
+
+.img-cont{
+    max-height: 150px;
+    max-width: 120px;
+    min-height: 100px;
+    min-width: 80px;
+    background-position: center;
+    object-fit: cover; 
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+}
+
+.img-cont img {
+    width: auto; 
+    height: auto;    
+    max-width: 100%;
+    max-height: 100%;
+ 
+}
+
 .user input{
 box-shadow: none !important;
 }
@@ -126,3 +146,34 @@ button:hover{
 transform: scale(1.08);
 color: red;
 }
+
+#file{
+    position: absolute;
+    left: -9999px;
+  }
+.label{
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: rgba(184, 62, 62, 0.431);
+    color: rgb(32, 5, 151) !important;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+    transition: 0.4s ease-in-out;
+    margin-left: 8px;
+    border-radius: 0px 0px 8px 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgb(255, 0, 0);
+}
+.label:hover {
+    background-color: rgba(184, 62, 62, 0.831);
+    color: black !important;
+    }
+    .label:focus {
+      outline: 1px dotted #000;
+      outline: -webkit-focus-ring-color auto 5px;
+    }
+  
+
+
