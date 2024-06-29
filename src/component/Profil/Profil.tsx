@@ -11,44 +11,61 @@ import AvatarFemale2 from '../../img/Avarats/Avatar002.png';
 
 
 
-const SelectAvatar =()=>{
+type Props = {
+  setAvatar: (avatar: string) => void;
+  setImage: Function;
+  
+};
 
+const SelectAvatar: React.FC<Props> = ({ setAvatar , setImage}) => {
   const AvatarsFemale = [
     AvatarFemale1,
-    AvatarFemale2
-  ]
+    AvatarFemale2,
+  ];
 
   const AvatarsMale = [
     AvatarMale1,
-    AvatarMale2
-  ]
+    AvatarMale2,
+  ];
 
-  return(
-    <div className='avatrats-conteinet'>
+  const select = (avatar: string) => {
+    setAvatar(avatar);
+    setImage(null);
+  };
+
+  return (
+<div className='avatrats-conteinet'>
       <div className='selected-cont'>
-        {AvatarsMale.map((avatar,index) =>(
-                  <img   className='selected-cont-img' src={AvatarsMale[index]} alt='' />
+      {AvatarsMale.map((avatar, index) => (
+          <img
+          key={`male-${index}`}
+            onClick={() => select(avatar)}
 
-         ) )
-        }
-      </div>
+            className="selected-cont-img"
+            src={avatar}
+            alt=''
+          />
+        ))}      </div>
       <div className='selected-cont'>
-        {AvatarsFemale.map((avatar,index) =>(
-                  <img  className='selected-contimg' src={AvatarsFemale[index]} alt='' />
-
-         ) )
-        }
+      {AvatarsFemale.map((avatar, index) => (
+          <img key={`female-${index}`}
+          onClick={() => select(avatar)}
+            className="selected-cont-img"
+            src={avatar}
+            alt=''
+          />
+        ))}
       </div>
 
     </div>
-  )
-}
-
-const Profil = () => {
-  // Currency();
+      );
+};
 
 
-   const [selectAvatar, setSelectAvatart] = useState<boolean> (false);
+const Profil: React.FC = () => {
+  const [selectAvatar, setSelectAvatart] = useState<boolean>(false);
+  const [Avatra, setAvatar] = useState<string>(AvatarMale1);
+
 
 const select =()=>{
 
@@ -56,7 +73,6 @@ const select =()=>{
 
 }
 
-  const [Avatra, setAvatar] = useState<string>(AvatarMale1);
 
   useEffect(()=>{
   // setAvatar(AvatarsMale[0]);
@@ -139,7 +155,7 @@ const select =()=>{
              required
           />
           
-          { selectAvatar && <SelectAvatar />}
+          { selectAvatar && <SelectAvatar setAvatar={setAvatar} setImage={setImage} />}
           <div className='label-cont'>
           <label onClick={select} className='label'>{image? 'Select Avatar' : 'Change Avatar'}</label>
           <label  onClick={()=>{selectAvatar && select()}}  className='label' htmlFor="file">{image? 'Change Image' : 'Upload Image'}</label>
