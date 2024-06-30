@@ -3,54 +3,63 @@ import './style.css';
 
 import user from '../../icon/user.png';
 
-import AvatarMale1 from '../../img/Avarats/Avatar01.png';
-import AvatarMale2 from '../../img/Avarats/Avatar02.png';
-
-import AvatarFemale1 from '../../img/Avarats/Avatar001.png';
-import AvatarFemale2 from '../../img/Avarats/Avatar002.png';
 
 
+import Male1 from '../../img/Avarats/Male1.png';
+import Male2 from '../../img/Avarats/Male2.png';
+
+import Female2 from '../../img/Avarats/Female2.png';
+
+
+type Props2 = {
+  avatar: string;
+  index: number;
+  person: string;
+};
 
 type Props = {
   setAvatar: (avatar: string) => void;
   setImage: Function;
+  setAvatarName: Function;
   
 };
 
-const SelectAvatar: React.FC<Props> = ({ setAvatar , setImage}) => {
-  const AvatarsFemale = [
-    AvatarFemale1,
-    AvatarFemale2,
-  ];
 
-  const AvatarsMale = [
-    AvatarMale1,
-    AvatarMale2,
-  ];
+const SelectAvatar: React.FC<Props> = ({ setAvatar , setImage, setAvatarName}) => {
 
-  const select = (avatar: string) => {
+
+  const Female1 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Female1.png`;
+  const Female2 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Female2.png`;
+
+  const Male1 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Male1.png`;
+  const Male2 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Male2.png`;
+
+  const Females = [Female1, Female2];
+  const Males = [Male1, Male2];
+
+  const select = ({ avatar, index, person }: Props2) => {
     setAvatar(avatar);
+    setAvatarName(`${person}${index + 1}`);
     setImage(null);
   };
 
   return (
-<div className='avatrats-conteinet'>
+<div className='avatar-conteinet'>
       <div className='selected-cont'>
-      {AvatarsMale.map((avatar, index) => (
+      {Males.map((avatar, index) => (
           <img
           key={`male-${index}`}
-            onClick={() => select(avatar)}
-
+          onClick={() => select({ avatar, index, person: 'Male' })}
             className="selected-cont-img"
             src={avatar}
             alt=''
           />
         ))}      </div>
       <div className='selected-cont'>
-      {AvatarsFemale.map((avatar, index) => (
+      {Females.map((avatar, index) => (
           <img key={`female-${index}`}
-          onClick={() => select(avatar)}
-            className="selected-cont-img"
+          onClick={() => select({ avatar, index, person: 'Female' })}
+          className="selected-cont-img"
             src={avatar}
             alt=''
           />
@@ -64,8 +73,11 @@ const SelectAvatar: React.FC<Props> = ({ setAvatar , setImage}) => {
 
 const Profil: React.FC = () => {
   const [selectAvatar, setSelectAvatart] = useState<boolean>(false);
-  const [Avatra, setAvatar] = useState<string>(AvatarMale1);
+  const [Avatar, setAvatar] = useState<string>('');
+  const [AvatarName, setAvatarName] = useState<string>('');
 
+
+const avatarlink = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`
 
 const select =()=>{
 
@@ -74,9 +86,7 @@ const select =()=>{
 }
 
 
-  useEffect(()=>{
-  // setAvatar(AvatarsMale[0]);
-  },[Avatra])
+
   const [info, setInfo] = useState<object | any>({});
   const token = localStorage.getItem('token');
 
@@ -113,12 +123,39 @@ const select =()=>{
       setEmail(data?.email);
       setPhone(data?.phone);
       setAddress(data?.address);
+      setAvatarName(data?.avatar);
 
       console.log('Data:', data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
+
+
+
+
+  const UpdateProfileInfp = async ()=> {
+    
+    try {
+      const response = await fetch(`http://localhost:3001/UpdateProfile/${token}`,{
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ AvatarName }),
+
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+
   const [image, setImage] = useState<File | null>(null);
 
   const Select = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,7 +182,7 @@ const select =()=>{
 
           <div className='img-cont'>
             
-         <img  src={image ? URL.createObjectURL(image): Avatra} alt="" />
+         <img id='profilrImg' src={AvatarName? avatarlink : image ? URL.createObjectURL(image): Avatar? Avatar : undefined} alt="" />
           </div>
 
           <input
@@ -155,7 +192,7 @@ const select =()=>{
              required
           />
           
-          { selectAvatar && <SelectAvatar setAvatar={setAvatar} setImage={setImage} />}
+          { selectAvatar && <SelectAvatar setAvatar={setAvatar} setImage={setImage} setAvatarName={setAvatarName} />}
           <div className='label-cont'>
           <label onClick={select} className='label'>{image? 'Select Avatar' : 'Change Avatar'}</label>
           <label  onClick={()=>{selectAvatar && select()}}  className='label' htmlFor="file">{image? 'Change Image' : 'Upload Image'}</label>
@@ -364,10 +401,11 @@ const select =()=>{
       </section>
 
       <div>
-        <button className="singup">Update Info</button>
+        <button onClick={()=>{UpdateProfileInfp()}} className="singup">Update Info</button>
       </div>
     </form>
   );
 };
+
 
 export default Profil;

@@ -11,6 +11,10 @@ import {
   smsBlack,
 } from './Tools';
 
+
+import Male1 from '../../img/Avarats/Male1.png';
+
+
 const UserInfo = styled.div<{ active: boolean }>`
   display: flex;
   // position: absolute;
