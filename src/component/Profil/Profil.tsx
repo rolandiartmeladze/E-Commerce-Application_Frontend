@@ -5,10 +5,10 @@ import user from '../../icon/user.png';
 
 
 
-import Male1 from '../../img/Avarats/Male1.png';
-import Male2 from '../../img/Avarats/Male2.png';
+// import Male1 from '../../img/Avarats/Male1.png';
+// import Male2 from '../../img/Avarats/Male2.png';
 
-import Female2 from '../../img/Avarats/Female2.png';
+// import Female2 from '../../img/Avarats/Female2.png';
 
 
 type Props2 = {
@@ -27,12 +27,13 @@ type Props = {
 
 const SelectAvatar: React.FC<Props> = ({ setAvatar , setImage, setAvatarName}) => {
 
+  const link = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/`;
 
-  const Female1 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Female1.png`;
-  const Female2 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Female2.png`;
+  const Female1 = `${link}Female1.png`;
+  const Female2 = `${link}Female2.png`;
 
-  const Male1 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Male1.png`;
-  const Male2 = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/Male2.png`;
+  const Male1 = `${link}Male1.png`;
+  const Male2 = `${link}Male2.png`;
 
   const Females = [Female1, Female2];
   const Males = [Male1, Male2];
@@ -201,6 +202,8 @@ const select =()=>{
 
 
 
+<div style={{display: 'flex', width: '100%'}}>
+
         <div className="item">
           <label>Name:</label>
           <input
@@ -224,6 +227,9 @@ const select =()=>{
             required
           />
         </div>
+</div>
+
+<div style={{display: 'flex', width: '100%'}}>
 
         <div className="item">
           {/* <img src={Mail} alt="" /> */}
@@ -252,7 +258,7 @@ const select =()=>{
             required
           />
         </div>
-
+</div>
         <div className="item">
           <label>Address:</label>
           <input
@@ -263,6 +269,8 @@ const select =()=>{
             required
           />
         </div>
+
+        <div style={{display: 'flex', width: '100%'}}>
 
         <div className="item">
           <label>Date of birth:</label>
@@ -283,6 +291,8 @@ const select =()=>{
             <option>Male</option>
             <option>Female</option>
           </select>
+        </div>
+        
         </div>
       </section>
 
@@ -321,6 +331,9 @@ const select =()=>{
           </select>
         </div>
 
+
+        <div style={{display: 'flex', width: '100%'}}>
+
         <div className="item">
           <label>Cyrrency:</label>
           <select>
@@ -341,6 +354,8 @@ const select =()=>{
             <option>KG</option>
           </select>
         </div>
+
+        </div>
       </section>
 
       <section className="container">
@@ -349,7 +364,7 @@ const select =()=>{
         <div>Secret Word:</div>
         <div className="item">
           <label>Word</label>
-          <input
+          <input style={{flexGrow: '0'}}
             id="word"
             type="text"
             value={secretWord}
