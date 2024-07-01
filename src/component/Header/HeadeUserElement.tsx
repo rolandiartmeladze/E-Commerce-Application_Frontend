@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Member } from '../../Tools';
 import {
   userIcin,
   arrow,
@@ -11,9 +12,8 @@ import {
   smsBlack,
 } from './Tools';
 
-
-import Male1 from '../../img/Avarats/Male1.png';
-
+import Male2 from '../../img/Avarats/Male2.png';
+import loadIcon from '../../icon/loading.gif';
 
 const UserInfo = styled.div<{ active: boolean }>`
   display: flex;
@@ -42,6 +42,7 @@ const UserInfo = styled.div<{ active: boolean }>`
     background: none;
     z-index: -1;
     padding-bottom: 10px;
+    padding: 5px 0px;
   }
 
   &:hover {
@@ -51,6 +52,8 @@ const UserInfo = styled.div<{ active: boolean }>`
         height 1.1s ease-in-out;
       border-radius: 6px;
       width: 100%;
+      padding: 7px 0px !important;
+
       background-color: ${(props) =>
         !props.active ? 'rgb(1, 51, 1, 0.9)' : 'none'};
       border-radius: ${(props) => (!props.active ? '6px' : '10px')};
@@ -69,8 +72,11 @@ const UserInfo = styled.div<{ active: boolean }>`
       align-items: flex-start;
     }
 
-    img {
-      margin: 0;
+    .user-icon {
+      margin: 3px;
+      border-radius: 10px;
+      min-height: 40px;
+      min-width: 40px;
       max-width: 40px;
     }
   }
@@ -213,6 +219,24 @@ const UserElement = ({ usermode }: Props) => {
     { title: 'Log Out', link: '/', img: logoutIcon },
   ];
 
+  const [AvatarName, setAvatarName] = useState('');
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      const members = await Member();
+      if (members) {
+        setAvatarName(members.avatar);
+        console.log(members);
+      } else {
+        setAvatarName(Male2);
+      }
+    };
+
+    fetchMembers();
+  }, []);
+
+  const avatar = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`;
+
   return (
     <>
       {usermode && (
@@ -223,7 +247,11 @@ const UserElement = ({ usermode }: Props) => {
             }}
             style={styleInfoCont}
           >
-            <img className="user-icon" src={userIcin} alt="User Icon" />
+            <img
+              className="user-icon"
+              src={AvatarName ? avatar : loadIcon}
+              alt="User Icon"
+            />
             <samp>
               <span>{localStorage.getItem('user')}</span>
               <span> {localStorage.getItem('address')?.substring(0, 15)} </span>

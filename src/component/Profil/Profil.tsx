@@ -3,13 +3,10 @@ import './style.css';
 
 import user from '../../icon/user.png';
 
-
-
 // import Male1 from '../../img/Avarats/Male1.png';
 // import Male2 from '../../img/Avarats/Male2.png';
 
 // import Female2 from '../../img/Avarats/Female2.png';
-
 
 type Props2 = {
   avatar: string;
@@ -21,12 +18,13 @@ type Props = {
   setAvatar: (avatar: string) => void;
   setImage: Function;
   setAvatarName: Function;
-  
 };
 
-
-const SelectAvatar: React.FC<Props> = ({ setAvatar , setImage, setAvatarName}) => {
-
+const SelectAvatar: React.FC<Props> = ({
+  setAvatar,
+  setImage,
+  setAvatarName,
+}) => {
   const link = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/`;
 
   const Female1 = `${link}Female1.png`;
@@ -45,48 +43,43 @@ const SelectAvatar: React.FC<Props> = ({ setAvatar , setImage, setAvatarName}) =
   };
 
   return (
-<div className='avatar-conteinet'>
-      <div className='selected-cont'>
-      {Males.map((avatar, index) => (
+    <div className="avatar-conteinet">
+      <div className="selected-cont">
+        {Males.map((avatar, index) => (
           <img
-          key={`male-${index}`}
-          onClick={() => select({ avatar, index, person: 'Male' })}
+            key={`male-${index}`}
+            onClick={() => select({ avatar, index, person: 'Male' })}
             className="selected-cont-img"
             src={avatar}
-            alt=''
+            alt=""
           />
-        ))}      </div>
-      <div className='selected-cont'>
-      {Females.map((avatar, index) => (
-          <img key={`female-${index}`}
-          onClick={() => select({ avatar, index, person: 'Female' })}
-          className="selected-cont-img"
+        ))}{' '}
+      </div>
+      <div className="selected-cont">
+        {Females.map((avatar, index) => (
+          <img
+            key={`female-${index}`}
+            onClick={() => select({ avatar, index, person: 'Female' })}
+            className="selected-cont-img"
             src={avatar}
-            alt=''
+            alt=""
           />
         ))}
       </div>
-
     </div>
-      );
+  );
 };
-
 
 const Profil: React.FC = () => {
   const [selectAvatar, setSelectAvatart] = useState<boolean>(false);
   const [Avatar, setAvatar] = useState<string>('');
   const [AvatarName, setAvatarName] = useState<string>('');
 
+  const avatarlink = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`;
 
-const avatarlink = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`
-
-const select =()=>{
-
-      selectAvatar? setSelectAvatart(false) : setSelectAvatart(true);
-
-}
-
-
+  const select = () => {
+    selectAvatar ? setSelectAvatart(false) : setSelectAvatart(true);
+  };
 
   const [info, setInfo] = useState<object | any>({});
   const token = localStorage.getItem('token');
@@ -132,30 +125,26 @@ const select =()=>{
     }
   }
 
-
-
-
-  const UpdateProfileInfp = async ()=> {
-    
+  const UpdateProfileInfp = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/UpdateProfile/${token}`,{
+      const response = await fetch(
+        `http://localhost:3001/UpdateProfile/${token}`,
+        {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ AvatarName }),
-
-      });
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
-
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-
 
   const [image, setImage] = useState<File | null>(null);
 
@@ -166,8 +155,6 @@ const select =()=>{
       console.log(selectedImages);
     }
   };
-
-
 
   return (
     <form id="SingUpForm">
@@ -180,85 +167,102 @@ const select =()=>{
         <h3>Personal Information:</h3>
 
         <div className="item user">
-
-          <div className='img-cont'>
-            
-         <img id='profilrImg' src={AvatarName? avatarlink : image ? URL.createObjectURL(image): Avatar? Avatar : undefined} alt="" />
+          <div className="img-cont">
+            <img
+              id="profilrImg"
+              src={
+                AvatarName
+                  ? avatarlink
+                  : image
+                    ? URL.createObjectURL(image)
+                    : Avatar
+                      ? Avatar
+                      : undefined
+              }
+              alt=""
+            />
           </div>
 
-          <input
-             onChange={Select} 
-             type="file" 
-             id="file"
-             required
-          />
-          
-          { selectAvatar && <SelectAvatar setAvatar={setAvatar} setImage={setImage} setAvatarName={setAvatarName} />}
-          <div className='label-cont'>
-          <label onClick={select} className='label'>{image? 'Select Avatar' : 'Change Avatar'}</label>
-          <label  onClick={()=>{selectAvatar && select()}}  className='label' htmlFor="file">{image? 'Change Image' : 'Upload Image'}</label>
+          <input onChange={Select} type="file" id="file" required />
+
+          {selectAvatar && (
+            <SelectAvatar
+              setAvatar={setAvatar}
+              setImage={setImage}
+              setAvatarName={setAvatarName}
+            />
+          )}
+          <div className="label-cont">
+            <label onClick={select} className="label">
+              {image ? 'Select Avatar' : 'Change Avatar'}
+            </label>
+            <label
+              onClick={() => {
+                selectAvatar && select();
+              }}
+              className="label"
+              htmlFor="file"
+            >
+              {image ? 'Change Image' : 'Upload Image'}
+            </label>
           </div>
- </div>
-
-
-
-<div style={{display: 'flex', width: '100%'}}>
-
-        <div className="item">
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter Name"
-            required
-          />
         </div>
 
-        <div className="item">
-          {/* <img src={txt} alt="" /> */}
+        <div style={{ display: 'flex', width: '100%' }}>
+          <div className="item">
+            <label>Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter Name"
+              required
+            />
+          </div>
 
-          <label>Surname:</label>
-          <input
-            type="text"
-            value={lastname}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Enter Surname"
-            required
-          />
-        </div>
-</div>
+          <div className="item">
+            {/* <img src={txt} alt="" /> */}
 
-<div style={{display: 'flex', width: '100%'}}>
-
-        <div className="item">
-          {/* <img src={Mail} alt="" /> */}
-
-          <label>Emile:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter Email"
-            required
-          />
-
-          {/* <samp style={verified ? verifstyle : undefined} onClick={verifi} className="meilverifi"> <img src={send} alt="" /></samp> */}
+            <label>Surname:</label>
+            <input
+              type="text"
+              value={lastname}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Enter Surname"
+              required
+            />
+          </div>
         </div>
 
-        <div className="item">
-          {/* <img src={Phone} alt="" /> */}
+        <div style={{ display: 'flex', width: '100%' }}>
+          <div className="item">
+            {/* <img src={Mail} alt="" /> */}
 
-          <label>Phone:</label>
-          <input
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Enter Phone"
-            required
-          />
+            <label>Emile:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter Email"
+              required
+            />
+
+            {/* <samp style={verified ? verifstyle : undefined} onClick={verifi} className="meilverifi"> <img src={send} alt="" /></samp> */}
+          </div>
+
+          <div className="item">
+            {/* <img src={Phone} alt="" /> */}
+
+            <label>Phone:</label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Enter Phone"
+              required
+            />
+          </div>
         </div>
-</div>
         <div className="item">
           <label>Address:</label>
           <input
@@ -270,29 +274,27 @@ const select =()=>{
           />
         </div>
 
-        <div style={{display: 'flex', width: '100%'}}>
+        <div style={{ display: 'flex', width: '100%' }}>
+          <div className="item">
+            <label>Date of birth:</label>
+            <input
+              style={{ maxWidth: '120px' }}
+              type="date"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              placeholder=""
+              required
+            />
+          </div>
 
-        <div className="item">
-          <label>Date of birth:</label>
-          <input
-            style={{ maxWidth: '120px' }}
-            type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-            placeholder=""
-            required
-          />
-        </div>
-
-        <div className="item">
-          <label>Gender:</label>
-          <select style={{ maxWidth: '120px' }}>
-            <option>Not selected</option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-        
+          <div className="item">
+            <label>Gender:</label>
+            <select style={{ maxWidth: '120px' }}>
+              <option>Not selected</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
         </div>
       </section>
 
@@ -331,30 +333,27 @@ const select =()=>{
           </select>
         </div>
 
+        <div style={{ display: 'flex', width: '100%' }}>
+          <div className="item">
+            <label>Cyrrency:</label>
+            <select>
+              <option>Not selected</option>
+              <option>USD</option>
+              <option>EUR</option>
+              <option>GEL</option>
+            </select>
+          </div>
 
-        <div style={{display: 'flex', width: '100%'}}>
-
-        <div className="item">
-          <label>Cyrrency:</label>
-          <select>
-            <option>Not selected</option>
-            <option>USD</option>
-            <option>EUR</option>
-            <option>GEL</option>
-          </select>
-        </div>
-
-        <div className="item">
-          <label>Unit:</label>
-          <select>
-            <option>Not selected</option>
-            <option>PIC</option>
-            <option>L</option>
-            <option>M</option>
-            <option>KG</option>
-          </select>
-        </div>
-
+          <div className="item">
+            <label>Unit:</label>
+            <select>
+              <option>Not selected</option>
+              <option>PIC</option>
+              <option>L</option>
+              <option>M</option>
+              <option>KG</option>
+            </select>
+          </div>
         </div>
       </section>
 
@@ -364,7 +363,8 @@ const select =()=>{
         <div>Secret Word:</div>
         <div className="item">
           <label>Word</label>
-          <input style={{flexGrow: '0'}}
+          <input
+            style={{ flexGrow: '0' }}
             id="word"
             type="text"
             value={secretWord}
@@ -416,11 +416,17 @@ const select =()=>{
       </section>
 
       <div>
-        <button onClick={()=>{UpdateProfileInfp()}} className="singup">Update Info</button>
+        <button
+          onClick={() => {
+            UpdateProfileInfp();
+          }}
+          className="singup"
+        >
+          Update Info
+        </button>
       </div>
     </form>
   );
 };
-
 
 export default Profil;

@@ -14,7 +14,15 @@ const Member = async () => {
     }
 
     const membersData = await response.json();
-    return membersData.length;
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      const active = await membersData.filter((activ) => activ._id === token);
+      return { length: membersData.length, avatar: active[0].avatar };
+    } else {
+      return { length: membersData.length };
+    }
   } catch (error) {
     console.log(error, 'not found');
     return null;

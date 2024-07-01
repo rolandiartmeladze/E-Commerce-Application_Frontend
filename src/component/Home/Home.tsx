@@ -131,7 +131,8 @@ const Home = ({ setProduct }: Props) => {
     const fetchMembers = async () => {
       const members = await Member();
       if (members) {
-        setMemberLength(members);
+        console.log(members);
+        setMemberLength(members.length);
       } else {
         setMemberLength(0);
       }

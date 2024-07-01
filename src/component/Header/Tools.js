@@ -74,89 +74,89 @@ const HeaderComponent = styled.div`
   z-index: 1000;
 `;
 
-const UserInfo = styled.div`
-  display: flex;
-  // position: absolute;
-  position: relative;
-  margin-top: 5px;
-  margin-right: 28px;
-  transition: 0.4s ease-in-out;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 800;
-  flex-direction: column;
-  z-index: 5;
-  transition: 0.3s eae-in-out;
+// const UserInfo = styled.div`
+//   display: flex;
+//   // position: absolute;
+//   position: relative;
+//   margin-top: 5px;
+//   margin-right: 28px;
+//   transition: 0.4s ease-in-out;
+//   border-radius: 6px;
+//   cursor: pointer;
+//   font-weight: 800;
+//   flex-direction: column;
+//   z-index: 5;
+//   transition: 0.3s eae-in-out;
 
-  &:hover {
-    background-color: ${(props) =>
-      !props.active ? 'rgb(1, 1, 1, 0.1)' : 'none'};
-  }
+//   &:hover {
+//     background-color: ${(props) =>
+//       !props.active ? 'rgb(1, 1, 1, 0.1)' : 'none'};
+//   }
 
-  &:before {
-    position: absolute;
-    content: '';
-    display: block;
-    width: 100%;
-    height: 40px;
-    background: none;
-    z-index: -1;
-    padding-bottom: 10px;
-  }
+//   &:before {
+//     position: absolute;
+//     content: '';
+//     display: block;
+//     width: 100%;
+//     height: 40px;
+//     background: none;
+//     z-index: -1;
+//     padding-bottom: 10px;
+//   }
 
-  div {
-    padding: 5px 0;
-    height: auto;
-    display: flex;
-    align-items: flex-end;
+//   div {
+//     padding: 5px 0;
+//     height: auto;
+//     display: flex;
+//     align-items: flex-end;
 
-    samp {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
+//     samp {
+//       display: flex;
+//       flex-direction: column;
+//       align-items: flex-start;
+//     }
 
-    img {
-      margin: 0;
-      max-width: 40px;
-    }
-  }
+//     .user-info {
+//       margin: 0;
+//       max-width: 60px;
+//     }
+//   }
 
-  .item {
-    width: 85%;
-    margin: auto;
-    color: white;
-    box-shadow: 0px 2px 2px 0.5px white;
-    margin-top: 7px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0px 0px 10px 10px;
-    transform: scale(0);
-    transition: 0.3s ease-in-out;
+//   .item {
+//     width: 85%;
+//     margin: auto;
+//     color: white;
+//     box-shadow: 0px 2px 2px 0.5px white;
+//     margin-top: 7px;
+//     align-items: center;
+//     justify-content: center;
+//     border-radius: 0px 0px 10px 10px;
+//     transform: scale(0);
+//     transition: 0.3s ease-in-out;
 
-    &:hover {
-      color: yellow;
-      box-shadow: 0px 2px 2px 0.5px yellow;
-      transform: scale(1.05) !important;
-    }
-  }
+//     &:hover {
+//       color: yellow;
+//       box-shadow: 0px 2px 2px 0.5px yellow;
+//       transform: scale(1.05) !important;
+//     }
+//   }
 
-  @media only screen and (max-width: 750px) {
-    right: 60px;
-    margin-right: 0px;
-  }
+//   @media only screen and (max-width: 750px) {
+//     right: 60px;
+//     margin-right: 0px;
+//   }
 
-  ${({ active }) =>
-    active &&
-    `
-    &:before {
-      height: 100%; 
-      background-color: rgb(51, 51, 51); 
-      transition: width 0.3s ease-in-out, height 1.1s ease-in-out; 
-      border-radius: 10px;
-    }
-  `}
-`;
+//   ${({ active }) =>
+//     active &&
+//     `
+//     &:before {
+//       height: 100%;
+//       background-color: rgb(51, 51, 51);
+//       transition: width 0.3s ease-in-out, height 1.1s ease-in-out;
+//       border-radius: 10px;
+//     }
+//   `}
+// `;
 
 const HeaderNavigateStyle = styled.nav`
   display: inline-block;
@@ -246,7 +246,7 @@ export {
 export {
   ListItem,
   HeaderNavigateStyle,
-  UserInfo,
+  // UserInfo,
   HeaderComponent,
   LoginBtn,
   Logo,
