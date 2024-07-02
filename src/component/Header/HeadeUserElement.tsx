@@ -12,8 +12,10 @@ import {
   smsBlack,
 } from './Tools';
 
+
 import Male2 from '../../img/Avarats/Male2.png';
 import loadIcon from '../../icon/loading.gif';
+
 
 const UserInfo = styled.div<{ active: boolean }>`
   display: flex;
@@ -38,11 +40,12 @@ const UserInfo = styled.div<{ active: boolean }>`
     content: '';
     display: block;
     width: 0%;
-    height: 40px;
+    height: 42px;
     background: none;
     z-index: -1;
     padding-bottom: 10px;
     padding: 5px 0px;
+
   }
 
   &:hover {
@@ -52,7 +55,7 @@ const UserInfo = styled.div<{ active: boolean }>`
         height 1.1s ease-in-out;
       border-radius: 6px;
       width: 100%;
-      padding: 7px 0px !important;
+padding: 7px 0px !important;
 
       background-color: ${(props) =>
         !props.active ? 'rgb(1, 51, 1, 0.9)' : 'none'};
@@ -73,11 +76,12 @@ const UserInfo = styled.div<{ active: boolean }>`
     }
 
     .user-icon {
-      margin: 3px;
-      border-radius: 10px;
-      min-height: 40px;
-      min-width: 40px;
-      max-width: 40px;
+        
+    margin: 3px;
+    border-radius: 10px;
+    min-height: 40px;
+    min-width: 40px;    
+    max-width: 40px;    
     }
   }
 
@@ -112,7 +116,8 @@ const UserInfo = styled.div<{ active: boolean }>`
       background-color: red;
       transition: 0.4s ease-in-out;
       border-radius: 4px 0px 0px 4px;
-    }
+
+      }
 
     &:hover {
       color: yellow;
@@ -123,6 +128,7 @@ const UserInfo = styled.div<{ active: boolean }>`
         width: 100%;
         left: 0px;
         background-color: rgb(255, 0, 0, 0.4);
+
       }
     }
   }
@@ -219,14 +225,15 @@ const UserElement = ({ usermode }: Props) => {
     { title: 'Log Out', link: '/', img: logoutIcon },
   ];
 
-  const [AvatarName, setAvatarName] = useState('');
+
+const [AvatarName, setAvatarName] = useState('')
+
 
   useEffect(() => {
     const fetchMembers = async () => {
       const members = await Member();
       if (members) {
-        setAvatarName(members.avatar);
-        console.log(members);
+       setAvatarName(members.avatar);
       } else {
         setAvatarName(Male2);
       }
@@ -236,6 +243,7 @@ const UserElement = ({ usermode }: Props) => {
   }, []);
 
   const avatar = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`;
+
 
   return (
     <>
@@ -247,11 +255,7 @@ const UserElement = ({ usermode }: Props) => {
             }}
             style={styleInfoCont}
           >
-            <img
-              className="user-icon"
-              src={AvatarName ? avatar : loadIcon}
-              alt="User Icon"
-            />
+            <img className="user-icon" src={ AvatarName? avatar : loadIcon} alt="User Icon" />
             <samp>
               <span>{localStorage.getItem('user')}</span>
               <span> {localStorage.getItem('address')?.substring(0, 15)} </span>

@@ -71,6 +71,17 @@ h2::after{
         width: 100%;
     }
 
+    .item-container{
+        display: flex;
+        width: 100%;
+        align-items: center;
+    }
+
+    .item-container img{
+        margin: 4px;
+        margin-right: 8px;
+    }
+
 
 .container .item label {
     min-width: 100px; /* Ensure all labels take up the full width of the container */
@@ -81,7 +92,7 @@ h2::after{
 
 .container .item input, select {
     padding: 6px;
-    background: none;
+    background-color: rgb(90, 128, 0, 0.2);
     border: none;
     outline: none;
     box-shadow: 0px -2px 3px 0px inset rgb(0, 0, 0, 0.5);
@@ -151,6 +162,19 @@ color: red;
     position: absolute;
     left: -9999px;
   }
+
+  #signature{
+    position: absolute;
+    left: -9999px;
+  }
+  #shtamp{
+    position: absolute;
+    left: -9999px;
+  }
+
+  
+  
+
 .label{
     display: inline-block;
     padding: 5px 15px;

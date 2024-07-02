@@ -73,9 +73,6 @@ const SelectAvatar: React.FC<Props> = ({
 const Profil: React.FC = () => {
   const [selectAvatar, setSelectAvatart] = useState<boolean>(false);
   const [Avatar, setAvatar] = useState<string>('');
-  const [AvatarName, setAvatarName] = useState<string>('');
-
-  const avatarlink = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`;
 
   const select = () => {
     selectAvatar ? setSelectAvatart(false) : setSelectAvatart(true);
@@ -88,6 +85,9 @@ const Profil: React.FC = () => {
     fetchInfo();
   }, []);
 
+  const [image, setImage] = useState<File | null>(null);
+  const [AvatarName, setAvatarName] = useState<string>('');
+
   const [name, setName] = useState('');
   const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -98,8 +98,23 @@ const Profil: React.FC = () => {
   const [account, setAccount] = useState('');
   const [bankName, setBankName] = useState('');
   const [birthday, setBirthday] = useState('');
-
   const [secretWord, setSecretWord] = useState('');
+
+  const [gender, setGender] = useState('');
+  const [payment, setPayment] = useState('');
+  const [currency, setCurrency] = useState('');
+  const [unit, setUnit] = useState('');
+
+
+
+  const [signature ,setSignature] = useState<File | null>(null);
+  const [shtamp ,setShtamp] = useState<File | null>(null);
+
+  
+
+
+  const avatarlink = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`;
+
 
   async function fetchInfo() {
     try {
@@ -119,6 +134,19 @@ const Profil: React.FC = () => {
       setAddress(data?.address);
       setAvatarName(data?.avatar);
 
+
+  // const [account, setAccount] = useState('');
+  // const [bankName, setBankName] = useState('');
+  // const [avatar, setAvatar] = useState('');
+  // const [birthday, setBirthday] = useState('');
+  // const [secretWord, setSecretWord] = useState('');
+  // const [gender, setGender] = useState('');
+  // const [payment, setPayment] = useState('');
+  // const [currency, setCurrency] = useState('');
+  // const [unit, setUnit] = useState('');
+  // const [signature, setSignature] = useState(null);
+  // const [shtamp, setShtamp] = useState(null);
+
       console.log('Data:', data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -126,13 +154,51 @@ const Profil: React.FC = () => {
   }
 
   const UpdateProfileInfp = async () => {
+
+    const UpdateInfo:any = {};
+
+    // if (password !== '' && password === reppassword)          {UpdateInfo.password = password;}
+    // if (signature !== null)                                   {UpdateInfo.signature = signature;}
+    // if (shtamp !== null)                                      {UpdateInfo.shtamp = shtamp;}
+
+
+    const fields = [
+      { key: 'avatar', value: AvatarName },
+      { key: 'name', value: name },
+      { key: 'lastname', value: lastname },
+      { key: 'email', value: email },
+      { key: 'phone', value: phone },
+      { key: 'address', value: address },
+      { key: 'account', value: account },
+      { key: 'bankName', value: bankName },
+      { key: 'birthday', value: birthday },
+      { key: 'secretWord', value: secretWord },
+      { key: 'gender', value: gender },
+      { key: 'payment', value: payment },
+      { key: 'currency', value: currency },
+      { key: 'unit', value: unit },
+
+      
+      
+    ];
+    
+    fields.forEach(field => {
+      if (field.value !== info[field.key] && field.value !== '') {
+        UpdateInfo[field.key] = field.value;
+      }
+    });
+
+    console.log(UpdateInfo);
+
     try {
       const response = await fetch(
         `http://localhost:3001/UpdateProfile/${token}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ AvatarName }),
+          body: JSON.stringify({ 
+           UpdateInfo
+           }),
         }
       );
 
@@ -146,7 +212,6 @@ const Profil: React.FC = () => {
     }
   };
 
-  const [image, setImage] = useState<File | null>(null);
 
   const Select = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -155,6 +220,7 @@ const Profil: React.FC = () => {
       console.log(selectedImages);
     }
   };
+
 
   return (
     <form id="SingUpForm">
@@ -266,7 +332,7 @@ const Profil: React.FC = () => {
         <div className="item">
           <label>Address:</label>
           <input
-            type="tel"
+            type="txt"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             placeholder="Enter Address"
@@ -289,7 +355,7 @@ const Profil: React.FC = () => {
 
           <div className="item">
             <label>Gender:</label>
-            <select style={{ maxWidth: '120px' }}>
+            <select onChange={(e)=>{setGender(e.target.value)}} style={{ maxWidth: '120px' }}>
               <option>Not selected</option>
               <option>Male</option>
               <option>Female</option>
@@ -300,6 +366,10 @@ const Profil: React.FC = () => {
 
       <section className="container">
         <h3>Payment Information:</h3>
+
+
+
+        <div style={{ display: 'flex', width: '100%' }}>
 
         <div className="item">
           <label>Bank name:</label>
@@ -312,20 +382,10 @@ const Profil: React.FC = () => {
           />
         </div>
 
-        <div className="item">
-          <label>Account:</label>
-          <input
-            type="tel"
-            value={account}
-            onChange={(e) => setAccount(e.target.value)}
-            placeholder="Account Number"
-            required
-          />
-        </div>
 
         <div className="item">
           <label>Payment:</label>
-          <select>
+          <select onChange={(e)=>{setPayment(e.target.value)}}>
             <option>Not selected</option>
             <option>partial payment</option>
             <option>Full payment</option>
@@ -333,10 +393,23 @@ const Profil: React.FC = () => {
           </select>
         </div>
 
+</div>
+
+<div className="item">
+          <label>Account:</label>
+          <input
+            type="txt"
+            value={account}
+            onChange={(e) => setAccount(e.target.value)}
+            placeholder="Account Number"
+            required
+          />
+        </div>
+
         <div style={{ display: 'flex', width: '100%' }}>
           <div className="item">
             <label>Cyrrency:</label>
-            <select>
+            <select  onChange={(e)=>{setCurrency(e.target.value)}}>
               <option>Not selected</option>
               <option>USD</option>
               <option>EUR</option>
@@ -346,7 +419,7 @@ const Profil: React.FC = () => {
 
           <div className="item">
             <label>Unit:</label>
-            <select>
+            <select onChange={(e)=>{setUnit(e.target.value)}}>
               <option>Not selected</option>
               <option>PIC</option>
               <option>L</option>
@@ -356,6 +429,50 @@ const Profil: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <section className="container">
+          <div className="item">
+            <label>Signature:</label>
+                  <div className='item-container'>
+
+            <input onChange={(e)=>{
+              if(e.target.files && e.target.files.length > 0){
+                setSignature(e.target.files[0]);
+              }
+              }} type="file" id="signature" required />
+            { signature && <img width={40} src={URL.createObjectURL(signature)} alt='' />}
+            <label
+              className="label"
+              htmlFor="signature"
+            >
+              {signature ? 'Change' : 'Upload'}
+            </label>
+      </div>
+      <div className="item">
+                  <label>Shtamp:</label>
+
+                  <div className='item-container'>
+
+                  <input onChange={(e)=>{
+              if(e.target.files && e.target.files.length > 0){
+                setShtamp(e.target.files[0]);
+              }
+              }} type="file" id="shtamp" required />
+                          { shtamp && <img width={40} src={URL.createObjectURL(shtamp)} alt='' />}
+
+                  <label
+              className="label"
+              htmlFor="shtamp"
+            >
+              {shtamp ? 'Change' : 'Upload'}
+            </label>
+                  </div>
+
+      </div>
+
+</div>
+
+</section>
 
       <section className="container">
         <h3>Private Information:</h3>
