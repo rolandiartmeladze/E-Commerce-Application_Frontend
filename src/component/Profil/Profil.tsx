@@ -129,7 +129,7 @@ const Profil: React.FC = () => {
 
   async function fetchInfo() {
     try {
-      const response = await fetch(`http://localhost:3001/MyInfo/${token}`);
+      const response = await fetch(`https://quasar-wind-trader.glitch.me/MyInfo/${token}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -178,7 +178,7 @@ const Profil: React.FC = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/UpdateProfile/${token}`,
+        `https://quasar-wind-trader.glitch.me/UpdateProfile/${token}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -192,6 +192,7 @@ const Profil: React.FC = () => {
 
       const data = await response.json();
       Updateinfo(data);
+      window.location.reload();
     } catch (error) {
       console.error('Error fetching data:', error);
     }
