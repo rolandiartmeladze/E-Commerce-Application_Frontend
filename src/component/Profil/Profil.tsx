@@ -105,16 +105,27 @@ const Profil: React.FC = () => {
   const [currency, setCurrency] = useState('');
   const [unit, setUnit] = useState('');
 
+  const [signature, setSignature] = useState<File | null>(null);
+  const [shtamp, setShtamp] = useState<File | null>(null);
 
-
-  const [signature ,setSignature] = useState<File | null>(null);
-  const [shtamp ,setShtamp] = useState<File | null>(null);
-
-  
-
+  const Updateinfo = (data: object | any) => {
+    setName(data?.name);
+    setLastName(data?.lastname);
+    setEmail(data?.email);
+    setPhone(data?.phone);
+    setAddress(data?.address);
+    setAvatarName(data?.avatar);
+    setAccount(data?.account);
+    setBirthday(data?.birthday);
+    setGender(data?.gender);
+    setBankName(data?.bankName);
+    setSecretWord(data?.secretWord);
+    setPayment(data?.payment);
+    setCurrency(data?.currency);
+    setUnit(data?.unit);
+  };
 
   const avatarlink = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`;
-
 
   async function fetchInfo() {
     try {
@@ -125,42 +136,22 @@ const Profil: React.FC = () => {
       }
 
       const data = await response.json();
-
       setInfo(data);
-      setName(data.name);
-      setLastName(data.lastname);
-      setEmail(data?.email);
-      setPhone(data?.phone);
-      setAddress(data?.address);
-      setAvatarName(data?.avatar);
+      Updateinfo(data);
 
-
-  // const [account, setAccount] = useState('');
-  // const [bankName, setBankName] = useState('');
-  // const [avatar, setAvatar] = useState('');
-  // const [birthday, setBirthday] = useState('');
-  // const [secretWord, setSecretWord] = useState('');
-  // const [gender, setGender] = useState('');
-  // const [payment, setPayment] = useState('');
-  // const [currency, setCurrency] = useState('');
-  // const [unit, setUnit] = useState('');
-  // const [signature, setSignature] = useState(null);
-  // const [shtamp, setShtamp] = useState(null);
-
-      console.log('Data:', data);
+      // const [signature, setSignature] = useState(null);
+      // const [shtamp, setShtamp] = useState(null);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
 
   const UpdateProfileInfp = async () => {
-
-    const UpdateInfo:any = {};
+    const UpdateInfo: any = [];
 
     // if (password !== '' && password === reppassword)          {UpdateInfo.password = password;}
     // if (signature !== null)                                   {UpdateInfo.signature = signature;}
     // if (shtamp !== null)                                      {UpdateInfo.shtamp = shtamp;}
-
 
     const fields = [
       { key: 'avatar', value: AvatarName },
@@ -177,18 +168,13 @@ const Profil: React.FC = () => {
       { key: 'payment', value: payment },
       { key: 'currency', value: currency },
       { key: 'unit', value: unit },
-
-      
-      
     ];
-    
-    fields.forEach(field => {
+
+    fields.forEach((field) => {
       if (field.value !== info[field.key] && field.value !== '') {
-        UpdateInfo[field.key] = field.value;
+        UpdateInfo.push({ [field.key]: field.value });
       }
     });
-
-    console.log(UpdateInfo);
 
     try {
       const response = await fetch(
@@ -196,9 +182,7 @@ const Profil: React.FC = () => {
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-           UpdateInfo
-           }),
+          body: JSON.stringify({ UpdateInfo }),
         }
       );
 
@@ -207,11 +191,11 @@ const Profil: React.FC = () => {
       }
 
       const data = await response.json();
+      Updateinfo(data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-
 
   const Select = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -221,10 +205,8 @@ const Profil: React.FC = () => {
     }
   };
 
-
   return (
     <form id="SingUpForm">
-      {/* უზრუნველყოფს ლოდინის რეჟიმს შესაბამისი ქმედების დროს */}
       <h2> Update Profile Info </h2>
 
       {/* ძირითადი მონაცემების შეყვანის ველები */}
@@ -355,7 +337,13 @@ const Profil: React.FC = () => {
 
           <div className="item">
             <label>Gender:</label>
-            <select onChange={(e)=>{setGender(e.target.value)}} style={{ maxWidth: '120px' }}>
+            <select
+              onChange={(e) => {
+                setGender(e.target.value);
+              }}
+              style={{ maxWidth: '120px' }}
+            >
+              <option>{gender && gender}</option>
               <option>Not selected</option>
               <option>Male</option>
               <option>Female</option>
@@ -367,35 +355,35 @@ const Profil: React.FC = () => {
       <section className="container">
         <h3>Payment Information:</h3>
 
-
-
         <div style={{ display: 'flex', width: '100%' }}>
+          <div className="item">
+            <label>Bank name:</label>
+            <input
+              type="txt"
+              value={bankName}
+              onChange={(e) => setBankName(e.target.value)}
+              placeholder="Bank name"
+              required
+            />
+          </div>
 
-        <div className="item">
-          <label>Bank name:</label>
-          <input
-            type="tel"
-            value={bankName}
-            onChange={(e) => setBankName(e.target.value)}
-            placeholder="Bank name"
-            required
-          />
+          <div className="item">
+            <label>Payment:</label>
+            <select
+              onChange={(e) => {
+                setPayment(e.target.value);
+              }}
+            >
+              <option>{payment && payment}</option>
+              <option>Not selected</option>
+              <option>partial payment</option>
+              <option>Full payment</option>
+              <option>Payment in installments</option>
+            </select>
+          </div>
         </div>
 
-
         <div className="item">
-          <label>Payment:</label>
-          <select onChange={(e)=>{setPayment(e.target.value)}}>
-            <option>Not selected</option>
-            <option>partial payment</option>
-            <option>Full payment</option>
-            <option>Payment in installments</option>
-          </select>
-        </div>
-
-</div>
-
-<div className="item">
           <label>Account:</label>
           <input
             type="txt"
@@ -409,7 +397,12 @@ const Profil: React.FC = () => {
         <div style={{ display: 'flex', width: '100%' }}>
           <div className="item">
             <label>Cyrrency:</label>
-            <select  onChange={(e)=>{setCurrency(e.target.value)}}>
+            <select
+              onChange={(e) => {
+                setCurrency(e.target.value);
+              }}
+            >
+              <option>{currency && currency}</option>
               <option>Not selected</option>
               <option>USD</option>
               <option>EUR</option>
@@ -419,7 +412,12 @@ const Profil: React.FC = () => {
 
           <div className="item">
             <label>Unit:</label>
-            <select onChange={(e)=>{setUnit(e.target.value)}}>
+            <select
+              onChange={(e) => {
+                setUnit(e.target.value);
+              }}
+            >
+              <option>{unit && unit}</option>
               <option>Not selected</option>
               <option>PIC</option>
               <option>L</option>
@@ -431,48 +429,51 @@ const Profil: React.FC = () => {
       </section>
 
       <section className="container">
-          <div className="item">
-            <label>Signature:</label>
-                  <div className='item-container'>
-
-            <input onChange={(e)=>{
-              if(e.target.files && e.target.files.length > 0){
-                setSignature(e.target.files[0]);
-              }
-              }} type="file" id="signature" required />
-            { signature && <img width={40} src={URL.createObjectURL(signature)} alt='' />}
-            <label
-              className="label"
-              htmlFor="signature"
-            >
+        <div className="item">
+          <label>Signature:</label>
+          <div className="item-container">
+            <input
+              onChange={(e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                  setSignature(e.target.files[0]);
+                }
+              }}
+              type="file"
+              id="signature"
+              required
+            />
+            {signature && (
+              <img width={40} src={URL.createObjectURL(signature)} alt="" />
+            )}
+            <label className="label" htmlFor="signature">
               {signature ? 'Change' : 'Upload'}
             </label>
-      </div>
-      <div className="item">
-                  <label>Shtamp:</label>
+          </div>
+          <div className="item">
+            <label>Shtamp:</label>
 
-                  <div className='item-container'>
+            <div className="item-container">
+              <input
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setShtamp(e.target.files[0]);
+                  }
+                }}
+                type="file"
+                id="shtamp"
+                required
+              />
+              {shtamp && (
+                <img width={40} src={URL.createObjectURL(shtamp)} alt="" />
+              )}
 
-                  <input onChange={(e)=>{
-              if(e.target.files && e.target.files.length > 0){
-                setShtamp(e.target.files[0]);
-              }
-              }} type="file" id="shtamp" required />
-                          { shtamp && <img width={40} src={URL.createObjectURL(shtamp)} alt='' />}
-
-                  <label
-              className="label"
-              htmlFor="shtamp"
-            >
-              {shtamp ? 'Change' : 'Upload'}
-            </label>
-                  </div>
-
-      </div>
-
-</div>
-
-</section>
+              <label className="label" htmlFor="shtamp">
+                {shtamp ? 'Change' : 'Upload'}
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="container">
         <h3>Private Information:</h3>
