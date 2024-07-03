@@ -54,7 +54,7 @@ const Form = styled.form`
   translate: -200%;
   transform: scale(0.5);
   box-shadow: 1px 1px 4px 2px;
-  padding: 8px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -156,7 +156,9 @@ const Form = styled.form`
   }
 
   h2 {
-    margin: 8px 8px;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 8px !important;
   }
 
   .meilverifi {
