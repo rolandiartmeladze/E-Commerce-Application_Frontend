@@ -40,7 +40,7 @@ const Home = ({ setProduct }: Props) => {
 
   const width = window.innerWidth;
   let numb = width / 280;
-  let item: number = parseInt((numb - 1).toFixed(0));
+  let item: number = parseInt((numb).toFixed(0));
 
   let TotalView = 0;
   respons.forEach((product: any) => {
