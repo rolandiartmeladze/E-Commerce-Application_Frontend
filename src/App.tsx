@@ -421,19 +421,19 @@ const App: React.FC = () => {
 
 <div className='mobile-meniu'>
 <ul className='mobile-meniu-cont'>
-      <li onClick={() => link('./main/home')} className='mobile-meniu-cont-item'>
+      <li onClick={() => link('/')} className='mobile-meniu-cont-item'>
         <img src={homeicon} alt='Home' />
       </li>
-      <li onClick={() => link('./main/products')} className='mobile-meniu-cont-item'>
+      <li onClick={() => link('/main/products')} className='mobile-meniu-cont-item'>
         <img src={producticon} alt='Products' />
       </li>
-      <li onClick={() => link('./main/add')} className='mobile-meniu-cont-item'>
+      <li onClick={() => link('/main/add')} className='mobile-meniu-cont-item'>
         <img src={addicon} alt='Add' />
       </li>
-      <li onClick={() => link('./main/favorites')} className='mobile-meniu-cont-item'>
+      <li onClick={() => link('/favorite')} className='mobile-meniu-cont-item'>
         <img src={favicon} alt='Favorites' />
       </li>
-      <li onClick={() => link('./main/profile')} className='mobile-meniu-cont-item'>
+      <li onClick={() => link('/main/profil')} className='mobile-meniu-cont-item'>
         <img src={profileicon} alt='Profile' />
       </li>
     </ul></div>
