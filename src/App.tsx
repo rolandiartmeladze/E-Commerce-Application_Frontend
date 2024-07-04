@@ -424,7 +424,7 @@ const App: React.FC = () => {
       <li onClick={() => link('/')} className='mobile-meniu-cont-item'>
         <img src={homeicon} alt='Home' />
       </li>
-      <li onClick={() => link('/main/products')} className='mobile-meniu-cont-item'>
+      <li onClick={() => link('/products')} className='mobile-meniu-cont-item'>
         <img src={producticon} alt='Products' />
       </li>
       <li onClick={() => link('/main/add')} className='mobile-meniu-cont-item'>
