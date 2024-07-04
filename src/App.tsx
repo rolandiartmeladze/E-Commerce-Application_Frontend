@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, useNavigation, Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
 import './style-mobile.css';
@@ -313,6 +313,12 @@ const App: React.FC = () => {
 
   console.log('Date minus one day:', date.toISOString());
 
+  const navigate = useNavigate();
+
+  const link = (linki: string) => {
+    navigate(linki);
+  };
+
   return (
     <>
       <div className="app">
@@ -414,14 +420,23 @@ const App: React.FC = () => {
         <Footer />
 
 <div className='mobile-meniu'>
-  <ul className='mobile-meniu-cont'>
-  <li className='mobile-meniu-cont-item'><img src={homeicon} alt='' /> </li>
-    <li className='mobile-meniu-cont-item'><img src={producticon} alt='' /> </li>
-    <li className='mobile-meniu-cont-item'><img src={addicon} alt='' /> </li>
-    <li className='mobile-meniu-cont-item'><img src={favicon} alt='' /> </li>
-    <li className='mobile-meniu-cont-item'><img src={profileicon} alt='' /> </li>
-  </ul>
-</div>
+<ul className='mobile-meniu-cont'>
+      <li onClick={() => link('./main/home')} className='mobile-meniu-cont-item'>
+        <img src={homeicon} alt='Home' />
+      </li>
+      <li onClick={() => link('./main/products')} className='mobile-meniu-cont-item'>
+        <img src={producticon} alt='Products' />
+      </li>
+      <li onClick={() => link('./main/add')} className='mobile-meniu-cont-item'>
+        <img src={addicon} alt='Add' />
+      </li>
+      <li onClick={() => link('./main/favorites')} className='mobile-meniu-cont-item'>
+        <img src={favicon} alt='Favorites' />
+      </li>
+      <li onClick={() => link('./main/profile')} className='mobile-meniu-cont-item'>
+        <img src={profileicon} alt='Profile' />
+      </li>
+    </ul></div>
 
 
       </div>
