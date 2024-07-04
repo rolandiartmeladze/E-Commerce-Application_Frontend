@@ -3,6 +3,15 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css';
+import './style-mobile.css';
+
+
+import homeicon from './icon/home.png';
+import profileicon from './icon/user.png';
+import addicon from './icon/addproduct.svg';
+import producticon from './icon/products.svg';
+import favicon from './icon/favcheck.png';
+
 import Header from './component/Header/Header';
 import Main from './component/MainComponent/Main';
 // import Aside from './component/Aside';
@@ -403,6 +412,18 @@ const App: React.FC = () => {
         </Section>
 
         <Footer />
+
+<div className='mobile-meniu'>
+  <ul className='mobile-meniu-cont'>
+  <li className='mobile-meniu-cont-item'><img src={homeicon} alt='' /> </li>
+    <li className='mobile-meniu-cont-item'><img src={producticon} alt='' /> </li>
+    <li className='mobile-meniu-cont-item'><img src={addicon} alt='' /> </li>
+    <li className='mobile-meniu-cont-item'><img src={favicon} alt='' /> </li>
+    <li className='mobile-meniu-cont-item'><img src={profileicon} alt='' /> </li>
+  </ul>
+</div>
+
+
       </div>
     </>
   );
