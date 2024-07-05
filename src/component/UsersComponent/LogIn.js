@@ -48,7 +48,9 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        const errorResponse = await response.json();
+        const errorResponse = await response.json();        
+        setLoading(false);
+
         throw new Error(errorResponse.message || 'Invalid email or password');
       }
 
@@ -128,7 +130,7 @@ const Login = () => {
         </div>
       </Form>
 
-      <FooterComp />
+      <FooterComp className='login-footer' />
     </>
   );
 };

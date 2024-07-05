@@ -39,4 +39,38 @@
     .mobile-meniu-cont-item img {
         width: 35px;
     }
+
+
+
+    #LoginForm{
+        max-width: 100%;
+        border-radius: 0;
+        background: none;
+        min-width: 100%;
+        margin: 0;
+    }
+
+    #LoginForm .item-cont{
+        width: 90%;
+        margin-top: 10px;
+    }
+
+    #LoginForm h2{
+        color: white;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    #LoginForm h3{
+        color: white;
+        max-width: 100%;
+        padding: 0;
+    }
+
+
+    #LoginForm input{
+        color: yellow;
+
+    }
+
     }

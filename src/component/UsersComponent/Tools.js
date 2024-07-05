@@ -322,6 +322,17 @@ const Footer = styled.footer`
       }
     }
   }
+
+    @media screen and (max-width: 550px) {
+    background: none;
+        font-size: 80%;
+
+        h3{
+            color: yellow;
+          padding: 6px 0;
+        }
+  }
+
 `;
 
 const TryAgainButton = ({ timer, wait, trayagain }) => {

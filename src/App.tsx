@@ -427,13 +427,14 @@ const App: React.FC = () => {
       <li onClick={() => link('/products')} className='mobile-meniu-cont-item'>
         <img src={producticon} alt='Products' />
       </li>
-      <li onClick={() => link('/main/add')} className='mobile-meniu-cont-item'>
+      {usermode && <li onClick={() => link('/main/add')} className='mobile-meniu-cont-item'>
         <img src={addicon} alt='Add' />
-      </li>
+      </li>}
+      
       <li onClick={() => link('/favorite')} className='mobile-meniu-cont-item'>
         <img src={favicon} alt='Favorites' />
       </li>
-      <li onClick={() => link('/main/profil')} className='mobile-meniu-cont-item'>
+      <li onClick={() => usermode? link(`/main/profil`):link(`/login`)} className='mobile-meniu-cont-item'>
         <img src={profileicon} alt='Profile' />
       </li>
     </ul></div>
