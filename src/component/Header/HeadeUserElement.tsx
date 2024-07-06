@@ -15,7 +15,12 @@ import {
 import Male2 from '../../img/Avarats/Male2.png';
 import loadIcon from '../../icon/loading.gif';
 
-const UserInfo = styled.div<{ active: boolean }>`
+interface StyleProps {
+  isMobile: boolean;
+  active: boolean; // Assuming you have another prop called 'active'
+}
+
+const UserInfo = styled.div<StyleProps>`
   display: flex;
   // position: absolute;
   position: relative;
@@ -31,7 +36,7 @@ const UserInfo = styled.div<{ active: boolean }>`
     0.3s ease-in-out,
     width 0.5s ease-in-out;
 
-  min-width: ${(props) => (props.active ? '200px' : '150px')};
+  min-width: ${(props) => (props.active? '200px' : '150px')};
 
   &:before {
     position: absolute;
@@ -130,6 +135,8 @@ const UserInfo = styled.div<{ active: boolean }>`
   @media only screen and (max-width: 750px) {
     right: 60px;
     margin-right: 0px;
+    min-width: ${(props) => (!props.isMobile ? '200px' : '0px')};
+
   }
 
   ${({ active }) =>
@@ -162,6 +169,17 @@ interface InfoItem {
 const UserElement = ({ usermode }: Props) => {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
+
+  const isMobile = () => window.innerWidth <= 500;
+
+  const [mobile, setMobile] = useState(isMobile());
+
+  useEffect(() => {
+    const handleResize = () => setMobile(isMobile());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
   const anime = () => {
     const items = Array.from(
@@ -239,7 +257,7 @@ const UserElement = ({ usermode }: Props) => {
   return (
     <>
       {usermode && (
-        <UserInfo active={active}>
+        <UserInfo  isMobile={mobile} active={active}>
           <div
             onClick={() => {
               OpenInfo({ link: 'null' });
@@ -251,12 +269,18 @@ const UserElement = ({ usermode }: Props) => {
               src={AvatarName ? avatar : loadIcon}
               alt="User Icon"
             />
+            {!isMobile ?
+
+            <>
             <samp>
               <span>{localStorage.getItem('user')}</span>
               <span> {localStorage.getItem('address')?.substring(0, 15)} </span>
             </samp>
+            <img style={imgstyle} src={arrow} alt="" /> 
+                       </>:
+                       null
+  }
 
-            <img style={imgstyle} src={arrow} alt="" />
           </div>
 
           {active && (
