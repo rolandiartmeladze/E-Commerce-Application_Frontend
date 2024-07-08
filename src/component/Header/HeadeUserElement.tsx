@@ -15,22 +15,22 @@ import {
 import Male2 from '../../img/Avarats/Male2.png';
 import loadIcon from '../../icon/loading.gif';
 
-interface StyleProps {
-  isMobile: boolean;
-  active: boolean; // Assuming you have another prop called 'active'
-}
-
-const UserInfo = styled.div<StyleProps>`
+const UserInfo = styled.div<{ active: boolean }>`
   display: flex;
+  // position: absolute;
   position: relative;
   margin-top: 5px;
   margin-right: 28px;
-  transition: 0.3s ease-in-out, width 0.5s ease-in-out;
+  transition: 0.4s ease-in-out;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 800;
   flex-direction: column;
   z-index: 5;
+  transition:
+    0.3s ease-in-out,
+    width 0.5s ease-in-out;
+
   min-width: ${(props) => (props.active ? '200px' : '150px')};
 
   &:before {
@@ -41,15 +41,23 @@ const UserInfo = styled.div<StyleProps>`
     height: 42px;
     background: none;
     z-index: -1;
-    padding: 5px 0;
+    padding-bottom: 10px;
+    padding: 5px 0px;
   }
 
-  &:hover:before {
-    transition: width 0.5s ease-in-out, height 1.1s ease-in-out;
-    border-radius: ${(props) => (!props.active ? '6px' : '10px')};
-    width: 100%;
-    padding: 7px 0 !important;
-    background-color: ${(props) => !props.active && !props.isMobile ? 'rgba(1, 51, 1, 0.9)' : 'none'};
+  &:hover {
+    &:before {
+      transition:
+        width 0.5s ease-in-out,
+        height 1.1s ease-in-out;
+      border-radius: 6px;
+      width: 100%;
+      padding: 7px 0px !important;
+
+      background-color: ${(props) =>
+        !props.active ? 'rgb(1, 51, 1, 0.9)' : 'none'};
+      border-radius: ${(props) => (!props.active ? '6px' : '10px')};
+    }
   }
 
   div {
@@ -82,14 +90,13 @@ const UserInfo = styled.div<StyleProps>`
     margin-top: 7px;
     align-items: center;
     justify-content: center;
-    border-radius: 0;
+    border-radius: 0px;
     transform: scale(0);
     transition: 0.3s ease-in-out;
     justify-content: flex-start;
     position: relative;
-
     img {
-      margin: 0 5px;
+      margin: 0px 5px;
       width: 25px;
     }
 
@@ -104,63 +111,38 @@ const UserInfo = styled.div<StyleProps>`
       z-index: -1;
       background-color: red;
       transition: 0.4s ease-in-out;
-      border-radius: 4px 0 0 4px;
+      border-radius: 4px 0px 0px 4px;
     }
 
     &:hover {
       color: yellow;
+      // box-shadow: 0px 2px 2px 0.5px yellow;
       transform: scale(1.05) !important;
 
       &:before {
         width: 100%;
-        left: 0;
-        background-color: rgba(255, 0, 0, 0.4);
+        left: 0px;
+        background-color: rgb(255, 0, 0, 0.4);
       }
     }
+  }
+
+  @media only screen and (max-width: 750px) {
+    right: 60px;
+    margin-right: 0px;
   }
 
   ${({ active }) =>
     active &&
     `
-      &:before {
-        width: 100%;
-        height: 100%;
-        background-color: rgb(51, 51, 51);
-        transition: width 0.3s ease-in-out, height 1.1s ease-in-out;
-        border-radius: 10px;
-      }
-    `}
-
-  @media only screen and (max-width: 750px) {
-    margin-top: 0;
-    right: 60px;
-    margin-right: 0;
-    min-width: ${(props) => (!props.isMobile ? '200px' : '0px')};
-    position: fixed;
-    right: 0;
-
-    div {
-      padding: 3px;
-      border-radius: 0 !important;
-
-      .user-icon {
-        margin: 0;
-      }
-    }
-  }
-
-  ${({ active, isMobile }) =>
-    active &&
-    isMobile &&
-    `
-      &:before {
-        height: 100vh;
-        width: 100%;
-        background-color: rgb(51, 51, 51);
-        transition: width 0.3s ease-in-out, height 1.1s ease-in-out;
-        border-radius: 10px;
-      }
-    `}
+&:before {
+  width: 100%;
+height: 100%; 
+background-color: rgb(51, 51, 51); 
+transition: width 0.3s ease-in-out, height 1.1s ease-in-out; 
+border-radius: 10px;
+}
+`}
 `;
 
 interface Props {
@@ -180,17 +162,6 @@ interface InfoItem {
 const UserElement = ({ usermode }: Props) => {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
-
-  const isMobile = () => window.innerWidth <= 500;
-
-  const [mobile, setMobile] = useState(isMobile());
-
-  useEffect(() => {
-    const handleResize = () => setMobile(isMobile());
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
 
   const anime = () => {
     const items = Array.from(
@@ -268,7 +239,7 @@ const UserElement = ({ usermode }: Props) => {
   return (
     <>
       {usermode && (
-        <UserInfo  isMobile={mobile} active={active}>
+        <UserInfo active={active}>
           <div
             onClick={() => {
               OpenInfo({ link: 'null' });
@@ -280,18 +251,12 @@ const UserElement = ({ usermode }: Props) => {
               src={AvatarName ? avatar : loadIcon}
               alt="User Icon"
             />
-            {!isMobile ?
-
-            <>
             <samp>
               <span>{localStorage.getItem('user')}</span>
               <span> {localStorage.getItem('address')?.substring(0, 15)} </span>
             </samp>
-            <img style={imgstyle} src={arrow} alt="" /> 
-                       </>:
-                       null
-  }
 
+            <img style={imgstyle} src={arrow} alt="" />
           </div>
 
           {active && (
