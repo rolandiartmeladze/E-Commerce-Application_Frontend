@@ -9,6 +9,8 @@ import HeaderNavigate from './HeaderNavigate';
 import { ButtonComp } from '../Navigation/Meniu';
 import UserElement from './HeadeUserElement';
 
+import { isMobile } from './HeadeUserElement';
+
 interface HeaderProps {
   login: any;
   setLogIn: any;
@@ -40,9 +42,18 @@ const Header: React.FC<HeaderProps> = ({
     window.location.reload();
   };
 
-  const headerCont = { display: 'flex', justifyContent: 'flex-end' };
+  const headerCont = { display: 'flex', justifyContent: 'flex-end',     marginBottom: '15px'};
 
   const userCont = { height: '80px', display: 'inline-block' };
+  const userContMobil = {
+    marginTop: '10px',
+    marginRight: '20px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start'
+  };
+  
+  const mobil = isMobile();
 
   return (
     <HeaderComponent>
@@ -51,17 +62,17 @@ const Header: React.FC<HeaderProps> = ({
       <div style={headerCont}>
         <HeaderNavigate {...props} />
 
-        <div style={userCont}>
+        <div style={mobil?  userContMobil :userCont}>
           <UserElement {...props} />
 
           {!usermode && (
             <LoginBtn onClick={loginbtn}>
-              <samp>
-                {' '}
-                <img width={30} src={userIcin} alt="user icon" />{' '}
+                           <Link to="/login">
+ <samp>
+                <img width={40} src={userIcin} alt="user icon" />{' '}
               </samp>
-              <Link to="/login">
-                <samp>Login</samp>
+              {/* {!mobil && <samp>Login</samp> } */}
+                {/*  */}
               </Link>
             </LoginBtn>
           )}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import './user-style.css';
 import { Member } from '../../Tools';
 import {
   userIcin,
@@ -159,6 +160,9 @@ interface InfoItem {
   img: string;
 }
 
+
+const isMobile = () => window.innerWidth <= 500;
+export {isMobile};
 const UserElement = ({ usermode }: Props) => {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
@@ -195,14 +199,6 @@ const UserElement = ({ usermode }: Props) => {
     }
   };
 
-  const styleInfoCont = {
-    boxShadow: !active
-      ? '0px 2px 2px -1px rgb(1,1,1)'
-      : '0px 2px 2px -1px rgb(255,255,255)',
-    borderRadius: !active ? '8px' : undefined,
-    color: active ? 'yellow' : 'black',
-    transition: '0.5s ease-in-out',
-  };
 
   const imgstyle = {
     width: '20px',
@@ -236,27 +232,46 @@ const UserElement = ({ usermode }: Props) => {
 
   const avatar = `https://embarrassing-unifor.000webhostapp.com/Media/Avatars/${AvatarName}.png`;
 
+
+  const [mobile, setMobile] = useState(isMobile());
+
+  useEffect(() => {
+    const handleResize = () => setMobile(isMobile());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+
+
   return (
     <>
       {usermode && (
-        <UserInfo active={active}>
+        <div className='user-element'>
           <div
+          className='user-icon-cont'
             onClick={() => {
               OpenInfo({ link: 'null' });
             }}
-            style={styleInfoCont}
+            
           >
             <img
               className="user-icon"
               src={AvatarName ? avatar : loadIcon}
               alt="User Icon"
             />
+
+            {!mobile &&
+<>
             <samp>
               <span>{localStorage.getItem('user')}</span>
               <span> {localStorage.getItem('address')?.substring(0, 15)} </span>
             </samp>
 
-            <img style={imgstyle} src={arrow} alt="" />
+            <img style={imgstyle} src={arrow} alt="" /> 
+       </>
+                }
+
           </div>
 
           {active && (
@@ -274,7 +289,7 @@ const UserElement = ({ usermode }: Props) => {
               ))}{' '}
             </>
           )}
-        </UserInfo>
+        </div>
       )}
     </>
   );

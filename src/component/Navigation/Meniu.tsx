@@ -70,7 +70,7 @@ const MeniuComponent = styled.div`
     display: none;
     align-items: flex-start;
     height: auto;
-    position: fixed; /* Fixed position to stay at top */
+    position: fixed;
     top: 0px;
     width: 100%;
     flex-direction: column;
@@ -149,7 +149,7 @@ const MeniuBtn = styled.div`
     display: flex;
     rigth: 10px;
 
-    position: absolute;
+    // position: relative;
     right: 10px;
     top: 5px;
     cursor: pointer;

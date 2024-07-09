@@ -53,6 +53,19 @@ const LoginBtn = styled.div`
 
   @media only screen and (max-width: 750px) {
     right: 60px;
+    background: none;
+    margin: 0px;
+    box-shadow: none;
+
+  &:hover {
+    box-shadow: none;
+    background-color: rgb(210, 105, 30, 0.0);
+  }
+
+  img{
+    width:35px;
+    
+    }
   }
 `;
 
