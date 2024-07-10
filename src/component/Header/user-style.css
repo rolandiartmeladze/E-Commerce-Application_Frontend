@@ -51,6 +51,53 @@
 }
 
 
+.item {
+    width: 85%;
+    margin: auto;
+    padding: 3px 0;
+    color: white;
+    box-shadow: 0px 1px 0.2px -0.5px white;
+    margin-top: 7px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px;
+    transform: scale(0);
+    transition: 0.3s ease-in-out;
+    justify-content: flex-start;
+    position: relative;
+
+}
+.item img {
+      margin: 0px 5px;
+      width: 25px;
+    }
+
+    .item::before {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 6px;
+      height: 100%;
+      left: -2px;
+      bottom: -1px;
+      z-index: -1;
+      background-color: red;
+      transition: 0.4s ease-in-out;
+      border-radius: 4px 0px 0px 4px;
+    }
+
+    .item::hover {
+      color: yellow;
+      transform: scale(1.05) !important;
+
+    }
+    .item:hover::before {
+        width: 100%;
+        left: 0px;
+        background-color: rgb(255, 0, 0, 0.4);
+      }
+
+
 @media screen and (max-width: 768px){
 
     .user-element{
