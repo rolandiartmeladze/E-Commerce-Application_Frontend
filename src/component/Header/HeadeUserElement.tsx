@@ -161,7 +161,7 @@ interface InfoItem {
 }
 
 
-const isMobile = () => window.innerWidth <= 500;
+const isMobile = () => window.innerWidth <= 750;
 export {isMobile};
 const UserElement = ({ usermode }: Props) => {
   const navigate = useNavigate();
@@ -250,6 +250,7 @@ const UserElement = ({ usermode }: Props) => {
         <div className='user-element'>
           <div
           className='user-icon-cont'
+          style={{width: (active || !mobile) ?  'auto' : '40px'}}
             onClick={() => {
               OpenInfo({ link: 'null' });
             }}
@@ -261,7 +262,7 @@ const UserElement = ({ usermode }: Props) => {
               alt="User Icon"
             />
 
-            {!mobile &&
+            {(!mobile ||  active) &&
 <>
             <samp>
               <span>{localStorage.getItem('user')}</span>

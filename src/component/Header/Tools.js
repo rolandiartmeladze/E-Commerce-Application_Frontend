@@ -179,7 +179,7 @@ const HeaderNavigateStyle = styled.nav`
   }
 
   @media only screen and (max-width: 750px) {
-    margin-right: 60px;
+    margin-right: 4px;
     ul {
       margin-top: 0px !important;
     }

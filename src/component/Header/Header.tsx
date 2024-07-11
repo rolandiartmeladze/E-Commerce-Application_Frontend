@@ -44,14 +44,15 @@ const Header: React.FC<HeaderProps> = ({
 
   const headerCont = { display: 'flex', justifyContent: 'flex-end',     marginBottom: '15px'};
 
-  const userCont = { height: '80px', display: 'inline-block' };
-  const userContMobil = {
-    marginTop: '10px',
-    marginRight: '20px',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start'
-  };
+  // const userCont = {     maxHeight: '60px',    display: 'flex', alignItems: 'flex-start', marginTop: '6px' };
+  // const userContMobil = {
+  //   maxHeight: '60px',
+  //   marginTop: '10px',
+  //   marginRight: '20px',
+  //   display: 'flex',
+  //   justifyContent: 'flex-end',
+  //   alignItems: 'flex-start'
+  // };
   
   const mobil = isMobile();
 
@@ -62,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({
       <div style={headerCont}>
         <HeaderNavigate {...props} />
 
-        <div style={mobil?  userContMobil :userCont}>
+        <div className={'userCont'}>
           <UserElement {...props} />
 
           {!usermode && (

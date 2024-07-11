@@ -36,7 +36,7 @@
     display: flex;
     align-items: flex-end;
     margin-right: 6px;
-    width: 40px;
+    width: auto;
 
 }
 .user-icon{
@@ -97,8 +97,22 @@
         background-color: rgb(255, 0, 0, 0.4);
       }
 
+      .userCont{
+         max-height: 51px;    
+         display: flex; 
+         align-items: flex-start; 
+         margin-top: 6px;
+      }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 750px){
+
+    .userCont{
+        margin-top: 10px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
 
     .user-element{
     margin: 0px;
@@ -109,20 +123,19 @@
     .user-icon-cont{
     color:white;
     margin-right: 6px;
-    width: 40px;
+    min-width: 40px;
     display:flex;
     padding: 0px;
-
+        box-shadow: none;
+        border-radius: 0px;
+        width: 40px;
 
     }
 
-    .user-icon-cont{
-        box-shadow: none;
-        border-radius: 0px;
-    }    
     .user-icon{
         max-width: 100%;
         min-width: 40px;
+        margin-right: 6px;
     }
 
 
