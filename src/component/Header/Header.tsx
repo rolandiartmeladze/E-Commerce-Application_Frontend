@@ -64,6 +64,8 @@ const Header: React.FC<HeaderProps> = ({
         <HeaderNavigate {...props} />
 
         <div className={'userCont'}>
+
+          
           <UserElement {...props} />
 
           {!usermode && (

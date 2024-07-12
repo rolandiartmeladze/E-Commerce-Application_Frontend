@@ -166,6 +166,7 @@ export {isMobile};
 const UserElement = ({ usermode }: Props) => {
   const navigate = useNavigate();
   const [active, setActive] = useState(false);
+  const [interval, setInterval] = useState(0);
 
   const anime = () => {
     const items = Array.from(
@@ -186,8 +187,11 @@ const UserElement = ({ usermode }: Props) => {
     window.location.reload();
   };
 
+
   const OpenInfo = ({ link }: OpenProps) => {
-    active ? setActive(false) : setActive(true);
+    setActive(!active);
+    const interval = active ? 0 : 500;
+    
     setTimeout(() => {
       anime();
     }, 200);
@@ -197,8 +201,19 @@ const UserElement = ({ usermode }: Props) => {
     if (link === '/') {
       logout();
     }
-  };
 
+    const element = document.getElementById('infoCont');
+    if (element) {
+        if (active) {
+            element.style.display = 'none';
+            element.style.transform = 'translateX(500px)';
+        }
+        setTimeout(() => {
+            element.style.transform = 'translateX(0)';
+            element.style.display = 'flex';
+        }, interval);
+    }
+};
 
   const imgstyle = {
     width: '20px',
@@ -242,14 +257,17 @@ const UserElement = ({ usermode }: Props) => {
   }, []);
 
 
+  
 
 
   return (
     <>
       {usermode && (
-        <div className='user-element'>
+        <div id='infoCont' className={active && mobile ? 'user-element active' : 'user-element' }>
+
           <div
-          className='user-icon-cont'
+          // className='user-icon-cont'
+          className={'user-icon-cont'}
           style={{width: (active || !mobile) ?  'auto' : '40px'}}
             onClick={() => {
               OpenInfo({ link: 'null' });
