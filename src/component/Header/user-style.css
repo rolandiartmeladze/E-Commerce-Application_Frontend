@@ -1,4 +1,3 @@
-
 .user-element {
     display: flex;
     position: relative;
@@ -25,13 +24,42 @@
 }
 
 .user-element.active {
-    background-color: rgb(105, 91, 91);
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
+    position: relative;
+    border-radius: 8px; 
+    padding: 0 8px; 
+    transition: 0.4s ease-in-out;
+}
+
+
+.user-element.active .user-icon-cont{
+
+    box-shadow: none;
     border-radius: 0;
-    padding: 0 8px;
+    padding: 3px 8px;
+    position: relative;
+    color: rgb(255, 255, 255);
+
+}
+
+.user-element.active .user-icon-cont::before{
+    transition: 0.4s ease-in-out;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 3px;
+    bottom: -1px;
+    left: 0;
+    background-color: rgb(3, 247, 255);
+    border-radius: 3px;
+
+ }
+.user-element.active::before {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(31, 39, 27);
+    z-index: -1;
+    border-radius: 8px;
+    left: 0px;
 }
 
 
@@ -131,7 +159,17 @@
     width: auto;
     padding: 0;
     }
-
+    .user-element.active {
+        top: 0;
+        right: 0;
+        height: 100vh;
+        border-radius: 0;
+        padding: 0 8px;    
+        position: fixed;
+        background-color: rgb(105, 91, 91);
+        /* transform: scale(0); */
+    }
+    
     .user-icon-cont{
     color:white;
     margin-right: 6px;
@@ -141,6 +179,7 @@
         box-shadow: none;
         border-radius: 0px;
         width: 40px;
+        margin-bottom: 10px;
 
     }
 
@@ -149,6 +188,10 @@
         min-width: 40px;
         margin-right: 6px;
     }
-
+    .user-element.active::before {
+        width: 0;
+        height: 0;
+    }
+    
 
 }

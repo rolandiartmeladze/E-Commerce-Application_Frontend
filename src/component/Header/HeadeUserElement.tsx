@@ -202,17 +202,6 @@ const UserElement = ({ usermode }: Props) => {
       logout();
     }
 
-    const element = document.getElementById('infoCont');
-    if (element) {
-        if (active) {
-            element.style.display = 'none';
-            element.style.transform = 'translateX(500px)';
-        }
-        setTimeout(() => {
-            element.style.transform = 'translateX(0)';
-            element.style.display = 'flex';
-        }, interval);
-    }
 };
 
   const imgstyle = {
@@ -263,7 +252,7 @@ const UserElement = ({ usermode }: Props) => {
   return (
     <>
       {usermode && (
-        <div id='infoCont' className={active && mobile ? 'user-element active' : 'user-element' }>
+        <div id='infoCont' className={active && (mobile || !mobile) ? 'user-element active' : 'user-element' }>
 
           <div
           // className='user-icon-cont'
