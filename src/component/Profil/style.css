@@ -62,7 +62,7 @@ h2::after{
 }
 
 
-    .item{
+    .profile-info-item{
         display: flex;
         align-items: flex-start;
         margin: 5px;
@@ -81,14 +81,14 @@ h2::after{
     }
 
 
-.container .item label {
+.container .profile-info-item label {
     min-width: 100px; /* Ensure all labels take up the full width of the container */
     box-sizing: border-box; 
     color: red;
     text-align: left;
 }
 
-.container .item input, select {
+.container .profile-info-item input, select {
     padding: 6px;
     background-color: rgb(90, 128, 0, 0.2);
     border: none;
@@ -130,10 +130,10 @@ h2::after{
 box-shadow: none !important;
 }
 
-.container .item select {
+.container .profile-info-item select {
     cursor: pointer;
 }
-.container .item input:focus {
+.container .profile-info-item input:focus {
 color: red;
 }
 h3{

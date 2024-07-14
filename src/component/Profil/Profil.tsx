@@ -215,7 +215,7 @@ const Profil: React.FC = () => {
       <section className="container">
         <h3>Personal Information:</h3>
 
-        <div className="item user">
+        <div className="profile-info-item user">
           <div className="img-cont">
             <img
               id="profilrImg"
@@ -258,7 +258,7 @@ const Profil: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', width: '100%' }}>
-          <div className="item">
+          <div className="profile-info-item">
             <label>Name:</label>
             <input
               type="text"
@@ -269,7 +269,7 @@ const Profil: React.FC = () => {
             />
           </div>
 
-          <div className="item">
+          <div className="profile-info-item">
             {/* <img src={txt} alt="" /> */}
 
             <label>Surname:</label>
@@ -284,7 +284,7 @@ const Profil: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', width: '100%' }}>
-          <div className="item">
+          <div className="profile-info-item">
             {/* <img src={Mail} alt="" /> */}
 
             <label>Emile:</label>
@@ -299,7 +299,7 @@ const Profil: React.FC = () => {
             {/* <samp style={verified ? verifstyle : undefined} onClick={verifi} className="meilverifi"> <img src={send} alt="" /></samp> */}
           </div>
 
-          <div className="item">
+          <div className="profile-info-item">
             {/* <img src={Phone} alt="" /> */}
 
             <label>Phone:</label>
@@ -312,7 +312,7 @@ const Profil: React.FC = () => {
             />
           </div>
         </div>
-        <div className="item">
+        <div className="profile-info-item">
           <label>Address:</label>
           <input
             type="txt"
@@ -324,7 +324,7 @@ const Profil: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', width: '100%' }}>
-          <div className="item">
+          <div className="profile-info-item">
             <label>Date of birth:</label>
             <input
               style={{ maxWidth: '120px' }}
@@ -336,7 +336,7 @@ const Profil: React.FC = () => {
             />
           </div>
 
-          <div className="item">
+          <div className="profile-info-item">
             <label>Gender:</label>
             <select
               onChange={(e) => {
@@ -357,7 +357,7 @@ const Profil: React.FC = () => {
         <h3>Payment Information:</h3>
 
         <div style={{ display: 'flex', width: '100%' }}>
-          <div className="item">
+          <div className="profile-info-item">
             <label>Bank name:</label>
             <input
               type="txt"
@@ -368,7 +368,7 @@ const Profil: React.FC = () => {
             />
           </div>
 
-          <div className="item">
+          <div className="profile-info-item">
             <label>Payment:</label>
             <select
               onChange={(e) => {
@@ -384,7 +384,7 @@ const Profil: React.FC = () => {
           </div>
         </div>
 
-        <div className="item">
+        <div className="profile-info-item">
           <label>Account:</label>
           <input
             type="txt"
@@ -396,7 +396,7 @@ const Profil: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', width: '100%' }}>
-          <div className="item">
+          <div className="profile-info-item">
             <label>Cyrrency:</label>
             <select
               onChange={(e) => {
@@ -411,7 +411,7 @@ const Profil: React.FC = () => {
             </select>
           </div>
 
-          <div className="item">
+          <div className="profile-info-item">
             <label>Unit:</label>
             <select
               onChange={(e) => {
@@ -430,7 +430,7 @@ const Profil: React.FC = () => {
       </section>
 
       <section className="container">
-        <div className="item">
+        <div className="profile-info-item">
           <label>Signature:</label>
           <div className="item-container">
             <input
@@ -450,7 +450,7 @@ const Profil: React.FC = () => {
               {signature ? 'Change' : 'Upload'}
             </label>
           </div>
-          <div className="item">
+          <div className="profile-info-item">
             <label>Shtamp:</label>
 
             <div className="item-container">
@@ -480,7 +480,7 @@ const Profil: React.FC = () => {
         <h3>Private Information:</h3>
 
         <div>Secret Word:</div>
-        <div className="item">
+        <div className="profile-info-item">
           <label>Word</label>
           <input
             style={{ flexGrow: '0' }}
@@ -496,7 +496,7 @@ const Profil: React.FC = () => {
         </div>
 
         <div>Change Password:</div>
-        <div className="item">
+        <div className="profile-info-item">
           <label>New</label>
           <input
             id="pass"
@@ -514,7 +514,7 @@ const Profil: React.FC = () => {
                             onClick={() => { showpass(showPass, setShowPass) }}
                             src={showPass ? hide : View} alt="" /> */}
         </div>
-        <div className="item">
+        <div className="profile-info-item">
           <label>Repeat</label>
 
           <input
