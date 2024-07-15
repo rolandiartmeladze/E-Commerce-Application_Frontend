@@ -7,6 +7,10 @@ import {
   smsIcon,
 } from './Tools';
 
+
+import { isMobile } from './HeadeUserElement';
+
+
 import { useNavigate } from 'react-router-dom';
 
 interface navProps {
@@ -23,6 +27,9 @@ const HeaderNavigate: React.FC<Props> = ({ usermode }) => {
     navigate(link);
   };
 
+  const mobile = isMobile();
+
+
   return (
     <HeaderNavigateStyle>
       <ul>
@@ -37,10 +44,13 @@ const HeaderNavigate: React.FC<Props> = ({ usermode }) => {
         <ListItem onClick={() => goTo({ link: '/cart' })} color="red">
           <img src={cartIcon} alt="" />
         </ListItem>
-
+{
+  !mobile &&
         <ListItem onClick={() => goTo({ link: '/favorite' })} color="#d301cd">
           <img src={favIcon} alt="" />
         </ListItem>
+        }
+
       </ul>
     </HeaderNavigateStyle>
   );
