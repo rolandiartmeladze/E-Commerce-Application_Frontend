@@ -55,13 +55,8 @@ const Conteiner = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
   a {
-    // min-width:  280px;
-    // width:  23%;
-    // padding: 0px 5px;
-    // padding-left: 0px
     color: black;
     text-decoration: none;
-    // margin-top: 18px;
   }
 
   article {
@@ -79,23 +74,36 @@ const Conteiner = styled.div`
     padding-bottom: 5px;
     margin: 15px 0px;
 
-    @media only screen and (max-width: 650px) {
-      width: 92%;
+    @media only screen and (max-width: 768px) {
+      width: 96%;
+
+          box-shadow: 0px 2px 2px 0.0px white;
+    border-radius: 0px 0px 6px 6px;
+
+
+      .product-img{
+    max-width: 100%;
+    width: auto;
+    min-height: 140px;
+
+
+      }
     }
   }
 `;
 
 const ImgConteiner = styled.div`
   width: 100%;
-  aspect-ratio: 16 / 9; /* You can adjust the aspect ratio as needed */
-  max-height: 150px; /* Specify the maximum height of the container */
-  overflow: hidden; /* Ensure that the image doesn't overflow its container */
+  aspect-ratio: 16 / 9; 
+  max-height: 150px; 
+  overflow: hidden; 
 
   img {
     max-width: 100%;
     max-height: 100%;
     object-fit: content;
     border-radius: 5px;
+
   }
 `;
 
@@ -152,7 +160,7 @@ const ItemInfoEnd = styled.div`
   flex-grow: 1;
   margin-top: 12px;
   img {
-    width: 20px;
+    // width: 20px;
     margin-right: 6px;
   }
   samp {
@@ -200,7 +208,7 @@ const ProductComponent = ({
             {loading && clicked === item._id && <Loaing />}
 
             <ImgConteiner>
-              <img
+              <img className='product-img'
                 src={`https://embarrassing-unifor.000webhostapp.com/Media/${item.userID}/${item.image[0]}`}
                 alt="product img"
               />
@@ -268,15 +276,15 @@ const ProductComponent = ({
 
               <ItemInfoEnd>
                 <samp>
-                  <img src={view} alt="view icon" />
+                  <img width={20} src={view} alt="view icon" />
                   {item.view}
                 </samp>
                 <samp>
-                  <img src={cost} alt="cost icon" />
+                  <img width={20} src={cost} alt="cost icon" />
                   {item.sale}
                 </samp>
                 <samp>
-                  <img src={share} alt="share icon" />
+                  <img width={20} src={share} alt="share icon" />
                   {item.share}
                 </samp>
 
