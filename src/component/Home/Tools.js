@@ -111,7 +111,7 @@ const InfoBoard = styled.div`
   padding: 10px 0px;
   border-radius: 0px 0px 10px 10px;
   overflow: hidden;
-  z-index: -1;
+  z-index: 0;
 
   &:before {
     content: '';
@@ -142,7 +142,7 @@ const InfoBoard = styled.div`
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 0px;
-    z-index: -1;
+    z-index: 0;
 
     li {
       width: 30%;
@@ -152,8 +152,9 @@ const InfoBoard = styled.div`
       display: flex;
       justify-content: flex-start;
       border-radius: 0px;
-      z-index: -1;
+      z-index: 0;
       backdrop-filter: blur(0px);
+
       img {
         width: 22px;
         margin: 0px 2px;
@@ -161,10 +162,10 @@ const InfoBoard = styled.div`
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 768px) {
     li {
       width: auto !important;
-      min-width: 100px !important;
+      min-width: 40% !important;
     }
   }
 `;
