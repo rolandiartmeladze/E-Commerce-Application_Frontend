@@ -19,6 +19,16 @@ const Logo = styled.h1`
   position: absolute;
   top: 4px;
   left: 25px;
+
+    @media only screen and (max-width: 750px) {
+
+      left: 10px;
+      img{
+      width: 60px;
+      
+      }
+
+    }
 `;
 
 const LoginBtn = styled.div`

@@ -11,6 +11,8 @@ import UserElement from './HeadeUserElement';
 
 import { isMobile } from './HeadeUserElement';
 
+import logo from '../../img/logo.png';
+
 interface HeaderProps {
   login: any;
   setLogIn: any;
@@ -44,21 +46,14 @@ const Header: React.FC<HeaderProps> = ({
 
   const headerCont = { display: 'flex', justifyContent: 'flex-end',     marginBottom: '15px'};
 
-  // const userCont = {     maxHeight: '60px',    display: 'flex', alignItems: 'flex-start', marginTop: '6px' };
-  // const userContMobil = {
-  //   maxHeight: '60px',
-  //   marginTop: '10px',
-  //   marginRight: '20px',
-  //   display: 'flex',
-  //   justifyContent: 'flex-end',
-  //   alignItems: 'flex-start'
-  // };
   
   const mobil = isMobile();
 
   return (
     <HeaderComponent>
-      <Logo onClick={goHome}>MyShop.App</Logo>
+      <Logo onClick={goHome}>
+          { mobil ? <img width={50} src={logo} alt='' /> : 'MyShop.App' }
+        </Logo>
 
       <div style={headerCont}>
         <HeaderNavigate {...props} />
