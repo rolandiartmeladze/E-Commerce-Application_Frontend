@@ -75,7 +75,7 @@ const Conteiner = styled.div`
     margin: 15px 0px;
 
     @media only screen and (max-width: 768px) {
-      width: 92%;
+      width: 95%;
 
           box-shadow: 0px 2px 2px 0.0px white;
     border-radius: 0px 0px 6px 6px;

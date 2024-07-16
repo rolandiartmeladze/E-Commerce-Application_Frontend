@@ -257,7 +257,7 @@ const Profil: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className='elementi'>
           <div className="profile-info-item">
             <label>Name:</label>
             <input
@@ -283,7 +283,7 @@ const Profil: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className='elementi'>
           <div className="profile-info-item">
             {/* <img src={Mail} alt="" /> */}
 
@@ -323,7 +323,7 @@ const Profil: React.FC = () => {
           />
         </div>
 
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className='elementi'>
           <div className="profile-info-item">
             <label>Date of birth:</label>
             <input
@@ -356,7 +356,7 @@ const Profil: React.FC = () => {
       <section className="container">
         <h3>Payment Information:</h3>
 
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className='elementi'>
           <div className="profile-info-item">
             <label>Bank name:</label>
             <input
@@ -395,7 +395,7 @@ const Profil: React.FC = () => {
           />
         </div>
 
-        <div style={{ display: 'flex', width: '100%' }}>
+        <div className='elementi'>
           <div className="profile-info-item">
             <label>Cyrrency:</label>
             <select
