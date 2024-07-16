@@ -67,7 +67,7 @@ const Conteiner = styled.div`
     background: inherit;
     margin-top: 4px;
     border-radius: 8px;
-    padding: 8px;
+    padding: 0px;
     cursor: pointer;
     backdrop-filter: blur(3px);
     box-shadow: 1px 2px 6px 0.3px black;
@@ -75,7 +75,7 @@ const Conteiner = styled.div`
     margin: 15px 0px;
 
     @media only screen and (max-width: 768px) {
-      width: 96%;
+      width: 92%;
 
           box-shadow: 0px 2px 2px 0.0px white;
     border-radius: 0px 0px 6px 6px;
