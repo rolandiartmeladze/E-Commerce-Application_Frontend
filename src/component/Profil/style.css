@@ -288,4 +288,22 @@ margin: 3px;
         .elementi{
             flex-direction: column;
         }
+
+        .profile-info-item {
+            width: 98%;
+        }
+        .container .profile-info-item label {
+            min-width: 0px;
+            flex-grow: 1;
+        }
+
+        .uploaded{
+            display:flex;
+            flex-direction: column;
+        }
+        .container .uploaded label{
+
+            max-width: 70px !important;
+        
+        }
     }

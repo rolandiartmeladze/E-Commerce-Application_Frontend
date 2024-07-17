@@ -430,7 +430,7 @@ const Profil: React.FC = () => {
       </section>
 
       <section className="container">
-        <div className="profile-info-item">
+        <div className="profile-info-item uploaded">
           <label>Signature:</label>
           <div className="item-container">
             <input
@@ -450,7 +450,7 @@ const Profil: React.FC = () => {
               {signature ? 'Change' : 'Upload'}
             </label>
           </div>
-          <div className="profile-info-item">
+          <div className="profile-info-item uploaded">
             <label>Shtamp:</label>
 
             <div className="item-container">
