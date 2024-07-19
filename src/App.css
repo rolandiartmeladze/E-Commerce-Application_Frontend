@@ -70,7 +70,8 @@ a{
   body{
 
   background-image: none;
-  background-color:rgb(27, 23, 16);
+  /* background-color:rgb(27, 23, 16); */
+  background-color:rgb(26, 54, 7);
 
   }
 }

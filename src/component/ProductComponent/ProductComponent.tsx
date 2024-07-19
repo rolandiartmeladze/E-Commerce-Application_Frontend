@@ -75,7 +75,7 @@ const Conteiner = styled.div`
     margin: 15px 0px;
 
     @media only screen and (max-width: 768px) {
-      width: 95%;
+      width: 93%;
 
           box-shadow: 0px 2px 2px 0.0px white;
     border-radius: 0px 0px 6px 6px;
@@ -83,11 +83,9 @@ const Conteiner = styled.div`
 
 
       .product-img{
-    max-width: 100%;
-    width: auto;
-    min-height: 140px;
-
-
+        max-width: 100%;
+        width: auto;
+        min-height: 140px;
       }
     }
   }
