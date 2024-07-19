@@ -1,4 +1,4 @@
-E-Commerce Application
+Full stack E-Commerce Web Application
 Description
 This project is a full-stack e-commerce web application developed to showcase my skills and capabilities in the development and implementation of web applications. It features seamless integration, sophisticated design, and well-organized functionality to provide users with an attractive and practical solution for searching and purchasing products.
 
@@ -42,7 +42,7 @@ Unauthorized Users
   <li>🔍 Filter products by category, views, and date added</li>
   <li>🔗 Share filtered product links with others</li>
 </ul>
-Authorized Users
+Authorized User
 <ul>
   <li>➕ Add new products</li>
   <li>📊 Monitor health products</li>
