@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import producticon from '../../../icon/products.svg';
 import addproducticon from '../../../icon/addproduct.svg';
 import jurnaliicon from '../../../icon/jurnal.png';
-
+import { isMobile } from '../../Header/HeadeUserElement';
 const Navigate = styled.nav`
     display: flex;
     height: 35px;
@@ -33,7 +33,7 @@ const Navigate = styled.nav`
 
 
         
-        @media (max-width: 500px) {
+        @media (max-width: 768px) {
 
 
             display: flex;
@@ -42,9 +42,23 @@ const Navigate = styled.nav`
             background-color: rgb(1, 1, 1, 0.3);
             flex-wrap: wrap;
             padding: 8px 0px;
+            justify-content: space-around;
+                    img{
+            width: 25px;
+            margin-right: 3px;
+
+        }
+
+    }
     a{
         margin: 4px 8px;
-
+        @media (max-width: 768px) {
+        box-shadow: 0px -3px 5px 0px green inset;
+        padding: 6px 4px;
+        flex-grow: 1;
+        border-radius: 6px;
+        corsor: pointer;
+        }
         }
 `;
 
@@ -55,6 +69,9 @@ const MainNavigate = () => {
     color: clicked === key ? 'red' : 'black',
     textDecoration: clicked === key ? 'underline' : 'none',
   });
+
+  const mobile = isMobile();
+
 
   return (
     <>
@@ -72,7 +89,7 @@ const MainNavigate = () => {
           style={getLinkStyle(2)}
           onClick={() => setClicked(2)}
         >
-          <img src={addproducticon} alt="Add" /> New Product
+          <img src={addproducticon} alt="Add" />{mobile? 'New': ' New Product'}
         </Link>
 
         <Link
@@ -80,7 +97,7 @@ const MainNavigate = () => {
           style={getLinkStyle(3)}
           onClick={() => setClicked(3)}
         >
-          <img src={jurnaliicon} alt="Jurnal" /> sale Jurnal
+          <img src={jurnaliicon} alt="Jurnal" /> {mobile? 'Jurnal': 'sale Jurnal'}
         </Link>
       </Navigate>
 

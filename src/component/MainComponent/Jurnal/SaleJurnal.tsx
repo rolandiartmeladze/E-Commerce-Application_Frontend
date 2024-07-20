@@ -5,7 +5,7 @@ import Loading from '../../Loading';
 import Arrow from '../../../icon/arrow.png';
 import productIcon from '../../../icon/product.png';
 import costIcon from '../../../icon/cost.png';
-
+import { isMobile } from '../../Header/HeadeUserElement';
 const Header = styled.nav`
         border-radius: 0px 0px 10px 10px;
         text-align: left;
@@ -14,13 +14,16 @@ const Header = styled.nav`
         display: flex;
         justify-content: space-between;
         flex-direction: column;
+        // @media (max-width: 768px) {
+
+        // }
+
 
         div{
             display: flex;
             align-items: center;
             }
         
-        @media (max-width: 750px) {border-radius: 0px;}
 
         .navigate {
             max-width: 250px;
@@ -29,6 +32,13 @@ const Header = styled.nav`
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: space-around;
+
+                                                @media (max-width: 768px) {
+
+                                  width: 100%;
+
+        }
+
             samp {
                 padding: 5px 0;
                 height: auto;
@@ -97,6 +107,16 @@ const Header = styled.nav`
                 width: 120px;
                 justify-content: center;
             
+                                    @media (max-width: 768px) {
+
+                                  width: auto;
+                                  padding: 5px 5px;
+                                  margin: 0px 5px;
+                  border-radius: 0px;
+
+
+        }
+
                 }
 
                 .time{
@@ -119,6 +139,16 @@ const Header = styled.nav`
             transition: width 0.5s ease-in-out;
             border-radius: 4px 0px 0px 4px;
 
+                                                @media (max-width: 768px) {
+                  border-radius: 0px;
+            height: 100%;
+            top: -1px;
+            left: 3px;
+
+
+        }
+
+
     }
                 }
 
@@ -131,7 +161,12 @@ const Header = styled.nav`
             padding: 3px 0px;
             margin-bottom: 4px;
             align-items: center;
-            
+                    @media (max-width: 768px) {
+                      border-radius: 0px;
+                      align-items: flex-start;
+                      flex-direction: column;
+                    }
+
             h4{
                 margin: 0;
                 padding: 3px;
@@ -147,6 +182,13 @@ const Header = styled.nav`
         .conteiner{
             display: flex;
             justify-content: space-between;
+                    @media (max-width: 768px) {
+
+flex-direction: column;
+    align-items: flex-start !important;
+
+        }
+
         }
 
 `;
@@ -498,6 +540,7 @@ const SaleJurnal: React.FC = () => {
     return month[item];
   };
 
+
   return (
     <>
       <Header>
@@ -519,11 +562,12 @@ const SaleJurnal: React.FC = () => {
           <div className="navigate">
             <samp onClick={() => sortJurnal('All', 'All')}>All</samp>
             <samp onClick={() => sortJurnal('day', 'Today')}>Today</samp>
-            <samp onClick={() => sortJurnal('week', 'This Week')}>
-              This Week
+            <samp onClick={() => sortJurnal('week', 'Week')}>
+             This Week
             </samp>
-            <samp onClick={() => sortJurnal('month', 'This Month')}>
-              This Month
+            <samp onClick={() => sortJurnal('month', ' Month')}>
+              This Month 
+
             </samp>
           </div>
         </div>
