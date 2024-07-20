@@ -67,15 +67,27 @@ const SortedPanel = styled.nav`
     font-weight: 600;
 
     @media only screen and (max-width: 768px) {
-      bottom: 0px;
-      position: relative;
-      margin-top: 10px;
-      float: right;
-
+        bottom: 0px;
+        position: relative;
+        margin-top: 5px;
+        left: 70%;
+        float: right;
+        width: 30%;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        background: #100d08;
+        box-shadow: 0px 0px 2px 1px brown inset;
+        font-weight: 900;  
+        color: cyan; 
+            &:hover {
+              color: yellow;
     }
 
+        }
+
     &:hover {
-      color: black;
+      color: yellow;
       transform: scale(1.1);
     }
   }
