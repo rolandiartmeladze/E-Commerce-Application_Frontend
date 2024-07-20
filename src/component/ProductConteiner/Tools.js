@@ -26,10 +26,13 @@ const Selection = styled.select`
   margin-left: 4px;
   outline: none;
   border-radius: 10px;
-  @media only screen and (max-width: 750px) {
-    flex-grow: 1;
-    margin-left: 1px;
-  }
+
+        @media only screen and (max-width: 750px) {
+          flex-grow: 1;
+          box-shadow: -20px 0px 3px 0.3px rgb(255, 200, 10, 0.2) inset;
+          cursor:pointer;
+          border-radius: 0px;
+        }
 
   option {
     background-color: white;
@@ -43,9 +46,10 @@ const SortedPanel = styled.nav`
   align-items: center;
   flex-direction: row;
   padding: 3px 0px;
-  @media only screen and (max-width: 750px) {
+  @media only screen and (max-width: 768px) {
     align-items: flex-start;
     flex-direction: column;
+    width: 100%;
   }
 
   input {
@@ -62,8 +66,12 @@ const SortedPanel = styled.nav`
     color: ${({ disabled }) => (disabled ? 'black' : 'red')};
     font-weight: 600;
 
-    @media only screen and (max-width: 750px) {
-      bottom: 10px;
+    @media only screen and (max-width: 768px) {
+      bottom: 0px;
+      position: relative;
+      margin-top: 10px;
+      float: right;
+
     }
 
     &:hover {
@@ -83,7 +91,8 @@ const SortedPanel = styled.nav`
     @media only screen and (max-width: 750px) {
       align-items: flex-start;
       flex-direction: column;
-      margin-left: 10px;
+      margin-left: 0px;
+      width:100%;
     }
 
     li {
@@ -96,17 +105,24 @@ const SortedPanel = styled.nav`
       @media only screen and (max-width: 750px) {
         width: 100%;
         position: relative;
+        // margin: 0px 0px;
+            margin: 4px 0px;
+
+
       }
 
-      img {
+      img {          
+      
+
         z-index: 3;
         width: 20px;
         margin: 0px 2px;
         position: relative;
 
         @media only screen and (max-width: 750px) {
-          background-color: rgb(255, 0, 0, 0.3);
+          background-color: none;
           padding: 2px;
+          width: 25px;
           border-radius: 5px 0px 5px 0px;
         }
       }
@@ -131,6 +147,7 @@ const Productsnavigation = styled.h1`
   margin: 0px;
   display: flex;
   align-items: center;
+
 
   samp {
     margin: 1px 1px;

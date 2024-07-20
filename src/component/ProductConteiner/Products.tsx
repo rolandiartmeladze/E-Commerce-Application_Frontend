@@ -16,6 +16,14 @@ const ProductTools = styled.div`
   box-shadow: 0px 1px 5px 0px #000000;
   padding: 0 12px;
   position: relative;
+
+  @media only screen and (max-width: 768px) {
+
+      background-color: rgb(90, 40, 10);
+      margin-top: 0px;
+
+    }
+
 `;
 
 const Container = styled.div`

@@ -54,6 +54,7 @@ const Conteiner = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  
   a {
     color: black;
     text-decoration: none;
@@ -97,6 +98,8 @@ const ImgConteiner = styled.div`
   max-height: 150px; 
   overflow: hidden; 
 
+  
+
   img {
     max-width: 100%;
     max-height: 100%;
@@ -104,6 +107,8 @@ const ImgConteiner = styled.div`
     border-radius: 5px;
 
   }
+
+
 `;
 
 const ProductInfo = styled.div`
