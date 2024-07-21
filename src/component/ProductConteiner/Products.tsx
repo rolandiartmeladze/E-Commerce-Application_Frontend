@@ -11,12 +11,14 @@ import { SortProduct } from './Tools';
 import { Navigation } from './Tools';
 
 const ProductTools = styled.div`
-  background: gainsboro;
-  backdrop-filter: blur(5px);
-  box-shadow: 0px 1px 5px 0px #000000;
-  padding: 0 12px;
-  position: relative;
-
+background: gainsboro;
+    backdrop-filter: blur(5px);
+    box-shadow: rgb(0, 0, 0) 0px 1px 5px 0px;
+    /* padding: 0px 12px; */
+    position: relative;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
   @media only screen and (max-width: 768px) {
 
       background-color: rgb(90, 40, 10);

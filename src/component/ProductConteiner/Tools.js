@@ -40,7 +40,6 @@ const Selection = styled.select`
     border-radius: 10px;
   }
 `;
-
 const SortedPanel = styled.nav`
   display: flex;
   align-items: center;
@@ -159,7 +158,6 @@ const Productsnavigation = styled.h1`
   margin: 0px;
   display: flex;
   align-items: center;
-
 
   samp {
     margin: 1px 1px;
