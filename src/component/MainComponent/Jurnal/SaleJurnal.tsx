@@ -143,7 +143,7 @@ const Header = styled.nav`
                   border-radius: 0px;
             height: 100%;
             top: -1px;
-            left: 3px;
+            left: -5px;
 
 
         }
@@ -202,6 +202,11 @@ const Conteiner = styled.article`
   display: flex;
   flex-direction: row;
   padding: 3px;
+                      @media (max-width: 768px) {
+
+width: 98% !important;
+        }
+
 `;
 
 const Image = styled.div`
@@ -218,6 +223,11 @@ const Image = styled.div`
     max-height: 100%;
     border-radius: 4px;
     justify-content: center;
+  @media (max-width: 768px) {
+
+min-width: 70px !important;
+        }
+
   }
 `;
 
@@ -228,12 +238,27 @@ const Info = styled.div`
   margin-left: 6px;
   flex-direction: column;
   align-items: flex-start;
+  flex-grow: 1;
   samp {
+    display: flex;
+    align-items: center;
     color: red;
     b {
       color: black;
     }
   }
+                      @media (max-width: 768px) {
+
+  samp {
+    color: white;
+    b {
+      color: cyan;
+    }
+  }
+        }
+
+
+
 `;
 
 const ContainerItem = styled.div`
@@ -562,13 +587,8 @@ const SaleJurnal: React.FC = () => {
           <div className="navigate">
             <samp onClick={() => sortJurnal('All', 'All')}>All</samp>
             <samp onClick={() => sortJurnal('day', 'Today')}>Today</samp>
-            <samp onClick={() => sortJurnal('week', 'Week')}>
-             This Week
-            </samp>
-            <samp onClick={() => sortJurnal('month', ' Month')}>
-              This Month 
-
-            </samp>
+            <samp onClick={() => sortJurnal('week', 'Week')}>This Week</samp>
+            <samp onClick={() => sortJurnal('month', ' Month')}>This Month</samp>
           </div>
         </div>
       </Header>

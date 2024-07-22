@@ -18,6 +18,13 @@ const AsideContainer = styled.aside`
   box-shadow: 0px 0px 300px 1px inset rgb(1, 201, 1, 0.2);
   // z-index: -1;
 
+    @media (max-width: 768px) {
+  box-shadow: 0px 0px 300px 1px inset rgb(201, 201, 281);
+
+  
+    }
+
+
   ul {
     display: flex;
     flex-direction: column;
@@ -73,11 +80,12 @@ const Quantity = styled.div`
     background: inherit;
     border: none;
     outline: none;
-    background-color: rgb(1, 1, 1, 0.1);
+    background-color: rgb(1, 1, 1, 0.2);
     box-shadow: 0px 0px 0.4px 0.3px brown inset;
     border-radius: 3px;
     font-weight: 900;
     width: 90%;
+    color: yellow;
     box-sizing: border-box;
     -moz-appearance: textfield;
     &::-webkit-inner-spin-button {
@@ -100,8 +108,16 @@ const Quantity = styled.div`
     align-items: center;
     justify-content: center;
     background-color: rgb(31, 11, 41, 0.4);
+
+            @media (max-width: 768px) {
+    background-color: rgb(231, 11, 41);
+    }
     &:hover {
       background-color: rgb(31, 111, 41, 0.4);
+                  @media (max-width: 768px) {
+          background-color: rgb(31, 111, 41);
+    }
+
     }
   }
 `;
@@ -224,7 +240,7 @@ const Aside = ({ product, setMyProducts, setProduct, setLoading }: Props) => {
 
   const inset = (event: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
-    if (product && !isNaN(value) && value >= 0 && value <= product.quantity) {
+    if (product && !isNaN(value) && value > 0 && value <= product.quantity) {
       setSoldAmount(value);
     }
   };

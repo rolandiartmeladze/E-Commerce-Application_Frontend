@@ -52,13 +52,19 @@ const Navigate = styled.nav`
     }
     a{
         margin: 4px 8px;
-        @media (max-width: 768px) {
-        box-shadow: 0px -3px 5px 0px green inset;
-        padding: 6px 4px;
-        flex-grow: 1;
-        border-radius: 6px;
-        corsor: pointer;
-        }
+          @media (max-width: 768px) {
+            box-shadow: 0px -3px 5px 0px green inset;
+            padding: 6px 4px;
+            flex-grow: 1;
+            border-radius: 6px;
+            corsor: pointer;
+            justify-content: center;
+            transition: 0.5s ease-in-out;
+
+            &:hover{
+                box-shadow: 0px -3px 1000px 0px rgb(0, 200, 0, 0.3) inset;
+            }
+          }
         }
 `;
 
