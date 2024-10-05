@@ -1,3 +1,8 @@
+##Note
+
+The media files for the products are currently unavailable to fix this salad.
+
+
 Full stack E-Commerce Web Application
 Description
 This project is a full-stack e-commerce web application developed to showcase my skills and capabilities in the development and implementation of web applications. It features seamless integration, sophisticated design, and well-organized functionality to provide users with an attractive and practical solution for searching and purchasing products.
