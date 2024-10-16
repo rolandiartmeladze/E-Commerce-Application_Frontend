@@ -398,7 +398,21 @@ const AddProduct = ({ User }: Props) => {
   const owner = localStorage.getItem('user');
   const location = localStorage.getItem('address');
 
-  const Info = () => {
+
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string); // base64 string
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
+
+
+
+  const Info = async () => {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numbers = '0123456789';
     let id = '';
@@ -419,6 +433,16 @@ const AddProduct = ({ User }: Props) => {
       }
     });
 
+
+    const base64Images: Record<string, string> = {};
+
+    await Promise.all(
+      images.map(async (file: File, index: number) => {
+        const base64String = await convertFileToBase64(file);
+        base64Images[`img${index}`] = base64String;
+      })
+    );
+
     const productData = {
       name,
       address,
@@ -438,6 +462,7 @@ const AddProduct = ({ User }: Props) => {
       quantityiunit,
       category,
       owner,
+      image: base64Images,
     };
     return productData;
   };
@@ -448,68 +473,69 @@ const AddProduct = ({ User }: Props) => {
     try {
       setLoadin(true);
       // Step 1: Create the product
-      const data = Info();
-      const createProductResponse = await fetch(
-        `https://quasar-wind-trader.glitch.me/createProduct`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        }
-      );
+      const data = await Info();
+      console.log(data);
+      // const createProductResponse = await fetch(
+      //   `https://quasar-wind-trader.glitch.me/createProduct`,
+      //   {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify(data),
+      //   }
+      // );
 
-      if (!createProductResponse.ok) {
-        throw new Error('Failed to create product');
-      }
+      // if (!createProductResponse.ok) {
+      //   throw new Error('Failed to create product');
+      // }
 
-      const newProduct = await createProductResponse.json();
-      console.log('New product created:', newProduct);
+      // const newProduct = await createProductResponse.json();
+      // console.log('New product created:', newProduct);
 
       // Step 2: Upload images
-      const formData = new FormData();
-      formData.append('newProduct', JSON.stringify(newProduct));
-      formData.append('User', User._id);
+      // const formData = new FormData();
+      // formData.append('newProduct', JSON.stringify(newProduct));
+      // formData.append('User', User._id);
 
-      images.forEach((image, index) => {
-        formData.append(`photo_${index}`, image);
-      });
+      // images.forEach((image, index) => {
+      //   formData.append(`photo_${index}`, image);
+      // });
 
-      const uploadImagesResponse = await fetch(
-        'https://embarrassing-unifor.000webhostapp.com/Upload.php',
-        {
-          method: 'POST',
-          body: formData,
-        }
-      );
+      // const uploadImagesResponse = await fetch(
+      //   'https://embarrassing-unifor.000webhostapp.com/Upload.php',
+      //   {
+      //     method: 'POST',
+      //     body: formData,
+      //   }
+      // );
 
       //   const uploadImagesResponse = await fetch('/Upload.php', {
       //     method: "POST",
       //     body: formData,
       // });
 
-      if (!uploadImagesResponse.ok) {
-        throw new Error('Failed to upload images');
-      }
+      // if (!uploadImagesResponse.ok) {
+      //   throw new Error('Failed to upload images');
+      // }
 
-      const filenames = await uploadImagesResponse.json();
-      console.log('Image filenames:', filenames);
+      // const filenames = await uploadImagesResponse.json();
+      // console.log('Image filenames:', filenames);
 
       // Step 3: Update product with image filenames
-      const addImageResponse = await fetch(
-        `${serverlink}/addImage/${newProduct}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(filenames),
-        }
-      );
+      // const addImageResponse = await fetch(
+      //   `${serverlink}/addImage/${newProduct}`,
+      //   {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify(filenames),
+      //   }
+      // );
 
-      if (!addImageResponse.ok) {
-        throw new Error('Failed to update product with image filenames');
-      }
+      // if (!addImageResponse.ok) {
+      //   throw new Error('Failed to update product with image filenames');
+      // }
 
-      const updatedProduct = await addImageResponse.json();
-      console.log('Product updated with image filenames:', updatedProduct);
+      // const updatedProduct = await addImageResponse.json();
+      // console.log('Product updated with image filenames:', updatedProduct);
 
       const Form = document.getElementById('FormElement') as HTMLFormElement;
       Form.reset();
