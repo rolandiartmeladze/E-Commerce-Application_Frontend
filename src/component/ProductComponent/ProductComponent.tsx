@@ -45,7 +45,7 @@ interface Productprops {
   share: number;
   category: string;
   datatime: string;
-  image: any[];
+  images: any[];
   userID: string;
 }
 
@@ -213,7 +213,9 @@ const ProductComponent = ({
 
             <ImgConteiner>
               <img className='product-img'
-                src={`https://embarrassing-unifor.000webhostapp.com/Media/${item.userID}/${item.image[0]}`}
+
+                // src={`https://embarrassing-unifor.000webhostapp.com/Media/${item.userID}/${item.image[0]}`}
+                src={item.images[0] ? `data:image/png;base64,${item.images[0].url}` : 'default-image.png'}
                 alt="product img"
               />
             </ImgConteiner>

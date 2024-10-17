@@ -348,7 +348,7 @@ interface Props {
 }
 
 const AddProduct = ({ User }: Props) => {
-  const [loading, setLoadin] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const currencies = ['₾', '$', '€', '£', '₺'];
   const currencyOptions = currencies.map((currency, index) => (
@@ -384,15 +384,7 @@ const AddProduct = ({ User }: Props) => {
   const [quantityiunit, setQuantityiunit] = useState('L');
   const [category, setCategory] = useState('All');
 
-  const [images, setImages] = useState<File[]>([]);
-
-  const Select = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedImages = Array.from(e.target.files);
-      setImages((prevImages) => [...prevImages, ...selectedImages]);
-      console.log(selectedImages);
-    }
-  };
+  const [images, setImages] = useState<string[]>([]);
 
   const userId = localStorage.getItem('token');
   const owner = localStorage.getItem('user');
@@ -403,13 +395,26 @@ const AddProduct = ({ User }: Props) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => {
-        resolve(reader.result as string); // base64 string
+        resolve(reader.result as string); 
       };
       reader.onerror = (error) => reject(error);
       reader.readAsDataURL(file);
     });
   };
 
+const selectImages = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const selectedImages = Array.from(e.target.files);
+
+      Promise.all(selectedImages.map(convertFileToBase64))
+        .then((base64Images) => {
+          setImages(base64Images); 
+        })
+        .catch((error) => {
+          console.error('Error converting files to Base64:', error);
+        });
+    }
+  };
 
 
   const Info = async () => {
@@ -422,27 +427,6 @@ const AddProduct = ({ User }: Props) => {
     for (let i = 0; i < 6; i++) {
       id += numbers.charAt(Math.floor(Math.random() * numbers.length));
     }
-
-    const insertedItems: any = [];
-    images.forEach((item: File, index: number) => {
-      if (item instanceof File) {
-        let name = id;
-        insertedItems.push({ [`${name}_${index}`]: item });
-      } else {
-        // Skip non-File items
-      }
-    });
-
-
-    const base64Images: Record<string, string> = {};
-
-    await Promise.all(
-      images.map(async (file: File, index: number) => {
-        const base64String = await convertFileToBase64(file);
-        base64Images[`img${index}`] = base64String;
-      })
-    );
-
     const productData = {
       name,
       address,
@@ -462,89 +446,85 @@ const AddProduct = ({ User }: Props) => {
       quantityiunit,
       category,
       owner,
-      image: base64Images,
     };
     return productData;
   };
 
+
+
+
   const addFunction = async () => {
-    const serverlink = 'https://lavish-husky-gaura.glitch.me';
+    // const serverlink = 'https://lavish-husky-gaura.glitch.me';
+
+    
+
+    const productData = await Info();
+
+    console.log(productData);
+
 
     try {
-      setLoadin(true);
-      // Step 1: Create the product
-      const data = await Info();
-      console.log(data);
-      // const createProductResponse = await fetch(
-      //   `https://quasar-wind-trader.glitch.me/createProduct`,
-      //   {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify(data),
-      //   }
-      // );
+      setLoading(true);
+      const createProductResponse = await fetch(
+        `http://localhost:3001/createProduct`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(productData),
+        }
+      );
 
-      // if (!createProductResponse.ok) {
-      //   throw new Error('Failed to create product');
-      // }
+      if (!createProductResponse.ok) {
+        throw new Error('Failed to create product');
+      }
 
-      // const newProduct = await createProductResponse.json();
-      // console.log('New product created:', newProduct);
-
-      // Step 2: Upload images
-      // const formData = new FormData();
-      // formData.append('newProduct', JSON.stringify(newProduct));
-      // formData.append('User', User._id);
-
-      // images.forEach((image, index) => {
-      //   formData.append(`photo_${index}`, image);
-      // });
-
-      // const uploadImagesResponse = await fetch(
-      //   'https://embarrassing-unifor.000webhostapp.com/Upload.php',
-      //   {
-      //     method: 'POST',
-      //     body: formData,
-      //   }
-      // );
-
-      //   const uploadImagesResponse = await fetch('/Upload.php', {
-      //     method: "POST",
-      //     body: formData,
-      // });
-
-      // if (!uploadImagesResponse.ok) {
-      //   throw new Error('Failed to upload images');
-      // }
-
-      // const filenames = await uploadImagesResponse.json();
-      // console.log('Image filenames:', filenames);
-
-      // Step 3: Update product with image filenames
-      // const addImageResponse = await fetch(
-      //   `${serverlink}/addImage/${newProduct}`,
-      //   {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify(filenames),
-      //   }
-      // );
-
-      // if (!addImageResponse.ok) {
-      //   throw new Error('Failed to update product with image filenames');
-      // }
-
-      // const updatedProduct = await addImageResponse.json();
-      // console.log('Product updated with image filenames:', updatedProduct);
-
+      const newProduct = await createProductResponse.json();
+      console.log('New product created:', newProduct);
       const Form = document.getElementById('FormElement') as HTMLFormElement;
-      Form.reset();
+    
+      const fileInput = document.getElementById('fileInput') as HTMLInputElement | null;
+
+      if (fileInput && fileInput.files) {
+        const files = Array.from(fileInput.files);
+        console.log('Selected files:', files);
+        
+        const formData = new FormData();
+        
+        files.forEach((file) => {
+          formData.append('images', file);
+        });
+      
+        formData.append('productId', newProduct);
+      
+        const addImageResponse = await fetch(`http://localhost:3001/addImage/${newProduct}`, {
+          method: 'POST',
+          body: formData,
+        });
+      
+        if (!addImageResponse.ok) {
+          throw new Error('Failed to upload images');
+        }
+      
+        const imageUploadResult = await addImageResponse.json();
+        console.log('Images uploaded successfully:', imageUploadResult);
+      
+      } else {
+        console.log('No files selected or file input not found');
+      }
+      
       setImages([]);
-      setLoadin(false);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+      setLoading(false);
+      
+      } catch (error) {
+        console.error('Error:', error);
+      }
+      
+  }
+
+
+  
+
+
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -565,7 +545,7 @@ const AddProduct = ({ User }: Props) => {
     <>
       <Header>Add New Products</Header>
 
-      <FormElement id="FormElement">
+      <FormElement id="FormElement"  onSubmit={(e) => { e.preventDefault(); addFunction(); }}>
         {loading && (
           <h1
             style={{
@@ -667,16 +647,19 @@ const AddProduct = ({ User }: Props) => {
             <ImagesConteiner>
               <h3 style={{ width: '100%' }}>Upload Media:</h3>
 
-              {images.map((item, index) => (
-                <div key={index}>
-                  <img src={URL.createObjectURL(item)} alt={`image ${index}`} />
-                </div>
-              ))}
+              {images.map((imageUrl) => (
+              <img 
+                src={imageUrl} 
+                alt={`image`} 
+                style={{ width: '100px', height: 'auto', margin: '10px' }} 
+              />
+            ))}
+
             </ImagesConteiner>
 
             <FileInputWrapper>
-              <FileInput onChange={Select} type="file" id="file" />
-              <FileInputLabel htmlFor="file">
+              <FileInput  multiple onChange={selectImages} type="file" id="fileInput" />
+              <FileInputLabel htmlFor="fileInput"> 
                 <img src={addImage} alt="Add Image" />
               </FileInputLabel>
             </FileInputWrapper>

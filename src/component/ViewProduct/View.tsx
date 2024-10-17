@@ -306,7 +306,6 @@ const View = ({
 
   const [elementItem, setElementItem] = useState<number>(1);
 
-  const Media = `https://embarrassing-unifor.000webhostapp.com/Media/${product.userID}`;
 
   const [num, setNum] = useState(0);
 
@@ -318,6 +317,13 @@ const View = ({
       setNum(parsedNum);
     }
   }, [product]);
+
+
+  useEffect(() => {
+    if (product && product.images && elementItem >= product.images.length) {
+      setElementItem(0); // Reset to first image if out of bounds
+    }
+  }, [product, elementItem]);
 
   const handleScroll = (direction: 'left' | 'right') => {
     const container = document.getElementById('imgs-container');
@@ -373,9 +379,13 @@ const View = ({
         <ProductHeadInfo>
           <ImgConteiner>
             <ImgCont>
-              <img
-                src={`${Media}/${product.image[elementItem]}`}
-                alt="User Icon"
+            <img
+                src={
+                  product.images && product.images[elementItem] && product.images[elementItem].url
+                    ? `data:image/png;base64,${product.images[elementItem].url}`
+                    : 'default-image.png'
+                }
+                alt="Product Image"
               />
             </ImgCont>
 
@@ -383,7 +393,7 @@ const View = ({
               <ArrowSpan
                 style={{
                   right: '0px',
-                  display: product.image.length >= num - 1 ? 'flex' : 'none',
+                  display: product.images.length >= num - 1 ? 'flex' : 'none',
                   borderRadius: '5px 0px 0px 5px',
                 }}
                 id="Arrowrigth"
@@ -409,20 +419,24 @@ const View = ({
               </ArrowSpan>
 
               <div id="imgs-container">
-                {product.image.map((item: string, index: number) => (
-                  <samp
-                    onClick={() => {
-                      setElementItem(index);
-                    }}
-                    key={index}
-                  >
-                    <img
-                      src={`${Media}/${product.image[index]}`}
-                      alt="prodict imgs"
-                    />
-                  </samp>
-                ))}
-              </div>
+              {product?.images && product.images.length > 0 ? (
+    product.images.map((item: any, index: number) => (
+      <samp
+        onClick={() => {
+          setElementItem(index);
+        }}
+        key={index}
+      >
+        <img
+          src={item.url ? `data:image/png;base64,${item.url}` : 'default-image.png'}
+          alt="product imgs"
+        />
+      </samp>
+    ))
+  ) : (
+    <p>No images available</p> 
+  )}
+                </div>
             </ImgsBox>
           </ImgConteiner>
 
