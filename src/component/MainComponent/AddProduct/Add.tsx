@@ -466,7 +466,7 @@ const selectImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setLoading(true);
       const createProductResponse = await fetch(
-        `http://localhost:3001/createProduct`,
+        `https://quasar-wind-trader.glitch.me/createProduct`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -496,7 +496,7 @@ const selectImages = (e: React.ChangeEvent<HTMLInputElement>) => {
       
         formData.append('productId', newProduct);
       
-        const addImageResponse = await fetch(`http://localhost:3001/addImage/${newProduct}`, {
+        const addImageResponse = await fetch(`https://quasar-wind-trader.glitch.me/addImage/${newProduct}`, {
           method: 'POST',
           body: formData,
         });
